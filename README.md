@@ -1,4 +1,4 @@
-
+[![Build](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/merge-request.yml/badge.svg)](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/merge-request.yml)
 
 # **GhentCDH Monorepo for Shared Logic**
 
