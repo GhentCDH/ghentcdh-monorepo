@@ -1,6 +1,6 @@
 {
   "name": "@ghentcdh/authentication-vue",
-  "version": "0.0.2-4",
+  "version": "0.0.2-2",
   "main": "./index.js",
   "types": "./index.d.ts",
   "dependencies": {

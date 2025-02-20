@@ -1,6 +1,6 @@
 {
   "name": "@ghentcdh/authentication-api",
-  "version": "0.0.0",
+  "version": "0.0.2-2",
   "type": "commonjs",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",

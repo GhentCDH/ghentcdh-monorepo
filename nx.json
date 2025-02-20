@@ -53,9 +53,8 @@
   },
   "release": {
     "projects": ["*", "!@ghentcdh/source"],
-    "projectsRelationship": "independent",
     "version": {
-      "preVersionCommand": "npx nx run-many -t build",
+      "preVersionCommand": "npx nx run-many -t build"
     },
     "changelog": {
       "automaticFromRef": true,
