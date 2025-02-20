@@ -1,3 +1,3 @@
-export * from './keycloak.adapter';
-export * from './authentication.store';
-export * from './request.store';
+export * from './lib/keycloak.adapter';
+export * from './lib/authentication.store';
+export * from './lib/request.store';
