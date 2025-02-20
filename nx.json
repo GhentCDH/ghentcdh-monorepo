@@ -52,6 +52,7 @@
     }
   },
   "release": {
+    "projects": ["*", "!@ghentcdh/source"],
     "projectsRelationship": "independent",
     "version": {
       "preVersionCommand": "npx nx run-many -t build",

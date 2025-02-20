@@ -12,7 +12,11 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    "publish",
+    "scope:api",
+    "scope:feature"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
