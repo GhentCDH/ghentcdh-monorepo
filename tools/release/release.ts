@@ -29,6 +29,7 @@ import * as yargs from 'yargs';
     specifier: options.version,
     dryRun: options.dryRun,
     verbose: options.verbose,
+    firstRelease:true
   });
 
   await releaseChangelog({
@@ -36,8 +37,13 @@ import * as yargs from 'yargs';
     version: workspaceVersion,
     dryRun: options.dryRun,
     verbose: options.verbose,
+    firstRelease:true
   });
 
+process.exit(0);
+  return
+
+  // No publish from the command line this is done through the build step
   // publishResults contains a map of project names and their exit codes
   const publishResults = await releasePublish({
     dryRun: options.dryRun,

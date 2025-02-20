@@ -36,7 +36,7 @@ jobs:
         run: npx nx run-many -t build --parallel --max-parallel=6
 
       - name: Publish package on NPM
-        run: npx nx release publish --verbose
+        run: npx nx release publish --access public --verbose
         shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
