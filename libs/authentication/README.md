@@ -74,7 +74,7 @@ Add the module to your module.ts imports
 
 ```typescript
 
-import {AuthenticationApiModule} from "@ghentcdh/authentication/api";
+import {AuthenticationApiModule} from "@ghentcdh/authentication-api";
 
 @Module({
     imports: [AuthenticationApiModule],
@@ -87,7 +87,7 @@ export class MyModule {
 Use the `@GhentCdhGuard` decorator to secure your routes
 
 ```typescript
-import {GhentCdhGuard} from "@ghentcdh/authentication/api";
+import {GhentCdhGuard} from "@ghentcdh/authentication-api";
 
 @Controller()
 export class MyController {

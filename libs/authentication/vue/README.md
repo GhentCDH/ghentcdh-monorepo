@@ -1,13 +1,10 @@
----
-title: Authentication
----
 
 # Use the GhentCDH keycloak libraries for authentication
 
 ## Install the libraries
 
 ```ssh
-pnpm add @ghentcdh/auth/frontend @ghentcdh/auth/backend
+pnpm add @ghentcdh/auth-vue @ghentcdh/auth-api
 ```
 
 ## Frontend vuejs
@@ -25,7 +22,7 @@ Add following environment variables to the `.env` file.
 ```vue
 
 <script setup lang="ts">
-  import {useAuthenticationStore} from "@ghentcdh/authentication/frontend";
+  import {useAuthenticationStore} from "@ghentcdh/authentication-vue";
 
   const authenticationStore = useAuthenticationStore();
 </script>
@@ -41,7 +38,7 @@ Add following environment variables to the `.env` file.
 ```vue
 
 <script setup lang="ts">
-  import {useHttpStore} from "@ghentcdh/authentication/frontend";
+  import {useHttpStore} from "@ghentcdh/authentication-vue";
 
   const httpStore = useHttpStore();
 
@@ -74,7 +71,7 @@ Add the module to your module.ts imports
 
 ```typescript
 
-import {AuthenticationApiModule} from "@ghentcdh/authentication/api";
+import {AuthenticationApiModule} from "@ghentcdh/authentication-api";
 
 @Module({
     imports: [AuthenticationApiModule],
@@ -87,7 +84,7 @@ export class MyModule {
 Use the `@GhentCdhGuard` decorator to secure your routes
 
 ```typescript
-import {GhentCdhGuard} from "@ghentcdh/authentication/api";
+import {GhentCdhGuard} from "@ghentcdh/authentication-api";
 
 @Controller()
 export class MyController {

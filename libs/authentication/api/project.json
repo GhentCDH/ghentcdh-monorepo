@@ -1,7 +1,7 @@
 {
   "name": "authentication-api",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/authentication/api/src",
+  "sourceRoot": "libs/authentication-api/src",
   "projectType": "library",
   "release": {
     "version": {
@@ -22,11 +22,11 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/authentication/api",
-        "tsConfig": "libs/authentication/api/tsconfig.lib.json",
-        "packageJson": "libs/authentication/api/package.json",
-        "main": "libs/authentication/api/src/index.ts",
-        "assets": ["libs/authentication/api/*.md"]
+        "outputPath": "dist/libs/authentication-api",
+        "tsConfig": "libs/authentication-api/tsconfig.lib.json",
+        "packageJson": "libs/authentication-api/package.json",
+        "main": "libs/authentication-api/src/index.ts",
+        "assets": ["libs/authentication-api/*.md"]
       }
     },
     "nx-release-publish": {
