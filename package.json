@@ -8,7 +8,6 @@
     "docs:dev": "pnpm run docs:build:menu && vuepress dev docs",
     "release": "ts-node --project tools/tsconfig.tools.json tools/release/release.ts"
   },
-  "private": true,
   "dependencies": {
     "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^10.0.2",
