@@ -1,6 +1,6 @@
 {
   "name": "@ghentcdh/source",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "license": "MIT",
   "scripts": {
     "docs:build:menu": "ts-node --project tools/tsconfig.tools.json tools/doc/vuepress.mjs",
