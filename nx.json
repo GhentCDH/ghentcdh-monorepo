@@ -13,7 +13,6 @@
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
-  "nxCloudId": "67b5dfc2392a2c346a9e9c03",
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",
@@ -54,7 +53,13 @@
   },
   "release": {
     "version": {
-      "preVersionCommand": "npx nx run-many -t build"
+      "preVersionCommand": "npx nx run-many -t build",
+    },
+    "changelog": {
+      "automaticFromRef": true,
+      "workspaceChangelog": {
+        "createRelease": "github"
+      }
     }
   }
 }

@@ -1,9 +1,0 @@
-{
-  "name": "logging-vue",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/authentication/libs/logging/vue/src",
-  "projectType": "library",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project logging-vue --web",
-  "targets": {}
-}
