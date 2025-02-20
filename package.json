@@ -6,7 +6,8 @@
     "docs:build:menu": "ts-node --project tools/tsconfig.tools.json tools/doc/vuepress.mjs",
     "docs:build": "pnpm run docs:build:menu && vuepress build docs",
     "docs:dev": "pnpm run docs:build:menu && vuepress dev docs",
-    "release": "ts-node --project tools/tsconfig.tools.json tools/release/release.ts"
+    "release": "ts-node --project tools/tsconfig.tools.json tools/release/release.ts",
+    "publish": "ts-node --project tools/tsconfig.tools.json tools/release/publish.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.0",
