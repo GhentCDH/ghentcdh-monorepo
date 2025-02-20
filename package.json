@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "docs:build:vuepress": "vuepress build docs ",
-    "docs:build:menu": "ts-node --project tsconfig.tools.json tools/doc/vuepress.mjs",
-    "docs:preview": "vuepress dev docs",
+    "docs:build:menu": "ts-node --project tools/tsconfig.tools.json tools/doc/vuepress.mjs",
+    "docs:build": "pnpm run docs:build:menu && vuepress build docs",
     "docs:dev": "pnpm run docs:build:menu && vuepress dev docs"
   },
   "private": true,
@@ -55,7 +54,7 @@
     "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/test-utils": "^2.4.1",
     "@vuepress/bundler-vite": "2.0.0-rc.7",
-    "@vuepress/theme-default": "^1.9.10",
+    "@vuepress/theme-default": "2.0.0-rc.78",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.31.0",
@@ -77,6 +76,7 @@
     "vue-tsc": "^2.0.0",
     "vuepress": "2.0.0-rc.19"
   },
+  "packageManager": "pnpm@10.1.0+sha256.3ee53e914011ec7f1a6e3ab0c58b9a024a052bfe18295b23b68567d6a6a5ebcd",
   "nx": {
     "includedScripts": []
   }

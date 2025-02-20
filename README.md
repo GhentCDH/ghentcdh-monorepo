@@ -109,7 +109,7 @@ npm install
 This will start a development server including the documentation
 
 ```sh
-docker compose -f docker-compose.dev.yml up --build --watch
+pnpm run docs:dev
 ```
 
 Accessing the documentation server: [http://localhost](http://localhost:5000)
