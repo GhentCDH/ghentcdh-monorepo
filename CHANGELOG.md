@@ -1,3 +1,13 @@
+## 0.0.2-8 (2025-02-21)
+
+### 🚀 Features
+
+- **tools-api:** add logging and health tooling ([8eac9d5](https://github.com/GhentCDH/ghentcdh-monorepo/commit/8eac9d5))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-7 (2025-02-21)
 
 This was a version bump only, there were no code changes.
