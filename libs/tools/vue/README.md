@@ -1,7 +1,18 @@
-# vue
+GhentCdh shared vue tooling
 
-This library was generated with [Nx](https://nx.dev).
+# logging-frontend
 
-## Running unit tests
+This logging will just perform output to the console. Different levels can be enabled through environment variables
 
-Run `nx test vue` to execute the unit tests via [Vitest](https://vitest.dev/).
+```
+VITE_VERBOSE_DEBUG=true // By default this is false
+VITE_DEBUG_ENABLE=true // By default this is false
+```
+
+## Usage
+
+```typescript
+import {Debugger} from "@ghentcdh/tools/logging/frontend";
+
+Debugger.log('my message');
+```
