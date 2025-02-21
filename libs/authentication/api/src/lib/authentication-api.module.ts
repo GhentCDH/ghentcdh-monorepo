@@ -9,6 +9,6 @@ import { LoginController } from './login.controller';
   imports: [HttpModule, ConfigModule],
   controllers: [LoginController],
   providers: [],
-  exports: [GhentCdhGuard],
+  exports: [],
 })
 export class AuthenticationApiModule {}

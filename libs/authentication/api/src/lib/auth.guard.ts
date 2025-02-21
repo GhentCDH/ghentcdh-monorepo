@@ -1,5 +1,5 @@
 
-import  { HttpService } from '@nestjs/axios';
+import { HttpService } from '@nestjs/axios';
 import type { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import  { ConfigService } from '@nestjs/config';
@@ -9,9 +9,6 @@ import { firstValueFrom } from 'rxjs';
 
 import { KEYCLOACK } from './auth.const';
 
-export const AUTH_NAME = 'keycloack';
-
-@Injectable()
 export class GhentCdhGuard implements CanActivate {
   constructor(
     private readonly httpService: HttpService,
