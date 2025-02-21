@@ -18,7 +18,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git",
-    "directory": "dist/libs/authentication/vue"
-  }
+    "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"
+  },
+  "files": [
+    "dist/libs/authentication/vue/**/*"
+  ]
 }
