@@ -11,5 +11,9 @@
         "packageRoot": "dist/{projectRoot}"
       }
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"
   }
 }
