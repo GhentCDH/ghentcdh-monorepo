@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ghentcdh/tools-api": ["libs/tools/api/src/index.ts"],
       "@ghentcdh/authentication-api": ["libs/authentication/api/src/index.ts"],
       "@ghentcdh/authentication/vue": ["libs/authentication/vue/src/index.ts"],
       "@ghentcdh/tools-vue": ["libs/tools/vue/src/index.ts"]
