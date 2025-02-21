@@ -43,8 +43,13 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      // External packages that should not be bundled into your library.
-      external: [],
+      external: ['vue', 'pinia'],
+      output: {
+        globals: {
+          vue: 'Vue',
+          pinia: 'pinia',
+        },
+      },
     },
   },
   test: {

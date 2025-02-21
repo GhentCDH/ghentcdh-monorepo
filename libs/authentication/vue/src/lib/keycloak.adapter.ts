@@ -2,8 +2,6 @@ import Keycloak from 'keycloak-js';
 
 
 export class KeycloakAdapter extends Keycloak {
-
-
     private constructor() {
         const {VITE_KEYCLOAK_REALM, VITE_KEYCLOAK_HOST, VITE_KEYCLOAK_CLIENT_ID} = import.meta.env;
 
