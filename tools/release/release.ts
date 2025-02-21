@@ -29,7 +29,6 @@ import * as yargs from 'yargs';
     specifier: options.version,
     dryRun: options.dryRun,
     verbose: options.verbose,
-    firstRelease:true
   });
 
   await releaseChangelog({
@@ -37,7 +36,6 @@ import * as yargs from 'yargs';
     version: workspaceVersion,
     dryRun: options.dryRun,
     verbose: options.verbose,
-    firstRelease:true
   });
 
 process.exit(0);
