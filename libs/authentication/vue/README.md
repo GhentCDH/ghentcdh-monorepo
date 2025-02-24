@@ -64,9 +64,11 @@ await isAuthenticated();
 ```vue
 
 <script setup lang="ts">
-  import { HttpRequest } from "@ghentcdh/authentication/vue";
+  import { useHttpRequest } from "@ghentcdh/authentication/vue";
 
-  HttpRequest.post('/api/auth/login', {}).then(response => {
+  const httpRequest = useHttpRequest();
+
+  httpRequest.post('/api/auth/login', {}).then(response => {
     alert('login ok')
   });
 </script>
