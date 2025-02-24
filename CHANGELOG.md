@@ -1,3 +1,14 @@
+## 0.0.2-16 (2025-02-24)
+
+### 🚀 Features
+
+- **authentication/vue:** update keycloack adapter ([b47a64a](https://github.com/GhentCDH/ghentcdh-monorepo/commit/b47a64a))
+- **authentication/vue:** update keycloack adapter ([8d869d6](https://github.com/GhentCDH/ghentcdh-monorepo/commit/8d869d6))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-15 (2025-02-24)
 
 ### 🚀 Features
