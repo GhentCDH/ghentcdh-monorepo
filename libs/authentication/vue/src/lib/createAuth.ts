@@ -1,25 +1,25 @@
-import type { App} from 'vue';
+import type { App } from 'vue';
 import { markRaw, ref, watch } from 'vue';
 
 import type { Auth, AuthOptions } from './auth.const';
 import { auth_symbol } from './auth.const';
 import { KeycloakAdapter } from './keycloak.adapter';
 
-const DefaultOptions: AuthOptions = {
-  skipAuthentication: false
+const DefaultOptions: Partial<AuthOptions> = {
+  skipAuthentication: false,
 };
 
 export const createAuth = (options: AuthOptions) => {
   const initDone = ref(false);
   let keycloackAdapter: KeycloakAdapter;
 
-  const intiKeyCloack = () => {
-    return KeycloakAdapter.init().then((adapter) => {
-      keycloackAdapter = adapter;
-      initDone.value = true;
+  const _options = { ...DefaultOptions, ...options } as AuthOptions;
 
-      return adapter;
-    });
+  const intiKeyCloack = async () => {
+    const adapter = await KeycloakAdapter.init(options.keycloak);
+    keycloackAdapter = adapter;
+    initDone.value = true;
+    return adapter;
   };
 
   const token = () => keycloackAdapter?.token;
@@ -49,26 +49,25 @@ export const createAuth = (options: AuthOptions) => {
     return (await getAdapater())?.updateToken();
   };
 
-  const _options = { ...DefaultOptions, ...options };
-
-
   const auth = markRaw({
     install(app: App) {
+      app.runWithContext(() => {
+        app.config.globalProperties.$auth = _options;
+        app.provide(auth_symbol, auth);
 
-      app.config.globalProperties.$auth = _options;
-      app.provide(auth_symbol, auth);
-
-      // KeycloakAdapter.init().then((adapter) => {
-      //   isAuthenticated.value = adapter.isAuthenticated;
-      //   keycloackAdapter.value = adapter;
-      //   initDone.value = true;
-      //   return adapter;
-      // });
+        console.log('setup done');
+        // KeycloakAdapter.init().then((adapter) => {
+        //   isAuthenticated.value = adapter.isAuthenticated;
+        //   keycloackAdapter.value = adapter;
+        //   initDone.value = true;
+        //   return adapter;
+        // });
+      });
     },
     updateToken,
     token,
     user,
-    options: _options
+    options: _options,
   } as Auth);
 
   return auth;

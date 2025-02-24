@@ -33,9 +33,17 @@ Enable the authentication plugin in your `main.ts` file.
 ```typescript
 import { createAuth } from '@ghentcdh/authentication-vue';
 
-// Other app initialisation
+// Other app initialisation ...
 
-app.use(createAuth());
+app.use(
+  createAuth({
+    keycloak: {
+      realm: import.meta.env.VITE_KEYCLOAK_REALM,
+      url: import.meta.env.VITE_KEYCLOAK_HOST,
+      clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
+    },
+  }),
+);
 
 ```
 
