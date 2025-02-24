@@ -40,13 +40,13 @@ export default defineUserConfig({
   //   plugins: [require('@tailwindcss/postcss'), require('autoprefixer')],
   // },
   theme: defaultTheme({
-    docsRepo: 'https://github.com/GhentCDH/Mela',
+    docsRepo: 'https://github.com/GhentCDH/ghentcdh-monorepo',
     docsBranch: 'master',
     docsDir: 'docs',
     // editLinkPattern: ':repo/tree/:branch/:path',
     lastUpdated: true,
     colorMode: 'light',
-    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/Mela' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/ghentcdh-monorepo' }],
     // colorModeSwitch: false,
     navbar: [
       {

@@ -12,9 +12,9 @@ import * as yargs from 'yargs';
     .option('dryRun', {
       alias: 'd',
       description:
-        'Whether or not to perform a dry-run of the release process, defaults to true',
+        'Whether or not to perform a dry-run of the release process, defaults to false',
       type: 'boolean',
-      default: true,
+      default: false,
     })
     .option('verbose', {
       description:

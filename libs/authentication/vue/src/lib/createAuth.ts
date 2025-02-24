@@ -1,7 +1,7 @@
 import type { App} from 'vue';
 import { markRaw, ref, watch } from 'vue';
 
-import type { AuthOptions } from './auth.const';
+import type { Auth, AuthOptions } from './auth.const';
 import { auth_symbol } from './auth.const';
 import { KeycloakAdapter } from './keycloak.adapter';
 
@@ -51,7 +51,7 @@ export const createAuth = (options: AuthOptions) => {
 
   const _options = { ...DefaultOptions, ...options };
 
-   
+
   const auth = markRaw({
     install(app: App) {
 
@@ -68,8 +68,8 @@ export const createAuth = (options: AuthOptions) => {
     updateToken,
     token,
     user,
-    authOptions: _options
-  });
+    options: _options
+  } as Auth);
 
   return auth;
 };
