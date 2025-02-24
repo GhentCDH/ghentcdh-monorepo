@@ -1,5 +1,6 @@
 import type { App } from 'vue';
-import { KeycloakConfig } from './keycloak.adapter';
+
+import type { KeycloakConfig } from './keycloak.adapter';
 
 export const auth_symbol = 'GHENTCDH_AUTHENTICATION';
 
