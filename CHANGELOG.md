@@ -1,3 +1,13 @@
+## 0.0.2-14 (2025-02-24)
+
+### 🚀 Features
+
+- **authentication/vue:** Remove pinia and create as plugin ([decf51a](https://github.com/GhentCDH/ghentcdh-monorepo/commit/decf51a))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-13 (2025-02-24)
 
 This was a version bump only, there were no code changes.
