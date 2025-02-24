@@ -66,11 +66,7 @@ A well-structured monorepo ensures **modular development** while enforcing prope
         /core
         /json-forms
         /icons
-    /health
-        /api
-        /vue
-        /core
-    /logging
+    /tools
         /api
         /vue
         /core
