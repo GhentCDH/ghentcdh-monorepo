@@ -1,3 +1,13 @@
+## 0.0.2-15 (2025-02-24)
+
+### 🚀 Features
+
+- **authentication/vue:** update useHttpRequest ([c3bba5f](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c3bba5f))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-14 (2025-02-24)
 
 ### 🚀 Features
