@@ -1,3 +1,15 @@
+## 0.0.2-12 (2025-02-24)
+
+### 🚀 Features
+
+- **authentication/vue:** Remove pinia and create as plugin ([486982c](https://github.com/GhentCDH/ghentcdh-monorepo/commit/486982c))
+- **authentication/vue:** Remove pinia and create as plugin ([3f4bbdd](https://github.com/GhentCDH/ghentcdh-monorepo/commit/3f4bbdd))
+- **authentication/vue:** Remove pinia and create as plugin ([f18f74b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/f18f74b))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-11 (2025-02-21)
 
 This was a version bump only, there were no code changes.
