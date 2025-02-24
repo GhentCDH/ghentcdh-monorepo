@@ -20,26 +20,43 @@ pnpm add @ghentcdh/auth/vue @ghentcdh/auth/backend
 
 Add following environment variables to the `.env` file.
 
-```
+```bash
       - VITE_KEYCLOAK_HOST=$KEYCLOAK_HOST
       - VITE_KEYCLOAK_REALM=$KEYCLOAK_REALM
       - VITE_KEYCLOAK_CLIENT_ID=$KEYCLOAK_CLIENT_ID
 ```
 
-### Check if a user is logged in
+## Enable authentication
 
-```vue
+Enable the authentication plugin in your `main.ts` file.
 
-<script setup lang="ts">
-  import {useAuthenticationStore} from "@ghentcdh/authentication/vue";
+```typescript
+import { createAuth } from '@ghentcdh/authentication-vue';
 
-  const authenticationStore = useAuthenticationStore();
-</script>
+// Other app initialisation
 
-<template>
-  <pre>user: {{ authenticationStore.user() }}</pre>
-</template>
+app.use(createAuth());
 
+```
+
+Create auth options 
+
+| Option    | Default | Functionality                                                |
+|-----------|---------|--------------------------------------------------------------|
+| skipAuth  | false   | Skip authentication by default if using HttpRequest function |
+
+## Functions
+
+### User related functions
+
+```typescript
+import { createAuth } from '@ghentcdh/authentication-vue';
+
+// Get the user
+await getUser();
+
+// Check if the user is authenticated
+await isAuthenticated();
 ```
 
 ### Perform backend requests with the token
@@ -47,20 +64,32 @@ Add following environment variables to the `.env` file.
 ```vue
 
 <script setup lang="ts">
-  import {useHttpStore} from "@ghentcdh/authentication/vue";
+  import { HttpRequest } from "@ghentcdh/authentication/vue";
 
-  const httpStore = useHttpStore();
-
-  httpStore.post('/api/auth/login', {}).then(response => {
+  HttpRequest.post('/api/auth/login', {}).then(response => {
     alert('login ok')
   });
 </script>
 
+```
+
+Additional a parameter can be provided if the authentication should be skipped.
+
+```typescript 
+
+```vue
+
+<script setup lang="ts">
+  import { HttpRequest } from "@ghentcdh/authentication/vue";
+
+  HttpRequest.post('/api/skip-auth', {}, {skipAuth: true}).then(response => {
+    alert('login ok')
+  });
+</script>
 
 ```
 
 > TODO list
 > - [ ] Add roles guard to see if routes or parts of the application can be accessed by that user
-> - [ ] Test if it's possible to have public routes
-> - [ ] Add a
+> - [ ] Add whitelisted routes
 > - [ ] Add logout functionality

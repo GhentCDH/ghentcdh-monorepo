@@ -43,11 +43,10 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['vue', 'pinia'],
+      external: ['vue', ],
       output: {
         globals: {
           vue: 'Vue',
-          pinia: 'pinia',
         },
       },
     },
