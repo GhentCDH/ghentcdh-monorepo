@@ -1,4 +1,4 @@
-import { App } from 'vue';
+import type { App } from 'vue';
 
 export const auth_symbol = 'GHENTCDH_AUTHENTICATION';
 

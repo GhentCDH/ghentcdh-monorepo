@@ -1,6 +1,9 @@
-import { App, markRaw, ref, watch } from 'vue';
+import type { App} from 'vue';
+import { markRaw, ref, watch } from 'vue';
+
+import type { AuthOptions } from './auth.const';
+import { auth_symbol } from './auth.const';
 import { KeycloakAdapter } from './keycloak.adapter';
-import { auth_symbol, AuthOptions } from './auth.const';
 
 const DefaultOptions: AuthOptions = {
   skipAuthentication: false
@@ -48,7 +51,7 @@ export const createAuth = (options: AuthOptions) => {
 
   const _options = { ...DefaultOptions, ...options };
 
-  // eslint-disable-next-line no-unused-vars
+   
   const auth = markRaw({
     install(app: App) {
 

@@ -1,5 +1,7 @@
 import { inject } from 'vue';
-import { Auth, auth_symbol } from './auth.const';
+
+import type { Auth} from './auth.const';
+import { auth_symbol } from './auth.const';
 
 /**
  * Get the user
