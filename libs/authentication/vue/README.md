@@ -82,9 +82,11 @@ Additional a parameter can be provided if the authentication should be skipped.
 ```vue
 
 <script setup lang="ts">
-  import { HttpRequest } from "@ghentcdh/authentication/vue";
+  import { useHttpRequest } from "@ghentcdh/authentication/vue";
 
-  HttpRequest.post('/api/skip-auth', {}, {skipAuth: true}).then(response => {
+  const httpRequest = useHttpRequest();
+
+  httpRequest.post('/api/skip-auth', {}, {skipAuth: true}).then(response => {
     alert('login ok')
   });
 </script>
