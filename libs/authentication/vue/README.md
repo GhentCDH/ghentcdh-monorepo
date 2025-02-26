@@ -33,7 +33,7 @@ Enable the authentication plugin in your `main.ts` file.
 ```typescript
 import { createAuth } from '@ghentcdh/authentication-vue';
 
-// Other app initialisation ...
+// Other app initialisation ...o
 
 app.use(
   createAuth({
