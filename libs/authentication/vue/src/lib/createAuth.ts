@@ -45,6 +45,10 @@ export const createAuth = (options: AuthOptions) => {
     return (await getAdapater())?.userInfo;
   };
 
+  const logout = async () => {
+    return (await getAdapater())?.logout();
+  }
+
   const updateToken = async () => {
     return (await getAdapater())?.updateToken();
   };
@@ -54,19 +58,12 @@ export const createAuth = (options: AuthOptions) => {
       app.runWithContext(() => {
         app.config.globalProperties.$auth = _options;
         app.provide(auth_symbol, auth);
-
-        console.log('setup done');
-        // KeycloakAdapter.init().then((adapter) => {
-        //   isAuthenticated.value = adapter.isAuthenticated;
-        //   keycloackAdapter.value = adapter;
-        //   initDone.value = true;
-        //   return adapter;
-        // });
       });
     },
     updateToken,
     token,
     user,
+    logout,
     options: _options,
   } as Auth);
 
