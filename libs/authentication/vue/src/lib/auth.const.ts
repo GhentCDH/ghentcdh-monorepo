@@ -16,6 +16,7 @@ export interface Auth {
   updateToken: () => Promise<void>;
   token: () => string;
   user: () => Promise<any>;
+  logout: () => Promise<any>;
   isAuthenticated: () => Promise<boolean>;
   options: AuthOptions;
 }

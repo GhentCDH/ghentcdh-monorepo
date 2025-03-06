@@ -3,20 +3,17 @@ import { inject } from 'vue';
 import type { Auth} from './auth.const';
 import { auth_symbol } from './auth.const';
 
-/**
- * Get the user
- */
-export const getUser = async () => {
-  const auth = inject(auth_symbol) as unknown as Auth;
 
-  return auth.user();
+export const useAuthenticate = () => {
+  const auth = inject(auth_symbol) as Auth;
+  if (!auth) {
+    console.warn('No auth provided, authorized calls may not work');
+  }
+
+  return {
+    isAuthenticated: () => !!auth.user(),
+    getUser: () => auth.user(),
+    logout: () => auth.logout(),
+  };
 };
 
-/**
- * Check if the user is authenticated
- */
-export const isAuthenticated = async () => {
-  const auth = inject(auth_symbol) as unknown as Auth;
-
-  return !!auth.user();
-};
