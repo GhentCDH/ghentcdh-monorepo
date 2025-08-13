@@ -111,10 +111,11 @@ const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
   });
 };
 
-// copyReadme('libs/ui', 'components/ui');
 copyReadme('libs/authentication', 'authentication');
 copyReadme('libs/tools', 'tools');
+copyReadme('libs/ui', 'ui');
 
 createMenu('tools');
 createMenu('components');
+createMenu('ui');
 // createMenu('api', ['_media', 'globals.md']);

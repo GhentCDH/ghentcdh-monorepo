@@ -50,6 +50,9 @@ importers:
       rxjs:
         specifier: ^7.8.0
         version: 7.8.1
+      uuid:
+        specifier: 11.1.0
+        version: 11.1.0
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
@@ -3187,9 +3190,9 @@ packages:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
 
-  chromedriver@133.0.3:
-    resolution: {integrity: sha512-wGZUtrSdyqnbweXEDIbn+ndu7memG4SEqG6/D+mSabKUEic0hveMYepAPAhlYtvyOc0X8JbsARYtEalVD3R/Vg==}
-    engines: {node: '>=18'}
+  chromedriver@139.0.0:
+    resolution: {integrity: sha512-4hzJhx2B2WbGP1160KaDkAIWMHmEBabldes1SrU75JwrzviYevopcVCxQw9B9Ykx+500ij06fv2retL5mK7DbA==}
+    engines: {node: '>=20'}
     hasBin: true
 
   ci-info@3.9.0:
@@ -6716,6 +6719,10 @@ packages:
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
@@ -10904,7 +10911,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  chromedriver@133.0.3:
+  chromedriver@139.0.0:
     dependencies:
       '@testim/chrome-version': 1.1.4
       axios: 1.7.9
@@ -13123,7 +13130,7 @@ snapshots:
     dependencies:
       jwk-to-pem: 2.0.7
     optionalDependencies:
-      chromedriver: 133.0.3
+      chromedriver: 139.0.0
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -14937,6 +14944,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   utils-merge@1.0.1: {}
+
+  uuid@11.1.0: {}
 
   uuid@8.3.2: {}
 

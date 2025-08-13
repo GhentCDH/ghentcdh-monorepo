@@ -3,6 +3,7 @@ import { defaultTheme } from '@vuepress/theme-default';
 import { defineUserConfig } from 'vuepress';
 import componentsSideBar from '../components/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
+import uiSideBar from '../ui/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -22,6 +23,11 @@ export default defineUserConfig({
           '@ghentcdh/logging/frontend': fileURLToPath(
             new URL(
               '../../libs/logging/frontend/src/index.ts',
+              import.meta.url,
+            ),
+          ), '@ghentcdh/ui': fileURLToPath(
+            new URL(
+              '../../libs/ui/src/index.ts',
               import.meta.url,
             ),
           ),
@@ -56,11 +62,14 @@ export default defineUserConfig({
     ],
     sidebar: [
       componentsSideBar,
-      toolsSideBar,
-      // {
-      //   text: 'api',
-      //   children: apiSideBar1,
-      // },
+      {
+        text: 'tools',
+        children: toolsSideBar,
+      },
+      {
+        text: 'Ui',
+        children: uiSideBar,
+      },
     ].flat(),
   }),
 });
