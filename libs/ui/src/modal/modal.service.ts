@@ -1,8 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
 
-import { ConfirmModal } from './index';
-
+import { default as ConfirmModal } from './confirmModal.vue';
 import type {
   CloseProps,
   ConfirmModalProps,
