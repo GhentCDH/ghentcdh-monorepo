@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import type { ColumnDef } from '@ghentcdh/json-forms/core';
+import type { ColumnDef } from '@ghentcdh/core/types';
 
 import type { IconDef } from '../../icons';
 import { Icon, IconEnum } from '../../icons';

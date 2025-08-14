@@ -102,6 +102,16 @@ module.exports = [
                 'scope:feature',
               ],
             },
+            {
+              sourceTag: 'scope:ui',
+              bannedExternalImports: ['@jsonforms/*'],
+              onlyDependOnLibsWithTags: [
+                'scope:ui',
+                'scope:shared',
+                'scope:tool',
+                'scope:generated',
+              ],
+            },
           ],
         },
       ],

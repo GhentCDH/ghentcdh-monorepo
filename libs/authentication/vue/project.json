@@ -5,7 +5,7 @@
   "projectType": "library",
   "tags": [
     "publish",
-    "scope:api",
+    "scope:ui",
     "scope:feature"
   ],
   "// targets": "to see all targets run: nx show project authentication-vue --web",

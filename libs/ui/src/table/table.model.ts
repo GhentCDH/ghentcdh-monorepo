@@ -1,4 +1,6 @@
-import type { ColumnDef } from '@ghentcdh/json-forms/core';
+
+
+import type { ColumnDef } from '@ghentcdh/core/types';
 
 import type { IconEnum } from '../icons';
 

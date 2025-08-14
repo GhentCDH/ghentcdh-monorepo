@@ -33,9 +33,9 @@ export default defineUserConfig({
               import.meta.url,
             ),
           ),
-          '@ghentcdh/authentication/frontend': fileURLToPath(
+          '@ghentcdh/authentication-vue': fileURLToPath(
             new URL(
-              '../../libs/authentication/frontend/src/index.ts',
+              '../../libs/authentication/vue/src/index.ts',
               import.meta.url,
             ),
           ),
