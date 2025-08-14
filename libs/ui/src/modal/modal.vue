@@ -51,7 +51,7 @@ const properties = withDefaults(
   { open: false, disableClose: false, width: 'sm' },
 );
 
-const id = `modal_${Math.floor(Math.random() * 1000)}`;
+const id = `modal_${uuidv4()}`;
 
 const emits = defineEmits<{
   closeModal: [];
