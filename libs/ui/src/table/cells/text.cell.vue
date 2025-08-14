@@ -35,7 +35,6 @@ const renderer = defineComponent({
       return value;
     },
   },
-  beforeMount() {},
 });
 
 export default renderer;

@@ -1,4 +1,3 @@
-import { not } from 'rxjs/internal/util/not';
 import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
 
@@ -29,7 +28,7 @@ export class NotificationService {
     }, notification.duration);
   };
 
-  private removeNotification = (id: number) => {
+  private removeNotification = (id: string) => {
     this.notifications.value =  this.notifications.value.filter((n) => n.id !== id);
   };
 
@@ -56,7 +55,7 @@ export class NotificationService {
     this.getInstance().addNotification(message, 'error');
   }
 
-  static removeNotification(id: number) {
+  static removeNotification(id: string) {
     this.getInstance().removeNotification(id);
   }
 }

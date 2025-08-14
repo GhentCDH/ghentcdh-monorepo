@@ -88,7 +88,7 @@ const components = {
         >
           <component
             :is="column.component"
-            :v-bind="column"
+            v-bind="column"
             :data="item"
             :column="column"
           />

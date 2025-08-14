@@ -36,7 +36,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 
 import MenuItem from './menu-item.vue';
 import type { Breadcrumb, MenuWithItems } from './menu.type';
@@ -46,5 +45,4 @@ defineProps<{
   breadcrumbs?: Array<Breadcrumb>;
 }>();
 
-const open = ref(true);
 </script>

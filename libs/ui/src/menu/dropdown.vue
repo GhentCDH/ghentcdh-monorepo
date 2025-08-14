@@ -20,17 +20,4 @@ defineProps<{
 
 const open = ref(true);
 
-const item = computed(() => {
-  return {
-    label: 'test',
-    icon: 'test',
-    items: [
-      {
-        label: 'test',
-        icon: 'test',
-        items: [],
-      },
-    ],
-  };
-});
 </script>
