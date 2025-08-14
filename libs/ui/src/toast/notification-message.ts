@@ -1,7 +1,7 @@
 export type NotificationType = 'success' | 'error' | 'info' | 'warning';
 
 export type NotificationMessage = {
-  id: number;
+  id: string;
   message: string;
   type: NotificationType;
   duration: number;

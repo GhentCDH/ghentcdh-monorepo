@@ -1,6 +1,6 @@
+import { not } from 'rxjs/internal/util/not';
 import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
-
 
 import type { NotificationMessage, NotificationType } from './notification-message.ts';
 
@@ -12,8 +12,8 @@ export class NotificationService {
   public notifications = ref<NotificationMessage[]>([]);
 
   private addNotification = (message: string, type: NotificationType = 'info') => {
-    const notification = {
-      id: Date.now(),
+    const notification: NotificationMessage = {
+      id: uuidv4(),
       duration: NOTIFICATION_DURATION,
       message,
       type,

@@ -1,7 +1,7 @@
 <template>
   <div class="toast toast-top toast-center z-[999]">
     <NotificationMessage
-      v-for="notification of store.notifications"
+      v-for="notification of store.notifications.value"
       :key="notification.id"
       v-bind="notification"
     />
