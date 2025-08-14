@@ -1,6 +1,6 @@
 <template>
   <div class="toast toast-top toast-center z-[999]">
-    <ToastMessage
+    <NotificationMessage
       v-for="notification of store.notifications"
       :key="notification.id"
       v-bind="notification"
@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import ToastMessage from './toast-message.vue';
-import { useNotificationStore } from './toast.store';
+import NotificationMessage from './notification-message.vue'
+import { NotificationService } from './notification.service';
 
-const store = useNotificationStore();
+const store = NotificationService.getInstance();
 </script>

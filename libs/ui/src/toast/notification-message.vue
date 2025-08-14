@@ -8,14 +8,14 @@
 </template>
 
 <script setup lang="ts">
-import type { ToastType } from './toast-message';
+import type { NotificationType } from './notification-message.ts';
 
 defineProps<{
   message: string;
-  type: ToastType;
+  type: NotificationType;
 }>();
 
-const Colors: Record<ToastType, string> = {
+const Colors: Record<NotificationType, string> = {
   success: 'alert-success',
   error: 'alert-error',
   warning: 'alert-warning',

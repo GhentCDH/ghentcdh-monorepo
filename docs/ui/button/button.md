@@ -6,7 +6,7 @@ Button
 
 <script setup>
 import {
-Btn, Size, Color,IconEnum
+Btn, ButtonSize, Color,IconEnum
 } from "@ghentcdh/ui";
 
 const configs =  {
@@ -15,7 +15,7 @@ const configs =  {
         ['square outline']: { square: true, outline: true },
         outline: { outline: true },
       };
-const buttonSize = Object.values(Size);
+const buttonSize = Object.values(ButtonSize);
 const buttonColor = Object.values(Color);
 const icons = [undefined, IconEnum.Plus]
 

@@ -1,6 +1,7 @@
 <script setup>
 import ParentLayout from '@vuepress/theme-default/layouts/Layout.vue';
 import '../styles/style.scss';
+import '../../../../dist/libs/ui/index.css';
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <template>
-  <toast />
+  <notifications />
   <ModalWrapper />
   <div class="drawer">
     <input
@@ -70,7 +70,7 @@ import type { ShellMenu, User } from './menu.type';
 import { Icon, IconEnum } from '../icons';
 import { SubMenu } from '../menu';
 import { ModalWrapper } from '../modal';
-import Toast from '../toast/toast.vue';
+import Notifications from '../toast/notifications.vue';
 
 const baseUrl = import.meta.env.BASE_URL;
 

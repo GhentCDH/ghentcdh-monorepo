@@ -11,8 +11,8 @@
     "@nestjs/config": "^4.0.0",
     "@nestjs/terminus": "^11.0.0",
     "log4js": "^6.9.1",
-    "@nx/vite": "20.4.5",
-    "vite": "^5.0.0",
+    "@nx/vite": "21.3.11",
+    "vite": "6.3.5",
     "vite-plugin-node": "^4.0.0"
   },
   "repository": {

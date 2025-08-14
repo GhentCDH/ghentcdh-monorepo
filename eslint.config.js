@@ -16,7 +16,12 @@ module.exports = [
   ...nx.configs['flat/javascript'],
   importPlugin.flatConfigs['recommended'],
   {
-    ignores: ['**/dist', 'generated/prisma-client'],
+    ignores: [
+      '**/dist',
+      'generated/prisma-client',
+      '**/vite.config.*.timestamp*',
+      '**/vitest.config.*.timestamp*',
+    ],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],

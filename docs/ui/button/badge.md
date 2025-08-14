@@ -4,9 +4,7 @@
 # Button badge
 
 <script setup>
-import {
-BtnBadge, Size, Color,IconEnum
-} from "@ghentcdh/ui";
+import {BtnBadge, ButtonSize, Color, IconEnum } from "@ghentcdh/ui";
 
 
 const configs =  {
@@ -15,7 +13,7 @@ const configs =  {
         ['square outline']: { square: true, outline: true },
         outline: { outline: true },
       };
-const buttonSize = Object.values(Size);
+const buttonSize = Object.values(ButtonSize);
 const buttonColor = Object.values(Color);
 const icons = [undefined, IconEnum.Plus]
 
@@ -23,10 +21,12 @@ const icons = [undefined, IconEnum.Plus]
 
   <table class="table">
     <thead>
-      <th></th>
-      <template v-for="icon in icons" :key="icon">
-        <th v-for="size in buttonSize" :key="size">{{size}}</th>
-      </template>
+      <tr>
+            <th></th>
+            <template v-for="icon in icons" :key="icon">
+              <th v-for="size in buttonSize" :key="size">{{size}}</th>
+            </template>
+      </tr>
     </thead>
     <tbody>
     <template v-for="(item, key, index) in configs" :key="index">

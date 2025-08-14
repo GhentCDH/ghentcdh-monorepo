@@ -7,6 +7,7 @@ import uiSideBar from '../ui/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 
+
 export default defineUserConfig({
   title: 'GhentCDH',
   lastUpdated: true,
@@ -14,7 +15,7 @@ export default defineUserConfig({
   metaChunk: true,
   bundler: viteBundler({
     viteOptions: {
-      // plugins: [tailwindcss()],
+      plugins: [tailwindcss()],
       resolve: {
         alias: {
           '@demo/data': fileURLToPath(
@@ -25,7 +26,8 @@ export default defineUserConfig({
               '../../libs/logging/frontend/src/index.ts',
               import.meta.url,
             ),
-          ), '@ghentcdh/ui': fileURLToPath(
+          ),
+          '@ghentcdh/ui': fileURLToPath(
             new URL(
               '../../libs/ui/src/index.ts',
               import.meta.url,
@@ -46,13 +48,13 @@ export default defineUserConfig({
   //   plugins: [require('@tailwindcss/postcss'), require('autoprefixer')],
   // },
   theme: defaultTheme({
-    docsRepo: 'https://github.com/GhentCDH/ghentcdh-monorepo',
+    docsRepo: 'https://github.com/GhentCDH/Mela',
     docsBranch: 'master',
     docsDir: 'docs',
     // editLinkPattern: ':repo/tree/:branch/:path',
     lastUpdated: true,
     colorMode: 'light',
-    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/ghentcdh-monorepo' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/Mela' }],
     // colorModeSwitch: false,
     navbar: [
       {
