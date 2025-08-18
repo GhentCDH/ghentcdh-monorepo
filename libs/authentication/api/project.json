@@ -5,18 +5,13 @@
   "projectType": "library",
   "release": {
     "version": {
-      "generatorOptions": {
-        "packageRoot": "dist/{projectRoot}",
-        "currentVersionResolver": "git-tag",
-        "fallbackCurrentVersionResolver": "disk"
-      }
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "preserveLocalDependencyProtocols": false,
+      "manifestRootsToUpdate": ["dist/{projectRoot}"]
     }
   },
-  "tags": [
-    "publish",
-    "scope:api",
-    "scope:feature"
-  ],
+  "tags": ["publish", "scope:api", "scope:feature"],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",

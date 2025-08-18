@@ -3,8 +3,10 @@ import { defaultTheme } from '@vuepress/theme-default';
 import { defineUserConfig } from 'vuepress';
 import componentsSideBar from '../components/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
+import uiSideBar from '../ui/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
+
 
 export default defineUserConfig({
   title: 'GhentCDH',
@@ -13,7 +15,7 @@ export default defineUserConfig({
   metaChunk: true,
   bundler: viteBundler({
     viteOptions: {
-      // plugins: [tailwindcss()],
+      plugins: [tailwindcss()],
       resolve: {
         alias: {
           '@demo/data': fileURLToPath(
@@ -25,9 +27,15 @@ export default defineUserConfig({
               import.meta.url,
             ),
           ),
-          '@ghentcdh/authentication/frontend': fileURLToPath(
+          '@ghentcdh/ui': fileURLToPath(
             new URL(
-              '../../libs/authentication/frontend/src/index.ts',
+              '../../libs/ui/src/index.ts',
+              import.meta.url,
+            ),
+          ),
+          '@ghentcdh/authentication-vue': fileURLToPath(
+            new URL(
+              '../../libs/authentication/vue/src/index.ts',
               import.meta.url,
             ),
           ),
@@ -40,13 +48,13 @@ export default defineUserConfig({
   //   plugins: [require('@tailwindcss/postcss'), require('autoprefixer')],
   // },
   theme: defaultTheme({
-    docsRepo: 'https://github.com/GhentCDH/ghentcdh-monorepo',
+    docsRepo: 'https://github.com/GhentCDH/Mela',
     docsBranch: 'master',
     docsDir: 'docs',
     // editLinkPattern: ':repo/tree/:branch/:path',
     lastUpdated: true,
     colorMode: 'light',
-    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/ghentcdh-monorepo' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/Mela' }],
     // colorModeSwitch: false,
     navbar: [
       {
@@ -56,11 +64,14 @@ export default defineUserConfig({
     ],
     sidebar: [
       componentsSideBar,
-      toolsSideBar,
-      // {
-      //   text: 'api',
-      //   children: apiSideBar1,
-      // },
+      {
+        text: 'tools',
+        children: toolsSideBar,
+      },
+      {
+        text: 'Ui',
+        children: uiSideBar,
+      },
     ].flat(),
   }),
 });

@@ -35,6 +35,7 @@ jobs:
       - uses: ./.github/actions/use-cache
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - run: npx nx run ui:build
       - run: BASE=/ghentcdh-monorepo  pnpm run docs:build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
