@@ -1,3 +1,25 @@
+## 0.0.2-17 (2025-08-18)
+
+### 🚀 Features
+
+- add ui lib ([825f320](https://github.com/GhentCDH/ghentcdh-monorepo/commit/825f320))
+- add ui lib ([1f058e4](https://github.com/GhentCDH/ghentcdh-monorepo/commit/1f058e4))
+- add ui lib ([521d9a0](https://github.com/GhentCDH/ghentcdh-monorepo/commit/521d9a0))
+- add ui lib ([5de393a](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5de393a))
+- add ui lib ([6049cdb](https://github.com/GhentCDH/ghentcdh-monorepo/commit/6049cdb))
+- add ui lib ([cb31915](https://github.com/GhentCDH/ghentcdh-monorepo/commit/cb31915))
+- add ui lib ([ae8ef0b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/ae8ef0b))
+- add ui lib ([509efab](https://github.com/GhentCDH/ghentcdh-monorepo/commit/509efab))
+- add ui lib ([91432ea](https://github.com/GhentCDH/ghentcdh-monorepo/commit/91432ea))
+- add ui lib ([f03b62b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/f03b62b))
+- add ui lib ([d6893e8](https://github.com/GhentCDH/ghentcdh-monorepo/commit/d6893e8))
+- add ui lib ([d07878b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/d07878b))
+- **auth:** add logout ([7818dfb](https://github.com/GhentCDH/ghentcdh-monorepo/commit/7818dfb))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-16 (2025-02-24)
 
 ### 🚀 Features
