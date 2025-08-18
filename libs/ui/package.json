@@ -8,5 +8,9 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"
   }
 }
