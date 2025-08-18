@@ -7,6 +7,9 @@
     ".": {
       "import": "./index.mjs",
       "require": "./index.js"
+    },
+    "./index.css": {
+      "import": "./dist/libs/ui/index.css"
     }
   },
   "repository": {

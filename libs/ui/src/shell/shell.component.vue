@@ -65,6 +65,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { RouterLink } from 'vue-router';
 
 import type { ShellMenu, User } from './menu.type';
 import { Icon, IconEnum } from '../icons';

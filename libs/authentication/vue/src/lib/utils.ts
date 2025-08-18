@@ -11,9 +11,9 @@ export const useAuthenticate = () => {
   }
 
   return {
-    isAuthenticated: () => !!auth.user(),
-    getUser: () => auth.user(),
-    logout: () => auth.logout(),
+    isAuthenticated: () => !!auth?.user(),
+    getUser: () => auth?.user(),
+    logout: () => auth?.logout(),
   };
 };
 

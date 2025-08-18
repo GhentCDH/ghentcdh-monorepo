@@ -26,6 +26,7 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
+    minify:false,
     outDir: '../../dist/libs/ui',
     emptyOutDir: true,
     reportCompressedSize: true,
@@ -43,7 +44,16 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: [],
+      external: [
+        'vue',
+        'vue-router'
+      ],
+      output: {
+        // Provide global variable name for Vue (for UMD/IIFE builds)
+        globals: {
+          vue: 'Vue',
+        },
+      },
     },
   },
   test: {
