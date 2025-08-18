@@ -1,3 +1,13 @@
+## 0.0.2-20 (2025-08-18)
+
+### 🩹 Fixes
+
+- ui build ([03a8158](https://github.com/GhentCDH/ghentcdh-monorepo/commit/03a8158))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-19 (2025-08-18)
 
 ### 🩹 Fixes
