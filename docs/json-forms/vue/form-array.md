@@ -69,6 +69,7 @@ const uischemaVariable = LayoutBuilder.vertical()
 
 # Array
 
+<ClientOnly >
 ## Fixed data array
 <div>
 <FormComponent :schema="schema"
@@ -84,3 +85,4 @@ const uischemaVariable = LayoutBuilder.vertical()
                 v-model="formData" />
 <pre>{{formData}}</pre>
 </div>
+</ClientOnly>

@@ -11,7 +11,7 @@ import {
   hasCustomEventListener,
 } from '@ghentcdh/ui';
 
-import { FormModal } from './index';
+import { FormModal, FormStore } from './index';
 
 import { useFormStore } from './form.store';
 import type { FormModalProps, FormModalResult } from './modal/form-modal.props';
@@ -38,15 +38,12 @@ const properties = withDefaults(
 );
 const reload = ref(0);
 
-let store = useFormStore(properties.id);
-onMounted(() => {
-  store.init(properties.formSchema);
-});
+let store = new FormStore(properties.formSchema);
 
 watch(
   () => properties.formSchema,
   (formSchema) => {
-    store.init(formSchema);
+    store = new FormStore(properties.formSchema);
   },
 );
 const emit = defineEmits<{

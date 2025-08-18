@@ -9,110 +9,127 @@ type RequestData = any;
 
 // TODO add sorting
 
-const defineStore=(...args)=>{ return null as any}
-export const useTableStore = (name: string) =>
-  defineStore(`ghentCDH_table_form_${name}`, () => {
-    const route = useRoute();
-    const router = useRouter();
-    const httpRequest = useHttpRequest();
 
-    const requestData = ref<RequestData>(RequestSchema.parse(route.query));
 
-    const reload = ref(Date.now());
-    const loading = ref(true);
+class TableStore {
+  private route = useRoute();
+  private router = useRouter();
+  private httpRequest = useHttpRequest();
 
-    const uri = ref<string>('');
+  private requestData = ref<RequestData>(RequestSchema.parse(this.route.query));
 
-    const data = computedAsync(async () => {
-      // Don't remove to listen on reload!
-      const r = reload.value;
+  private reload = ref(Date.now());
+  private loading = ref(true);
 
-      if (!uri.value) return null;
+  private uri = ref<string>('');
 
-      loading.value = true;
+  private data = computedAsync(async () => {
+    // Don't remove to listen on reload!
+    const r = this.reload.value;
 
-      if (requestData.value.page < 1) {
-        requestData.value.page = 1;
-      }
+    if (!this.uri.value) return null;
 
-      const response = await httpRequest
-        .get<any>(uri.value, {
-          queryParams: requestData.value,
-        })
-        .catch((error) => {
-          console.error(error);
-          // TODO snackbar error
-          return { data: [], request: { totalPages: 1, page: 1 } };
-        })
-        .finally(() => (loading.value = false));
+    this. loading.value = true;
 
-      if (response.request.totalPages < response.request.page) {
-        updateRequest({ page: response.request.totalPages });
-      }
-      return response;
+    if (this.requestData.value.page < 1) {
+      this.requestData.value.page = 1;
+    }
+
+    const response = await this.httpRequest
+      .get<any>(this.uri.value, {
+        queryParams: this.requestData.value,
+      })
+      .catch((error) => {
+        console.error(error);
+        // TODO snackbar error
+        return { data: [], request: { totalPages: 1, page: 1 } };
+      })
+      .finally(() => (this.loading.value = false));
+
+    if (response.request.totalPages < response.request.page) {
+    this.  updateRequest({ page: response.request.totalPages });
+    }
+    return response;
+  });
+
+  private tableData = computed(() => {
+    const d = this.data.value;
+    return this.loading?.value ? [] : (d?.data ?? []);
+  });
+
+  private reloadFn = () => {
+    this.reload.value = Date.now();
+  };
+
+  private init = (url: string) => {
+    this.uri.value = url;
+  };
+
+  private updateRequest = (data: Partial<RequestData>) => {
+    this. requestData.value = { ...this.requestData.value, ...data };
+
+    this. router.replace({
+      query: {
+        ...this.route.query,
+        ...this.requestData.value,
+      },
+    });
+  };
+
+  private sort = (id: string) => {
+    const sortDir =
+      this. requestData.value.sort === id &&this. requestData.value.sortDir === 'asc'
+        ? 'desc'
+        : 'asc';
+    this.updateRequest({ sort: id, sortDir });
+  };
+
+  private updateFilters = (filters: Record<string, any>) => {
+    const filter: string[] = [];
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (!value) return;
+
+      // TODO decide what is the operator
+      const operator = value?.operator || 'contains';
+      filter.push(`${key}:${value}:${operator}`);
     });
 
-    const tableData = computed(() => {
-      const d = data.value;
-      return loading?.value ? [] : (d?.data ?? []);
-    });
+    this.updateRequest({ filter });
+  };
 
-    const reloadFn = () => {
-      reload.value = Date.now();
-    };
+  private  sortDirection = computed(() => this.requestData.value.sortDir);
+  private  sortColumn = computed(() =>  this.requestData.value.sort);
+  private  filters = computed(() => extractFilters( this.requestData.value.filter));
 
-    const init = (url: string) => {
-      uri.value = url;
-    };
+//   return {
+//   data,
+//   tableData,
+//   sortDirection,
+//   sortColumn,
+//   filters,
+//   loading,
+//   init,
+//   sort,
+//   reload: reloadFn,
+//   updatePage: (page: number) => updateRequest({ page }),
+// updateFilters,
+// };
 
-    const updateRequest = (data: Partial<RequestData>) => {
-      requestData.value = { ...requestData.value, ...data };
+}
 
-      router.replace({
-        query: {
-          ...route.query,
-          ...requestData.value,
-        },
-      });
-    };
+const tableCache = new Map<string, TableStore>();
 
-    const sort = (id: string) => {
-      const sortDir =
-        requestData.value.sort === id && requestData.value.sortDir === 'asc'
-          ? 'desc'
-          : 'asc';
-      updateRequest({ sort: id, sortDir });
-    };
+export const useTableStore = (name: string) =>{
 
-    const updateFilters = (filters: Record<string, any>) => {
-      const filter: string[] = [];
+  const tableStore = tableCache.get(name);
 
-      Object.entries(filters).forEach(([key, value]) => {
-        if (!value) return;
+  if(tableStore){
+    return tableStore
+  }
 
-        // TODO decide what is the operator
-        const operator = value?.operator || 'contains';
-        filter.push(`${key}:${value}:${operator}`);
-      });
+  const newTableStore = new TableStore();
+  tableCache.set(name, newTableStore);
 
-      updateRequest({ filter });
-    };
-
-    const sortDirection = computed(() => requestData.value.sortDir);
-    const sortColumn = computed(() => requestData.value.sort);
-    const filters = computed(() => extractFilters(requestData.value.filter));
-
-    return {
-      data,
-      tableData,
-      sortDirection,
-      sortColumn,
-      filters,
-      loading,
-      init,
-      sort,
-      reload: reloadFn,
-      updatePage: (page: number) => updateRequest({ page }),
-      updateFilters,
-    };
-  })();
+  return newTableStore;
+}

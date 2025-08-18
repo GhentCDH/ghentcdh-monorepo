@@ -1,7 +1,6 @@
 import { useVanillaControl } from '@jsonforms/vue-vanilla';
 import { computed, ref } from 'vue';
 
-import type { VanillaControlWrapper } from '@ghentcdh/ui';
 
 export const useVanillaControlCustom = <
   I extends { control: any; handleChange: any },
@@ -29,7 +28,7 @@ export const useVanillaControlCustom = <
       ...vanillaControl.controlWrapper.value,
       isFocused: isFocused.value,
       isTouched: isTouched.value,
-    } as VanillaControlWrapper;
+    } as any;
   });
 
   return {

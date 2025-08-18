@@ -1,5 +1,4 @@
 export * from './form.store';
-export * from './renderes/layouts/stepper.store';
 export * from './renderes/controls';
 export * from './renderes/tester';
 export * from './state/form.state';

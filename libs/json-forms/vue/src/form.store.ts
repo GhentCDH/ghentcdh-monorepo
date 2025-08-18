@@ -5,53 +5,48 @@ import { useHttpRequest } from '@ghentcdh/authentication-vue';
 import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
 import { NotificationService } from '@ghentcdh/ui';
 
-// TODO add warnings, success, ....
-const defineStore=(...args)=>{ return null as any }
-export const useFormStore = (name: string) =>
-  defineStore(`ghentCDH_form_${name}`, () => {
-    const uri = ref<string | null>(null);
+export class FormStore {
 
-    const httpRequest = useHttpRequest();
+  private httpRequest = useHttpRequest();
 
-    const save = async <T>(id: string | null, data: T) => {
-      if (!uri.value) return;
+  constructor(private readonly schema: FormSchemaModel)  {
+  // if (this.uri.value === schema.uri) return;
+  // uri.value = schema.uri;
+};
 
-      const promise = id
-        ? httpRequest.patch(`${uri.value}/${id}`, data)
-        : httpRequest.post(uri.value, data);
+  private get uri(){
+    return this.schema.uri;
+  }
 
-      return promise
-        .then(() => {
-          NotificationService.success('Data saved');
-        })
-        .catch((error) => {
-          console.error(error);
+ public async delete  <T>(data: T & { id?: string }) {
+  return    this.httpRequest
+      .delete(`${this.uri}/${data.id}`)
+      .then(() => {
+        NotificationService.success('Data deleted');
+      })
+      .catch((error) => {
+        console.error(error);
 
-          NotificationService.error('Error saving data');
-        });
-    };
+        NotificationService.error('Error deleting data');
+      });
+  };
 
-    const init = (schema: FormSchemaModel) => {
-      if (uri.value === schema.uri) return;
-      uri.value = schema.uri;
-    };
+  public async save  <T>(id: string | null, data: T)  {
+    if (!this.uri) return;
 
-    const deleteFn = async <T>(data: T & { id?: string }) => {
-      await httpRequest
-        .delete(`${uri.value}/${data.id}`)
-        .then(() => {
-          NotificationService.success('Data deleted');
-        })
-        .catch((error) => {
-          console.error(error);
+    const promise = id
+      ? this.httpRequest.patch(`${this.uri}/${id}`, data)
+      : this.httpRequest.post(this.uri, data);
 
-          NotificationService.error('Error deleting data');
-        });
-    };
+    return promise
+      .then(() => {
+        NotificationService.success('Data saved');
+      })
+      .catch((error) => {
+        console.error(error);
 
-    return {
-      init,
-      save,
-      delete: deleteFn,
-    };
-  })();
+        NotificationService.error('Error saving data');
+      });
+  };
+
+}

@@ -5,7 +5,7 @@ import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
 import { Btn, Color } from '@ghentcdh/ui';
 
 import FormComponent from './form.component.vue';
-import { useFormStore } from './form.store';
+import { FormStore } from './form.store';
 
 const properties = defineProps<{
   id: string;
@@ -16,7 +16,7 @@ const properties = defineProps<{
 const valid = ref(false);
 const formData = defineModel<any>();
 
-const store = useFormStore(properties.id);
+const store = new FormStore(properties.formSchema);
 
 const emits = defineEmits(['success']);
 

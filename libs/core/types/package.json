@@ -6,6 +6,8 @@
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "@jsonforms/core": "3.6.0"
+    "@jsonforms/core": "3.6.0",
+    "zod": "3.25.76",
+    "lodash-es": "4.17.21"
   }
 }

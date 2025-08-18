@@ -72,10 +72,11 @@ const uischema = LayoutBuilder.vertical()
 </script>
 
 # Json form input
-
+<ClientOnly>
 <div>
 <FormComponent :schema="schema"
                 :uischema="uischema"    
                 v-model="formData" />
 <pre>{{formData}}</pre>
 </div>
+</ClientOnly>

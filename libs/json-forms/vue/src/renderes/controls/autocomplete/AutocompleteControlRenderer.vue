@@ -42,7 +42,8 @@ const controlRenderer = defineComponent({
     );
 
     const field = control.appliedOptions.value.field;
-
+console.log(field)
+    console.log(control)
     const handleChange = (result: any) => {
       const { path } = control.control.value;
       control.handleChange(path, result);
