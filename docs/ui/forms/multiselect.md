@@ -27,7 +27,7 @@ const options = [{
 }];
 
 </script>
-
+<ClientOnly>
 ## Default
 <MultiSelect
 v-model="model"
@@ -50,3 +50,4 @@ label="The label"
 :options="options"
 errors="Some error"
 />
+</ClientOnly>

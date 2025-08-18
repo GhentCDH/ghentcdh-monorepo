@@ -12,7 +12,7 @@
         v-if="displayValues"
         :class="[
           `bg-base-100 w-52 shadow -mt-5
-        absolute z-50`,
+        absolute z-50 p-0`,
         ]"
       >
         <li
@@ -20,10 +20,9 @@
           :key="result[valueKey]"
         >
           <button
-            class="w-full flex h-8 border-b-1 border-gray-200 border-x-0 border-t-0 px-2 py-2 text-left hover:bg-primary-content cursor-pointer"
+            class="w-full flex h-8 border-b-1 border-gray-200 border-x-0 border-t-0  p-2 text-left hover:bg-primary-content cursor-pointer"
             type="button"
-            @click="selectResult(result)"
-            @blur="displayValues = false"
+            @click="selectResult($event, result)"
           >
             <div class="w-4 mr-2">
               <Icon
@@ -63,12 +62,6 @@ let justToggle = false;
 const onChange = (event: Event) => {
   emit('change', event);
 };
-const onFocus = (event: FocusEvent) => {
-  emit('focus', event);
-};
-const onBlur = (event: Event) => {
-  emit('blur', event);
-};
 
 const displayValues = ref(false);
 
@@ -90,7 +83,8 @@ const selectedIds = computed(
 
 const hasKey = (field: any) => selectedIds.value.includes(field);
 
-const selectResult = (result: any) => {
+const selectResult = (event:MouseEvent, result: any) => {
+  event.preventDefault();
   let selection: any[] = model.value ?? [];
 
   const value = getValueField(result);

@@ -40,6 +40,7 @@ const config = {
 
 </script>
 
+<ClientOnly>
 ## Default
 <Autocomplete
     v-model="model"
@@ -99,3 +100,5 @@ const config = {
     :options="options"
     errors="Some error"
 />
+
+</ClientOnly>
