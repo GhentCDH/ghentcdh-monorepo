@@ -1,3 +1,13 @@
+## 0.0.2-18 (2025-08-18)
+
+### 🚀 Features
+
+- add ui lib ([570ec90](https://github.com/GhentCDH/ghentcdh-monorepo/commit/570ec90))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-17 (2025-08-18)
 
 ### 🚀 Features
