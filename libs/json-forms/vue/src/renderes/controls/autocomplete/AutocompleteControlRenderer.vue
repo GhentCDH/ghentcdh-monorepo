@@ -4,8 +4,8 @@
     v-model="control.data"
     :enabled="control.enabled"
     :config="appliedOptions"
-    :label-key="field.label"
-    :value-key="field.id"
+    :label-key="field?.label"
+    :value-key="field?.id"
     @change="handleChange"
     @focus="onFocus"
     @blur="onBlur"
@@ -42,10 +42,9 @@ const controlRenderer = defineComponent({
     );
 
     const field = control.appliedOptions.value.field;
-console.log(field)
-    console.log(control)
     const handleChange = (result: any) => {
       const { path } = control.control.value;
+      console.log(control.control);
       control.handleChange(path, result);
     };
 
