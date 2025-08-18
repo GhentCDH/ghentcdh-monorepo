@@ -59,7 +59,7 @@ const onValid = (v: boolean) => {
         <Btn
           :color="Color.primary"
           :disabled="!valid"
-          @click="clear"
+          @click="save"
         >
           Save
         </Btn>
