@@ -17,6 +17,16 @@
     "paths": {
       "@ghentcdh/authentication-api": ["libs/authentication/api/src/index.ts"],
       "@ghentcdh/authentication-vue": ["libs/authentication/vue/src/index.ts"],
+      "@ghentcdh/json-forms/api": [
+        "libs/json-forms/api/src/index.ts"
+      ],
+      "@ghentcdh/json-forms/core": [
+        "libs/json-forms/core/src/index.ts"
+      ],
+      "@ghentcdh/json-forms/vue": [
+
+        "libs/json-forms/vue/src/index.ts"
+      ],
       "@ghentcdh/tools-api": ["libs/tools/api/src/index.ts"],
       "@ghentcdh/tools-vue": ["libs/tools/vue/src/index.ts"],
       "@ghentcdh/core/types": ["libs/core/types/src/index.ts"],

@@ -1,0 +1,19 @@
+{
+  "name": "@ghentcdh/json-forms-vue",
+  "version": "0.0.3-6",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    },
+    "./index.css": {
+      "import": "./index.css"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"
+  }
+}

@@ -10,11 +10,11 @@ import * as path from 'path';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/libs/ui',
+  cacheDir: '../../../node_modules/.vite/libs/json-forms/vue',
   plugins: [
     vue(),
     nxViteTsPaths(),
-    nxCopyAssetsPlugin(['*.md', '*.mdx']),
+    nxCopyAssetsPlugin(['*.md']),
     checker({ typescript: true }),
     dts({
       entryRoot: 'src',
@@ -22,17 +22,16 @@ export default defineConfig({
     }),
   ],
   build: {
-    // minify:false,
-    outDir: '../../dist/libs/ui',
+    outDir: '../../../dist/libs/json-forms/vue',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     lib: {
-      // Could also be a form or array of multiple entry points.
+      // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'ui',
+      name: 'json-forms-vue',
       fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
@@ -41,6 +40,12 @@ export default defineConfig({
     rollupOptions: {
       // External packages that should not be bundled into your library.
       external: [
+        '@jsonforms/core',
+        "@jsonforms/core/src/testers/testers",
+        '@jsonforms/vue',
+        '@jsonforms/vue-vanilla',
+
+        '@vueuse/core',
         'vue',
         'vue-router'
       ],
@@ -50,17 +55,6 @@ export default defineConfig({
           vue: 'Vue',
         },
       },
-    },
-  },
-  test: {
-    watch: false,
-    globals: true,
-    environment: 'jsdom',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['default'],
-    coverage: {
-      reportsDirectory: '../../coverage/libs/ui',
-      provider: 'v8',
     },
   },
 });
