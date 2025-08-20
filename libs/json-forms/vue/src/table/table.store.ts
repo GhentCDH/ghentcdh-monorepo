@@ -3,33 +3,35 @@ import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { useHttpRequest } from '@ghentcdh/authentication-vue';
-import { RequestSchema, extractFilters } from '@ghentcdh/json-forms-core';
+import { extractFilters, RequestSchema } from '@ghentcdh/json-forms-core';
 
 type RequestData = any;
 
 // TODO add sorting
 
-
-
 class TableStore {
   private route = useRoute();
   private router = useRouter();
-  private httpRequest = useHttpRequest();
+
+  private get httpRequest() {
+    console.log('get the request');
+    return useHttpRequest();
+  }
 
   private requestData = ref<RequestData>(RequestSchema.parse(this.route.query));
 
   private reload = ref(Date.now());
-  private loading = ref(true);
+  public loading = ref(true);
 
   private uri = ref<string>('');
 
-  private data = computedAsync(async () => {
+  public data = computedAsync(async () => {
     // Don't remove to listen on reload!
     const r = this.reload.value;
 
     if (!this.uri.value) return null;
 
-    this. loading.value = true;
+    this.loading.value = true;
 
     if (this.requestData.value.page < 1) {
       this.requestData.value.page = 1;
@@ -47,7 +49,7 @@ class TableStore {
       .finally(() => (this.loading.value = false));
 
     if (response.request.totalPages < response.request.page) {
-    this.  updateRequest({ page: response.request.totalPages });
+      this.updateRequest({ page: response.request.totalPages });
     }
     return response;
   });
@@ -66,9 +68,9 @@ class TableStore {
   };
 
   private updateRequest = (data: Partial<RequestData>) => {
-    this. requestData.value = { ...this.requestData.value, ...data };
+    this.requestData.value = { ...this.requestData.value, ...data };
 
-    this. router.replace({
+    this.router.replace({
       query: {
         ...this.route.query,
         ...this.requestData.value,
@@ -76,15 +78,20 @@ class TableStore {
     });
   };
 
-  private sort = (id: string) => {
+  public sort = (id: string) => {
     const sortDir =
-      this. requestData.value.sort === id &&this. requestData.value.sortDir === 'asc'
+      this.requestData.value.sort === id &&
+      this.requestData.value.sortDir === 'asc'
         ? 'desc'
         : 'asc';
     this.updateRequest({ sort: id, sortDir });
   };
 
-  private updateFilters = (filters: Record<string, any>) => {
+  public updatePage(page: number) {
+    this.updateRequest({ page });
+  }
+
+  public updateFilters = (filters: Record<string, any>) => {
     const filter: string[] = [];
 
     Object.entries(filters).forEach(([key, value]) => {
@@ -98,38 +105,30 @@ class TableStore {
     this.updateRequest({ filter });
   };
 
-  private  sortDirection = computed(() => this.requestData.value.sortDir);
-  private  sortColumn = computed(() =>  this.requestData.value.sort);
-  private  filters = computed(() => extractFilters( this.requestData.value.filter));
+  public sorting = computed(() => {
+    const requestData = this.requestData.value;
+    return {
+      sortColumn: requestData.sort,
+      sortDirection: requestData.sortDir ?? 'asc',
+    };
+  });
 
-//   return {
-//   data,
-//   tableData,
-//   sortDirection,
-//   sortColumn,
-//   filters,
-//   loading,
-//   init,
-//   sort,
-//   reload: reloadFn,
-//   updatePage: (page: number) => updateRequest({ page }),
-// updateFilters,
-// };
-
+  public filters = computed(() =>
+    extractFilters(this.requestData.value.filter),
+  );
 }
 
 const tableCache = new Map<string, TableStore>();
 
-export const useTableStore = (name: string) =>{
-
+export const useTableStore = (name: string) => {
   const tableStore = tableCache.get(name);
 
-  if(tableStore){
-    return tableStore
+  if (tableStore) {
+    return tableStore;
   }
 
   const newTableStore = new TableStore();
   tableCache.set(name, newTableStore);
 
   return newTableStore;
-}
+};

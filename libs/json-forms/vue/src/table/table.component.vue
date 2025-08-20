@@ -12,6 +12,7 @@ import { Table, TextCell } from '@ghentcdh/ui';
 
 import TableFilter from './filter/table-filter.vue';
 import { useTableStore } from './table.store';
+import { isArray } from 'lodash-es';
 
 const properties = defineProps<{
   id: string;
@@ -60,6 +61,7 @@ const displayColumns = computed(() => {
   return uiSchema.elements.map((e) => {
     const element = e as TextCellType;
     const def = findColumnDef(element, schema);
+    const type = isArray(def.type) ? def.type[0] : def.type;
     let component: any;
     if (element.options?.format && element.options.format in components) {
       component = components[element.options.format];
@@ -68,9 +70,14 @@ const displayColumns = computed(() => {
     }
 
     if (!component) console.warn('No component found for type', element.type);
-
+    console.log({
+      ...def,
+      component,
+      type,
+    });
     return {
       ...def,
+      type,
       component,
     } as ColumnDef & { component: any };
   });
@@ -88,30 +95,33 @@ const onSort = (id: string) => {
 };
 
 const sort = computed(() => {
-  return {
-    sortColumn: store.sortColumn,
-    sortDirection: store.sortDirection,
-  };
+  return store.sorting.value ?? { orderBy: '', ascending: 1 };
 });
 
 const page = computed(() => {
-  return {
-    count: store.data?.request.count,
-    pageSize: store.data?.request.pageSize,
-    page: store.data?.request.page,
+  const request = store.data.value?.request ?? {
+    count: 0,
+    pageSize: 1,
+    page: 1,
   };
+  return {
+    count: request.count,
+    pageSize: request.pageSize,
+    page: request.page,
+  };
+});
+const data = computed(() => {
+  return store.data.value?.data ?? [];
 });
 </script>
 
 <template>
   <div>
-    <div
-      v-if="filterLayout"
-      class="mb-2"
-    >
+    <div v-if="filterLayout" class="mb-2">
       <TableFilter
+        v-if="filterLayout"
         :layout="filterLayout"
-        :filters="store.filters"
+        :filters="store.filters.value"
         @change-filters="onChangeFilters"
       />
     </div>
@@ -120,8 +130,8 @@ const page = computed(() => {
         :display-columns="displayColumns"
         :sort="sort"
         :page="page"
-        :loading="store.loading"
-        :data="store.data?.data"
+        :loading="store.loading.value"
+        :data="data"
         :actions="actions"
         @update-page="onUpdatePage"
         @delete="deleteFn"

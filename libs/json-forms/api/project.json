@@ -7,20 +7,29 @@
     "version": {
       "currentVersionResolver": "git-tag",
       "preserveLocalDependencyProtocols": false,
-      "manifestRootsToUpdate": ["dist/{projectRoot}"]
+      "manifestRootsToUpdate": [
+        "dist/{projectRoot}"
+      ]
     }
   },
-  "tags": ["scope:feature", "scope:api"],
+  "tags": [
+    "scope:feature",
+    "scope:api"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/json-forms/api",
         "tsConfig": "libs/json-forms/api/tsconfig.lib.json",
         "packageJson": "libs/json-forms/api/package.json",
         "main": "libs/json-forms/api/src/index.ts",
-        "assets": ["libs/json-forms/api/*.md"]
+        "assets": [
+          "libs/json-forms/api/*.md"
+        ]
       }
     },
     "nx-release-publish": {
@@ -28,5 +37,8 @@
         "packageRoot": "dist/{projectRoot}"
       }
     }
-  }
+  },
+  "implicitDependencies": [
+    "json-forms-core"
+  ]
 }

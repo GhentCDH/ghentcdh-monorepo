@@ -4,10 +4,10 @@ Table
 
 # Table
 
-<script setup>
-import {
-Table, TextCell
-} from "@ghentcdh/ui";
+<script setup>import {
+TableComponent, TextCell} from '@ghentcdh/ui';
+
+const comp = TableComponent;
 
 const displayColumns = [
   {
@@ -36,12 +36,13 @@ const page = {
 
 </script>
 
-<Table :loading="false" 
-        :data="data"        
-        :displayColumns="displayColumns" 
-        :page="page"/>
+<TableComponent :loading="false"
+:data="data"        
+:displayColumns="displayColumns"
+:page="page"/>
 
 ## Loading table
-<Table :loading="true"
-        :displayColumns="displayColumns"
-        :page="page"/>
+
+<TableComponent :loading="true"
+:displayColumns="displayColumns"
+:page="page"/>

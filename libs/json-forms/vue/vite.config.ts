@@ -22,6 +22,7 @@ export default defineConfig({
     }),
   ],
   build: {
+    minify: false,
     outDir: '../../../dist/libs/json-forms/vue',
     emptyOutDir: true,
     reportCompressedSize: true,
@@ -41,13 +42,15 @@ export default defineConfig({
       // External packages that should not be bundled into your library.
       external: [
         '@jsonforms/core',
-        "@jsonforms/core/src/testers/testers",
+        '@jsonforms/core/src/testers/testers',
         '@jsonforms/vue',
         '@jsonforms/vue-vanilla',
-
+        '@toast-ui/editor',
         '@vueuse/core',
+        '@ghentcdh/authentication-vue',
+        '@ghentcdh/ui',
         'vue',
-        'vue-router'
+        'vue-router',
       ],
       output: {
         // Provide global variable name for Vue (for UMD/IIFE builds)
