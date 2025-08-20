@@ -1,3 +1,13 @@
+## 0.1.1-0 (2025-08-20)
+
+### 🩹 Fixes
+
+- make markdown external ([6f13513](https://github.com/GhentCDH/ghentcdh-monorepo/commit/6f13513))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.1.0 (2025-08-20)
 
 This was a version bump only, there were no code changes.
