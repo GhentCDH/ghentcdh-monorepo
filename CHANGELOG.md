@@ -1,3 +1,25 @@
+## 0.0.2-21 (2025-08-20)
+
+### 🚀 Features
+
+- add jsonforms ([507e33f](https://github.com/GhentCDH/ghentcdh-monorepo/commit/507e33f))
+- add json forms ([f058aa2](https://github.com/GhentCDH/ghentcdh-monorepo/commit/f058aa2))
+- add json forms ([021b91e](https://github.com/GhentCDH/ghentcdh-monorepo/commit/021b91e))
+- add json forms ([ee29597](https://github.com/GhentCDH/ghentcdh-monorepo/commit/ee29597))
+- add json forms ([87636df](https://github.com/GhentCDH/ghentcdh-monorepo/commit/87636df))
+- add json forms ([534c6f8](https://github.com/GhentCDH/ghentcdh-monorepo/commit/534c6f8))
+- add json forms ([206e905](https://github.com/GhentCDH/ghentcdh-monorepo/commit/206e905))
+- add json forms ([73dd3be](https://github.com/GhentCDH/ghentcdh-monorepo/commit/73dd3be))
+- add json forms ([8d40a9b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/8d40a9b))
+
+### 🩹 Fixes
+
+- ui build ([5ef1e0d](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5ef1e0d))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-20 (2025-08-18)
 
 ### 🩹 Fixes
