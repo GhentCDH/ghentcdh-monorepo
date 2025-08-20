@@ -44,7 +44,6 @@ const controlRenderer = defineComponent({
     const field = control.appliedOptions.value.field;
     const handleChange = (result: any) => {
       const { path } = control.control.value;
-      console.log(control.control);
       control.handleChange(path, result);
     };
 
