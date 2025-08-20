@@ -40,10 +40,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: [
-        'vue',
-        'vue-router'
-      ],
+      external: ['@toast-ui/editor', 'vue', 'vue-router'],
       output: {
         // Provide global variable name for Vue (for UMD/IIFE builds)
         globals: {
