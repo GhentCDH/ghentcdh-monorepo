@@ -1,3 +1,13 @@
+## 0.0.2-22 (2025-08-20)
+
+### 🚀 Features
+
+- add json forms ([5aa4205](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5aa4205))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.0.2-21 (2025-08-20)
 
 ### 🚀 Features
