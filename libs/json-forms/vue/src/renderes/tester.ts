@@ -33,7 +33,7 @@ export const isFixedArray = and(
 );
 export const isArrayRenderer = and(
   schemaTypeIs('array'),
-  optionIs('format', ControlType.array),
+  // optionIs('format', ControlType.array),
 );
 
 export const isCustomControl = (customType: string) => {

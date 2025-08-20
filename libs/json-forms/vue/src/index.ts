@@ -1,5 +1,7 @@
 export * from './form.store';
 export * from './renderes/controls';
+export * from './renderes/array';
+export * from './renderes/layouts';
 export * from './renderes/tester';
 export * from './state/form.state';
 export { default as FormWithTableComponent } from './form-with-table.component.vue';

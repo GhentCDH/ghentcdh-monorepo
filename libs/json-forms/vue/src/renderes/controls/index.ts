@@ -5,6 +5,7 @@ import { entry as numberControlRendererEntry } from './NumberControlRenderer.vue
 import { entry as stringControlRendererEntry } from './StringControlRenderer.vue';
 import { entry as textAreaControlRenderer } from './TextAreaControlRenderer.vue';
 import { entry as autocompleteControlRenderer } from './autocomplete/AutocompleteControlRenderer.vue';
+
 // import { entry as multiStringControlRendererEntry } from './MultiStringControlRenderer.vue';
 // import { entry as enumControlRendererEntry } from './EnumControlRenderer.vue';
 // import { entry as oneOfEnumControlRendererEntry } from './EnumOneOfControlRenderer.vue';
