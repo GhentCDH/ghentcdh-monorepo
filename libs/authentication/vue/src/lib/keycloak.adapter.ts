@@ -6,6 +6,7 @@ export type KeycloakConfig = {
   clientId: string;
 };
 
+/* eslint-disable no-console */
 export class KeycloakAdapter extends Keycloak {
   private constructor(config: KeycloakConfig) {
     super(config);

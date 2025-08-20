@@ -26,6 +26,7 @@ module.exports = [
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],
     rules: {
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       '@typescript-eslint/consistent-type-imports': 'error',
       '@nx/enforce-module-boundaries': [
         'error',

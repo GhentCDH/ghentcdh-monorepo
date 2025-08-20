@@ -1,5 +1,8 @@
 <template>
-  <div v-if="layout.visible" :class="layoutClassObject.root">
+  <div
+    v-if="layout.visible"
+    :class="layoutClassObject.root"
+  >
     <div
       v-for="(element, index) in layout.uischema.elements"
       :key="`${layout.path}-${index}`"
@@ -18,20 +21,16 @@
 </template>
 
 <script lang="ts">
-import {
-  isLayout,
-  JsonFormsRendererRegistryEntry,
-  Layout,
-  rankWith,
-} from '@jsonforms/core';
-import { defineComponent } from 'vue';
+import type { JsonFormsRendererRegistryEntry, Layout } from '@jsonforms/core';
+import { isLayout, rankWith } from '@jsonforms/core';
+import type { RendererProps } from '@jsonforms/vue';
 import {
   DispatchRenderer,
   rendererProps,
-  RendererProps,
   useJsonFormsLayout,
 } from '@jsonforms/vue';
 import { useVanillaLayout } from '@jsonforms/vue-vanilla';
+import { defineComponent } from 'vue';
 
 const layoutRenderer = defineComponent({
   name: 'LayoutRenderer',
@@ -42,7 +41,6 @@ const layoutRenderer = defineComponent({
     ...rendererProps<Layout>(),
   },
   setup(props: RendererProps<Layout>) {
-    console.log('setup LayoutRenderer', props);
     return useVanillaLayout(useJsonFormsLayout(props));
   },
   computed: {

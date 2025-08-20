@@ -52,7 +52,6 @@ const emit = defineEmits<{
 const hasEdit = hasCustomEventListener('editData');
 
 const edit = (data: Data) => {
-  console.log('edit me', data, hasEdit);
   if (hasEdit) {
     emit('editData', data);
     return;
@@ -61,7 +60,6 @@ const edit = (data: Data) => {
 };
 
 const deleteFn = (data: Data) => {
-  console.log('delete me 1', data, hasEdit);
   ModalService.showConfirm({
     title: 'Delete annotation',
     message: 'Are you sure to delete, the data will be lost?',

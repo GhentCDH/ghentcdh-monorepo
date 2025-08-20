@@ -14,7 +14,6 @@ class TableStore {
   private router = useRouter();
 
   private get httpRequest() {
-    console.log('get the request');
     return useHttpRequest();
   }
 

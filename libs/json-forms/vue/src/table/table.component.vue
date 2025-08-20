@@ -70,11 +70,7 @@ const displayColumns = computed(() => {
     }
 
     if (!component) console.warn('No component found for type', element.type);
-    console.log({
-      ...def,
-      component,
-      type,
-    });
+
     return {
       ...def,
       type,

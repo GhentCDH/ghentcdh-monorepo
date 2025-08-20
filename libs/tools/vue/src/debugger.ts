@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 export class Debugger {
   private _verboseEnabled: boolean =
     import.meta.env.VITE_VERBOSE_DEBUG === 'true';
