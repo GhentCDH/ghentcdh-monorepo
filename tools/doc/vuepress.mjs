@@ -114,8 +114,10 @@ const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
 copyReadme('libs/authentication', 'authentication');
 copyReadme('libs/tools', 'tools');
 copyReadme('libs/ui', 'ui');
+copyReadme('libs/json-forms', 'json-forms');
 
 createMenu('tools');
 createMenu('components');
 createMenu('ui');
+createMenu('json-forms');
 // createMenu('api', ['_media', 'globals.md']);

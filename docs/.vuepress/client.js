@@ -4,7 +4,6 @@ import Layout from './theme/layouts/Layout.vue';
 
 export default defineClientConfig({
   enhance({ app }) {
-    // app.use(createPinia());
   },
   layouts: {
     Layout,

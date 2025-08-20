@@ -104,7 +104,7 @@ module.exports = [
             },
             {
               sourceTag: 'scope:ui',
-              bannedExternalImports: ['@jsonforms/*'],
+              // bannedExternalImports: ['@jsonforms/*'],
               onlyDependOnLibsWithTags: [
                 'scope:ui',
                 'scope:shared',

@@ -1,0 +1,21 @@
+{
+  "name": "json-forms-vue",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/json-forms/vue/src",
+  "projectType": "library",
+  "tags": [
+    "scope:ui",
+    "scope:feature"
+  ],
+  "targets": {
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  },
+  "implicitDependencies": [
+    "ui",
+    "json-forms-core"
+  ]
+}

@@ -17,7 +17,7 @@ const properties = defineProps<{
     page: number;
   };
   sort?: {
-    sortColumn: string;
+    sortColumn?: string;
     sortDirection: 'asc' | 'desc';
   };
 }>();
@@ -32,10 +32,12 @@ const emits = defineEmits<{
 }>();
 
 const edit = (data: unknown) => {
+  console.log('edit me', data);
   emits('edit', data);
 };
 
 const deleteFn = (data: unknown) => {
+  console.log('delete me', data);
   emits('delete', data);
 };
 

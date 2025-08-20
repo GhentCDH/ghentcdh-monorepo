@@ -4,6 +4,7 @@ import { defineUserConfig } from 'vuepress';
 import componentsSideBar from '../components/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
 import uiSideBar from '../ui/typedoc_sidebar.json';
+import jsonFormsSideBar from '../json-forms/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -39,6 +40,18 @@ export default defineUserConfig({
               import.meta.url,
             ),
           ),
+          '@ghentcdh/json-forms-vue': fileURLToPath(
+            new URL(
+              '../../libs/json-forms/vue/src/index.ts',
+              import.meta.url,
+            ),
+          ),
+          '@ghentcdh/json-forms-core': fileURLToPath(
+            new URL(
+              '../../libs/json-forms/core/src/index.ts',
+              import.meta.url,
+            ),
+          ),
         },
       },
     },
@@ -71,6 +84,10 @@ export default defineUserConfig({
       {
         text: 'Ui',
         children: uiSideBar,
+      },
+      {
+        text: 'JSON-forms',
+        children: jsonFormsSideBar,
       },
     ].flat(),
   }),
