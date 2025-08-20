@@ -6,12 +6,13 @@ import type { TableAction } from '@ghentcdh/ui';
 import {
   Btn,
   Card,
-  hasCustomEventListener,
   IconEnum,
   ModalService,
+  hasCustomEventListener,
 } from '@ghentcdh/ui';
 
 import { FormModal, FormStore } from './index';
+
 import type { FormModalProps, FormModalResult } from './modal/form-modal.props';
 import type { FormEventListener } from './state/form.state';
 import { TableComponent } from './table';
@@ -100,7 +101,11 @@ const openModal = (formData?: any) => {
       {{ tableTitle }}
     </h1>
     <div>
-      <Btn :icon="IconEnum.Plus" :outline="true" @click="openModal">
+      <Btn
+        :icon="IconEnum.Plus"
+        :outline="true"
+        @click="openModal"
+      >
         Add new record
       </Btn>
     </div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { isArray } from 'lodash-es';
 import { computed, watch } from 'vue';
 
 import type {
@@ -12,7 +13,6 @@ import { Table, TextCell } from '@ghentcdh/ui';
 
 import TableFilter from './filter/table-filter.vue';
 import { useTableStore } from './table.store';
-import { isArray } from 'lodash-es';
 
 const properties = defineProps<{
   id: string;
@@ -117,7 +117,10 @@ const data = computed(() => {
 
 <template>
   <div>
-    <div v-if="filterLayout" class="mb-2">
+    <div
+      v-if="filterLayout"
+      class="mb-2"
+    >
       <TableFilter
         v-if="filterLayout"
         :layout="filterLayout"
