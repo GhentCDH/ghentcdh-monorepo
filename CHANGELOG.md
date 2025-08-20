@@ -1,3 +1,14 @@
+## 0.1.1 (2025-08-20)
+
+### 🩹 Fixes
+
+- json-forms-exports ([835072d](https://github.com/GhentCDH/ghentcdh-monorepo/commit/835072d))
+- remove console.logs ([166748e](https://github.com/GhentCDH/ghentcdh-monorepo/commit/166748e))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.1.1-0 (2025-08-20)
 
 ### 🩹 Fixes
