@@ -2,7 +2,7 @@ const createIcon = (...paths: string[]) => {
   const content = paths
     .map(
       (path) => ` <path
-     stroke-linejoin="round" 
+     stroke-linejoin="round"
       stroke-linecap="round"
       d="${path}"
     />`,
@@ -30,6 +30,8 @@ export enum IconEnum {
   Hamburger = 'Hamburger',
   ChevronDown = 'ChevronDown',
   ChevronUp = 'ChevronUp',
+  DblChevronLeft = 'DblChevronLeft',
+  DblChevronRight = 'DblChevronRight',
   Check = 'Check',
   View = 'View',
   Text = 'Text',
@@ -71,6 +73,10 @@ export const IconMap: Record<IconEnum, string> = {
   Text: createIcon(
     `M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z`,
   ),
+  DblChevronLeft: createIcon(
+    `m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5`,
+  ),
+  DblChevronRight: createIcon(`m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5`),
 } as const;
 
 export type IconDef = keyof typeof IconMap;
