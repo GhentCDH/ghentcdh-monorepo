@@ -13,6 +13,7 @@
   "dependencies": {
     "@anatine/zod-nestjs": "2.0.12",
     "@anatine/zod-openapi": "2.2.8",
+    "@heroicons/vue": "2.2.0",
     "@jsonforms/core": "3.6.0",
     "@jsonforms/vue": "3.6.0",
     "@jsonforms/vue-vanilla": "3.6.0",
