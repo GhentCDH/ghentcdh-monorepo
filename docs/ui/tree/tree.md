@@ -36,7 +36,7 @@ console.log('select', node);
 { id: 'components', label: 'components', children: [
 { id: 'Button.vue', label: 'Button.vue', tag: 'component' },
 { id: 'Card.vue', label: 'Card.vue', tag: 'component' },
-{ id: 'long.vue', label: 'Some very long text that doesn`\t fit inside the text.vue', tag: 'component' },
+{ id: 'long.vue', label: 'Some very long text that doesn\'t fit inside the text.vue', tag: 'component' },
 ]},
 { id: 'App.vue', label: 'App.vue' },
 ]},
