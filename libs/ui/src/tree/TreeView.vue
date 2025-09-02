@@ -47,8 +47,4 @@ const isExpanded = (id: string) => expanded.value.has(id);
   </ul>
 </template>
 
-<script lang="ts">
-export default defineComponent({
-  name: 'TreeView',
-});
-</script>
+<script lang="ts" setup></script>
