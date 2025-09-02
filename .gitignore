@@ -54,7 +54,6 @@ vitest.config.*.timestamp*
 /docs/internal
 /docs/assets
 /docs/api/*
-/docs/components/typedoc_sidebar.json
 /docs/typedoc_sidebar.json
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md

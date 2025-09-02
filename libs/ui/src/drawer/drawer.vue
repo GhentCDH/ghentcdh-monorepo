@@ -2,7 +2,7 @@
   <main class="grid grid-cols-[auto_1fr_auto] h-full overflow-hidden">
     <aside
       id="drawer-left"
-      class="min-w-6 relative flex-shrink-0 bg-white shadow-lg transition-all duration-300 ease-in-out border-r border-gray-200"
+      class="min-h-0 min-w-6 relative flex-shrink-0 bg-white shadow-lg transition-all duration-300 ease-in-out border-l border-gray-200 overflow-visible"
     >
       <div
         :class="['absolute top-0 z-20', open.left ? '-right-0' : '-right-2']"
@@ -31,7 +31,7 @@
       <slot />
     </div>
     <aside
-      class="min-w-6 relative flex-shrink-0 bg-white shadow-lg transition-all duration-300 ease-in-out border-l border-gray-200 overflow-visible"
+      class="min-h-0 min-w-6 relative flex-shrink-0 bg-white shadow-lg transition-all duration-300 ease-in-out border-l border-gray-200 overflow-visible"
     >
       <div
         v-if="open.right"
