@@ -1,3 +1,20 @@
+## 0.2.0 (2025-09-02)
+
+### 🚀 Features
+
+- add drawer component ([63064d8](https://github.com/GhentCDH/ghentcdh-monorepo/commit/63064d8))
+- add drawer component ([a1a2c8b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/a1a2c8b))
+- create tree view ([1c7a05d](https://github.com/GhentCDH/ghentcdh-monorepo/commit/1c7a05d))
+- add tree view ([e63fecb](https://github.com/GhentCDH/ghentcdh-monorepo/commit/e63fecb))
+
+### 🩹 Fixes
+
+- shell scrolling ([faf6615](https://github.com/GhentCDH/ghentcdh-monorepo/commit/faf6615))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.1.1 (2025-08-20)
 
 ### 🩹 Fixes
