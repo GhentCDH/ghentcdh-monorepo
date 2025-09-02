@@ -1,13 +1,12 @@
+import tailwindcss from '@tailwindcss/vite';
 import { viteBundler } from '@vuepress/bundler-vite';
 import { defaultTheme } from '@vuepress/theme-default';
 import { defineUserConfig } from 'vuepress';
-import componentsSideBar from '../components/typedoc_sidebar.json';
+
+import jsonFormsSideBar from '../json-forms/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
 import uiSideBar from '../ui/typedoc_sidebar.json';
-import jsonFormsSideBar from '../json-forms/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
-import tailwindcss from '@tailwindcss/vite';
-
 
 export default defineUserConfig({
   title: 'GhentCDH',
@@ -29,10 +28,7 @@ export default defineUserConfig({
             ),
           ),
           '@ghentcdh/ui': fileURLToPath(
-            new URL(
-              '../../libs/ui/src/index.ts',
-              import.meta.url,
-            ),
+            new URL('../../libs/ui/src/index.ts', import.meta.url),
           ),
           '@ghentcdh/authentication-vue': fileURLToPath(
             new URL(
@@ -41,16 +37,10 @@ export default defineUserConfig({
             ),
           ),
           '@ghentcdh/json-forms-vue': fileURLToPath(
-            new URL(
-              '../../libs/json-forms/vue/src/index.ts',
-              import.meta.url,
-            ),
+            new URL('../../libs/json-forms/vue/src/index.ts', import.meta.url),
           ),
           '@ghentcdh/json-forms-core': fileURLToPath(
-            new URL(
-              '../../libs/json-forms/core/src/index.ts',
-              import.meta.url,
-            ),
+            new URL('../../libs/json-forms/core/src/index.ts', import.meta.url),
           ),
         },
       },
@@ -76,7 +66,6 @@ export default defineUserConfig({
       },
     ],
     sidebar: [
-      componentsSideBar,
       {
         text: 'tools',
         children: toolsSideBar,
