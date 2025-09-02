@@ -28,6 +28,8 @@ export enum IconEnum {
   Plus = 'Plus',
   PaperClip = 'PaperClip',
   Hamburger = 'Hamburger',
+  ChevronRight = 'ChevronRight',
+  ChevronLeft = 'ChevronLeft',
   ChevronDown = 'ChevronDown',
   ChevronUp = 'ChevronUp',
   DblChevronLeft = 'DblChevronLeft',
