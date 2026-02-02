@@ -1,6 +1,9 @@
 <template>
-  <div class="flex items-center justify-center h-20" v-if="loading">
-    <span class="loading loading-bars loading-md text-primary"></span>
+  <div
+    v-if="loading"
+    class="flex items-center justify-center h-20"
+  >
+    <span class="loading loading-bars loading-md text-primary" />
   </div>
 </template>
 
