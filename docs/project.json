@@ -3,13 +3,19 @@
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "docs",
-  "dependencies": ["@ghentcdh/ui"],
   "targets": {
     "build:menu": {
       "executor": "nx:run-commands",
       "dependsOn": [],
       "options": {
         "command": "ts-node --project tools/tsconfig.tools.json tools/doc/vuepress.mjs"
+      }
+    },
+    "build:ui": {
+      "executor": "nx:run-commands",
+      "dependsOn": [],
+      "options": {
+        "command": "nx build ui"
       }
     },
     "build:vuepress": {
@@ -20,7 +26,7 @@
     },
     "build": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build:menu"],
+      "dependsOn": ["build:ui", "build:menu"],
       "options": {
         "command": "vuepress build docs"
       }
