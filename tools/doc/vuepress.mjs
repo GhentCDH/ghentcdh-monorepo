@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
 
@@ -12,7 +13,8 @@ function writeSidebarFile(dir, sidebar) {
 }
 
 function formatText(text) {
-  return text.charAt(0).toUpperCase() + text.replaceAll('-', ' ').slice(1);
+  const replaceDashes = text.replaceAll('-', ' ');
+  return replaceDashes.charAt(0).toUpperCase() + replaceDashes.slice(1);
 }
 
 function generateDirectoryObject(dir, exclude) {
@@ -25,7 +27,6 @@ function generateDirectoryObject(dir, exclude) {
     const filePath = path.join(dirPath, file);
     const stat = fs.statSync(filePath);
 
-    // eslint-disable-next-line no-console
     console.log(exclude, dir, file, exclude.indexOf(file));
 
     if (exclude.indexOf(file) !== -1) return;
@@ -61,7 +62,8 @@ function generateDirectoryObject(dir, exclude) {
     text: formatText(dirName),
     children: items,
     items: items,
-    collapsed: true,
+    // collapsible: files.length > 1,
+    collapsed: false,
     link: indexFile ? `/${dir}/${indexFile}` : '',
   };
 }
@@ -106,11 +108,21 @@ const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
 
     if (file.endsWith('README.md')) {
       console.log(`Copying ${file} to ${toFile}`);
-      fs.copyFileSync(file, toFile);
+      // replace docs/images to _media in to file
+      const data = fs
+        .readFileSync(file, 'utf8')
+        .replace(/docs\/_media/g, '_media');
+
+      fs.writeFileSync(toFile, data);
     }
   });
 };
 
+
+
+
+
+copyReadme('', '', 1);
 copyReadme('libs/authentication', 'authentication');
 copyReadme('libs/tools', 'tools');
 copyReadme('libs/ui', 'ui');

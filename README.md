@@ -9,12 +9,14 @@ This monorepo is designed to manage and share reusable logic across **GhentCDH**
 Using a **monorepo** instead of multiple independent repositories provides several benefits:
 
 ### ✅ **Advantages**
+
 - **Consistent Updates** – All projects automatically use the latest versions of shared logic.
 - **Easier Maintenance** – Bug fixes and improvements benefit all dependent projects simultaneously.
 - **Simplified Major Upgrades** – Updates to frameworks and dependencies can be applied in a controlled manner.
 - **Shared Styling and Components** – A uniform UI/UX across different projects enhances maintainability.
 
 ### ⚠️ **Potential Challenges**
+
 - **Risk of Breaking Changes** – Updates may require adjustments in dependent projects.
 - **Project-Specific Logic** – Some logic may be too specific to be shared effectively.
 - **Version Synchronization** – Dependent projects must keep up with updates for improvements and fixes.
@@ -36,17 +38,18 @@ This monorepo is structured to support **TypeScript-based** projects and integra
 
 ### 🛠 **Tooling Stack**
 
-| **Technology**   | **Purpose** |
-|------------------|------------|
-| **Nx**           | Manages the monorepo, enforces dependencies, and supports efficient builds. |
-| **TypeScript**   | Ensures type safety and better maintainability. |
-| **Vue 3**        | Provides reusable UI components and frontend utilities. |
-| **NestJS**       | Used for backend API modules and core logic. |
-| **Vitest**       | A fast and modern testing framework for TypeScript. |
+| **Technology**   | **Purpose**                                                                           |
+|------------------|---------------------------------------------------------------------------------------|
+| **Nx**           | Manages the monorepo, enforces dependencies, and supports efficient builds.           |
+| **TypeScript**   | Ensures type safety and better maintainability.                                       |
+| **Vue 3**        | Provides reusable UI components and frontend utilities.                               |
+| **NestJS**       | Used for backend API modules and core logic.                                          |
+| **Vitest**       | A fast and modern testing framework for TypeScript.                                   |
 | **Tailwind CSS** | Enables rapid UI development and supports both **Ugent** and **white-label** styling. |
-| **Vitepress**    | Generates up-to-date documentation for shared libraries. |
+| **Vitepress**    | Generates up-to-date documentation for shared libraries.                              |
 
 ### 🔍 **Nx Enforced Dependencies**
+
 - **Vue components** can only depend on **plain JavaScript** and frontend libraries (not backend libraries).
 - Backend modules are kept separate from frontend-specific implementations for a clear separation of concerns.
 
@@ -61,30 +64,34 @@ A well-structured monorepo ensures **modular development** while enforcing prope
     /authentication
         /api
         /vue
-    /ui
-        /components
+    /core
+        /types
+    /json-forms
+        /api
         /core
-        /json-forms
-        /icons
+        /vue
     /tools
         /api
         /vue
-        /core
+    /ui
 ```
 
 ### 📌 **Folder Breakdown**
 
-| **Folder**       | **Purpose** |
-|----------------|------------|
-| `libs/authentication` | Handles authentication-related logic. |
-| `libs/ui` | Manages reusable UI components, core styles, and icons. |
-| `libs/health` | Includes health-check functionalities and monitoring tools. |
-| `libs/logging` | Provides centralized logging logic for applications. |
+| **Folder**            | **Purpose**                                           |
+|-----------------------|-------------------------------------------------------|
+| `libs/authentication` | Handles authentication-related logic.                 |
+| `libs/core`           | Shared types and core utilities used across modules.  |
+| `libs/json-forms`     | JSON Forms integration for dynamic form generation.   |
+| `libs/tools`          | Utility functions and helpers for API and Vue.        |
+| `libs/ui`             | Manages reusable UI components and styles.            |
 
-Each module is further **split into three categories**:
-- **API** – Backend logic and endpoints.
+Each module is further **split into categories**:
+
+- **api** – Backend logic and endpoints.
 - **vue** – UI components and frontend-specific implementations.
-- **Core** – Shared logic used across different layers.
+- **core** – Shared logic used across different layers.
+- **types** – TypeScript type definitions.
 
 ---
 
@@ -95,8 +102,8 @@ Each module is further **split into three categories**:
 Clone the repository and install dependencies:
 
 ```sh
-git clone https://github.com/GhentCDH/monorepo.git
-cd monorepo
+git clone https://github.com/GhentCDH/ghentcdh-monorepo.git
+cd ghentcdh-monorepo
 npm install
 ```
 
@@ -105,10 +112,10 @@ npm install
 This will start a development server including the documentation
 
 ```sh
-pnpm run docs:dev
+nx run docs:serve
 ```
 
-Accessing the documentation server: [http://localhost](http://localhost:5000)
+Accessing the documentation server: http://localhost:5173
 
 ### **Building the Project**
 
@@ -133,8 +140,6 @@ Documentation will be published to **GitHub Docs** for easy access.
 This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
 
 ---
-
-Would you like to include **additional details** like deployment instructions or CI/CD setup? 🚀
 
 # credits
 
