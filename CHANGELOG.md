@@ -1,3 +1,14 @@
+## 0.2.2 (2026-02-02)
+
+### 🩹 Fixes
+
+- reload store functionality ([3e9f065](https://github.com/GhentCDH/ghentcdh-monorepo/commit/3e9f065))
+- reload store functionality ([39c42cb](https://github.com/GhentCDH/ghentcdh-monorepo/commit/39c42cb))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.2.1 (2026-02-02)
 
 ### 🚀 Features
