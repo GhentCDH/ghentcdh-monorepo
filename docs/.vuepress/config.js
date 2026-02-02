@@ -27,6 +27,9 @@ export default defineUserConfig({
               import.meta.url,
             ),
           ),
+          '@ghentcdh/ui/style.css': fileURLToPath(
+            new URL('../../dist/libs/ui/index.css', import.meta.url),
+          ),
           '@ghentcdh/ui': fileURLToPath(
             new URL('../../libs/ui/src/index.ts', import.meta.url),
           ),
