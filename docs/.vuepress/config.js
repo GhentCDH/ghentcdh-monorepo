@@ -8,7 +8,8 @@ import toolsSideBar from '../tools/typedoc_sidebar.json';
 import uiSideBar from '../ui/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 
-export default defineUserConfig({
+export default defineUserConfig({ 
+  base: process.env.DOCS_BASE ? `${process.env.DOCS_BASE}/` : '/',   
   title: 'GhentCDH',
   lastUpdated: true,
   cleanUrls: true,
