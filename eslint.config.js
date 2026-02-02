@@ -17,6 +17,8 @@ module.exports = [
   importPlugin.flatConfigs['recommended'],
   {
     ignores: [
+      'docs',
+      '**/docs/**',
       '**/dist',
       'generated/prisma-client',
       '**/vite.config.*.timestamp*',

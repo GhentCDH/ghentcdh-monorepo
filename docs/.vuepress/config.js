@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import { viteBundler } from '@vuepress/bundler-vite';
-import { defaultTheme } from '@vuepress/theme-default';
 import { defineUserConfig } from 'vuepress';
+import { hopeTheme } from 'vuepress-theme-hope';
 
 import jsonFormsSideBar from '../json-forms/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
@@ -53,14 +53,16 @@ export default defineUserConfig({
   // postcss: {
   //   plugins: [require('@tailwindcss/postcss'), require('autoprefixer')],
   // },
-  theme: defaultTheme({
-    docsRepo: 'https://github.com/GhentCDH/Mela',
-    docsBranch: 'master',
+  theme: hopeTheme({
+    docsRepo: 'https://github.com/GhentCDH/ghentcdh-monorepo',
+    docsBranch: 'main',
     docsDir: 'docs',
     // editLinkPattern: ':repo/tree/:branch/:path',
     lastUpdated: true,
     colorMode: 'light',
-    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/Mela' }],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/GhentCDH/ghentcdh-monorepo' },
+    ],
     // colorModeSwitch: false,
     navbar: [
       {

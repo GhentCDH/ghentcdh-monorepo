@@ -111,6 +111,7 @@ const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
   });
 };
 
+copyReadme('', '', 1);
 copyReadme('libs/authentication', 'authentication');
 copyReadme('libs/tools', 'tools');
 copyReadme('libs/ui', 'ui');
