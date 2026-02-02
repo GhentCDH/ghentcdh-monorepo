@@ -1,12 +1,12 @@
+<template>
+  <ParentLayout />
+</template>
+
 <script setup>
-import ParentLayout from '@vuepress/theme-default/layouts/Layout.vue';
+import ParentLayout from 'vuepress-theme-hope/layouts/Layout.js';
 import '../styles/style.scss';
 import '../../../../dist/libs/ui/index.css';
 </script>
-
-<template>
-  <ParentLayout></ParentLayout>
-</template>
 
 <style lang="css">
 @import 'tailwindcss';

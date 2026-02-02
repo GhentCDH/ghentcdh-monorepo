@@ -11,11 +11,11 @@ import {
   hasCustomEventListener,
 } from '@ghentcdh/ui';
 
-import { FormModal, FormStore } from './index';
 
 import type { FormModalProps, FormModalResult } from './modal/form-modal.props';
 import type { FormEventListener } from './state/form.state';
 import { TableComponent } from './table';
+import { FormModal, FormStore } from './index';
 
 type Data = {
   [key: string]: any;

@@ -1,12 +1,12 @@
 import tailwindcss from '@tailwindcss/vite';
 import { viteBundler } from '@vuepress/bundler-vite';
-import { defaultTheme } from '@vuepress/theme-default';
 import { defineUserConfig } from 'vuepress';
+import { hopeTheme } from 'vuepress-theme-hope';
 
+import { fileURLToPath } from 'node:url';
 import jsonFormsSideBar from '../json-forms/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
 import uiSideBar from '../ui/typedoc_sidebar.json';
-import { fileURLToPath } from 'node:url';
 
 export default defineUserConfig({
   title: 'GhentCDH',
@@ -50,14 +50,17 @@ export default defineUserConfig({
   // postcss: {
   //   plugins: [require('@tailwindcss/postcss'), require('autoprefixer')],
   // },
-  theme: defaultTheme({
+  theme: hopeTheme({
+    darkmode: 'disable',
     docsRepo: 'https://github.com/GhentCDH/Mela',
-    docsBranch: 'master',
+    docsBranch: 'main',
     docsDir: 'docs',
     // editLinkPattern: ':repo/tree/:branch/:path',
     lastUpdated: true,
     colorMode: 'light',
-    socialLinks: [{ icon: 'github', link: 'https://github.com/GhentCDH/Mela' }],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/GhentCDH/ghentcdh-monorepo' },
+    ],
     // colorModeSwitch: false,
     navbar: [
       {

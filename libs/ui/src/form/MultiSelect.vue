@@ -42,11 +42,11 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 
-import { Icon, IconEnum } from '../icons';
 import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
 import type { SelectControlProperties } from './core/properties';
 import { DefaultControlProperties } from './core/properties';
+import { Icon, IconEnum } from '../icons';
 
 const properties = withDefaults(defineProps<SelectControlProperties>(), {
   ...DefaultControlProperties(),

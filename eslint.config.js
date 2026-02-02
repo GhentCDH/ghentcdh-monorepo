@@ -2,148 +2,75 @@ const nx = require('@nx/eslint-plugin');
 const importPlugin = require('eslint-plugin-import');
 
 module.exports = [
-  {
-    files: ['**/*.json'],
-    // Override or add rules here
-    rules: {},
-    languageOptions: {
-      parser: require('jsonc-eslint-parser'),
-    },
-  },
-
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
-  importPlugin.flatConfigs['recommended'],
   {
     ignores: [
+      '**/playwright-report/**',
+      '**/dist/**',
+      '**/dist-ssr/**',
+      '**/coverage/**',
+      '**/docs/components/**',
+      '**/docs/api/**',
+      '**/docs/**',
       '**/dist',
-      'generated/prisma-client',
+      '**/out-tsc',
       '**/vite.config.*.timestamp*',
-      '**/vitest.config.*.timestamp*',
     ],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],
     rules: {
-      'no-console': ['error', { allow: ['warn', 'error'] }],
-      '@typescript-eslint/consistent-type-imports': 'error',
       '@nx/enforce-module-boundaries': [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
-              sourceTag: 'scope:shared',
-              bannedExternalImports: [
-                '@vue/*',
-                '@nestjs/*',
-                '@anatine/zod-nestjs',
-              ],
-              onlyDependOnLibsWithTags: ['scope:shared'],
-            },
-            {
-              sourceTag: 'scope:tool',
-              bannedExternalImports: [],
-              onlyDependOnLibsWithTags: ['scope:tool', 'scope:shared'],
-            },
-            {
-              sourceTag: 'scope:feature',
-              bannedExternalImports: [],
-              onlyDependOnLibsWithTags: [
-                'scope:tool',
-                'scope:shared',
-                'scope:feature',
-              ],
-            },
-            {
-              sourceTag: 'scope:api',
-              bannedExternalImports: ['@vue/*'],
-              onlyDependOnLibsWithTags: [
-                'scope:api',
-                'scope:shared',
-                'scope:tool',
-              ],
-            },
-            {
-              sourceTag: 'scope:ui',
-              bannedExternalImports: [
-                '@nestjs/*',
-                '@anatine/zod-nestjs',
-                '@anatine/zod-openapi',
-              ],
-              onlyDependOnLibsWithTags: [
-                'scope:ui',
-                'scope:shared',
-                'scope:tool',
-              ],
-            },
-            {
-              sourceTag: 'app:api',
-              bannedExternalImports: ['@vue/*'],
-              onlyDependOnLibsWithTags: [
-                'scope:api',
-                'scope:shared',
-                'scope:tool',
-                'scope:feature',
-              ],
-            },
-            {
-              sourceTag: 'app:ui',
-              bannedExternalImports: [
-                '@nestjs/*',
-                '@anatine/zod-nestjs',
-                '@anatine/zod-openapi',
-              ],
-              onlyDependOnLibsWithTags: [
-                'scope:ui',
-                'scope:shared',
-                'scope:tool',
-                'scope:feature',
-              ],
-            },
-            {
-              sourceTag: 'scope:ui',
-              // bannedExternalImports: ['@jsonforms/*'],
-              onlyDependOnLibsWithTags: [
-                'scope:ui',
-                'scope:shared',
-                'scope:tool',
-                'scope:generated',
-              ],
+              sourceTag: '*',
+              onlyDependOnLibsWithTags: ['*'],
             },
           ],
-        },
-      ],
-      'import/named': 'off',
-      'import/no-unresolved': 'off',
-      'import/newline-after-import': ['error', { count: 1 }],
-      'import/order': [
-        'error',
-        {
-          named: true,
-          // sortTypesAmongThemselves: true,
-          alphabetize: {
-            order: 'asc',
-          },
-          'newlines-between': 'always',
-          pathGroups: [
-            {
-              pattern: '@ghentcdh/**',
-              group: 'external',
-              position: 'after',
-            },
-          ],
-          pathGroupsExcludedImportTypes: ['builtin'],
-          groups: ['external', 'internal', 'index', 'object'],
         },
       ],
     },
   },
+  importPlugin.flatConfigs.recommended,
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    // Override or add rules here
-    rules: {},
+    files: ['**/*.{js,vue,ts,mjs,cjs}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+    rules: {
+      quotes: ['error', 'single'],
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'inline-type-imports',
+        },
+      ],
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'import/named': 'off',
+      'import/no-unresolved': 'off',
+      'import/order': [
+        1,
+        {
+          groups: [
+            'external',
+            'builtin',
+            'internal',
+            'sibling',
+            'parent',
+            'index',
+          ],
+        },
+      ],
+    },
   },
 ];

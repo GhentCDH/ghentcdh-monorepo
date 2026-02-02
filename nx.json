@@ -17,17 +17,17 @@
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
-        "targetName": "lint"
+        "targetName": "eslint:lint"
       }
     },
     {
       "plugin": "@nx/vite/plugin",
       "options": {
-        "buildTargetName": "build",
+        "buildTargetName": "vite:build",
         "testTargetName": "test",
         "serveTargetName": "serve",
-        "devTargetName": "dev",
-        "previewTargetName": "preview",
+        "devTargetName": "vite:dev",
+        "previewTargetName": "vite:preview",
         "serveStaticTargetName": "serve-static",
         "typecheckTargetName": "typecheck",
         "buildDepsTargetName": "build-deps",
@@ -38,22 +38,20 @@
       "plugin": "@nx/playwright/plugin",
       "options": {
         "targetName": "e2e"
+      },
+      "exclude": ["docs/**", "libs/vue-component/**", "libs/core/**"]
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test"
       }
     }
   ],
-  "targetDefaults": {
-    "e2e-ci--**/*": {
-      "dependsOn": ["^build"]
-    },
-    "@nx/js:tsc": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    }
-  },
   "release": {
     "projects": ["*", "!@ghentcdh/source"],
     "version": {
+      "conventionalCommits": true,
       "preVersionCommand": "npx nx run-many -t build"
     },
     "changelog": {

@@ -24,8 +24,8 @@
 
 <script setup lang="ts">
 import Modal from './modal.vue';
-import { Btn } from '../button';
 import type { ConfirmModalProps, ConfirmResult } from './modal.model';
+import { Btn } from '../button';
 import { Color } from '../const/colors';
 
 withDefaults(defineProps<ConfirmModalProps>(), {

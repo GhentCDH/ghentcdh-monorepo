@@ -42,8 +42,8 @@ import { ref } from 'vue';
 
 import { Btn, Color, Modal } from '@ghentcdh/ui';
 
-import FormComponent from '../form.component.vue';
 import type { FormModalProps } from './form-modal.props';
+import FormComponent from '../form.component.vue';
 
 const properties = withDefaults(defineProps<FormModalProps>(), {
   cancelLabel: 'cancel',

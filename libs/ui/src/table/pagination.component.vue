@@ -48,7 +48,7 @@ const hideRange = computed(() => {
 
 const createDummyPage = (current: number) => {
   return {
-    label: `...`,
+    label: '...',
     currentPage: current,
     page: -10,
     disabled: true,

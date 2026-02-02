@@ -99,9 +99,9 @@ import { useRouter } from 'vue-router';
 
 import { Btn, IconEnum } from '@ghentcdh/ui';
 
-import { isArrayRenderer } from '../tester';
 import type { Action} from './map-array-actions';
 import { mapArrayActions } from './map-array-actions';
+import { isArrayRenderer } from '../tester';
 import { useFormState } from '../../state/form.state';
 
 const controlRenderer = defineComponent({
