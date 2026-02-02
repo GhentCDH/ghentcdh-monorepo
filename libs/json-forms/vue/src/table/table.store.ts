@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { useHttpRequest } from '@ghentcdh/authentication-vue';
-import { RequestSchema, extractFilters } from '@ghentcdh/json-forms-core';
+import { extractFilters, RequestSchema } from '@ghentcdh/json-forms-core';
 
 type RequestData = any;
 
@@ -19,14 +19,18 @@ class TableStore {
 
   private requestData = ref<RequestData>(RequestSchema.parse(this.route.query));
 
-  private reload = ref(Date.now());
+  private _reload = ref(Date.now());
   public loading = ref(true);
 
   private uri = ref<string>('');
 
+  public reload() {
+    this._reload.value = Date.now();
+  }
+
   public data = computedAsync(async () => {
     // Don't remove to listen on reload!
-    const r = this.reload.value;
+    const r = this._reload.value;
 
     if (!this.uri.value) return null;
 
@@ -57,10 +61,6 @@ class TableStore {
     const d = this.data.value;
     return this.loading?.value ? [] : (d?.data ?? []);
   });
-
-  private reloadFn = () => {
-    this.reload.value = Date.now();
-  };
 
   private init = (url: string) => {
     this.uri.value = url;
