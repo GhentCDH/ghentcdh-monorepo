@@ -48,6 +48,7 @@ vitest.config.*.timestamp*
 /docs/.vuepress/*
 /docs/**/README.md
 !/docs/.vuepress/theme
+!/docs/.vuepress/styles
 !/docs/.vuepress/config.js
 !/docs/.vuepress/client.js
 /test_coverage
