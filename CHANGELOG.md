@@ -1,3 +1,14 @@
+## 0.2.1 (2026-02-02)
+
+### 🚀 Features
+
+- add loading component ([ae7c0ab](https://github.com/GhentCDH/ghentcdh-monorepo/commit/ae7c0ab))
+- loading component ([21e464c](https://github.com/GhentCDH/ghentcdh-monorepo/commit/21e464c))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.2.0 (2025-09-02)
 
 ### 🚀 Features
