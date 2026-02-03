@@ -1,7 +1,7 @@
 {
   "name": "@ghentcdh/ui",
   "author": "GhentCDH",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "./index.cjs",
   "module": "./index.js",
   "types": "./index.d.ts",
