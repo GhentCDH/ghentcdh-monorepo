@@ -14,17 +14,10 @@
           </button>
         </div>
         <div class="navbar-center">
-          <a
-            class="btn btn-ghost text-xl"
-            :href="baseUrl"
-          >{{ title }}</a>
+          <a class="btn btn-ghost text-xl" :href="baseUrl">{{ title }}</a>
         </div>
         <div class="navbar-end">
-          <SubMenu
-            v-if="userMenu"
-            v-bind="userMenu"
-            :btn-class="''"
-          />
+          <SubMenu v-if="userMenu" v-bind="userMenu" :btn-class="''" />
         </div>
       </nav>
     </header>
@@ -39,23 +32,18 @@
       >
         <div class="menu h-full flex-col space-between m-0 overflow-y-auto">
           <ul class="flex-grow-1">
-            <li
-              v-for="item of menu"
-              :key="item.label"
-            >
+            <li v-for="item of menu" :key="item.label">
               <RouterLink :to="{ name: item.routerLink, params: item.params }">
                 {{ item.label }}
               </RouterLink>
             </li>
           </ul>
-          <div class="bg-base-200 p-4">
-            version: {{ version }}
-          </div>
+          <div class="bg-base-200 p-4">version: {{ version }}</div>
         </div>
       </aside>
     </template>
     <main
-      :class="`overflow-hidden fixed border-red  bg-white p-4 mx-auto max-h-full  shadow-sm `"
+      :class="`overflow-hidden fixed border-red  bg-white mx-auto max-h-full  shadow-sm `"
       :style="{
         top: `${navbarHeight}px`,
         bottom: `2px`,

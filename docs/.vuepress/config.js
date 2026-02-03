@@ -64,6 +64,13 @@ export default defineUserConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/GhentCDH/ghentcdh-monorepo' },
     ],
+    plugins: {
+      mdEnhance: {
+        tabs: true,
+        codetabs: true,
+        demo: true,
+      },
+    },
     // colorModeSwitch: false,
     navbar: [
       {
