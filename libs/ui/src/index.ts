@@ -21,3 +21,4 @@ export * from './form';
 export * from './drawer';
 export * from './tree';
 export * from './loading';
+export * from './collapse';
