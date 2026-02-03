@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: main  # Deploy from main, not the tag
 
       - uses: ./.github/actions/use-cache
       - name: Install Node.js
