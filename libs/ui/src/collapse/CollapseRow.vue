@@ -9,12 +9,15 @@
         <span v-else>{{ description }}</span>
       </div>
     </div>
-    <div v-if="label" class="text-xs text-gray-600">
+    <div v-if="label" class="text-xs text-gray-500">
       <a v-if="labelLink" :href="labelLink" target="_blank">
         {{ label }}
       </a>
       <span v-else>{{ label }}</span>
     </div>
+    <p class="list-col-wrap text-xs text-gray-500">
+      <ng-content />
+    </p>
   </li>
 </template>
 <script setup lang="ts">
