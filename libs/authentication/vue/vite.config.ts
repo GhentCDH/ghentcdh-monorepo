@@ -43,7 +43,7 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['vue', ],
+      external: ['keycloak-js', 'vue'],
       output: {
         globals: {
           vue: 'Vue',

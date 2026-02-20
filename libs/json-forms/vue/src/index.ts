@@ -11,4 +11,3 @@ export { default as FormComponent } from './form.component.vue';
 
 export * from './modal';
 export * from './table';
-export * from './repository';

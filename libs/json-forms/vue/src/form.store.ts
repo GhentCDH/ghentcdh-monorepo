@@ -4,8 +4,6 @@ import { useApi } from '@ghentcdh/tools-vue';
 import { NotificationService } from '@ghentcdh/ui';
 
 export class FormStore {
-  private httpRequest = useApi();
-
   constructor(private readonly schema: FormSchemaModel) {
     // if (this.uri.value === schema.uri) return;
     // uri.value = schema.uri;
@@ -16,7 +14,7 @@ export class FormStore {
   }
 
   public async delete<T>(data: T & { id?: string }) {
-    return this.httpRequest
+    return useApi()
       .delete(`${this.uri}/${data.id}`)
       .then(() => {
         NotificationService.success('Data deleted');
@@ -32,8 +30,8 @@ export class FormStore {
     if (!this.uri) return;
 
     const promise = id
-      ? this.httpRequest.patch(`${this.uri}/${id}`, data)
-      : this.httpRequest.post(this.uri, data);
+      ? useApi().patch(`${this.uri}/${id}`, data)
+      : useApi().post(this.uri, data);
 
     return promise
       .then(() => {

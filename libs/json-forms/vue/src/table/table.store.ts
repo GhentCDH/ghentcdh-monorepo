@@ -40,9 +40,9 @@ class TableStore {
       this.requestData.value.page = 1;
     }
 
-    const response = await this.httpRequest
+    const response = await useApi()
       .get<any>(this.uri.value, {
-        queryParams: this.requestData.value,
+        params: this.requestData.value,
       })
       .catch((error) => {
         console.error(error);

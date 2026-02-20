@@ -1,3 +1,18 @@
+## 0.5.0 (2026-02-20)
+
+### 🚀 Features
+
+- add load env defaults and default api request ([7b1b6b3](https://github.com/GhentCDH/ghentcdh-monorepo/commit/7b1b6b3))
+- add load env defaults and default api request ([faf2bd1](https://github.com/GhentCDH/ghentcdh-monorepo/commit/faf2bd1))
+
+### 🩹 Fixes
+
+- publish docs workflow ([12ea278](https://github.com/GhentCDH/ghentcdh-monorepo/commit/12ea278))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.4.0 (2026-02-03)
 
 ### 🚀 Features
