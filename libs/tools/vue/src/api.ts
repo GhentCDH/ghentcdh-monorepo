@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance } from 'axios';
+import axios, { type AxiosInstance, AxiosRequestInterceptorUse } from 'axios';
 
 import { getRuntimeConfig } from './runtime.config';
 
@@ -37,6 +37,7 @@ const createApi = () => {
 };
 
 let cachedApi: AxiosInstance;
+export type HttpRequest<T> = typeof cachedApi;
 
 export function useApi() {
   if (!cachedApi) {

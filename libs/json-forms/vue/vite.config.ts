@@ -41,14 +41,18 @@ export default defineConfig({
     rollupOptions: {
       // External packages that should not be bundled into your library.
       external: [
+        '@anatine/zod-openapi',
+        '@ghentcdh/authentication-vue',
+        '@ghentcdh/json-forms-core',
+        '@ghentcdh/tools-vue',
+        '@ghentcdh/ui',
         '@jsonforms/core',
         '@jsonforms/core/src/testers/testers',
         '@jsonforms/vue',
         '@jsonforms/vue-vanilla',
         '@toast-ui/editor',
         '@vueuse/core',
-        '@ghentcdh/authentication-vue',
-        '@ghentcdh/ui',
+        'lodash-es',
         'vue',
         'vue-router',
       ],

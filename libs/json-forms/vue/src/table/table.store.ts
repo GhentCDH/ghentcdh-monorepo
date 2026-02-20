@@ -2,7 +2,7 @@ import { computedAsync } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { RequestSchema, extractFilters } from '@ghentcdh/json-forms-core';
+import { extractFilters, RequestSchema } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 
 type RequestData = any;
@@ -40,9 +40,9 @@ class TableStore {
       this.requestData.value.page = 1;
     }
 
-    const response = await this.httpRequest
+    const response = await useApi()
       .get<any>(this.uri.value, {
-        queryParams: this.requestData.value,
+        params: this.requestData.value,
       })
       .catch((error) => {
         console.error(error);
