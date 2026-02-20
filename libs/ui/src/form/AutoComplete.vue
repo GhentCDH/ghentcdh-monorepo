@@ -38,8 +38,8 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-import { useHttpRequest } from '@ghentcdh/authentication-vue';
 import type { ResponseData } from '@ghentcdh/core/types';
+import { useApi } from '@ghentcdh/tools-vue';
 
 import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
@@ -82,7 +82,7 @@ const leaveResult = (index: number) => {
   if (results.value?.length === index + 1) results.value = [];
   // TODO handle the change
 };
-const httpRequest = useHttpRequest();
+const httpRequest = useApi();
 
 const getValueField = (field: any) => field[properties.valueKey];
 const getLabel = (field: any) => field?.[properties.labelKey] ?? '';

@@ -1,25 +1,22 @@
 // import { defineStore } from 'pinia';
-import { ref } from 'vue';
-
-import { useHttpRequest } from '@ghentcdh/authentication-vue';
 import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
+import { useApi } from '@ghentcdh/tools-vue';
 import { NotificationService } from '@ghentcdh/ui';
 
 export class FormStore {
+  private httpRequest = useApi();
 
-  private httpRequest = useHttpRequest();
+  constructor(private readonly schema: FormSchemaModel) {
+    // if (this.uri.value === schema.uri) return;
+    // uri.value = schema.uri;
+  }
 
-  constructor(private readonly schema: FormSchemaModel)  {
-  // if (this.uri.value === schema.uri) return;
-  // uri.value = schema.uri;
-};
-
-  private get uri(){
+  private get uri() {
     return this.schema.uri;
   }
 
- public async delete  <T>(data: T & { id?: string }) {
-  return    this.httpRequest
+  public async delete<T>(data: T & { id?: string }) {
+    return this.httpRequest
       .delete(`${this.uri}/${data.id}`)
       .then(() => {
         NotificationService.success('Data deleted');
@@ -29,9 +26,9 @@ export class FormStore {
 
         NotificationService.error('Error deleting data');
       });
-  };
+  }
 
-  public async save  <T>(id: string | null, data: T)  {
+  public async save<T>(id: string | null, data: T) {
     if (!this.uri) return;
 
     const promise = id
@@ -47,6 +44,5 @@ export class FormStore {
 
         NotificationService.error('Error saving data');
       });
-  };
-
+  }
 }

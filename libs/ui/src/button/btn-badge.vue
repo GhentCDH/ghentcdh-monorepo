@@ -15,13 +15,13 @@
 </template>
 
 <script setup lang="ts">
+import { ButtonType } from './const';
+import type { Color } from '../const/colors';
+import { BadgeColor } from '../const/colors';
 import type { Size } from '../const/size';
 import { BadgeSize } from '../const/size';
 import type { IconEnum } from '../icons';
 import { Icon } from '../icons';
-import { ButtonType } from './const';
-import type { Color } from '../const/colors';
-import { BadgeColor } from '../const/colors';
 
 withDefaults(
   defineProps<{

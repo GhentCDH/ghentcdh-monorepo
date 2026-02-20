@@ -2,8 +2,8 @@ import { computedAsync } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { useHttpRequest } from '@ghentcdh/authentication-vue';
 import { RequestSchema, extractFilters } from '@ghentcdh/json-forms-core';
+import { useApi } from '@ghentcdh/tools-vue';
 
 type RequestData = any;
 
@@ -14,7 +14,7 @@ class TableStore {
   private router = useRouter();
 
   private get httpRequest() {
-    return useHttpRequest();
+    return useApi();
   }
 
   private requestData = ref<RequestData>(RequestSchema.parse(this.route.query));
