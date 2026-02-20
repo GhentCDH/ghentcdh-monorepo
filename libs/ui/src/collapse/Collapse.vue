@@ -1,12 +1,18 @@
 <template>
   <div class="collapse collapse-arrow bg-white w-full border border-gray-300">
-    <input type="checkbox" :checked="checked" />
+    <input
+      type="checkbox"
+      :checked="checked"
+    >
     <div class="collapse-title text-gray-500 text-xs font-medium">
       {{ title }}
     </div>
     <div :class="['collapse-content', slots.list ? 'p-0' : '']">
       <slot />
-      <ul v-if="slots.list" class="list bg-base-100">
+      <ul
+        v-if="slots.list"
+        class="list bg-base-100"
+      >
         <slot name="list" />
       </ul>
     </div>

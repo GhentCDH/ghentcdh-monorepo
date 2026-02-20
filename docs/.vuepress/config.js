@@ -46,6 +46,9 @@ export default defineUserConfig({
           '@ghentcdh/json-forms-core': fileURLToPath(
             new URL('../../libs/json-forms/core/src/index.ts', import.meta.url),
           ),
+          '@ghentcdh/tools-vue': fileURLToPath(
+            new URL('../../libs/tools/vue/src/index.ts', import.meta.url),
+          ),
         },
       },
     },

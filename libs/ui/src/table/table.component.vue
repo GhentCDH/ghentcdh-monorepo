@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import TextCell from './cells/text.cell.vue';
+import SortHeader from './header/sort.header.vue';
+import PaginationComponent from './pagination.component.vue';
 import type { DisplayColumn, TableAction } from './table.model';
 import Btn from '../button/btn.vue';
 import { IconEnum } from '../icons';
-import SortHeader from './header/sort.header.vue';
-import PaginationComponent from './pagination.component.vue';
 
 const properties = defineProps<{
   loading?: boolean;

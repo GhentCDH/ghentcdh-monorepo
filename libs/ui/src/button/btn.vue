@@ -20,12 +20,12 @@
 </template>
 
 <script setup lang="ts">
-import type { IconEnum } from '../icons';
-import { Icon } from '../icons';
 import { ButtonTag, ButtonType } from './const';
 import { ButtonColor, Color } from '../const/colors'; // TODO add properties for links
 import type { Size } from '../const/size';
 import { ButtonSize } from '../const/size';
+import type { IconEnum } from '../icons';
+import { Icon } from '../icons';
 
 // TODO add properties for links
 

@@ -23,6 +23,7 @@
     "@nestjs/terminus": "^11.0.0",
     "@toast-ui/editor": "3.2.2",
     "@vueuse/core": "14.2.0",
+    "axios": "1.13.5",
     "daisyui": "5.5.16",
     "keycloak-connect": "^26.1.1",
     "keycloak-js": "^26.2.2",
