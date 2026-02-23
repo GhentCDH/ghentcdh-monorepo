@@ -2,13 +2,14 @@
   "name": "@ghentcdh/ui",
   "author": "GhentCDH",
   "version": "0.6.0",
-  "main": "./index.cjs",
-  "module": "./index.js",
+  "main": "./index.js",
+  "module": "./index.mjs",
   "types": "./index.d.ts",
   "exports": {
     ".": {
+      "import": "./index.mjs",
       "require": "./index.js",
-      "import": "./index.js"
+      "types": "./index.d.ts"
     },
     "./index.css": "./index.css",
     "./package.json": "./package.json"
@@ -16,6 +17,7 @@
   "files": [
     "*.js",
     "*.cjs",
+    "*.mjs",
     "*.d.ts",
     "*.css",
     "*.md",
@@ -23,7 +25,14 @@
     "lib/**"
   ],
   "sideEffects": false,
-  "dependencies": {},
+  "peerDependencies": {
+    "@ghentcdh/tools-vue": ">=0.6.0",
+    "@heroicons/vue": "^2.2.0",
+    "@toast-ui/editor": "^3.2.0",
+    "uuid": "^11.0.0",
+    "vue": "^3.5.0",
+    "vue-router": "^5.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git",

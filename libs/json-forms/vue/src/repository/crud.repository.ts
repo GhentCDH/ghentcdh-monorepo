@@ -1,5 +1,6 @@
+import type { AxiosRequestInterceptorUse } from 'axios';
+
 import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
-import { AxiosRequestInterceptorUse } from 'axios';
 
 type RequestOptions = {
   skipAuth?: boolean;

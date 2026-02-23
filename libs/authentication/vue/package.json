@@ -3,17 +3,18 @@
   "license": "MIT",
   "version": "0.6.0",
   "main": "./index.js",
+  "module": "./index.mjs",
   "types": "./index.d.ts",
-  "dependencies": {
-    "vue": "^3.5.13",
-    "keycloak-js": "^26.1.2"
-  },
   "exports": {
     ".": {
       "import": "./index.mjs",
       "require": "./index.js",
       "types": "./index.d.ts"
     }
+  },
+  "peerDependencies": {
+    "keycloak-js": "^26.0.0",
+    "vue": "^3.5.0"
   },
   "repository": {
     "type": "git",

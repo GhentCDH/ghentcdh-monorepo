@@ -2,15 +2,29 @@
   "name": "@ghentcdh/json-forms-vue",
   "version": "0.6.0",
   "main": "./index.js",
+  "module": "./index.mjs",
   "types": "./index.d.ts",
   "exports": {
     ".": {
       "import": "./index.mjs",
-      "require": "./index.js"
+      "require": "./index.js",
+      "types": "./index.d.ts"
     },
-    "./index.css": {
-      "import": "./index.css"
-    }
+    "./index.css": "./index.css"
+  },
+  "peerDependencies": {
+    "@ghentcdh/authentication-vue": ">=0.6.0",
+    "@ghentcdh/json-forms-core": ">=0.0.1",
+    "@ghentcdh/tools-vue": ">=0.6.0",
+    "@ghentcdh/ui": ">=0.6.0",
+    "@jsonforms/core": "^3.4.0",
+    "@jsonforms/vue": "^3.4.0",
+    "@jsonforms/vue-vanilla": "^3.4.0",
+    "@toast-ui/editor": "^3.2.0",
+    "@vueuse/core": "^14.0.0",
+    "lodash-es": "^4.17.0",
+    "vue": "^3.5.0",
+    "vue-router": "^5.0.0"
   },
   "repository": {
     "type": "git",
