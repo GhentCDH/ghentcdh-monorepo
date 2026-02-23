@@ -2,7 +2,7 @@ import { computedAsync } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { extractFilters, RequestSchema } from '@ghentcdh/json-forms-core';
+import { RequestSchema, extractFilters } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 
 type RequestData = any;
