@@ -29,7 +29,6 @@ export type FormSchemaModel = {
 const transformToJsonSchema = (schema: ZodObject<any>): JsonSchema => {
   const jsonSchema = toJSONSchema(schema, {
     unrepresentable: 'any',
-
     target: 'draft-07',
   });
 
