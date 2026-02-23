@@ -8,9 +8,10 @@ import toolsSideBar from '../tools/typedoc_sidebar.json';
 import uiSideBar from '../ui/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 
-export default defineUserConfig({ 
-  base: process.env.DOCS_BASE ? `${process.env.DOCS_BASE}/` : '/',   
+export default defineUserConfig({
+  base: process.env.DOCS_BASE ? `${process.env.DOCS_BASE}/` : '/',
   title: 'GhentCDH',
+  pagePatterns: ['**/*.md', '!.vuepress', '!**/node_modules'],
   lastUpdated: true,
   cleanUrls: true,
   metaChunk: true,

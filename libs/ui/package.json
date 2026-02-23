@@ -33,6 +33,14 @@
     "vue": "^3.5.0",
     "vue-router": "^5.0.0"
   },
+  "devDependencies": {
+    "@ghentcdh/tools-vue": "workspace:*",
+    "@heroicons/vue": "2.2.0",
+    "@toast-ui/editor": "3.2.2",
+    "uuid": "11.1.0",
+    "vue": "3.5.27",
+    "vue-router": "5.0.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git",

@@ -7,6 +7,12 @@
   "type": "commonjs",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
+  "devDependencies": {
+    "@anatine/zod-nestjs": "2.0.12",
+    "@anatine/zod-openapi": "2.2.8",
+    "@nestjs/common": "^11.1.12",
+    "zod": "4.3.6"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"

@@ -2,7 +2,7 @@ import { computedAsync } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { RequestSchema, extractFilters } from '@ghentcdh/json-forms-core';
+import { extractFilters, RequestSchema } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 
 type RequestData = any;
@@ -51,18 +51,35 @@ class TableStore {
       })
       .finally(() => (this.loading.value = false));
 
-    if (response.request.totalPages < response.request.page) {
-      this.updateRequest({ page: response.request.totalPages });
+    const data = response.data;
+    if (data.request.totalPages < data.request.page) {
+      this.updateRequest({ page: data.request.totalPages });
     }
-    return response;
+    return data;
   });
 
-  private tableData = computed(() => {
+  pageData = computed(() => {
+    const request = this.data.value?.request ?? {
+      count: 0,
+      pageSize: 1,
+      page: 1,
+    };
+    return {
+      count: request.count,
+      pageSize: request.pageSize,
+      page: request.page,
+    };
+  });
+
+  tableData = computed(() => {
     const d = this.data.value;
-    return this.loading?.value ? [] : (d?.data ?? []);
+    if (!d) return [];
+    if (this.loading.value) return [];
+
+    return d.data ?? [];
   });
 
-  private init = (url: string) => {
+  init = (url: string) => {
     this.uri.value = url;
   };
 

@@ -16,6 +16,10 @@
     "keycloak-js": "^26.0.0",
     "vue": "^3.5.0"
   },
+  "devDependencies": {
+    "keycloak-js": "^26.2.2",
+    "vue": "3.5.27"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"

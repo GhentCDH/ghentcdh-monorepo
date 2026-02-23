@@ -15,6 +15,10 @@
     "axios": "^1.0.0",
     "vue": "^3.5.0"
   },
+  "devDependencies": {
+    "axios": "1.13.5",
+    "vue": "3.5.27"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"

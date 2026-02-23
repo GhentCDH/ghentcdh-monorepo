@@ -1,9 +1,9 @@
 <template>
   <notifications />
   <ModalWrapper />
-  <div class="h-screen">
-    <header>
-      <nav class="navbar bg-primary text-primary-content w-full z-100 sticky">
+  <div class="flex h-screen flex-col">
+    <header class="shrink-0">
+      <nav class="navbar bg-primary text-primary-content w-full z-100">
         <div class="navbar-start">
           <button
             aria-label="open sidebar"
@@ -15,7 +15,7 @@
         </div>
         <div class="navbar-center">
           <a
-            class="btn btn-ghost text-xl"
+            class="btn btn-ghost text-primary-content text-lg color-white"
             :href="baseUrl"
           >{{ title }}</a>
         </div>
@@ -28,17 +28,30 @@
         </div>
       </nav>
     </header>
-    <template v-if="sidebarOpen">
-      <aside
-        id="drawer-left"
-        class="fixed overflow-y-auto z-[1000] min-h-0 min-w-0 relative flex-shrink-0 bg-white shadow-lg transition-all duration-300 ease-in-out border-l border-gray-200 overflow-visible inset-0"
-        :style="{
-          width: widthSidebar + 'px',
-          top: `${navbarHeight}px`,
-        }"
+    <div
+      class="drawer flex-1 overflow-hidden"
+      :class="{ 'drawer-open': sidebarOpen }"
+    >
+      <input
+        id="app-drawer"
+        v-model="sidebarOpen"
+        type="checkbox"
+        class="drawer-toggle"
       >
-        <div class="menu h-full flex-col space-between m-0 overflow-y-auto">
-          <ul class="flex-grow-1">
+      <main class="drawer-content overflow-y-auto mb-2 mr-2 shadow-md">
+        <slot />
+      </main>
+      <div class="drawer-side h-full shadow-md">
+        <label
+          for="app-drawer"
+          aria-label="close sidebar"
+          class="drawer-overlay"
+        />
+        <div
+          class="menu bg-base-100 h-full flex flex-col justify-between"
+          :style="{ width: widthSidebar + 'px' }"
+        >
+          <ul class="flex-grow overflow-y-auto">
             <li
               v-for="item of menu"
               :key="item.label"
@@ -52,21 +65,8 @@
             version: {{ version }}
           </div>
         </div>
-      </aside>
-    </template>
-    <main
-      :class="`overflow-hidden fixed border-red  bg-white mx-auto max-h-full  shadow-sm `"
-      :style="{
-        top: `${navbarHeight}px`,
-        bottom: `2px`,
-        right: `2px`,
-        left: sidebarOpen ? widthSidebar + 'px' : 0,
-      }"
-    >
-      <div class="h-full">
-        <slot />
       </div>
-    </main>
+    </div>
   </div>
 </template>
 
@@ -94,7 +94,6 @@ const properties = withDefaults(
 );
 
 const sidebarOpen = ref(false);
-const navbarHeight = 64;
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value;

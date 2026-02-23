@@ -61,7 +61,7 @@ const edit = (data: Data) => {
 
 const deleteFn = (data: Data) => {
   ModalService.showConfirm({
-    title: 'Delete annotation',
+    title: 'Delete record',
     message: 'Are you sure to delete, the data will be lost?',
     onClose: (result) => {
       if (result.confirmed) {

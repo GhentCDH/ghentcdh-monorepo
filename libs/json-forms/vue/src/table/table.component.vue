@@ -93,22 +93,6 @@ const onSort = (id: string) => {
 const sort = computed(() => {
   return store.sorting.value ?? { orderBy: '', ascending: 1 };
 });
-
-const page = computed(() => {
-  const request = store.data.value?.request ?? {
-    count: 0,
-    pageSize: 1,
-    page: 1,
-  };
-  return {
-    count: request.count,
-    pageSize: request.pageSize,
-    page: request.page,
-  };
-});
-const data = computed(() => {
-  return store.data.value?.data ?? [];
-});
 </script>
 
 <template>
@@ -128,9 +112,9 @@ const data = computed(() => {
       <Table
         :display-columns="displayColumns"
         :sort="sort"
-        :page="page"
+        :page="store.pageData.value"
         :loading="store.loading.value"
-        :data="data"
+        :data="store.tableData.value"
         :actions="actions"
         @update-page="onUpdatePage"
         @delete="deleteFn"
