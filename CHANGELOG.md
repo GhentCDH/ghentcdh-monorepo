@@ -1,3 +1,14 @@
+## 0.7.1 (2026-02-24)
+
+### 🚀 Features
+
+- update some of the components ([c8468d7](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c8468d7))
+- update some of the components ([e00ca7e](https://github.com/GhentCDH/ghentcdh-monorepo/commit/e00ca7e))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.7.0 (2026-02-24)
 
 ### 🚀 Features

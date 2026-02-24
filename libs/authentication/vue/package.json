@@ -1,7 +1,7 @@
 {
   "name": "@ghentcdh/authentication-vue",
   "license": "MIT",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "main": "./index.js",
   "module": "./index.mjs",
   "types": "./index.d.ts",
