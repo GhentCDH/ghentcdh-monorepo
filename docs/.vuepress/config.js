@@ -1,4 +1,3 @@
-import tailwindcss from '@tailwindcss/vite';
 import { viteBundler } from '@vuepress/bundler-vite';
 import { defineUserConfig } from 'vuepress';
 import { hopeTheme } from 'vuepress-theme-hope';
@@ -17,7 +16,6 @@ export default defineUserConfig({
   metaChunk: true,
   bundler: viteBundler({
     viteOptions: {
-      plugins: [tailwindcss()],
       resolve: {
         alias: {
           '@demo/data': fileURLToPath(
@@ -32,6 +30,9 @@ export default defineUserConfig({
           '@ghentcdh/ui/style.css': fileURLToPath(
             new URL('../../dist/libs/ui/index.css', import.meta.url),
           ),
+          // Alias UI source styles to empty — pre-built CSS is loaded via @ghentcdh/ui/style.css
+          [fileURLToPath(new URL('../../libs/ui/src/styles.scss', import.meta.url))]:
+            fileURLToPath(new URL('./styles/empty.scss', import.meta.url)),
           '@ghentcdh/ui': fileURLToPath(
             new URL('../../libs/ui/src/index.ts', import.meta.url),
           ),

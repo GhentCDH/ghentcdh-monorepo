@@ -1,4 +1,8 @@
 $theme-color: #1e64c8;
 
-
-@import '@ghentcdh/ui/style.css';
+// Wrap UI styles in a CSS layer so VuePress theme styles (un-layered) always win
+// for global layout (sidebar, navbar, etc.). UI component styles still apply
+// within demos via their specific class selectors.
+@layer ghentcdh-ui {
+  @import '@ghentcdh/ui/style.css';
+}
