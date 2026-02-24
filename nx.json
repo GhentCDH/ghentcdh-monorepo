@@ -60,7 +60,10 @@
     "projects": ["*", "!@ghentcdh/source"],
     "version": {
       "conventionalCommits": true,
-      "preVersionCommand": "npx nx run-many -t build"
+      "preVersionCommand": "npx nx run-many -t build",
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}"
+      }
     },
     "changelog": {
       "automaticFromRef": true,
