@@ -37,7 +37,6 @@
     "vue-router": "^5.0.0"
   },
   "devDependencies": {
-    "@ghentcdh/tools-vue": "workspace:*",
     "@heroicons/vue": "2.2.0",
     "@tailwindcss/postcss": "4.2.0",
     "@tiptap/pm": "3.20.0",

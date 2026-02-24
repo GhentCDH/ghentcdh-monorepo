@@ -26,9 +26,6 @@
     "vue-router": "^5.0.0"
   },
   "devDependencies": {
-    "@ghentcdh/json-forms-core": "workspace:*",
-    "@ghentcdh/tools-vue": "workspace:*",
-    "@ghentcdh/ui": "workspace:*",
     "@jsonforms/core": "3.7.0",
     "@jsonforms/vue": "3.7.0",
     "@jsonforms/vue-vanilla": "3.7.0",

@@ -16,7 +16,6 @@
   "devDependencies": {
     "@anatine/zod-nestjs": "2.0.12",
     "@anatine/zod-openapi": "2.2.8",
-    "@ghentcdh/json-forms-core": "workspace:*",
     "@nestjs/common": "11.1.14",
     "zod": "4.3.6"
   },

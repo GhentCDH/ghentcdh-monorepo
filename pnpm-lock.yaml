@@ -278,9 +278,6 @@ importers:
       '@anatine/zod-openapi':
         specifier: 2.2.8
         version: 2.2.8(openapi3-ts@4.5.0)(zod@4.3.6)
-      '@ghentcdh/json-forms-core':
-        specifier: workspace:*
-        version: link:../core
       '@nestjs/common':
         specifier: 11.1.14
         version: 11.1.14(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -304,16 +301,17 @@ importers:
         version: 4.3.6
 
   libs/json-forms/vue:
-    devDependencies:
+    dependencies:
       '@ghentcdh/json-forms-core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: '>=0.0.1'
+        version: 0.0.1(openapi3-ts@4.5.0)
       '@ghentcdh/tools-vue':
-        specifier: workspace:*
-        version: link:../../tools/vue
+        specifier: '>=0.6.0'
+        version: 0.6.4(axios@1.13.5)(vue@3.5.27(typescript@5.9.3))
       '@ghentcdh/ui':
-        specifier: workspace:*
-        version: link:../../ui
+        specifier: '>=0.6.0'
+        version: 0.6.1(@ghentcdh/tools-vue@0.6.4(axios@1.13.5)(vue@3.5.27(typescript@5.9.3)))(@heroicons/vue@2.2.0(vue@3.5.27(typescript@5.9.3)))(@toast-ui/editor@3.2.2)(uuid@11.1.0)(vue-router@5.0.2(@vue/compiler-sfc@3.5.28)(vue@3.5.27(typescript@5.9.3)))(vue@3.5.27(typescript@5.9.3))
+    devDependencies:
       '@jsonforms/core':
         specifier: 3.7.0
         version: 3.7.0
@@ -371,10 +369,11 @@ importers:
         version: 3.5.27(typescript@5.9.3)
 
   libs/ui:
-    devDependencies:
+    dependencies:
       '@ghentcdh/tools-vue':
-        specifier: workspace:*
-        version: link:../tools/vue
+        specifier: '>=0.6.0'
+        version: 0.6.4(axios@1.13.5)(vue@3.5.27(typescript@5.9.3))
+    devDependencies:
       '@heroicons/vue':
         specifier: 2.2.0
         version: 2.2.0(vue@3.5.27(typescript@5.9.3))
@@ -1827,6 +1826,25 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
+
+  '@ghentcdh/json-forms-core@0.0.1':
+    resolution: {integrity: sha512-m6abv9qqpCjU5Xv5u/FoPx+AAPztO4zQPouPaXqoHbOIubMH6VJiV22r6D/OP6MaSDfYN5Ft37jLf22prFD9DA==}
+
+  '@ghentcdh/tools-vue@0.6.4':
+    resolution: {integrity: sha512-9NvG2A4dC/jJ6pSOrZ0gB6qmLUpdr/bbaDqQqFFVwGCFUoJfMRd9BrlSX/ZxP2M/5Vf3Ln3SelhMHcgktHuorg==}
+    peerDependencies:
+      axios: ^1.0.0
+      vue: ^3.5.0
+
+  '@ghentcdh/ui@0.6.1':
+    resolution: {integrity: sha512-QoxheNQmXTc6UBXH7Nw0Ajw+uDCov9djApJyzmGJMH7eEJEFxRRdl+Pqrzp9T/JsqQ2XctZEDtMieWIK84YJWg==}
+    peerDependencies:
+      '@ghentcdh/tools-vue': '>=0.6.0'
+      '@heroicons/vue': ^2.2.0
+      '@toast-ui/editor': ^3.2.0
+      uuid: ^11.0.0
+      vue: ^3.5.0
+      vue-router: ^5.0.0
 
   '@heroicons/vue@2.2.0':
     resolution: {integrity: sha512-G3dbSxoeEKqbi/DFalhRxJU4mTXJn7GwZ7ae8NuEQzd1bqdd0jAbdaBZlHPcvPD2xI1iGzNVB4k20Un2AguYPw==}
@@ -3385,6 +3403,9 @@ packages:
       '@tiptap/core': ^3.20.0
       '@tiptap/pm': ^3.20.0
       vue: ^3.0.0
+
+  '@toast-ui/editor@3.2.2':
+    resolution: {integrity: sha512-ASX7LFjN2ZYQJrwmkUajPs7DRr9FsM1+RQ82CfTO0Y5ZXorBk1VZS4C2Dpxinx9kl55V4F8/A2h2QF4QMDtRbA==}
 
   '@tokenizer/inflate@0.4.1':
     resolution: {integrity: sha512-2mAv+8pkG6GIZiF1kNg1jAjh27IDxEPKwdGul3snfztFerfPGI1LjDezZp3i7BElXompqEtPmoPx6c2wgtWsOA==}
@@ -5290,6 +5311,9 @@ packages:
   domhandler@5.0.3:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
+
+  dompurify@2.5.8:
+    resolution: {integrity: sha512-o1vSNgrmYMQObbSSvF/1brBYEQPHhV1+gsmrusO7/GXtp1T9rCS8cXFqVxK/9crT1jA6Ccv+5MTSjBNqr7Sovw==}
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
@@ -9078,6 +9102,9 @@ packages:
     resolution: {integrity: sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==}
     engines: {node: '>=18'}
 
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
@@ -9101,6 +9128,12 @@ snapshots:
       openapi3-ts: 4.5.0
       ts-deepmerge: 6.2.1
       zod: 4.3.6
+
+  '@anatine/zod-openapi@2.2.8(openapi3-ts@4.5.0)(zod@3.25.76)':
+    dependencies:
+      openapi3-ts: 4.5.0
+      ts-deepmerge: 6.2.1
+      zod: 3.25.76
 
   '@anatine/zod-openapi@2.2.8(openapi3-ts@4.5.0)(zod@4.3.6)':
     dependencies:
@@ -10462,6 +10495,29 @@ snapshots:
       '@floating-ui/utils': 0.2.10
 
   '@floating-ui/utils@0.2.10': {}
+
+  '@ghentcdh/json-forms-core@0.0.1(openapi3-ts@4.5.0)':
+    dependencies:
+      '@anatine/zod-openapi': 2.2.8(openapi3-ts@4.5.0)(zod@3.25.76)
+      '@jsonforms/core': 3.7.0
+      lodash-es: 4.17.23
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - openapi3-ts
+
+  '@ghentcdh/tools-vue@0.6.4(axios@1.13.5)(vue@3.5.27(typescript@5.9.3))':
+    dependencies:
+      axios: 1.13.5
+      vue: 3.5.27(typescript@5.9.3)
+
+  '@ghentcdh/ui@0.6.1(@ghentcdh/tools-vue@0.6.4(axios@1.13.5)(vue@3.5.27(typescript@5.9.3)))(@heroicons/vue@2.2.0(vue@3.5.27(typescript@5.9.3)))(@toast-ui/editor@3.2.2)(uuid@11.1.0)(vue-router@5.0.2(@vue/compiler-sfc@3.5.28)(vue@3.5.27(typescript@5.9.3)))(vue@3.5.27(typescript@5.9.3))':
+    dependencies:
+      '@ghentcdh/tools-vue': 0.6.4(axios@1.13.5)(vue@3.5.27(typescript@5.9.3))
+      '@heroicons/vue': 2.2.0(vue@3.5.27(typescript@5.9.3))
+      '@toast-ui/editor': 3.2.2
+      uuid: 11.1.0
+      vue: 3.5.27(typescript@5.9.3)
+      vue-router: 5.0.2(@vue/compiler-sfc@3.5.28)(vue@3.5.27(typescript@5.9.3))
 
   '@heroicons/vue@2.2.0(vue@3.5.27(typescript@5.9.3))':
     dependencies:
@@ -12130,6 +12186,17 @@ snapshots:
     optionalDependencies:
       '@tiptap/extension-bubble-menu': 3.20.0(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)
       '@tiptap/extension-floating-menu': 3.20.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)
+
+  '@toast-ui/editor@3.2.2':
+    dependencies:
+      dompurify: 2.5.8
+      prosemirror-commands: 1.7.1
+      prosemirror-history: 1.5.0
+      prosemirror-inputrules: 1.5.1
+      prosemirror-keymap: 1.2.3
+      prosemirror-model: 1.25.4
+      prosemirror-state: 1.4.4
+      prosemirror-view: 1.41.6
 
   '@tokenizer/inflate@0.4.1':
     dependencies:
@@ -14565,6 +14632,8 @@ snapshots:
   domhandler@5.0.3:
     dependencies:
       domelementtype: 2.3.0
+
+  dompurify@2.5.8: {}
 
   domutils@3.2.2:
     dependencies:
@@ -18972,6 +19041,8 @@ snapshots:
   yoctocolors-cjs@2.1.3: {}
 
   yoctocolors@2.1.2: {}
+
+  zod@3.25.76: {}
 
   zod@4.3.6: {}
 
