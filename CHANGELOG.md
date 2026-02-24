@@ -1,3 +1,23 @@
+## 0.6.2 (2026-02-24)
+
+### 🚀 Features
+
+- update some of the components ([af923f0](https://github.com/GhentCDH/ghentcdh-monorepo/commit/af923f0))
+- update some of the components ([42a4bcb](https://github.com/GhentCDH/ghentcdh-monorepo/commit/42a4bcb))
+- update some of the components ([6055906](https://github.com/GhentCDH/ghentcdh-monorepo/commit/6055906))
+- update some of the components ([1c0623b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/1c0623b))
+- update some of the components ([696ae2b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/696ae2b))
+
+### 🩹 Fixes
+
+- http requests ([4e14bd2](https://github.com/GhentCDH/ghentcdh-monorepo/commit/4e14bd2))
+- generate json schemas ([5492e9c](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5492e9c))
+- generate json schemas ([4a0edbb](https://github.com/GhentCDH/ghentcdh-monorepo/commit/4a0edbb))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.6.1 (2026-02-23)
 
 This was a version bump only, there were no code changes.
