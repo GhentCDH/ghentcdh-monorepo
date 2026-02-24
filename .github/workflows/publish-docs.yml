@@ -30,7 +30,7 @@ jobs:
         with:
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
   build:
     runs-on: ubuntu-latest
     needs: install-deps
@@ -40,6 +40,8 @@ jobs:
         with:
           ref: main  # Deploy from main, not the tag
       - uses: ./.github/actions/use-cache
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - run: DOCS_BASE=/ghentcdh-monorepo npx nx run docs:build
