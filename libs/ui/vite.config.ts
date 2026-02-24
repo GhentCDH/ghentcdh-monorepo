@@ -43,7 +43,10 @@ export default defineConfig({
       external: [
         '@ghentcdh/tools-vue',
         '@heroicons/vue/24/solid',
-        '@toast-ui/editor',
+        '@tiptap/pm',
+        '@tiptap/starter-kit',
+        '@tiptap/vue-3',
+        'tiptap-markdown',
         'uuid',
         'vue',
         'vue-router',
