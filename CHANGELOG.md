@@ -1,3 +1,14 @@
+## 0.6.3 (2026-02-24)
+
+### 🩹 Fixes
+
+- kottster admin build ([b402f4f](https://github.com/GhentCDH/ghentcdh-monorepo/commit/b402f4f))
+- publish ([8b03cf4](https://github.com/GhentCDH/ghentcdh-monorepo/commit/8b03cf4))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.6.2 (2026-02-24)
 
 ### 🚀 Features
