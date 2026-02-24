@@ -41,7 +41,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: ['@anatine/zod-openapi', 'lodash-es', 'zod'],
+      external: ['@anatine/zod-openapi', '@jsonforms/core', 'lodash-es', 'zod'],
     },
   },
   test: {

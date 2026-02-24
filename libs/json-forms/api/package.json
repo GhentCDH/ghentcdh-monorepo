@@ -1,12 +1,25 @@
 {
   "name": "@ghentcdh/json-forms-api",
   "version": "0.0.1",
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
   "type": "commonjs",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
+  "peerDependencies": {
+    "@anatine/zod-nestjs": "^2.0.0",
+    "@anatine/zod-openapi": "^2.2.0",
+    "@nestjs/common": "^11.0.0",
+    "zod": "^4.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@anatine/zod-nestjs": "2.0.12",
+    "@anatine/zod-openapi": "2.2.8",
+    "@ghentcdh/json-forms-core": "workspace:*",
+    "@nestjs/common": "11.1.14",
+    "zod": "4.3.6"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"

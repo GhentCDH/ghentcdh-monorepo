@@ -9,6 +9,7 @@ module.exports = [
         'error',
         {
           ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'],
+          ignoredDependencies: ['@nx/vite', 'vite', 'vite-plugin-node'],
         },
       ],
     },

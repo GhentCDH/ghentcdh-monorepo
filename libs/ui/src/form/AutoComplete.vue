@@ -115,7 +115,7 @@ watch(
       httpRequest
         .get<ResponseData<any>>(`${uri}${query}`, { skipAuth })
         .then((data: any) => {
-          results.value = data[dataField!] as [];
+          results.value = data.data[dataField!] as [];
         });
     } else if (properties.options) {
       results.value = properties.options

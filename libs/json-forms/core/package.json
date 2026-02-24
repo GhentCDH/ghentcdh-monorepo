@@ -6,9 +6,9 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.js",
-      "require": "./index.cjs",
-      "types": "./index.d.ts"
+      "require": "./index.cjs"
     }
   },
   "peerDependencies": {
@@ -16,6 +16,12 @@
     "@jsonforms/core": "^3.4.0",
     "lodash-es": "^4.17.0",
     "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@anatine/zod-openapi": "2.2.8",
+    "@jsonforms/core": "3.7.0",
+    "lodash-es": "4.17.23",
+    "zod": "4.3.6"
   },
   "repository": {
     "type": "git",

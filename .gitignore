@@ -43,7 +43,7 @@ coverage
 !/docs/.vuepress/config.js
 !/docs/.vuepress/client.js
 /docs/assets
-/docs/**/typedoc_sidebar.json
+typedoc_sidebar.json
 
 
 

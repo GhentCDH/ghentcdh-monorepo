@@ -68,7 +68,7 @@ function generateDirectoryObject(dir, exclude) {
 
 function createMenu(dir, exclude = []) {
   const dirPath = path.join(docsPath, dir);
-
+  exclude.push('node_modules', 'dist');
   const items = generateDirectoryObject(dir, exclude);
 
   writeSidebarFile(dirPath, items.items);

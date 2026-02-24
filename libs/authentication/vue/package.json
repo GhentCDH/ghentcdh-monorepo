@@ -7,14 +7,18 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
-      "require": "./index.js",
-      "types": "./index.d.ts"
+      "require": "./index.js"
     }
   },
   "peerDependencies": {
     "keycloak-js": "^26.0.0",
     "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "keycloak-js": "^26.2.2",
+    "vue": "3.5.27"
   },
   "repository": {
     "type": "git",
