@@ -13,29 +13,27 @@
     "./index.css": "./index.css"
   },
   "peerDependencies": {
-    "@ghentcdh/authentication-vue": ">=0.6.0",
     "@ghentcdh/json-forms-core": ">=0.0.1",
     "@ghentcdh/tools-vue": ">=0.6.0",
     "@ghentcdh/ui": ">=0.6.0",
     "@jsonforms/core": "^3.4.0",
     "@jsonforms/vue": "^3.4.0",
     "@jsonforms/vue-vanilla": "^3.4.0",
-    "@toast-ui/editor": "^3.2.0",
     "@vueuse/core": "^14.0.0",
+    "axios": "^1.0.0",
     "lodash-es": "^4.17.0",
     "vue": "^3.5.0",
     "vue-router": "^5.0.0"
   },
   "devDependencies": {
-    "@ghentcdh/authentication-vue": "workspace:*",
     "@ghentcdh/json-forms-core": "workspace:*",
     "@ghentcdh/tools-vue": "workspace:*",
     "@ghentcdh/ui": "workspace:*",
     "@jsonforms/core": "3.7.0",
     "@jsonforms/vue": "3.7.0",
     "@jsonforms/vue-vanilla": "3.7.0",
-    "@toast-ui/editor": "3.2.2",
     "@vueuse/core": "14.2.0",
+    "axios": "1.13.5",
     "lodash-es": "4.17.23",
     "vue": "3.5.27",
     "vue-router": "5.0.2"

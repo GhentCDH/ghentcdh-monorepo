@@ -1,67 +1,48 @@
 <template>
-  <control-wrapper
+  <Markdown
     v-bind="controlWrapper"
-    :styles="styles"
-  >
-    <div :id="mdId" />
-  </control-wrapper>
+    v-model="control.data"
+    :enabled="control.enabled"
+    :config="appliedOptions"
+    @change="handleChange"
+    @focus="onFocus"
+    @blur="onBlur"
+  />
 </template>
 
 <script lang="ts">
-import type {
-  ControlElement,
-  JsonFormsRendererRegistryEntry,
-} from '@jsonforms/core';
+import type { ControlElement, JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import { rankWith } from '@jsonforms/core';
 import type { RendererProps } from '@jsonforms/vue';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
-import MdEditor from '@toast-ui/editor';
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 
-import { ControlWrapper } from '@ghentcdh/ui';
+import { Markdown } from '@ghentcdh/ui';
 
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
 import { isMarkdownControl } from '../tester';
 
-import '@toast-ui/editor/dist/toastui-editor.css';
-
-
 const controlRenderer = defineComponent({
   name: 'MarkdownControlRenderer',
   components: {
-    ControlWrapper,
+    Markdown,
   },
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>, $refs) {
+  setup(props: RendererProps<ControlElement>) {
     const control = useVanillaControlCustom(
       useJsonFormsControl(props),
-      (target) => (target.value === '' ? undefined : target.value),
+      (target) => target.value ?? undefined,
     );
 
-    const mdId = `md-${Date.now()}`;
-
-    onMounted(() => {
-      const { path, data } = control.control.value;
-      const editor = new MdEditor({
-        el: document.getElementById(mdId),
-        height: '500px',
-        initialEditType: 'wysiwyg',
-        initialValue: data ?? '',
-        toolbarItems: [['bold', 'italic', 'strike']],
-        events: {
-          change: () => {
-            control.handleChange(path, editor.getMarkdown());
-          },
-        },
-      });
-    });
-
-    return {
-      ...control,
-      mdId,
+    const field = control.appliedOptions.value.field;
+    const handleChange = (result: any) => {
+      const { path } = control.control.value;
+      control.handleChange(path, result);
     };
+
+    return { ...control, field, handleChange };
   },
 });
 
