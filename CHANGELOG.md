@@ -1,3 +1,13 @@
+## 0.6.6 (2026-02-25)
+
+### 🩹 Fixes
+
+- publish all packages ([97b9ffd](https://github.com/GhentCDH/ghentcdh-monorepo/commit/97b9ffd))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.6.5 (2026-02-24)
 
 ### 🩹 Fixes
