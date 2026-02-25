@@ -7,7 +7,7 @@
     "version": {
       "currentVersionResolver": "git-tag",
       "preserveLocalDependencyProtocols": false,
-      "manifestRootsToUpdate": ["dist/{projectRoot}"]
+      "manifestRootsToUpdate": ["{projectRoot}", "dist/{projectRoot}"]
     }
   },
   "tags": ["scope:tool", "scope:shared"],

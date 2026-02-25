@@ -54,16 +54,16 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "nx-release-publish": {
+      "dependsOn": ["build"]
     }
   },
   "release": {
-    "projects": ["*", "!@ghentcdh/source"],
+    "projects": ["*", "!@ghentcdh/source", "!docs"],
     "version": {
       "conventionalCommits": true,
-      "preVersionCommand": "npx nx run-many -t build",
-      "generatorOptions": {
-        "packageRoot": "dist/{projectRoot}"
-      }
+      "preVersionCommand": "npx nx run-many -t build"
     },
     "changelog": {
       "automaticFromRef": true,
