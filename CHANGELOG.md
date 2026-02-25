@@ -1,3 +1,13 @@
+## 0.6.7 (2026-02-25)
+
+### 🚀 Features
+
+- update json form elements to use proper vue contract ([c02c54e](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c02c54e))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.6.6 (2026-02-25)
 
 ### 🩹 Fixes
