@@ -6,6 +6,7 @@ import { myStyles } from './styles';
 
 export type ControlProperties = {
   id?: string;
+  placeholder?: string;
   description?: string;
   errors?: string;
   label?: string;
@@ -62,6 +63,11 @@ export type AutoCompleteProperties = ControlProperties & {
   valueKey?: string;
   labelKey?: string;
 };
+export type InputProperties = ControlProperties & {
+  type: 'text';
+};
+export type TextareaProperties = ControlProperties & { rows: number };
+export type InputNumberProperties = ControlProperties & { steps: number };
 
 export const DefaultAutoCompleteProperties = () => {
   return {

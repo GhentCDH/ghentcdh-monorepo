@@ -1,4 +1,3 @@
-import { isArray } from 'lodash-es';
 import { z } from 'zod';
 
 export const PositiveRequestNumber = () =>
@@ -8,7 +7,7 @@ export const StringOrArray = () =>
     .string()
     .or(z.array(z.string()))
     .transform((val) => {
-      if (isArray(val)) return val;
+      if (Array.isArray(val)) return val;
 
       return [val];
     });

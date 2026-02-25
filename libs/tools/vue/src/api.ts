@@ -2,6 +2,12 @@ import axios, { type AxiosInstance, AxiosRequestInterceptorUse } from 'axios';
 
 import { getRuntimeConfig } from './runtime.config';
 
+export const apiNoAuth = axios.create({
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const createApi = () => {
   const api = axios.create({
     baseURL: getRuntimeConfig().API_URL,

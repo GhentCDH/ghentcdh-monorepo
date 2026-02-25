@@ -193,6 +193,14 @@ export class ControlBuilder<
     return this;
   }
 
+  customLabel(label: string) {
+    this.options = {
+      ...this.options,
+      label,
+    };
+    return this;
+  }
+
   override build(): ControlTypes {
     return {
       type: this.type,

@@ -1,6 +1,4 @@
----
-title: Json form
----
+# form array
 
 <script setup lang="ts">
 import { ref, shallowRef, onMounted } from 'vue'
@@ -109,5 +107,6 @@ onMounted(async () => {
       />
       <pre>{{ formData }}</pre>
     </div>
+
   </div>
 </ClientOnly>

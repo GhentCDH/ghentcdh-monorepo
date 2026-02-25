@@ -1,7 +1,6 @@
 import { useVanillaControl } from '@jsonforms/vue-vanilla';
 import { computed, ref } from 'vue';
 
-
 export const useVanillaControlCustom = <
   I extends { control: any; handleChange: any },
 >(
@@ -31,6 +30,11 @@ export const useVanillaControlCustom = <
     } as any;
   });
 
+  const changeValue = (result: any) => {
+    const { path } = vanillaControl.control.value;
+    vanillaControl.handleChange(path, result);
+  };
+
   return {
     ...vanillaControl,
     controlWrapper,
@@ -38,5 +42,6 @@ export const useVanillaControlCustom = <
     isTouched,
     onFocus,
     onBlur,
+    // handleChange,
   };
 };

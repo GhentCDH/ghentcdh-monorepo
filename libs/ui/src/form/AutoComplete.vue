@@ -39,7 +39,7 @@
 import { ref, watch } from 'vue';
 
 import type { ResponseData } from '@ghentcdh/core/types';
-import { useApi } from '@ghentcdh/tools-vue';
+import { apiNoAuth, useApi } from '@ghentcdh/tools-vue';
 
 import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
@@ -82,7 +82,6 @@ const leaveResult = (index: number) => {
   if (results.value?.length === index + 1) results.value = [];
   // TODO handle the change
 };
-const httpRequest = useApi();
 
 const getValueField = (field: any) => field[properties.valueKey];
 const getLabel = (field: any) => field?.[properties.labelKey] ?? '';
@@ -112,11 +111,11 @@ watch(
 
     if (properties.config) {
       const { uri, skipAuth, dataField } = properties.config;
-      httpRequest
-        .get<ResponseData<any>>(`${uri}${query}`, { skipAuth })
-        .then((data: any) => {
-          results.value = data.data[dataField!] as [];
-        });
+      const httpRequest = properties.config.skipAuth ? apiNoAuth : useApi();
+
+      httpRequest.get<ResponseData<any>>(`${uri}${query}`).then((data: any) => {
+        results.value = data.data[dataField!] as [];
+      });
     } else if (properties.options) {
       results.value = properties.options
         .filter((option: any) => getLabel(option).toLowerCase().includes(query))

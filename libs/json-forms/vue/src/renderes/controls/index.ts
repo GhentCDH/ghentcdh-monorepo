@@ -1,10 +1,23 @@
-import { entry as booleanControlRendererEntry } from './BooleanControlRenderer.vue';
-import { entry as integerControlRendererEntry } from './IntegerControlRenderer.vue';
-import { entry as markdownControlRenderer } from './MarkdownControlRenderer.vue';
-import { entry as numberControlRendererEntry } from './NumberControlRenderer.vue';
-import { entry as stringControlRendererEntry } from './StringControlRenderer.vue';
-import { entry as textAreaControlRenderer } from './TextAreaControlRenderer.vue';
-import { entry as autocompleteControlRenderer } from './autocomplete/AutocompleteControlRenderer.vue';
+import {
+  isBooleanControl,
+  isIntegerControl,
+  isNumberControl,
+  rankWith,
+} from '@jsonforms/core';
+
+import BooleanControlRenderer from './BooleanControlRenderer.vue';
+import IntegerControlRenderer from './IntegerControlRenderer.vue';
+import MarkdownControlRenderer from './MarkdownControlRenderer.vue';
+import NumberControlRenderer from './NumberControlRenderer.vue';
+import StringControlRenderer from './StringControlRenderer.vue';
+import TextAreaControlRenderer from './TextAreaControlRenderer.vue';
+import {
+  isAutoCompleteControl,
+  isMarkdownControl,
+  isStringFormat,
+  isTextAreaControl,
+} from '../tester';
+import AutocompleteControlRenderer from './autocomplete/AutocompleteControlRenderer.vue';
 
 // import { entry as multiStringControlRendererEntry } from './MultiStringControlRenderer.vue';
 // import { entry as enumControlRendererEntry } from './EnumControlRenderer.vue';
@@ -29,19 +42,26 @@ export { default as markdownControlRenderer } from './MarkdownControlRenderer.vu
 
 export const controlRenderers = [
   // First custom renderers on format
-  markdownControlRenderer,
-  autocompleteControlRenderer,
-  textAreaControlRenderer,
-  // multiStringControlRendererEntry,
-  // enumControlRendererEntry,
-  // oneOfEnumControlRendererEntry,
-  // dateControlRendererEntry,
-  // dateTimeControlRendererEntry,
-  // timeControlRendererEntry,
-  booleanControlRendererEntry,
+  {
+    tester: rankWith(10, isMarkdownControl),
+    renderer: MarkdownControlRenderer,
+  },
+  {
+    tester: rankWith(10, isAutoCompleteControl),
+    renderer: AutocompleteControlRenderer,
+  },
+  {
+    tester: rankWith(10, isTextAreaControl),
+    renderer: TextAreaControlRenderer,
+  },
 
   // Renderers based on type if no format is provided
-  stringControlRendererEntry,
-  numberControlRendererEntry,
-  integerControlRendererEntry,
+  { tester: rankWith(10, isStringFormat), renderer: StringControlRenderer },
+  { tester: rankWith(10, isNumberControl), renderer: NumberControlRenderer },
+  {
+    tester: rankWith(10, isIntegerControl),
+    renderer: IntegerControlRenderer,
+  },
+
+  { tester: rankWith(10, isBooleanControl), renderer: BooleanControlRenderer },
 ] as const;

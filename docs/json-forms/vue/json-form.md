@@ -1,6 +1,4 @@
----
-title: Json form
----
+# example
 
 <script setup lang="ts">
 import { ref, shallowRef, onMounted } from 'vue'
@@ -48,13 +46,13 @@ onMounted(async () => {
   const vuePkg = await import('@ghentcdh/json-forms-vue')
 
   FormComponent.value = vuePkg.FormComponent
-  const { ControlBuilder, LayoutBuilder } = core
+  const { ControlBuilder, LayoutBuilder } = core;
 
   // Build UI schema
   const rows = [
     LayoutBuilder.horizontal().addControls(
       ControlBuilder.properties('name'),
-      ControlBuilder.properties('firstname'),
+      ControlBuilder.properties('firstname').customLabel('First name')
     ),
     LayoutBuilder.horizontal().addControls(
       ControlBuilder.properties('age').width('xs'),

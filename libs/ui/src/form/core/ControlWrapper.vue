@@ -16,9 +16,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import type { ControlProperties} from './properties';
+import type { ControlProperties } from './properties';
 import { DefaultControlProperties } from './properties';
-import { isDescriptionHidden, showErrors as _showErrors  } from './utils/style';
+import { isDescriptionHidden, showErrors as _showErrors } from './utils/style'; // TODO check what is used?
 
 // TODO check what is used?
 const properties = withDefaults(
