@@ -39,4 +39,5 @@ label="The label"
 v-model="model"
 label="The label"
 errors="Some error"
+:is-touched="true"
 />

@@ -29,11 +29,11 @@
     "@jsonforms/core": "3.7.0",
     "@jsonforms/vue": "3.7.0",
     "@jsonforms/vue-vanilla": "3.7.0",
-    "@vueuse/core": "14.2.0",
+    "@vueuse/core": "14.2.1",
     "axios": "1.13.5",
     "lodash-es": "4.17.23",
-    "vue": "3.5.27",
-    "vue-router": "5.0.2"
+    "vue": "3.5.29",
+    "vue-router": "5.0.3"
   },
   "repository": {
     "type": "git",

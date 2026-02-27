@@ -29,7 +29,7 @@ const isActive = computed(() => props.active === props.node.id);
       ]"
     >
       <span
-        v-if="node.children?.length > 0"
+        v-if="(node?.children?.length ?? 0) > 0"
         class="flex items-center justify-center"
         @click="emit('toggle', node)"
       >

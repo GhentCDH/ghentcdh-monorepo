@@ -8,7 +8,7 @@
         <input
           v-model="model"
           type="checkbox"
-          :class="[`checkbox`, styles.control.checkbox]"
+          :class="style"
           :disabled="!enabled"
           @change="onChange"
           @focus="onFocus"
@@ -21,12 +21,15 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
-import type { SelectControlProperties } from './core/properties';
+import type { ControlProperties} from './core/properties';
 import { DefaultControlProperties } from './core/properties';
+import { buildInputStyle } from './core/utils/style';
 
-const properties = withDefaults(defineProps<SelectControlProperties>(), {
+const properties = withDefaults(defineProps<ControlProperties>(), {
   ...DefaultControlProperties(),
 });
 
@@ -42,4 +45,8 @@ const onFocus = (event: FocusEvent) => {
 const onBlur = (event: Event) => {
   emit('blur', event);
 };
+
+const style = computed(() =>
+  buildInputStyle(properties.styles.control.checkbox, properties),
+);
 </script>

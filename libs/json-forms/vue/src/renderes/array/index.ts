@@ -1,10 +1,13 @@
-import { entry as arrayRendererEntry } from './ArrayRenderer.vue';
-import { entry as fixedArrayListRendererEntry } from './FixedArrayRenderer.vue';
+import { rankWith } from '@jsonforms/core';
+
+import ArrayRenderer from './ArrayRenderer.vue';
+import { isArrayRenderer } from '../tester';
 
 export { default as ArrayRenderer } from './ArrayRenderer.vue';
-export { default as FixedArrayRenderer } from './FixedArrayRenderer.vue';
 
 export const arrayRenderers = [
-  fixedArrayListRendererEntry,
-  arrayRendererEntry,
+  {
+    tester: rankWith(12, isArrayRenderer),
+    renderer: ArrayRenderer,
+  },
 ] as const;

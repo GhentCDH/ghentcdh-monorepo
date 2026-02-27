@@ -4,7 +4,7 @@
       v-model="model"
       autocomplete="off"
       type="number"
-      :class="[styles.control.input]"
+      :class="[style]"
       :disabled="!enabled"
       :step="steps"
       :autofocus="isFocused"
@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
-import type {
-  InputNumberProperties} from './core/properties';
-import {
-  DefaultControlProperties
-} from './core/properties';
+import type { InputNumberProperties } from './core/properties';
+import { DefaultControlProperties } from './core/properties';
+import { buildInputStyle } from './core/utils/style';
 
 const properties = withDefaults(defineProps<InputNumberProperties>(), {
   ...DefaultControlProperties(),
@@ -42,4 +42,8 @@ const onFocus = (event: FocusEvent) => {
 const onBlur = (event: Event) => {
   emit('blur', event);
 };
+
+const style = computed(() =>
+  buildInputStyle(properties.styles.control.input, properties),
+);
 </script>

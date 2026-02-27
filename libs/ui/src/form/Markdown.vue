@@ -8,6 +8,7 @@
         <button
           v-for="action in actions"
           :key="action.name"
+          type="button"
           class="btn btn-sm btn-ghost"
           :class="{ 'btn-active': editor?.isActive(action.name) }"
           :title="action.label"
@@ -21,7 +22,7 @@
       <div class="card-body p-3">
         <EditorContent
           :editor="editor"
-          class="prose prose-sm max-w-none min-h-24"
+          class="prose prose-sm max-w-none min-h-96"
         />
       </div>
     </div>
@@ -35,11 +36,8 @@ import { Markdown } from 'tiptap-markdown';
 import { onBeforeUnmount } from 'vue';
 
 import ControlWrapper from './core/ControlWrapper.vue';
-import type {
-  MarkdownProperties} from './core/properties';
-import {
-  DefaultControlProperties
-} from './core/properties';
+import type { MarkdownProperties } from './core/properties';
+import { DefaultControlProperties } from './core/properties';
 
 const properties = withDefaults(defineProps<MarkdownProperties>(), {
   ...DefaultControlProperties(),
@@ -58,7 +56,7 @@ const properties = withDefaults(defineProps<MarkdownProperties>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string];
+  change: [value: string];
 }>();
 const model = defineModel();
 
@@ -82,7 +80,7 @@ const editor = useEditor({
     }),
   ],
   onUpdate({ editor }) {
-    emit('update:modelValue', editor.storage.markdown.getMarkdown());
+    emit('change', editor.storage.markdown.getMarkdown());
   },
 });
 

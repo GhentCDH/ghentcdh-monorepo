@@ -1,4 +1,5 @@
 import { useVanillaControl } from '@jsonforms/vue-vanilla';
+import { omit } from 'lodash-es';
 import { computed, ref } from 'vue';
 
 export const useVanillaControlCustom = <
@@ -25,15 +26,11 @@ export const useVanillaControlCustom = <
   const controlWrapper = computed(() => {
     return {
       ...vanillaControl.controlWrapper.value,
+      ...omit(vanillaControl.appliedOptions.value, 'styles'),
       isFocused: isFocused.value,
       isTouched: isTouched.value,
     } as any;
   });
-
-  const changeValue = (result: any) => {
-    const { path } = vanillaControl.control.value;
-    vanillaControl.handleChange(path, result);
-  };
 
   return {
     ...vanillaControl,

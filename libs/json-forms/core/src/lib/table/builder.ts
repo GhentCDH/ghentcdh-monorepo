@@ -60,7 +60,7 @@ export class TableBuilder<TYPE> {
   private builder: LayoutBuilder<TYPE>;
 
   private constructor() {
-    this.builder = LayoutBuilder.table();
+    this.builder = LayoutBuilder.horizontal();
   }
 
   static init<TYPE>() {

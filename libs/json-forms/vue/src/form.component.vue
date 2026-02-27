@@ -3,6 +3,7 @@ import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import { JsonForms } from '@jsonforms/vue';
 import { provide, ref, watch } from 'vue';
 
+import { Debugger } from '@ghentcdh/tools-vue';
 import { myStyles } from '@ghentcdh/ui';
 
 import { tailwindRenderers } from './renderes';
@@ -37,7 +38,7 @@ const properties = withDefaults(
 const _JSON_FORM_ID = `json-form-${Date.now()}`;
 const formState = useFormState(_JSON_FORM_ID);
 const formData = defineModel<any>();
-const emits = defineEmits(['valid', 'change', 'submit']);
+const emits = defineEmits(['valid', 'change', 'submit', 'errors']);
 const valid = ref(false);
 
 const onChange = (event: Data) => {
@@ -45,6 +46,9 @@ const onChange = (event: Data) => {
   valid.value = event.errors.length === 0;
   emits('valid', valid.value);
   emits('change', event.data);
+  emits('errors', event.errors);
+
+  Debugger.debug(event.errors);
 };
 
 const onSubmit = (event: SubmitEvent) => {

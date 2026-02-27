@@ -2,7 +2,7 @@
   <ControlWrapper v-bind="properties">
     <button
       type="button"
-      :class="[styles.control.select, 'w-full truncate block']"
+      :class="style"
       @click="toggle"
     >
       {{ model?.map?.((m) => getLabel(m)).join(', ') ?? 'Select value' }}
@@ -20,7 +20,7 @@
           :key="result[valueKey]"
         >
           <button
-            class="w-full flex h-8 border-b-1 border-gray-200 border-x-0 border-t-0  p-2 text-left hover:bg-primary-content cursor-pointer"
+            class="w-full flex h-8 border-b-1 border-gray-200 border-x-0 border-t-0 p-2 text-left hover:bg-primary-content cursor-pointer"
             type="button"
             @click="selectResult($event, result)"
           >
@@ -47,6 +47,7 @@ import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
 import type { SelectControlProperties } from './core/properties';
 import { DefaultControlProperties } from './core/properties';
+import { buildInputStyle } from './core/utils/style';
 
 const properties = withDefaults(defineProps<SelectControlProperties>(), {
   ...DefaultControlProperties(),
@@ -83,7 +84,7 @@ const selectedIds = computed(
 
 const hasKey = (field: any) => selectedIds.value.includes(field);
 
-const selectResult = (event:MouseEvent, result: any) => {
+const selectResult = (event: MouseEvent, result: any) => {
   event.preventDefault();
   let selection: any[] = model.value ?? [];
 
@@ -99,4 +100,11 @@ const selectResult = (event:MouseEvent, result: any) => {
 
 const getValueField = (field: any) => field[properties.valueKey];
 const getLabel = (field: any) => field?.[properties.labelKey] ?? '';
+
+const style = computed(() =>
+  buildInputStyle(
+    [properties.styles.control.select, 'w-full truncate block'].join(' '),
+    properties,
+  ),
+);
 </script>

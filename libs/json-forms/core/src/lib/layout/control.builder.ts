@@ -8,7 +8,6 @@ export const ControlType = {
   autocomplete: 'autocomplete',
   textArea: 'textArea',
   markdown: 'markdown',
-  fixedArray: 'fixedArray',
   array: 'array',
   custom: 'custom',
 } as const;
@@ -18,13 +17,15 @@ export interface TextAreaOptions extends ControlOption {
 }
 
 export interface DetailOptions extends ControlOption {
-  format: 'fixedArray';
+  format: 'array';
+  layout: 'row' | 'column';
 }
 
 export interface AutocompleteOptions extends ControlOption {
   format: 'autocomplete';
   uri: string;
   dataField?: string;
+  skipAuth?: boolean;
   field: {
     id: string;
     label: string;
@@ -46,6 +47,9 @@ export interface ControlOption {
   elementLabelProp?: string;
   labelKey?: string;
   actions?: ArrayAction[];
+  placeholder?: string;
+  hideLabel?: boolean;
+  hideActions?: boolean;
 }
 
 export type ControlTypes = {
@@ -123,12 +127,20 @@ export class ControlBuilder<
     return this;
   }
 
-  detailFixed<TYPE>(layoutBuilder: LayoutBuilder<TYPE>, label?: string) {
+  detailFixed<TYPE>(
+    layoutBuilder: LayoutBuilder<TYPE>,
+    options: {
+      label?: string;
+      layout?: 'row' | 'column';
+    } = {},
+  ) {
     this._detail = layoutBuilder;
     this.options = {
       ...(this.options ?? {}),
-      format: ControlType.fixedArray,
-      elementLabelProp: label,
+      hideActions: true,
+      format: ControlType.array,
+      layout: options.layout ?? 'column',
+      elementLabelProp: options.label,
     };
     return this;
   }
@@ -172,31 +184,41 @@ export class ControlBuilder<
     return this;
   }
 
-  width(width: 'xs' | 'sm' | 'md' | 'lg' | 'xl') {
+  width(width: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full') {
     const sizes = {
       xs: 'w-12',
       sm: 'w-24',
       md: 'w-36',
       lg: 'w-48',
       xl: 'w-64',
+      full: 'w-full',
     };
-    this.options = {
-      ...this.options,
+    return this.addOptions({
       styles: {
         ...this.options?.styles,
         control: {
-          wrapper: sizes[width] ?? sizes.sm,
+          wrapper: ` ${sizes[width] ?? sizes.sm}`,
         },
       },
-    };
-
-    return this;
+    });
   }
 
   customLabel(label: string) {
+    return this.addOptions({ label });
+  }
+
+  placeHolder(placeholder: string) {
+    return this.addOptions({ placeholder });
+  }
+
+  hideLabel() {
+    return this.addOptions({ hideLabel: true });
+  }
+
+  private addOptions(options: Partial<ControlOption>) {
     this.options = {
       ...this.options,
-      label,
+      ...options,
     };
     return this;
   }

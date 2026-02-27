@@ -3,7 +3,7 @@
     <select
       v-model="model"
       :disabled="!enabled"
-      :class="[`select select-bordered`, styles.control.select]"
+      :class="style"
       @change="onChange"
       @focus="onFocus"
       @blur="onBlur"
@@ -20,13 +20,13 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
-import type {
-  SelectControlProperties} from './core/properties';
-import {
-  DefaultControlProperties
-} from './core/properties';
+import type { SelectControlProperties } from './core/properties';
+import { DefaultControlProperties } from './core/properties';
+import { buildInputStyle } from './core/utils/style';
 
 const properties = withDefaults(defineProps<SelectControlProperties>(), {
   ...DefaultControlProperties(),
@@ -47,4 +47,7 @@ const onFocus = (event: FocusEvent) => {
 const onBlur = (event: Event) => {
   emit('blur', event);
 };
+const style = computed(() =>
+  buildInputStyle(properties.styles.control.select, properties),
+);
 </script>

@@ -1,5 +1,10 @@
 <template>
-  <div class="collapse collapse-arrow bg-white w-full border border-gray-300">
+  <div
+    :class="[
+      'collapse collapse-arrow bg-white w-full border border-gray-300',
+      heightFull ? 'h-full' : '',
+    ]"
+  >
     <input
       type="checkbox"
       :checked="checked"
@@ -26,6 +31,7 @@ const slots = useSlots();
 export interface CollapseProps {
   title: string;
   opened?: boolean;
+  heightFull?: boolean;
 }
 
 const properties = withDefaults(defineProps<CollapseProps>(), {

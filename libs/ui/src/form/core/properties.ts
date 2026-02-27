@@ -17,6 +17,7 @@ export type ControlProperties = {
   isTouched?: boolean;
   hideLabel?: boolean;
   styles?: MyStyles;
+  width: string;
 };
 
 export const DefaultControlProperties = () => {
@@ -29,6 +30,7 @@ export const DefaultControlProperties = () => {
     isTouched: false,
     hideLabel: false,
     styles: myStyles,
+    width: 'w-24',
   } as ControlProperties;
 };
 

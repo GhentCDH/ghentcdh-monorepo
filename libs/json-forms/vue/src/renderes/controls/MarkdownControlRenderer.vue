@@ -4,7 +4,7 @@
     v-model="control.data"
     :enabled="control.enabled"
     :config="appliedOptions"
-    @change="onChange"
+    @change="changeValue"
     @focus="onFocus"
     @blur="onBlur"
   />
@@ -19,8 +19,16 @@ import { Markdown } from '@ghentcdh/ui';
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
-const { control, onChange, appliedOptions, onFocus, onBlur, controlWrapper } =
-  useVanillaControlCustom(useJsonFormsControl(props), (target) => {
-    return Boolean(target.value) ?? false;
-  });
+const {
+  control,
+  handleChange,
+  appliedOptions,
+  onFocus,
+  onBlur,
+  controlWrapper,
+} = useVanillaControlCustom(useJsonFormsControl(props));
+
+const changeValue = (value: string) => {
+  handleChange(control.value.path, value);
+};
 </script>

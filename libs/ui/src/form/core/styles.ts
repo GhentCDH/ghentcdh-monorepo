@@ -27,6 +27,7 @@ export const myStyles: MyStyles = {
     error: '',
     input: 'input',
     textarea: 'input h-32',
+    checkbox: 'checkbox',
     select: 'select',
     description: 'form-control--description label text-xs text-gray-500',
   },

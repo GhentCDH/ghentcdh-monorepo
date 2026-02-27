@@ -4,7 +4,7 @@
       v-model="model"
       autocomplete="off"
       type="text"
-      :class="[styles.control.textarea]"
+      :class="style"
       :disabled="!enabled"
       :rows="rows"
       :autofocus="isFocused"
@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
-import type {
-  TextareaProperties} from './core/properties';
-import {
-  DefaultControlProperties
-} from './core/properties';
+import type { TextareaProperties } from './core/properties';
+import { DefaultControlProperties } from './core/properties';
+import { buildInputStyle } from './core/utils/style';
 
 const properties = withDefaults(defineProps<TextareaProperties>(), {
   ...DefaultControlProperties(),
@@ -31,7 +31,7 @@ const properties = withDefaults(defineProps<TextareaProperties>(), {
 });
 
 const emit = defineEmits<ControlEmits>();
-const model = defineModel();
+const model = defineModel<string>();
 
 const onChange = (event: Event) => {
   emit('change', event);
@@ -42,4 +42,7 @@ const onFocus = (event: FocusEvent) => {
 const onBlur = (event: Event) => {
   emit('blur', event);
 };
+const style = computed(() =>
+  buildInputStyle(properties.styles.control.textarea, properties),
+);
 </script>

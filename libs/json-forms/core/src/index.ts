@@ -1,4 +1,4 @@
-export * from './lib/schema.model';
+export * from './lib/create-schema';
 export * from './lib/table/utils';
 export * from './lib/table/builder';
 export * from './lib/layout/layout.builder';

@@ -1,14 +1,16 @@
 # Autocomplete
 
 ```vue
-      <Autocomplete
-        v-model="model"
-        label="The label"
-        :options="options"
-      />
+
+<Autocomplete
+  v-model="model"
+  label="The label"
+  :options="options"
+/>
 ```
 
 <script setup>
+//
 import { Autocomplete } from "@ghentcdh/ui";
 import { ref } from 'vue';
 
@@ -42,11 +44,16 @@ const config = {
 
 <ClientOnly>
 ## Default
+<div class="flex gap-2">
 <Autocomplete
     v-model="model"
     label="The label"
     :options="options"
 />
+<pre>
+{{model}}
+</pre>
+</div>
 
 <div class="flex gap-2">
     <Autocomplete
@@ -60,6 +67,7 @@ const config = {
 </div>
 
 ## Autocomplete with remote call
+
 <div class="flex gap-2">
 <Autocomplete
     v-model="swapiModel"
@@ -86,19 +94,22 @@ const config = {
 </div>
 
 ## Required
+
 <Autocomplete
-    v-model="model"
-    label="The label"
-    :options="options"
-    :required="true"
+v-model="model"
+label="The label"
+:options="options"
+:required="true"
 />
 
-## Select with errors
+## Autocomplete with errors
+
 <Autocomplete
-    v-model="model"
-    label="The label"
-    :options="options"
-    errors="Some error"
+v-model="model"
+label="The label"
+:options="options"
+errors="Some error"
+:is-touched="true"
 />
 
 </ClientOnly>

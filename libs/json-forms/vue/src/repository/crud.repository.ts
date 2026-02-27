@@ -53,7 +53,7 @@ export const createRepository = <T extends { id?: string }>(
       .post(getDataUri(), object, options)
       .then((response) => {
         handleSuccess(`Created ${notificationEntity}`);
-        return response;
+        return response.data;
       })
       .catch((response) => {
         handleError(response, `Failed to create ${notificationEntity}`);
@@ -65,7 +65,7 @@ export const createRepository = <T extends { id?: string }>(
       .patch(getDataUri(id), object, options)
       .then((response) => {
         handleSuccess(`Saved ${notificationEntity}`);
-        return response;
+        return response.data;
       })
       .catch((response) => {
         handleError(response, `Failed to save ${notificationEntity}`);
@@ -73,7 +73,14 @@ export const createRepository = <T extends { id?: string }>(
   };
 
   const get = (id: string, options?: RequestOptions) => {
-    return httpRequest.get(getDataUri(id), options);
+    return httpRequest
+      .get(getDataUri(id), options)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((response) => {
+        handleError(response, `Failed to load data`);
+      });
   };
 
   const _delete = (id: string, options?: RequestOptions) => {
@@ -95,7 +102,7 @@ export const createRepository = <T extends { id?: string }>(
     )
       .then((response) => {
         handleSuccess(`Created ${notificationEntity}`);
-        return response;
+        return response.data;
       })
       .catch((response) => {
         handleError(response, `Failed to save ${notificationEntity}`);

@@ -1,10 +1,10 @@
-import type { MyStyles } from '../styles';
+import { type DefaultControlProperties } from '../properties';
 
-export const showErrors = (
-  isTouched: boolean,
-  isFocused: boolean,
-  errors: string | undefined,
-) => {
+type ErrorControlProperties = Pick<
+  DefaultControlProperties,
+  'errors' | 'isTouched'
+>;
+export const showErrors = ({ isTouched, errors }: ErrorControlProperties) => {
   return !!(isTouched && errors);
 };
 
@@ -21,14 +21,9 @@ export const isDescriptionHidden = (
   );
 };
 
-export const inputClasses = (
-  styles: MyStyles | any,
-  isFocused: boolean,
-  isTouched: boolean,
-  errors: string | undefined,
-) => {
-  return [
-    styles?.control.input,
-    { 'input-error': showErrors(isTouched, isFocused, errors) },
-  ];
+export const buildInputStyle = (
+  styles: string,
+  properties: ErrorControlProperties,
+): any => {
+  return [styles, { 'input-error': showErrors(properties) }];
 };

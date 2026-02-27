@@ -4,6 +4,7 @@
     v-model="control.data"
     :enabled="control.enabled"
     :config="appliedOptions"
+    :styles="styles"
     @change="onChange"
     @focus="onFocus"
     @blur="onBlur"
@@ -19,6 +20,13 @@ import { Input } from '@ghentcdh/ui';
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
-const { control, onChange, appliedOptions, onFocus, onBlur, controlWrapper } =
-  useVanillaControlCustom(useJsonFormsControl(props));
+const {
+  control,
+  onChange,
+  appliedOptions,
+  onFocus,
+  onBlur,
+  controlWrapper,
+  styles,
+} = useVanillaControlCustom(useJsonFormsControl(props));
 </script>

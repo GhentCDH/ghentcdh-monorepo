@@ -4,7 +4,7 @@ import { useApi } from '@ghentcdh/tools-vue';
 import { NotificationService } from '@ghentcdh/ui';
 
 export class FormStore {
-  constructor(private readonly schema: FormSchemaModel) {
+  constructor(private readonly schema: Pick<FormSchemaModel, 'uri'>) {
     // if (this.uri.value === schema.uri) return;
     // uri.value = schema.uri;
   }

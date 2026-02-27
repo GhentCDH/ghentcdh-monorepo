@@ -1,11 +1,12 @@
 # MultiSelect
 
 ```vue
-      <MultiSelect
-        v-model="model"
-        label="The label"
-        :options="options"
-      />
+
+<MultiSelect
+  v-model="model"
+  label="The label"
+  :options="options"
+/>
 ```
 
 <script setup>import {MultiSelect} from '@ghentcdh/ui';
@@ -36,6 +37,7 @@ label="The label"
 />
 
 ## Required
+
 <MultiSelect
 v-model="model"
 label="The label"
@@ -44,10 +46,12 @@ label="The label"
 />
 
 ## Select with errors
+
 <MultiSelect
 v-model="model"
 label="The label"
 :options="options"
+:is-touched="true"
 errors="Some error"
 />
 </ClientOnly>

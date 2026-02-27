@@ -1,4 +1,4 @@
-<template>{{ value }} - value</template>
+<template>{{ value }}</template>
 
 <script>
 import { defineComponent } from 'vue';

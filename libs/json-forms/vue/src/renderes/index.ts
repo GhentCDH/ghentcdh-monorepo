@@ -24,6 +24,6 @@ const useVanillaRenderers = vanillaRenderers.filter(
 );
 
 export const tailwindRenderers = [
+  ...vanillaRenderers,
   ...customRenderers,
-  ...useVanillaRenderers,
 ] as const;

@@ -1,14 +1,16 @@
 # Select
 
 ```vue
-      <SelectComponent
-        v-model="model"
-        label="The label"
-        :options="options"
-      />
+
+<SelectComponent
+  v-model="model"
+  label="The label"
+  :options="options"
+/>
 ```
 
 <script setup>
+//
 import {
 SelectComponent
 } from "@ghentcdh/ui";
@@ -31,13 +33,15 @@ const options = [{
 </script>
 
 ## Default
+
 <SelectComponent
-    v-model="model"
-    label="The label"
-    :options="options"
+v-model="model"
+label="The label"
+:options="options"
 />
 
 ## Required
+
 <SelectComponent
 v-model="model"
 label="The label"
@@ -46,9 +50,11 @@ label="The label"
 />
 
 ## Select with errors
+
 <SelectComponent
 v-model="model"
 label="The label"
 :options="options"
 errors="Some error"
+:is-touched="true"
 />

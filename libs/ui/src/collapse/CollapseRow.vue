@@ -1,7 +1,9 @@
 <template>
   <li class="list-row">
     <div class="list-col-grow">
-      <div>{{ title }}</div>
+      <div v-if="title">
+        {{ title }}
+      </div>
       <div
         v-if="description || descriptionLink"
         class="text-xs text-gray-600"
@@ -29,18 +31,12 @@
       </a>
       <span v-else>{{ label }}</span>
     </div>
-    <p class="list-col-wrap text-xs text-gray-500">
-      <ng-content />
-    </p>
+    <slot />
   </li>
 </template>
 <script setup lang="ts">
-import { useSlots } from 'vue';
-
-const slots = useSlots();
-
 export interface CollapseRowProps {
-  title: string;
+  title?: string;
   label?: string;
   labelLink?: string;
   description?: string;

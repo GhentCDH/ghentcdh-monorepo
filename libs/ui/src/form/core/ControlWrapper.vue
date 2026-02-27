@@ -1,5 +1,5 @@
 <template>
-  <fieldset :class="styles.control.wrapper">
+  <fieldset :class="['fieldset', styles.control.wrapper, width]">
     <legend
       v-if="!hideLabel"
       :class="styles.control.label"
@@ -40,10 +40,6 @@ const showAsterisk = computed(() => {
 });
 
 const showErrors = computed(() => {
-  return _showErrors(
-    properties.isTouched,
-    properties.isFocused,
-    properties.errors,
-  );
+  return _showErrors(properties);
 });
 </script>

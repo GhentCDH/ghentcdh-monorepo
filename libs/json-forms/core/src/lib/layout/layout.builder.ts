@@ -11,39 +11,52 @@ export type ElementBuilder<TYPE> =
   | GroupBuilder<TYPE>
   | TextCellBuilder<TYPE>;
 
+export const LayoutTypes = {
+  HorizontalLayout: 'HorizontalLayout',
+  VerticalLayout: 'VerticalLayout',
+  CollapseLayout: 'CollapseLayout',
+} as const;
+
+type _LayoutTypes = (typeof LayoutTypes)[keyof typeof LayoutTypes];
+
 export type LayoutType = {
-  type: 'HorizontalLayout' | 'VerticalLayout';
+  type: 'LayoutTypes';
   elements: Array<ControlTypes | LayoutType>;
 };
 
 export class LayoutBuilder<TYPE> extends BuilderWithElements<LayoutType, TYPE> {
   private options: any;
 
-  protected constructor(
-    type: 'HorizontalLayout' | 'VerticalLayout' | 'Categorization' | 'table',
-    options = {},
-  ) {
+  protected constructor(type: _LayoutTypes, options = {}) {
     super(type);
     this.options = options;
   }
 
   static horizontal<TYPE>(): LayoutBuilder<TYPE> {
-    return new LayoutBuilder<TYPE>('HorizontalLayout');
+    return new LayoutBuilder<TYPE>(LayoutTypes.HorizontalLayout);
   }
-
-  static stepper(hideNavButtons = false) {
-    return new LayoutBuilder('Categorization', {
-      variant: 'stepper',
-      showNavButtons: !hideNavButtons,
-    });
-  }
-
-  static table() {
-    return new LayoutBuilder('table');
+  static collapse<TYPE>(): LayoutBuilder<TYPE> {
+    return new LayoutBuilder<TYPE>(LayoutTypes.CollapseLayout);
   }
 
   static vertical<TYPE>(): LayoutBuilder<TYPE> {
-    return new LayoutBuilder<TYPE>('VerticalLayout');
+    return new LayoutBuilder<TYPE>(LayoutTypes.VerticalLayout);
+  }
+
+  titleKey(titleKey: string) {
+    return this.addOptions({ titleKey });
+  }
+
+  title(title: string) {
+    return this.addOptions({ title });
+  }
+
+  private addOptions(options: Partial<any>) {
+    this.options = {
+      ...this.options,
+      ...options,
+    };
+    return this;
   }
 
   override build(): LayoutType {

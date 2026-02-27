@@ -4,10 +4,11 @@
       v-model="query"
       autocomplete="off"
       type="text"
-      :class="[styles.control.select]"
+      :class="[style]"
       :disabled="!enabled"
       @focus="onFocus"
       @blur="onBlur"
+      @click="openValues"
     >
     <div v-click-outside="() => (results = [])">
       <ul
@@ -36,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import type { ResponseData } from '@ghentcdh/core/types';
 import { apiNoAuth, useApi } from '@ghentcdh/tools-vue';
@@ -45,6 +46,7 @@ import ControlWrapper from './core/ControlWrapper.vue';
 import type { ControlEmits } from './core/emits';
 import type { AutoCompleteProperties } from './core/properties';
 import { DefaultAutoCompleteProperties } from './core/properties';
+import { buildInputStyle } from './core/utils/style';
 
 const properties = withDefaults(
   defineProps<AutoCompleteProperties>(),
@@ -106,21 +108,33 @@ watch(
       return;
     }
 
-    //Option to allow new values
-    handleChange({ [properties.labelKey]: query });
-
-    if (properties.config) {
-      const { uri, skipAuth, dataField } = properties.config;
-      const httpRequest = properties.config.skipAuth ? apiNoAuth : useApi();
-
-      httpRequest.get<ResponseData<any>>(`${uri}${query}`).then((data: any) => {
-        results.value = data.data[dataField!] as [];
-      });
-    } else if (properties.options) {
-      results.value = properties.options
-        .filter((option: any) => getLabel(option).toLowerCase().includes(query))
-        .slice(0, 10);
-    }
+    searchForValue(query);
   },
+);
+
+const searchForValue = (query: string) => {
+  //Option to allow new values
+  handleChange({ [properties.labelKey]: query });
+
+  if (properties.config) {
+    const { uri, skipAuth, dataField } = properties.config;
+    const httpRequest = properties.config.skipAuth ? apiNoAuth : useApi();
+
+    httpRequest.get<ResponseData<any>>(`${uri}${query}`).then((data: any) => {
+      results.value = data.data[dataField!] as [];
+    });
+  } else if (properties.options) {
+    results.value = properties.options
+      .filter((option: any) => getLabel(option).toLowerCase().includes(query))
+      .slice(0, 10);
+  }
+};
+
+const openValues = () => {
+  if (results.value?.length) return;
+  searchForValue(query.value);
+};
+const style = computed(() =>
+  buildInputStyle(properties.styles.control.select, properties),
 );
 </script>
