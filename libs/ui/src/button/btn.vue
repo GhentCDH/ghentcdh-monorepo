@@ -9,12 +9,9 @@
     ]"
     v-bind="properties"
     @click="emit('click')"
+    :data-tip="tooltip"
   >
-    <Icon
-      v-if="icon"
-      :icon="icon"
-      :size="size"
-    />
+    <Icon v-if="icon" :icon="icon" :size="size" />
     <slot />
   </component>
 </template>
@@ -32,7 +29,7 @@ import { Icon } from '../icons';
 export interface ButtonProps {
   href?: string;
   disabled?: boolean;
-
+  tooltip?: string;
   as?: ButtonTag;
   icon?: IconEnum;
   type?: ButtonType;

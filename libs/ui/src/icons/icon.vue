@@ -17,7 +17,7 @@ import { IconMap } from './icon-list';
 import type { Size } from '../const/size';
 
 defineProps<{
-  icon: IconDef;
+  icon?: IconDef;
   size?: Size;
 }>();
 </script>

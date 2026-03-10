@@ -34,9 +34,11 @@ export enum IconEnum {
   ChevronUp = 'ChevronUp',
   DblChevronLeft = 'DblChevronLeft',
   DblChevronRight = 'DblChevronRight',
+  Language = 'Language',
   Check = 'Check',
   View = 'View',
   Text = 'Text',
+  Link = 'Link',
 }
 
 export const IconMap: Record<IconEnum, string> = {
@@ -61,12 +63,8 @@ export const IconMap: Record<IconEnum, string> = {
     'm18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13',
   ),
   Hamburger: createIcon('M4 6h16M4 12h16M4 18h16'),
-  ChevronRight: createIcon(
-    'M8.25 4.5l7.5 7.5-7.5 7.5',
-  ),
-  ChevronLeft: createIcon(
-    'M15.75 19.5L8.25 12l7.5-7.5',
-  ),
+  ChevronRight: createIcon('M8.25 4.5l7.5 7.5-7.5 7.5'),
+  ChevronLeft: createIcon('M15.75 19.5L8.25 12l7.5-7.5'),
   ChevronDown: createIcon(
     'M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z',
   ),
@@ -85,6 +83,12 @@ export const IconMap: Record<IconEnum, string> = {
     `m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5`,
   ),
   DblChevronRight: createIcon(`m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5`),
+  Language: createIcon(
+    `m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257 m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802`,
+  ),
+  Link: createIcon(
+    `M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244`,
+  ),
 } as const;
 
 export type IconDef = keyof typeof IconMap;
