@@ -8,10 +8,14 @@
       { 'btn-outline': outline, 'btn-square': square },
     ]"
     v-bind="properties"
-    @click="emit('click')"
     :data-tip="tooltip"
+    @click="emit('click')"
   >
-    <Icon v-if="icon" :icon="icon" :size="size" />
+    <Icon
+      v-if="icon"
+      :icon="icon"
+      :size="size"
+    />
     <slot />
   </component>
 </template>
