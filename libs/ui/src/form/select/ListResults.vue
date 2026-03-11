@@ -2,7 +2,7 @@
   <ul
     ref="listRef"
     role="listbox"
-    class="absolute z-50 w-full mt-1 menu bg-base-100 border border-base-300 rounded-box shadow-xl overflow-x-auto max-h-64 origin-top p-1"
+    class="absolute z-50 w-full mt-1 menu bg-base-100 border border-base-300 rounded-box shadow-xl overflow-auto max-h-64 origin-top p-1"
   >
     <!-- Loading skeleton rows -->
     <template v-if="isLoading">
@@ -45,7 +45,10 @@
           }"
         >
           <!-- Highlight matching text -->
-          <span v-html="highlight(item.label, query)" />
+          <span
+            class="whitespace-nowrap"
+            v-html="highlight(item.label, query)"
+          />
 
           <!-- Active checkmark -->
           <svg
@@ -69,19 +72,62 @@
   </ul>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 
-import { ListProperties } from './ListResults.properties';
+import { ListProperties, type OptionValue } from './ListResults.properties';
 
 const props = defineProps(ListProperties);
 const activeIndex = ref(-1);
+const listRef = ref<HTMLUListElement>();
 
 const emits = defineEmits(['select']);
 
-function select(item) {
+watch(
+  () => props.options,
+  () => {
+    activeIndex.value = -1;
+  },
+);
+
+function scrollToActive() {
+  nextTick(() => {
+    const el = listRef.value?.querySelector(
+      `[data-index="${activeIndex.value}"]`,
+    );
+    el?.scrollIntoView({ block: 'nearest' });
+  });
+}
+
+function handleKeydown(e: KeyboardEvent) {
+  const len = props.options?.length ?? 0;
+  if (!len) return;
+
+  switch (e.key) {
+    case 'ArrowDown':
+      e.preventDefault();
+      activeIndex.value = (activeIndex.value + 1) % len;
+      scrollToActive();
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      activeIndex.value = activeIndex.value <= 0 ? len - 1 : activeIndex.value - 1;
+      scrollToActive();
+      break;
+    case 'Enter':
+      e.preventDefault();
+      if (activeIndex.value >= 0 && activeIndex.value < len) {
+        select(props.options![activeIndex.value]);
+      }
+      break;
+  }
+}
+
+function select(item: OptionValue) {
   activeIndex.value = -1;
   emits('select', item);
 }
+
+defineExpose({ handleKeydown });
 </script>
 
 <script lang="ts">

@@ -1,7 +1,10 @@
 <template>
   <div ref="selectWrapperRef">
     <ControlWrapper v-bind="props">
-      <div class="relative">
+      <div
+        class="relative"
+        @keydown="onKeydown"
+      >
         <div class="overflow-hidden">
           <slot />
         </div>
@@ -67,6 +70,7 @@
         >
           <ListResults
             v-if="isOpen"
+            ref="listResultsRef"
             :query="query"
             :options="options"
             :is-loading="isLoading"
@@ -86,19 +90,25 @@ import { SelectWrapperProperties } from './SelectWrapper.properties';
 import ControlWrapper from '../core/ControlWrapper.vue';
 
 const props = defineProps(SelectWrapperProperties);
-const activeIndex = ref(-1);
 
 const selectWrapperRef = ref<HTMLElement>();
+const listResultsRef = ref<InstanceType<typeof ListResults>>();
 const emits = defineEmits(['select', 'clear', 'close']);
 
 const clear = () => {
-  activeIndex.value = -1;
   close();
   emits('clear');
 };
 const close = () => {
-  activeIndex.value = -1;
   emits('close');
+};
+
+const onKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    close();
+    return;
+  }
+  listResultsRef.value?.handleKeydown(e);
 };
 
 const handleOutsideClick = (e: MouseEvent) => {
