@@ -17,7 +17,10 @@
       </li>
     </template>
     <!-- No results -->
-    <li v-else-if="options.length === 0" class="pointer-events-none">
+    <li
+      v-else-if="options.length === 0"
+      class="pointer-events-none"
+    >
       <span class="px-3 py-2 text-sm opacity-50 italic">
         No results found
       </span>

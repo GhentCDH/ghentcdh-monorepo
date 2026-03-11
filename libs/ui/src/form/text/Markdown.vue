@@ -35,7 +35,7 @@ import { EditorContent, useEditor } from '@tiptap/vue-3';
 import { Markdown } from 'tiptap-markdown';
 import { onBeforeUnmount } from 'vue';
 
-import { MarkdownEmits, MarkdownComponentProperties } from './MarkdownComponent.properties';
+import { MarkdownComponentProperties, MarkdownEmits } from './MarkdownComponent.properties';
 import ControlWrapper from '../core/ControlWrapper.vue';
 
 const properties = defineProps(MarkdownComponentProperties);
