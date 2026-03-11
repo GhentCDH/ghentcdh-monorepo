@@ -24,13 +24,13 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
 
-import { OptionValue } from './ListResults.properties';
+import type { OptionValue } from './ListResults.properties';
 import { SelectProperties } from './SelectWrapper.properties';
 import SelectWrapper from './SelectWrapper.vue';
 import type { ControlEmits } from '../core/emits';
 import { mergeStyles } from '../core/styles';
-import { buildInputStyle } from '../core/utils/style';
 import { useOptions } from './composables/useOptions';
+import { buildInputStyle } from '../core/utils/style';
 
 const isOpen = ref(false);
 const properties = defineProps(SelectProperties);

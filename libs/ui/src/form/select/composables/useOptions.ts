@@ -1,6 +1,7 @@
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 import { ref } from 'vue';
-import { OptionValue } from '../ListResults.properties';
+
+import type { OptionValue } from '../ListResults.properties';
 
 type OptionsProperties = {
   labelKey: string;

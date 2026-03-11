@@ -26,7 +26,7 @@
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
-    />
+    >
   </SelectWrapper>
 </template>
 
@@ -37,12 +37,12 @@ import {
   AutoCompleteEmits,
   AutocompleteProperties,
 } from './AutoComplete.properties';
-import { OptionValue } from './ListResults.properties';
+import type { OptionValue } from './ListResults.properties';
 import SelectWrapper from './SelectWrapper.vue';
+import { useOptions } from './composables/useOptions';
 import { useAutoCompleteSearch } from './composables/useSearch';
 import { mergeStyles } from '../core/styles';
 import { buildInputStyle } from '../core/utils/style';
-import { useOptions } from './composables/useOptions';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 const props = defineProps(AutocompleteProperties);

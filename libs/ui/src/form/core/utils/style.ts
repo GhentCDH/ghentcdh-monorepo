@@ -1,4 +1,4 @@
-import { ControlProperties } from '../properties';
+import type { ControlProperties } from '../properties';
 
 type ErrorControlProperties = Pick<ControlProperties, 'errors' | 'isTouched'>;
 
