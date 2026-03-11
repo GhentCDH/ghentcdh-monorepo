@@ -13,6 +13,7 @@
 - pnpm for package management
 - NX monorepo conventions
 - Prefer `type` over `interface`
+- Prefer arrow function expressions: `const functionName = () => {}`
 - Prettier: single quotes (`"singleQuote": true`)
 - ESLint flat config with scope-based module boundary constraints
 

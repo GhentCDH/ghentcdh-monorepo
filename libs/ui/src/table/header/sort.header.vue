@@ -12,19 +12,16 @@
     </div>
   </button>
 </template>
-<script setup lang="ts">
+
+<script lang="ts" setup>
 import { computed } from 'vue';
 
-import type { ColumnDef } from '@ghentcdh/core/types';
-
+import { SortHeaderEmits, SortHeaderProperties } from './sort.header.properties';
 import type { IconDef } from '../../icons';
 import { Icon, IconEnum } from '../../icons';
 
-const props = defineProps<{
-  column: ColumnDef;
-  sortColumn?: string;
-  sortDirection?: 'asc' | 'desc';
-}>();
+const props = defineProps(SortHeaderProperties);
+const emits = defineEmits(SortHeaderEmits);
 
 const sortIcon = computed<IconDef>(() =>
   props.sortDirection === 'asc' ? IconEnum.BarsArrowUp : IconEnum.BarsArrowDown,
@@ -35,6 +32,4 @@ const sortId = computed(() => props.column.options?.sortId ?? props.column.id);
 const onSort = () => {
   emits('sort', sortId.value);
 };
-
-const emits = defineEmits<{ sort: [column: string] }>();
 </script>

@@ -1,57 +1,3 @@
-<script setup lang="ts">
-import TextCell from './cells/text.cell.vue';
-import SortHeader from './header/sort.header.vue';
-import PaginationComponent from './pagination.component.vue';
-import type { DisplayColumn, TableAction } from './table.model';
-import Btn from '../button/btn.vue';
-import { IconEnum } from '../icons';
-
-const properties = defineProps<{
-  loading?: boolean;
-  actions?: TableAction[];
-  data?: any[];
-  displayColumns: Array<DisplayColumn>;
-  page?: {
-    count: number;
-    pageSize: number;
-    page: number;
-  };
-  sort?: {
-    sortColumn?: string;
-    sortDirection: 'asc' | 'desc';
-  };
-}>();
-
-// TODO add reload functionality!
-
-const emits = defineEmits<{
-  delete: [data: any];
-  edit: [data: any];
-  updatePage: [page: number];
-  sort: [id: string];
-}>();
-
-const edit = (data: unknown) => {
-  emits('edit', data);
-};
-
-const deleteFn = (data: unknown) => {
-  emits('delete', data);
-};
-
-const onUpdatePage = (page: number) => {
-  emits('updatePage', page);
-};
-
-const onSort = (id: string) => {
-  emits('sort', id);
-};
-
-const components = {
-  TextCell,
-};
-</script>
-
 <template>
   <table class="table w-full">
     <thead>
@@ -105,11 +51,13 @@ const components = {
               {{ action.label }}
             </Btn>
             <Btn
+              v-if="hasEdit"
               :icon="IconEnum.Edit"
               :outline="true"
               @click="edit(item)"
             />
             <Btn
+              v-if="hasDelete"
               :icon="IconEnum.Delete"
               :outline="true"
               @click="deleteFn(item)"
@@ -129,3 +77,44 @@ const components = {
     />
   </template>
 </template>
+
+<script lang="ts" setup>
+import { computed, useAttrs } from 'vue';
+
+import TextCell from './cells/text.cell.vue';
+import SortHeader from './header/sort.header.vue';
+import PaginationComponent from './pagination.component.vue';
+import { TableComponentEmits, TableComponentProperties } from './table.component.properties';
+import Btn from '../button/btn.vue';
+import { IconEnum } from '../icons';
+
+const properties = defineProps(TableComponentProperties);
+
+// TODO add reload functionality!
+
+const emits = defineEmits(TableComponentEmits);
+const attrs = useAttrs();
+
+const hasEdit = computed(() => 'onEdit' in attrs);
+const hasDelete = computed(() => 'onDelete' in attrs);
+
+const edit = (data: unknown) => {
+  (attrs.onEdit as Function)?.(data);
+};
+
+const deleteFn = (data: unknown) => {
+  (attrs.onDelete as Function)?.(data);
+};
+
+const onUpdatePage = (page: number) => {
+  emits('updatePage', page);
+};
+
+const onSort = (id: string) => {
+  emits('sort', id);
+};
+
+const components = {
+  TextCell,
+};
+</script>

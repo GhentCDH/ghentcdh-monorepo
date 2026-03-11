@@ -1,41 +1,20 @@
 <template>{{ value }}</template>
 
-<script>
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 
-const rendererProps = () => ({
-  data: {
-    type: Object,
-    required: true,
-  },
-  column: {
-    type: Object,
-    required: true,
-  },
-  options: {
-    type: Object,
-    required: false,
-  },
+import { TextCellProperties } from './text.cell.properties';
+
+const props = defineProps(TextCellProperties);
+
+const value = computed(() => {
+  const val = props.data[props.column.id];
+  if (!val) return null;
+
+  if (props.column.options?.format === 'keyValue') {
+    return val[props.column.options.key];
+  }
+
+  return val;
 });
-
-const renderer = defineComponent({
-  name: 'TextCell',
-  props: {
-    ...rendererProps(),
-  },
-  computed: {
-    value() {
-      const value = this.data[this.column.id];
-      if (!value) return null;
-
-      if (this.column.options?.format === 'keyValue') {
-        return value[this.column.options.key];
-      }
-
-      return value;
-    },
-  },
-});
-
-export default renderer;
 </script>
