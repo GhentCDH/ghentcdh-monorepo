@@ -1,11 +1,9 @@
 <template>
   <Autocomplete
-    v-bind="controlWrapper"
+    v-bind="bindProperties"
     v-model="control.data"
     :enabled="control.enabled"
-    :config="appliedOptions"
-    :label-key="field?.label"
-    :value-key="field?.id"
+    :fetch-options="fetchOptions"
     @change="handleChange"
     @focus="onFocus"
     @blur="onBlur"
@@ -15,11 +13,14 @@
 <script lang="ts" setup>
 import type { ControlElement } from '@jsonforms/core';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
+import axios from 'axios';
 import { computed } from 'vue';
 
+import type { AutocompleteRemoteOptions } from '@ghentcdh/json-forms-core';
+import { useApi } from '@ghentcdh/tools-vue';
 import { Autocomplete } from '@ghentcdh/ui';
 
-import { useVanillaControlCustom } from '../../../utils/vanillaControl';
+import { useVanillaControlCustom } from '../../utils/vanillaControl';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
 const {
@@ -31,7 +32,24 @@ const {
   controlWrapper,
 } = useVanillaControlCustom(useJsonFormsControl(props));
 
-const field = computed(() => appliedOptions.value.field);
+const bindProperties = computed(() => ({
+  ...controlWrapper.value,
+  ...appliedOptions.value,
+}));
+
+const fetchOptions = computed(() => {
+  const options = appliedOptions.value as AutocompleteRemoteOptions;
+
+  if (!options.uri) return null;
+
+  return () => {
+    const fetch = options.skipAuth ? axios : useApi();
+
+    return fetch
+      .get(options.uri)
+      .then((data) => data.data[options.dataField ?? 'data']);
+  };
+});
 
 const handleChange = (result: any) => {
   const { path } = control.value;

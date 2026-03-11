@@ -1,6 +1,6 @@
 <template>
   <ControlWrapper v-bind="properties">
-    <div class="card bg-base-100 border border-base-300">
+    <div class="card bg-base-100 border border-base-300 w-full">
       <!-- Toolbar -->
       <div
         class="flex items-center gap-1 px-3 py-2 border-b border-base-300 bg-base-200"
@@ -35,25 +35,10 @@ import { EditorContent, useEditor } from '@tiptap/vue-3';
 import { Markdown } from 'tiptap-markdown';
 import { onBeforeUnmount } from 'vue';
 
-import ControlWrapper from './core/ControlWrapper.vue';
-import type { MarkdownProperties } from './core/properties';
-import { DefaultControlProperties } from './core/properties';
+import { MarkdownComponentProperties } from './MarkdownComponent.properties';
+import ControlWrapper from '../core/ControlWrapper.vue';
 
-const properties = withDefaults(defineProps<MarkdownProperties>(), {
-  ...DefaultControlProperties(),
-  actions: () => [
-    {
-      label: '<strong>B</strong>',
-      name: 'bold',
-      action: (editor) => editor?.chain().focus().toggleBold().run(),
-    },
-    {
-      label: '<em>I</em>',
-      name: 'italic',
-      action: (editor) => editor?.chain().focus().toggleItalic().run(),
-    },
-  ],
-});
+const properties = defineProps(MarkdownComponentProperties);
 
 const emit = defineEmits<{
   change: [value: string];

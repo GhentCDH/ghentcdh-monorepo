@@ -10,6 +10,8 @@ export const ControlType = {
   markdown: 'markdown',
   array: 'array',
   custom: 'custom',
+  select: 'select',
+  mutliSelect: 'mutliSelect',
 } as const;
 
 export interface TextAreaOptions extends ControlOption {
@@ -20,16 +22,24 @@ export interface DetailOptions extends ControlOption {
   format: 'array';
   layout: 'row' | 'column';
 }
+export interface SelectOptions extends ControlOption {
+  format: 'select' | 'multiselect';
+  options: Array<any>;
+  labelKey?: string;
+  valueKey?: string;
+}
 
-export interface AutocompleteOptions extends ControlOption {
+export interface AutocompleteOptions extends Omit<SelectOptions, 'format'> {
+  format: 'autocomplete';
+}
+export interface AutocompleteRemoteOptions extends Omit<
+  SelectOptions,
+  'format' | 'options'
+> {
   format: 'autocomplete';
   uri: string;
   dataField?: string;
   skipAuth?: boolean;
-  field: {
-    id: string;
-    label: string;
-  };
 }
 
 export type ArrayActionType = 'edit';
@@ -45,7 +55,7 @@ export interface ControlOption {
   styles?: Partial<any>;
   elements?: any;
   elementLabelProp?: string;
-  labelKey?: string;
+  customLabel?: string;
   actions?: ArrayAction[];
   placeholder?: string;
   hideLabel?: boolean;
@@ -64,11 +74,7 @@ export class ControlBuilder<
 > extends Builder<ControlTypes> {
   private options: ControlOption = {
     format: 'Control',
-    styles: {
-      control: {
-        wrapper: 'w-full',
-      },
-    },
+    styles: {},
   };
 
   private _detail?: LayoutBuilder<any>;
@@ -99,32 +105,27 @@ export class ControlBuilder<
       `#/properties/${property as string}`,
     );
 
-    builder.options = {
+    builder.addOptions({
       format: ControlType.custom,
       type,
-    } as unknown as ControlOption;
+    } as unknown as Partial<ControlOption>);
 
     return builder;
   }
 
   detail<TYPE>(layoutBuilder: LayoutBuilder<TYPE>, label?: string) {
     this._detail = layoutBuilder;
-    this.options = {
-      ...(this.options ?? {}),
+    this.addOptions({
       format: ControlType.array,
       elementLabelProp: label,
-    };
+    });
     return this;
   }
 
   addAction(action: ArrayAction) {
     const actions = this.options?.actions ?? [];
     actions.push(action);
-    this.options = {
-      ...(this.options ?? {}),
-      actions,
-    };
-    return this;
+    return this.addOptions({ actions });
   }
 
   detailFixed<TYPE>(
@@ -135,53 +136,58 @@ export class ControlBuilder<
     } = {},
   ) {
     this._detail = layoutBuilder;
-    this.options = {
-      ...(this.options ?? {}),
+    return this.addOptions({
       hideActions: true,
       format: ControlType.array,
       layout: options.layout ?? 'column',
       elementLabelProp: options.label,
-    };
-    return this;
+    });
   }
 
   labelKey(labelKey: string) {
-    this.options = {
-      ...(this.options ?? {}),
-      labelKey: labelKey,
-    };
-    return this;
+    return this.addOptions({ labelKey });
   }
 
   readonly(): ControlBuilder<TYPE> {
-    this.options = {
+    return this.addOptions({
       format: ControlType.string,
       readonly: true,
-    };
-    return this;
+    });
   }
 
   markdown(): ControlBuilder<TYPE> {
-    this.options = { format: ControlType.markdown };
-
-    return this;
+    return this.addOptions({ format: ControlType.markdown });
   }
 
   textArea(options?: Omit<TextAreaOptions, 'format'>) {
-    this.options = {
+    return this.addOptions({
       format: ControlType.textArea,
       ...(options ?? {}),
-    };
-    return this;
+    });
   }
 
-  autocomplete(options: Omit<AutocompleteOptions, 'format'>) {
-    this.options = {
+  autocomplete(
+    options: Omit<AutocompleteOptions | AutocompleteRemoteOptions, 'format'>,
+  ) {
+    return this.addOptions({
       format: ControlType.autocomplete,
       dataField: 'data',
+      ...(options ?? {}),
+    });
+  }
+
+  select(options: Omit<SelectOptions, 'format'>) {
+    return this.addOptions({
+      format: ControlType.select,
       ...options,
-    };
-    return this;
+    });
+  }
+
+  mutliSelect(options: Omit<SelectOptions, 'format'>) {
+    return this.addOptions({
+      format: ControlType.mutliSelect,
+      ...options,
+    });
   }
 
   width(width: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full') {
@@ -197,7 +203,7 @@ export class ControlBuilder<
       styles: {
         ...this.options?.styles,
         control: {
-          wrapper: ` ${sizes[width] ?? sizes.sm}`,
+          wrapper: ` ${sizes[width] ?? sizes.lg}`,
         },
       },
     });

@@ -16,6 +16,9 @@ export const FormSchema = {
     boolean: { type: 'boolean' },
     comment: { type: 'string' },
     autocomplete: { type: 'string' },
+    autocompleteLocal: { type: 'string' },
+    select: { type: 'string' },
+    multiSelect: { type: 'string' },
     emails: {
       type: 'array',
       items: {
@@ -82,6 +85,13 @@ export const arrayUiSchema = LayoutBuilder.vertical<FormSchema>()
   )
   .build();
 
+const options = [
+  { theValue: 'value 1', name: 'value 1' },
+  { theValue: 'value 2', name: 'value 2' },
+  { theValue: 'value 3', name: 'value 3' },
+  { theValue: 'value 4', name: 'value 4' },
+];
+
 export const exampleUiSchema = LayoutBuilder.vertical<FormSchema>().addControls(
   LayoutBuilder.horizontal<FormSchema>().addControls(
     ControlBuilder.properties('name'),
@@ -100,16 +110,32 @@ export const exampleUiSchema = LayoutBuilder.vertical<FormSchema>().addControls(
   // If you do want a textarea later, uncomment next line:
   // LayoutBuilder.horizontal().addControls(ControlBuilder.properties('comment').textArea()),
   LayoutBuilder.horizontal().addControls(
-    ControlBuilder.properties('autocomplete').autocomplete({
-      uri: 'https://swapi.dev/api/people/?search=',
-      skipAuth: true,
-      dataField: 'results',
+    ControlBuilder.properties('select').select({
+      options,
       labelKey: 'name',
-      field: {
-        id: 'url',
-        label: 'name',
-      },
+      valueKey: 'theValue',
     }),
+    ControlBuilder.properties('multiSelect').mutliSelect({
+      options,
+      labelKey: 'name',
+      valueKey: 'theValue',
+    }),
+  ),
+  LayoutBuilder.horizontal().addControls(
+    ControlBuilder.properties('autocompleteLocal').autocomplete({
+      options,
+      labelKey: 'name',
+      valueKey: 'theValue',
+    }),
+    ControlBuilder.properties('autocomplete')
+      .customLabel('Autocomplete with starwars characters')
+      .autocomplete({
+        uri: 'https://swapi.dev/api/people/?search=',
+        skipAuth: true,
+        dataField: 'results',
+        labelKey: 'name',
+        valueKey: 'url',
+      }),
   ),
   LayoutBuilder.horizontal().addControls(
     ControlBuilder.properties('emails').detail(

@@ -1,9 +1,7 @@
-import { type DefaultControlProperties } from '../properties';
+import type { ControlProperties } from '../properties';
 
-type ErrorControlProperties = Pick<
-  DefaultControlProperties,
-  'errors' | 'isTouched'
->;
+type ErrorControlProperties = Pick<ControlProperties, 'errors' | 'isTouched'>;
+
 export const showErrors = ({ isTouched, errors }: ErrorControlProperties) => {
   return !!(isTouched && errors);
 };

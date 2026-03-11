@@ -38,3 +38,13 @@ export const isCustomControl = (customType: string) => {
     optionIs('type', customType),
   );
 };
+
+export const isMultiselectControl = and(
+  uiTypeIs('Control'),
+  optionIs('format', ControlType.mutliSelect),
+);
+
+export const isSelectControl = and(
+  uiTypeIs('Control'),
+  optionIs('format', ControlType.select),
+);

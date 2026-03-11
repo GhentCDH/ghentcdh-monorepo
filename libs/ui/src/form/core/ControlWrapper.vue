@@ -1,10 +1,14 @@
 <template>
-  <fieldset :class="['fieldset', styles.control.wrapper, width]">
-    <legend
-      v-if="!hideLabel"
-      :class="styles.control.label"
-    >
-      {{ label }} <span v-if="showAsterisk">*</span>
+  <fieldset
+    class="fieldset"
+    :class="[mergedStyles.control.wrapper, width]"
+  >
+    <legend :class="mergedStyles.control.label">
+      <template v-if="!hideLabel">
+        <span>{{ label }}</span>
+        <span v-if="showAsterisk">*</span>
+      </template>
+      &nbsp;
     </legend>
     <slot />
     <p :class="['fieldset-label h-4', { 'text-error': showErrors }]">
@@ -16,15 +20,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import type { ControlProperties } from './properties';
-import { DefaultControlProperties } from './properties';
+import { ControlWrapperProperties } from './ControlWrapper.properties'; // TODO check what is used?
+import { mergeStyles } from './styles';
 import { isDescriptionHidden, showErrors as _showErrors } from './utils/style'; // TODO check what is used?
 
 // TODO check what is used?
-const properties = withDefaults(
-  defineProps<ControlProperties>(),
-  DefaultControlProperties(),
-);
+const properties = defineProps(ControlWrapperProperties);
 
 const showDescription = computed(() => {
   return !isDescriptionHidden(
@@ -42,4 +43,6 @@ const showAsterisk = computed(() => {
 const showErrors = computed(() => {
   return _showErrors(properties);
 });
+
+const mergedStyles = computed(() => mergeStyles(properties.styles));
 </script>
