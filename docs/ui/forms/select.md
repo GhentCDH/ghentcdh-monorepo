@@ -49,6 +49,16 @@ label="The label"
 | `enabled`   | `Boolean` | `true`    | Whether the field is enabled                                     |
 | `isTouched` | `Boolean` | `false`   | Whether the field has been interacted with (used to show errors) |
 | `hideLabel` | `Boolean` | `false`   | Hides the label visually                                         |
+| `width`     | `String`  | `'w-48'`  | Tailwind width class for the trigger button                      |
+
+## Keyboard navigation
+
+| Key        | Action                              |
+|------------|-------------------------------------|
+| `ArrowDown`| Move to next option                 |
+| `ArrowUp`  | Move to previous option             |
+| `Enter`    | Select the highlighted option       |
+| `Escape`   | Close the dropdown                  |
 
 ## Events
 

@@ -51,12 +51,6 @@ watch(
 const onChange = (event: Event) => {
   emit('change', event);
 };
-const onFocus = (event: FocusEvent) => {
-  emit('focus', event);
-};
-const onBlur = (event: Event) => {
-  emit('blur', event);
-};
 
 const displayValue = computed(() =>
   model.value ? optionsHelper.getLabels(model.value)[0] : '',

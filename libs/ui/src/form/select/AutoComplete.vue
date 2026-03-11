@@ -11,7 +11,7 @@
   >
     <input
       ref="inputRef"
-      type="input"
+      type="text"
       role="combobox"
       :aria-expanded="isOpen"
       aria-autocomplete="list"
@@ -50,7 +50,7 @@ const props = defineProps(AutocompleteProperties);
 const emit = defineEmits(AutoCompleteEmits);
 
 // ─── State ───────────────────────────────────────────────────────────────────
-const inputRef = ref(null);
+const inputRef = ref<HTMLInputElement | null>(null);
 const query = ref('');
 const isOpen = ref(false);
 
@@ -82,8 +82,8 @@ watch(
 );
 
 // ─── Input events ────────────────────────────────────────────────────────────
-const onInput = (e) => {
-  query.value = e.target.value;
+const onInput = (e: Event) => {
+  query.value = (e.target as HTMLInputElement).value;
   if (!props.freeText) emit('update:modelValue', '');
   triggerSearch(query.value);
   isOpen.value = true;

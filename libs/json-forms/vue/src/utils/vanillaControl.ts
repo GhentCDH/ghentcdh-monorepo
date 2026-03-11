@@ -1,8 +1,10 @@
 import { useVanillaControl } from '@jsonforms/vue-vanilla';
 import { omit } from 'lodash-es';
-import { computed, ref } from 'vue';
+import { computed, ref, Ref } from 'vue';
+import { ControlOption } from '@ghentcdh/json-forms-core';
 
 export const useVanillaControlCustom = <
+  OPTIONS extends ControlOption,
   I extends { control: any; handleChange: any },
 >(
   input: I,
@@ -34,6 +36,7 @@ export const useVanillaControlCustom = <
 
   return {
     ...vanillaControl,
+    appliedOptions: vanillaControl.appliedOptions as Ref<OPTIONS>,
     controlWrapper,
     isFocused,
     isTouched,

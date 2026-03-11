@@ -11,7 +11,6 @@ export const SelectProperties = {
   /** Key to use as the stored
    value when options are objects */
   valueKey: { type: String, default: 'value' },
-  width: { type: String, default: 'w-48' },
 };
 
 export const SelectWrapperProperties = {

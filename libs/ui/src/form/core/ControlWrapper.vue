@@ -1,10 +1,11 @@
 <template>
-  <fieldset :class="['fieldset', mergedStyles.control.wrapper, width]">
-    <legend
-      v-if="!hideLabel"
-      :class="mergedStyles.control.label"
-    >
-      {{ label }} <span v-if="showAsterisk">*</span>
+  <fieldset class="fieldset" :class="[mergedStyles.control.wrapper, width]">
+    <legend :class="mergedStyles.control.label">
+      <template v-if="!hideLabel">
+        <span>{{ label }}</span>
+        <span v-if="showAsterisk">*</span>
+      </template>
+      &nbsp;
     </legend>
     <slot />
     <p :class="['fieldset-label h-4', { 'text-error': showErrors }]">
@@ -18,7 +19,7 @@ import { computed } from 'vue';
 
 import { ControlWrapperProperties } from './ControlWrapper.properties'; // TODO check what is used?
 import { mergeStyles } from './styles';
-import { isDescriptionHidden, showErrors as _showErrors } from './utils/style';
+import { isDescriptionHidden, showErrors as _showErrors } from './utils/style'; // TODO check what is used?
 
 // TODO check what is used?
 const properties = defineProps(ControlWrapperProperties);

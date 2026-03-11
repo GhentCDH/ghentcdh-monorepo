@@ -2,12 +2,12 @@ import { ref } from 'vue';
 
 import { getLabel } from '../composables/useOptions';
 
-interface SearchStrategy {
+type SearchStrategy = {
   results: ReturnType<typeof ref<any[]>>;
   isLoading: ReturnType<typeof ref<boolean>>;
   search(query: string): void;
   clear(): void;
-}
+};
 
 function useLocalSearch(props: any): SearchStrategy {
   const results = ref<any[]>([]);

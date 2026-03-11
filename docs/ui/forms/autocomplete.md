@@ -63,6 +63,16 @@ value-key="url"
 | `freeText`     | `Boolean`          | `false`   | Allow free-text input (don't clear if nothing selected)                                             |
 | `debounceMs`   | `Number`           | `200`     | Debounce delay in ms for remote search                                                              |
 | `maxResults`   | `Number`           | `8`       | Maximum number of results to display                                                                |
+| `width`        | `String`           | `'w-48'`  | Tailwind width class for the input                                                                  |
+
+## Keyboard navigation
+
+| Key        | Action                              |
+|------------|-------------------------------------|
+| `ArrowDown`| Move to next option                 |
+| `ArrowUp`  | Move to previous option             |
+| `Enter`    | Select the highlighted option       |
+| `Escape`   | Close the dropdown                  |
 
 ## Events
 
