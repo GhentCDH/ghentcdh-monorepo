@@ -2,7 +2,7 @@
   <ul
     ref="listRef"
     role="listbox"
-    class="absolute z-50 w-full mt-1 menu bg-base-100 border border-base-300 rounded-box shadow-xl overflow-auto max-h-64 origin-top p-1"
+    class="absolute z-50 w-full mt-1 bg-base-100 border border-base-300 rounded-box shadow-xl overflow-auto max-h-64 origin-top p-1"
   >
     <!-- Loading skeleton rows -->
     <template v-if="isLoading">
@@ -17,10 +17,7 @@
       </li>
     </template>
     <!-- No results -->
-    <li
-      v-else-if="options.length === 0"
-      class="pointer-events-none"
-    >
+    <li v-else-if="options.length === 0" class="pointer-events-none">
       <span class="px-3 py-2 text-sm opacity-50 italic">
         No results found
       </span>
@@ -110,7 +107,8 @@ function handleKeydown(e: KeyboardEvent) {
       break;
     case 'ArrowUp':
       e.preventDefault();
-      activeIndex.value = activeIndex.value <= 0 ? len - 1 : activeIndex.value - 1;
+      activeIndex.value =
+        activeIndex.value <= 0 ? len - 1 : activeIndex.value - 1;
       scrollToActive();
       break;
     case 'Enter':

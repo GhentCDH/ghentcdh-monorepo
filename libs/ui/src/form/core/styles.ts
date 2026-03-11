@@ -1,5 +1,3 @@
-import { cloneDeep, defaultsDeep } from 'lodash-es';
-
 export const myStyles = {
   group: {
     root: 'group',
@@ -39,5 +37,15 @@ export const myStyles = {
 // Derive the type from the value — single source of truth
 export type MyStyles = typeof myStyles;
 
-export const mergeStyles = (overrides?: Partial<MyStyles>): MyStyles =>
-  defaultsDeep(cloneDeep(overrides ?? {}), myStyles);
+export const mergeStyles = (overrides?: Partial<MyStyles>): MyStyles => {
+  if (!overrides) return { ...myStyles };
+
+  const result = { ...myStyles } as Record<string, any>;
+  for (const key of Object.keys(overrides) as (keyof MyStyles)[]) {
+    const override = overrides[key];
+    if (override && typeof override === 'object') {
+      result[key] = { ...myStyles[key], ...override };
+    }
+  }
+  return result as MyStyles;
+};

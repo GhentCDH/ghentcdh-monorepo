@@ -3,7 +3,7 @@
     v-bind="bindProperties"
     v-model="control.data"
     :enabled="control.enabled"
-    :fetchOptions="fetchOptions"
+    :fetch-options="fetchOptions"
     @change="handleChange"
     @focus="onFocus"
     @blur="onBlur"
@@ -13,14 +13,14 @@
 <script lang="ts" setup>
 import type { ControlElement } from '@jsonforms/core';
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
+import axios from 'axios';
 import { computed } from 'vue';
 
+import type { AutocompleteRemoteOptions } from '@ghentcdh/json-forms-core';
+import { useApi } from '@ghentcdh/tools-vue';
 import { Autocomplete } from '@ghentcdh/ui';
 
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
-import { AutocompleteRemoteOptions } from '@ghentcdh/json-forms-core';
-import { useApi } from '@ghentcdh/tools-vue';
-import axios from 'axios';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
 const {

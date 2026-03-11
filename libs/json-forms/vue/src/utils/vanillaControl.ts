@@ -1,7 +1,9 @@
 import { useVanillaControl } from '@jsonforms/vue-vanilla';
 import { omit } from 'lodash-es';
-import { computed, ref, Ref } from 'vue';
-import { ControlOption } from '@ghentcdh/json-forms-core';
+import type { Ref } from 'vue';
+import { computed, ref } from 'vue';
+
+import type { ControlOption } from '@ghentcdh/json-forms-core';
 
 export const useVanillaControlCustom = <
   OPTIONS extends ControlOption,

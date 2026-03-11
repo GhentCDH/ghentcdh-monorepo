@@ -1,5 +1,8 @@
 <template>
-  <fieldset class="fieldset" :class="[mergedStyles.control.wrapper, width]">
+  <fieldset
+    class="fieldset"
+    :class="[mergedStyles.control.wrapper, width]"
+  >
     <legend :class="mergedStyles.control.label">
       <template v-if="!hideLabel">
         <span>{{ label }}</span>

@@ -26,12 +26,12 @@
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
-    >
+    />
   </SelectWrapper>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 import {
   AutoCompleteEmits,
@@ -80,6 +80,11 @@ watch(
   },
   { immediate: true },
 );
+
+onMounted(() => {
+  triggerSearch('');
+  isOpen.value = true;
+});
 
 // ─── Input events ────────────────────────────────────────────────────────────
 const onInput = (e: Event) => {
