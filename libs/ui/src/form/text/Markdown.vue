@@ -29,20 +29,18 @@
   </ControlWrapper>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import StarterKit from '@tiptap/starter-kit';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import { Markdown } from 'tiptap-markdown';
 import { onBeforeUnmount } from 'vue';
 
-import { MarkdownComponentProperties } from './MarkdownComponent.properties';
+import { MarkdownEmits, MarkdownComponentProperties } from './MarkdownComponent.properties';
 import ControlWrapper from '../core/ControlWrapper.vue';
 
 const properties = defineProps(MarkdownComponentProperties);
 
-const emit = defineEmits<{
-  change: [value: string];
-}>();
+const emit = defineEmits(MarkdownEmits);
 const model = defineModel();
 
 const editor = useEditor({

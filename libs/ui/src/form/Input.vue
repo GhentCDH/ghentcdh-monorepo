@@ -18,18 +18,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
+import { InputEmits, InputProperties } from './Input.properties';
 import ControlWrapper from './core/ControlWrapper.vue';
-import type { ControlEmits } from './core/emits';
-import type { InputProperties } from './core/properties';
-import { DefaultControlProperties } from './core/properties';
 import { buildInputStyle } from './core/utils/style';
 
-const properties = withDefaults(defineProps<InputProperties>(), {
-  ...DefaultControlProperties(),
-  type: 'text',
-});
-
-const emit = defineEmits<ControlEmits>();
+const properties = defineProps(InputProperties);
+const emit = defineEmits(InputEmits);
 const model = defineModel();
 
 const onChange = (event: Event) => {

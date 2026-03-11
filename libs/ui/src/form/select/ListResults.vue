@@ -68,16 +68,16 @@
     </template>
   </ul>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
 import { nextTick, ref, watch } from 'vue';
 
-import { ListProperties, type OptionValue } from './ListResults.properties';
+import { ListProperties, ListResultsEmits, type OptionValue } from './ListResults.properties';
 
 const props = defineProps(ListProperties);
 const activeIndex = ref(-1);
 const listRef = ref<HTMLUListElement>();
 
-const emits = defineEmits(['select']);
+const emits = defineEmits(ListResultsEmits);
 
 watch(
   () => props.options,
