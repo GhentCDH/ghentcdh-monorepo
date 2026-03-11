@@ -1,1 +1,15 @@
 @use './_scss/index' as *;
+
+/* Tiptap / ProseMirror editor */
+.ProseMirror {
+  outline: none;
+  min-height: 100%;
+
+  p {
+    margin: 0.5em 0;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

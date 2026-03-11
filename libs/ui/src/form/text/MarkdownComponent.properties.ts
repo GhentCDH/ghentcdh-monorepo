@@ -3,17 +3,20 @@ import type { PropType } from 'vue';
 
 import { ControlWrapperProperties } from '../core/ControlWrapper.properties';
 
-export interface ToolbarAction {
+export type ToolbarAction = {
   /** Displayed inside the button (text or HTML, e.g. an icon) */
   label: string;
   /** The Tiptap mark/node name used for isActive() highlighting */
   name: string;
   /** Called with the editor instance when the button is clicked */
   action: (editor: Editor | undefined) => void;
-}
+};
+export const MarkdownEmits = ['change'];
+
 export const MarkdownComponentProperties = {
   ...ControlWrapperProperties,
   width: { type: String, default: 'w-48' },
+  minHeight: { type: String, default: 'min-h-96' },
   actions: {
     type: Object as PropType<ToolbarAction[]>,
     default: () => [

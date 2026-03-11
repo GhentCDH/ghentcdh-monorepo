@@ -1,6 +1,9 @@
 <template>
   <ControlWrapper v-bind="properties">
-    <div class="card bg-base-100 border border-base-300 w-full">
+    <div
+      :class="[minHeight]"
+      class="card bg-base-100 border border-base-300 w-full"
+    >
       <!-- Toolbar -->
       <div
         class="flex items-center gap-1 px-3 py-2 border-b border-base-300 bg-base-200"
@@ -22,27 +25,25 @@
       <div class="card-body p-3">
         <EditorContent
           :editor="editor"
-          class="prose prose-sm max-w-none min-h-96"
+          class="prose prose-sm max-w-none h-full"
         />
       </div>
     </div>
   </ControlWrapper>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import StarterKit from '@tiptap/starter-kit';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import { Markdown } from 'tiptap-markdown';
 import { onBeforeUnmount } from 'vue';
 
-import { MarkdownComponentProperties } from './MarkdownComponent.properties';
+import { MarkdownComponentProperties, MarkdownEmits } from './MarkdownComponent.properties';
 import ControlWrapper from '../core/ControlWrapper.vue';
 
 const properties = defineProps(MarkdownComponentProperties);
 
-const emit = defineEmits<{
-  change: [value: string];
-}>();
+const emit = defineEmits(MarkdownEmits);
 const model = defineModel();
 
 const editor = useEditor({
@@ -73,9 +74,3 @@ onBeforeUnmount(() => {
   editor.value?.destroy();
 });
 </script>
-
-<style scoped>
-:deep(.ProseMirror) {
-  outline: none;
-}
-</style>

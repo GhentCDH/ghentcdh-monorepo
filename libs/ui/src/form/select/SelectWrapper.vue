@@ -82,18 +82,18 @@
     </ControlWrapper>
   </div>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 
 import ListResults from './ListResults.vue';
-import { SelectWrapperProperties } from './SelectWrapper.properties';
+import { SelectWrapperEmits, SelectWrapperProperties } from './SelectWrapper.properties';
 import ControlWrapper from '../core/ControlWrapper.vue';
 
 const props = defineProps(SelectWrapperProperties);
 
 const selectWrapperRef = ref<HTMLElement>();
 const listResultsRef = ref<InstanceType<typeof ListResults>>();
-const emits = defineEmits(['select', 'clear', 'close']);
+const emits = defineEmits(SelectWrapperEmits);
 
 const clear = () => {
   close();

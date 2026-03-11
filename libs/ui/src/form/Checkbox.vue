@@ -23,17 +23,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
+import { CheckboxEmits, CheckboxProperties } from './Checkbox.properties';
 import ControlWrapper from './core/ControlWrapper.vue';
-import type { ControlEmits } from './core/emits';
-import type { ControlProperties} from './core/properties';
-import { DefaultControlProperties } from './core/properties';
 import { buildInputStyle } from './core/utils/style';
 
-const properties = withDefaults(defineProps<ControlProperties>(), {
-  ...DefaultControlProperties(),
-});
-
-const emit = defineEmits<ControlEmits>();
+const properties = defineProps(CheckboxProperties);
+const emit = defineEmits(CheckboxEmits);
 const model = defineModel();
 
 const onChange = (event: Event) => {

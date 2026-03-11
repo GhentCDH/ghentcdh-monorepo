@@ -19,18 +19,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
+import { TextareaEmits, TextareaProperties } from './Textarea.properties';
 import ControlWrapper from './core/ControlWrapper.vue';
-import type { ControlEmits } from './core/emits';
-import type { TextareaProperties } from './core/properties';
-import { DefaultControlProperties } from './core/properties';
 import { buildInputStyle } from './core/utils/style';
 
-const properties = withDefaults(defineProps<TextareaProperties>(), {
-  ...DefaultControlProperties(),
-  rows: 4,
-});
-
-const emit = defineEmits<ControlEmits>();
+const properties = defineProps(TextareaProperties);
+const emit = defineEmits(TextareaEmits);
 const model = defineModel<string>();
 
 const onChange = (event: Event) => {

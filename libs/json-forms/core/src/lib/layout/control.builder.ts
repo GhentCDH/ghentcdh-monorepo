@@ -17,6 +17,10 @@ export const ControlType = {
 export interface TextAreaOptions extends ControlOption {
   format: 'textArea';
 }
+export interface MarkdownOptions extends ControlOption {
+  format: 'markdown';
+  minHeight: string;
+}
 
 export interface DetailOptions extends ControlOption {
   format: 'array';
@@ -155,8 +159,11 @@ export class ControlBuilder<
     });
   }
 
-  markdown(): ControlBuilder<TYPE> {
-    return this.addOptions({ format: ControlType.markdown });
+  markdown(options?: Omit<MarkdownOptions, 'format'>): ControlBuilder<TYPE> {
+    return this.addOptions({
+      format: ControlType.markdown,
+      ...(options ?? {}),
+    });
   }
 
   textArea(options?: Omit<TextAreaOptions, 'format'>) {

@@ -13,6 +13,8 @@ export const SelectProperties = {
   valueKey: { type: String, default: 'value' },
 };
 
+export const SelectWrapperEmits = ['select', 'clear', 'close'];
+
 export const SelectWrapperProperties = {
   ...ListProperties,
   ...SelectProperties,
