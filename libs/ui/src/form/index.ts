@@ -1,7 +1,7 @@
-export { default as SelectComponent } from './SelectComponent.vue';
+export { default as SelectComponent } from './select/SelectComponent.vue';
 export { default as ControlWrapper } from './core/ControlWrapper.vue';
-export { default as Autocomplete } from './AutoComplete.vue';
-export { default as MultiSelect } from './MultiSelect.vue';
+export { default as Autocomplete } from './select/AutoComplete.vue';
+export { default as MultiSelect } from './select/MultiSelect.vue';
 export * from './core/styles';
 export * from './core/utils/style';
 export * from './core/properties';

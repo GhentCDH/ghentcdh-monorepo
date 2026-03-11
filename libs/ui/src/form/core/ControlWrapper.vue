@@ -1,9 +1,6 @@
 <template>
-  <fieldset :class="['fieldset', styles.control.wrapper, width]">
-    <legend
-      v-if="!hideLabel"
-      :class="styles.control.label"
-    >
+  <fieldset :class="['fieldset', mergedStyles.control.wrapper, width]">
+    <legend v-if="!hideLabel" :class="mergedStyles.control.label">
       {{ label }} <span v-if="showAsterisk">*</span>
     </legend>
     <slot />
@@ -15,16 +12,12 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-
-import type { ControlProperties } from './properties';
-import { DefaultControlProperties } from './properties';
-import { isDescriptionHidden, showErrors as _showErrors } from './utils/style'; // TODO check what is used?
+import { isDescriptionHidden, showErrors as _showErrors } from './utils/style';
+import { mergeStyles } from './styles';
+import { ControlWrapperProperties } from './ControlWrapper.properties'; // TODO check what is used?
 
 // TODO check what is used?
-const properties = withDefaults(
-  defineProps<ControlProperties>(),
-  DefaultControlProperties(),
-);
+const properties = defineProps(ControlWrapperProperties);
 
 const showDescription = computed(() => {
   return !isDescriptionHidden(
@@ -42,4 +35,6 @@ const showAsterisk = computed(() => {
 const showErrors = computed(() => {
   return _showErrors(properties);
 });
+
+const mergedStyles = computed(() => mergeStyles(properties.styles));
 </script>

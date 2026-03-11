@@ -29,11 +29,16 @@ const options = [{
     label: "Option 3"
 }];
 const modelWithValue = ref(options[0]);
+
 const swapiInitialValue = ref({
   "name": "Darth Vader",
   "url": "https://swapi.dev/api/people/4/"
 });
 
+const fetchOptions = async (searchTerm) => {
+const response = await fetch(`https://swapi.dev/api/people/?search=${searchTerm}`);
+return response.results
+}
 const config = {
     uri: 'https://swapi.dev/api/people/?search=',
     skipAuth: true,
@@ -73,6 +78,7 @@ const config = {
     v-model="swapiModel"
     label="Enter a starwars character name"
     :config="config"
+    :fetchOptions="fetchOptions"
     :labelKey="'name'"
     :valueKey="'url'"
 />
@@ -86,6 +92,7 @@ const config = {
     v-model="swapiInitialValue"
     label="Initial Value"
     :config="config"
+    :fetchOptions="fetchOptions"
     :labelKey="'name'"
     :valueKey="'url'"
 />
