@@ -16,7 +16,7 @@
 
           <!-- Clear button -->
           <button
-            v-if="value && !isLoading"
+            v-if="query && !isLoading"
             type="button"
             class="pointer-events-auto btn btn-ghost btn-xs btn-circle opacity-60 hover:opacity-100"
             tabindex="-1"
@@ -67,6 +67,7 @@
         >
           <ListResults
             v-if="isOpen"
+            :query="query"
             :options="options"
             :is-loading="isLoading"
             :is-active="isActive"

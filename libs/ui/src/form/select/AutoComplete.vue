@@ -37,11 +37,12 @@ import {
   AutoCompleteEmits,
   AutocompleteProperties,
 } from './AutoComplete.properties';
-import { getLabel, getValue } from './ListResults.properties';
+import { OptionValue } from './ListResults.properties';
 import SelectWrapper from './SelectWrapper.vue';
 import { useAutoCompleteSearch } from './composables/useSearch';
-import { buildInputStyle } from '../core/utils/style';
 import { mergeStyles } from '../core/styles';
+import { buildInputStyle } from '../core/utils/style';
+import { useOptions } from './composables/useOptions';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 const props = defineProps(AutocompleteProperties);
@@ -53,13 +54,19 @@ const inputRef = ref(null);
 const query = ref('');
 const isOpen = ref(false);
 
-const {
-  results,
-  isLoading,
-  triggerSearch,
-  clear: clearSearch,
-} = useAutoCompleteSearch(props);
+const autoCompleteSearch = useAutoCompleteSearch(props);
+const { isLoading, triggerSearch, clear: clearSearch } = autoCompleteSearch;
 
+const optionsHelper = useOptions(props);
+const { options: results } = optionsHelper;
+
+watch(
+  () => autoCompleteSearch.results.value,
+  () => {
+    optionsHelper.setOptions(autoCompleteSearch.results.value);
+  },
+  { immediate: true },
+);
 // ─── Sync external modelValue → query display ────────────────────────────────
 watch(
   () => props.modelValue,
@@ -99,14 +106,11 @@ function onBlur() {
 }
 
 // ─── Select item ─────────────────────────────────────────────────────────────
-const select = (item) => {
-  const val = getValue(item, props);
-  query.value = getLabel(item, props);
+const select = (item: OptionValue) => {
+  const original = optionsHelper.getOriginal(item);
+  query.value = item.label;
   isOpen.value = false;
-  emit(
-    'update:modelValue',
-    props.options && typeof props.options[0] === 'object' ? item : val,
-  );
+  emit('update:modelValue', original);
   emit('select', item);
 };
 

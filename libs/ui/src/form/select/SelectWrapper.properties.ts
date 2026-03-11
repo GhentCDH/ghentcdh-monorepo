@@ -1,8 +1,10 @@
 import { ListProperties } from './ListResults.properties';
 import { ControlWrapperProperties } from '../core/ControlWrapper.properties';
+import type { PropType } from 'vue';
 
 export const SelectProperties = {
   ...ControlWrapperProperties,
+  options: { type: Array as PropType<Array<any>>, required: true },
   /** Key to use as the display label when options are objects */
   labelKey: { type: String, default: 'label' },
   /** Key to use as the stored

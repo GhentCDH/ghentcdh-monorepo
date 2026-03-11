@@ -1,7 +1,7 @@
 <template>
   <SelectWrapper
     v-bind="properties"
-    :options="options"
+    :options="values"
     :disabled="!enabled"
     :is-open="isOpen"
     :query="displayValue"
@@ -22,19 +22,31 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
-import { getLabel, getValue } from './ListResults.properties';
-import { SelectWrapperProperties } from './SelectWrapper.properties';
+import { OptionValue } from './ListResults.properties';
+import { SelectProperties } from './SelectWrapper.properties';
 import SelectWrapper from './SelectWrapper.vue';
 import type { ControlEmits } from '../core/emits';
-import { buildInputStyle } from '../core/utils/style';
 import { mergeStyles } from '../core/styles';
+import { buildInputStyle } from '../core/utils/style';
+import { useOptions } from './composables/useOptions';
 
 const isOpen = ref(false);
-const properties = defineProps(SelectWrapperProperties);
+const properties = defineProps(SelectProperties);
 const emit = defineEmits<ControlEmits>();
 const model = defineModel();
+
+const optionsHelper = useOptions(properties);
+const { options: values } = optionsHelper;
+
+watch(
+  () => properties.options,
+  () => {
+    optionsHelper.setOptions(properties.options);
+  },
+  { immediate: true },
+);
 
 const onChange = (event: Event) => {
   emit('change', event);
@@ -47,7 +59,7 @@ const onBlur = (event: Event) => {
 };
 
 const displayValue = computed(() =>
-  model.value ? getLabel(model.value, properties) : undefined,
+  model.value ? optionsHelper.getLabels(model.value)[0] : '',
 );
 
 const styles = computed(() => mergeStyles(properties.styles));
@@ -55,22 +67,22 @@ const style = computed(() =>
   buildInputStyle(styles.value.control.select, properties),
 );
 
-const select = (result: any) => {
-  model.value = result;
-  onChange(result as any);
+const select = (result: OptionValue) => {
+  const original = optionsHelper.getOriginal(result);
+  model.value = original;
+  onChange(original);
 };
 
 const clear = () => {
   isOpen.value = false;
 
-  model.value = [];
-  onChange([] as any);
+  model.value = null;
+  onChange(undefined);
 };
 
-const hasValue = (item) => {
-  return model.value
-    ? getValue(model.value, properties) === getValue(item, properties)
-    : false;
+const hasValue = (item: OptionValue) => {
+  const selectedValue = optionsHelper.getValues(model.value)?.[0];
+  return selectedValue === item.value;
 };
 
 const close = () => {

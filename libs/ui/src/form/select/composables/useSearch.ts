@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-import { getLabel } from '../ListResults.properties';
+import { getLabel } from '../composables/useOptions';
 
 interface SearchStrategy {
   results: ReturnType<typeof ref<any[]>>;

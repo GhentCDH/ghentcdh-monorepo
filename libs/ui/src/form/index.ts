@@ -5,7 +5,7 @@ export { default as MultiSelect } from './select/MultiSelect.vue';
 export * from './core/styles';
 export * from './core/utils/style';
 export * from './core/properties';
-export { default as Markdown } from './Markdown.vue';
+export { default as Markdown } from './text/Markdown.vue';
 export { default as Checkbox } from './Checkbox.vue';
 export { default as Input } from './Input.vue';
 export { default as InputNumber } from './InputNumber.vue';

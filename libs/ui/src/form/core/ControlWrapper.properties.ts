@@ -1,5 +1,6 @@
+import type { PropType } from 'vue';
+
 import { type MyStyles, myStyles } from '../core/styles';
-import { PropType } from 'vue';
 
 export const ControlWrapperProperties = {
   id: { type: String },

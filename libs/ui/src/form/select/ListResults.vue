@@ -2,7 +2,7 @@
   <ul
     ref="listRef"
     role="listbox"
-    class="absolute z-50 w-full mt-1 menu bg-base-100 border border-base-300 rounded-box shadow-xl overflow-y-auto max-h-64 origin-top p-1"
+    class="absolute z-50 w-full mt-1 menu bg-base-100 border border-base-300 rounded-box shadow-xl overflow-x-auto max-h-64 origin-top p-1"
   >
     <!-- Loading skeleton rows -->
     <template v-if="isLoading">
@@ -17,10 +17,7 @@
       </li>
     </template>
     <!-- No results -->
-    <li
-      v-else-if="options.length === 0"
-      class="pointer-events-none"
-    >
+    <li v-else-if="options.length === 0" class="pointer-events-none">
       <span class="px-3 py-2 text-sm opacity-50 italic">
         No results found
       </span>
@@ -30,7 +27,7 @@
     <template v-else>
       <li
         v-for="(item, i) in options"
-        :key="getValue(item, props)"
+        :key="item.value"
         :data-index="i"
         role="option"
         :aria-selected="i === activeIndex"
@@ -45,7 +42,7 @@
           }"
         >
           <!-- Highlight matching text -->
-          <span v-html="highlight(getLabel(item, props), query)" />
+          <span v-html="highlight(item.label, query)" />
 
           <!-- Active checkmark -->
           <svg
@@ -71,7 +68,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { ListProperties, getLabel, getValue } from './ListResults.properties';
+import { ListProperties } from './ListResults.properties';
 
 const props = defineProps(ListProperties);
 const activeIndex = ref(-1);
