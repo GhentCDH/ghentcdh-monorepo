@@ -45,6 +45,7 @@ label="The label"
 | `enabled`     | `Boolean`         | `true`               | Whether the field is enabled                                     |
 | `isTouched`   | `Boolean`         | `false`              | Whether the field has been interacted with (used to show errors) |
 | `hideLabel`   | `Boolean`         | `false`              | Hides the label visually                                         |
+| `minHeight`   | `String`          | `'min-h-96'`         | Tailwind min-height class for the editor                         |
 | `width`       | `String`          | `'w-48'`             | Tailwind width class                                             |
 
 ## Events

@@ -16,6 +16,7 @@ export const MarkdownEmits = ['change'];
 export const MarkdownComponentProperties = {
   ...ControlWrapperProperties,
   width: { type: String, default: 'w-48' },
+  minHeight: { type: String, default: 'min-h-96' },
   actions: {
     type: Object as PropType<ToolbarAction[]>,
     default: () => [

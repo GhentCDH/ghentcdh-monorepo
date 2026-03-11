@@ -1,6 +1,9 @@
 <template>
   <ControlWrapper v-bind="properties">
-    <div class="card bg-base-100 border border-base-300 w-full">
+    <div
+      :class="[minHeight]"
+      class="card bg-base-100 border border-base-300 w-full"
+    >
       <!-- Toolbar -->
       <div
         class="flex items-center gap-1 px-3 py-2 border-b border-base-300 bg-base-200"
@@ -22,7 +25,7 @@
       <div class="card-body p-3">
         <EditorContent
           :editor="editor"
-          class="prose prose-sm max-w-none min-h-96"
+          class="prose prose-sm max-w-none h-full"
         />
       </div>
     </div>
@@ -71,9 +74,3 @@ onBeforeUnmount(() => {
   editor.value?.destroy();
 });
 </script>
-
-<style scoped>
-:deep(.ProseMirror) {
-  outline: none;
-}
-</style>
