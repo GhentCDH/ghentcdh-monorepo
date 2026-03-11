@@ -1,16 +1,70 @@
-<script setup lang="ts">
+<template>
+  <div class="flex gap-2">
+    <div class="flex flex-1 justify-center items-center">
+      <div class="flex gap-1">
+        <PaginationButton
+          v-bind="props"
+          :page="1"
+          label="<<"
+          :current-page="currentPage"
+          :never-active="true"
+          :disabled="currentPage === 1"
+          @update-page="goToPage"
+        />
+        <PaginationButton
+          v-bind="props"
+          :page="currentPage - 1"
+          label="<"
+          :current-page="currentPage"
+          :never-active="true"
+          :disabled="currentPage === 1"
+          @update-page="goToPage"
+        />
+        <template
+          v-for="page in pageNumbers"
+          :key="page.page"
+        >
+          <PaginationButton
+            v-bind="page"
+            @update-page="goToPage"
+          />
+        </template>
+
+        <PaginationButton
+          v-bind="props"
+          :page="currentPage + 1"
+          label=">"
+          :current-page="currentPage"
+          :never-active="true"
+          :disabled="props.currentPage === totalPages"
+          @update-page="goToPage"
+        />
+        <PaginationButton
+          v-bind="props"
+          :page="totalPages"
+          label=">>"
+          :current-page="currentPage"
+          :never-active="true"
+          :disabled="props.currentPage === totalPages"
+          @update-page="goToPage"
+        />
+      </div>
+    </div>
+    <div class="text-sm">
+      page {{ currentPage }} of {{ totalPages }}
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
 import { computed } from 'vue';
 
-import type { PageProps } from './pagination-button.component.vue';
+import type { PageProps } from './pagination-button.component.properties';
 import PaginationButton from './pagination-button.component.vue';
+import { PaginationComponentEmits, PaginationComponentProperties } from './pagination.component.properties';
 
-const props = defineProps({
-  totalItems: { type: Number, default: 0 },
-  itemsPerPage: { type: Number, default: 1 },
-  currentPage: { type: Number, default: 1 },
-});
-
-const emit = defineEmits(['updatePage', 'updatePageSize']);
+const props = defineProps(PaginationComponentProperties);
+const emit = defineEmits(PaginationComponentEmits);
 
 const totalPages = computed(() => {
   let total = Math.ceil(props.totalItems / props.itemsPerPage);
@@ -95,60 +149,3 @@ const goToPage = (page: number) => {
   emit('updatePage', page);
 };
 </script>
-<template>
-  <div class="flex gap-2">
-    <div class="flex flex-1 justify-center items-center">
-      <div class="flex gap-1">
-        <PaginationButton
-          v-bind="props"
-          :page="1"
-          label="<<"
-          :current-page="currentPage"
-          :never-active="true"
-          :disabled="currentPage === 1"
-          @update-page="goToPage"
-        />
-        <PaginationButton
-          v-bind="props"
-          :page="currentPage - 1"
-          label="<"
-          :current-page="currentPage"
-          :never-active="true"
-          :disabled="currentPage === 1"
-          @update-page="goToPage"
-        />
-        <template
-          v-for="page in pageNumbers"
-          :key="page.page"
-        >
-          <PaginationButton
-            v-bind="page"
-            @update-page="goToPage"
-          />
-        </template>
-
-        <PaginationButton
-          v-bind="props"
-          :page="currentPage + 1"
-          label=">"
-          :current-page="currentPage"
-          :never-active="true"
-          :disabled="props.currentPage === totalPages"
-          @update-page="goToPage"
-        />
-        <PaginationButton
-          v-bind="props"
-          :page="totalPages"
-          label=">>"
-          :current-page="currentPage"
-          :never-active="true"
-          :disabled="props.currentPage === totalPages"
-          @update-page="goToPage"
-        />
-      </div>
-    </div>
-    <div class="text-sm">
-      page {{ currentPage }} of {{ totalPages }}
-    </div>
-  </div>
-</template>
