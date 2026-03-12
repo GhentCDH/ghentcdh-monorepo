@@ -4,6 +4,7 @@
       'collapse collapse-arrow bg-white w-full border border-gray-300',
       heightFull ? 'h-full' : '',
       disabled ? 'collapse-open' : '',
+      isOpen ? 'overflow-visible' : '',
     ]"
   >
     <input
@@ -11,16 +12,28 @@
       type="checkbox"
       :checked="checked"
       tabindex="-1"
+      @change="isOpen = ($event.target as HTMLInputElement).checked"
     >
     <div class="collapse-title text-gray-500 text-xs font-medium">
       <div class="flex items-center justify-between">
         <span>{{ title }}</span>
         <div
-          v-if="slots.actions"
-          class="relative z-10"
+          v-if="properties.actions.length > 0"
+          class="relative z-10 flex gap-1"
           @click.stop
         >
-          <slot name="actions" />
+          <Btn
+            v-for="(action, index) in properties.actions"
+            :key="index"
+            :color="Color.blank"
+            size="xs"
+            :icon="action.icon"
+            :tooltip="action.tooltip"
+            :disabled="action.disabled"
+            @click="action.onClick"
+          >
+            {{ action.label }}
+          </Btn>
         </div>
       </div>
     </div>
@@ -39,9 +52,12 @@
 <script lang="ts" setup>
 import { ref, useSlots } from 'vue';
 
+import { Btn } from '../button';
+import { Color } from '../const/colors';
 import { CollapseProperties } from './Collapse.properties';
 
 const slots = useSlots();
 const properties = defineProps(CollapseProperties);
 const checked = ref(properties.opened);
+const isOpen = ref(properties.opened || properties.disabled);
 </script>

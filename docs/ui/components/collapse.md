@@ -3,8 +3,17 @@
 A collapsible component that can show/hide content with a toggle.
 
 <script setup>
-//
 import { Collapse, CollapseRow } from "@ghentcdh/ui";
+
+const actions = [
+  { label: 'All', onClick: () => alert('All clicked') },
+  { label: 'None', onClick: () => alert('None clicked') },
+];
+
+const iconActions = [
+  { icon: 'Edit', tooltip: 'Edit', onClick: () => alert('Edit clicked') },
+  { icon: 'Delete', tooltip: 'Delete', onClick: () => alert('Delete clicked') },
+];
 </script>
 
 ## Basic Usage
@@ -129,17 +138,13 @@ Use the `#list` slot with `CollapseRow` components to display structured list it
 
 ## With header actions
 
-Use the `#actions` slot to add buttons or controls to the collapse header. Actions are click-isolated so they don't toggle the collapse.
+Pass an array of action objects via the `actions` prop. Each action renders a button in the header, click-isolated from the collapse toggle.
 
 ::: tabs
 
 @tab Preview
 
-<Collapse title="With actions">
-<template #actions>
-<button class="btn btn-ghost btn-xs">All</button>
-<button class="btn btn-ghost btn-xs">None</button>
-</template>
+<Collapse title="With actions" :actions="actions">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 </Collapse>
 
@@ -147,17 +152,53 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 ```vue
 <template>
-  <Collapse title="With actions">
-    <template #actions>
-      <button class="btn btn-ghost btn-xs">All</button>
-      <button class="btn btn-ghost btn-xs">None</button>
-    </template>
+  <Collapse title="With actions" :actions="actions">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   </Collapse>
 </template>
 
-<script setup>
-  import { Collapse } from "@ghentcdh/ui";
+<script setup lang="ts">
+  import { Collapse } from '@ghentcdh/ui';
+  import type { CollapseAction } from '@ghentcdh/ui';
+
+  const actions: CollapseAction[] = [
+    { label: 'All', onClick: () => console.log('All') },
+    { label: 'None', onClick: () => console.log('None') },
+  ];
+</script>
+```
+
+:::
+
+## With icon actions
+
+Actions can use icons and tooltips instead of labels.
+
+::: tabs
+
+@tab Preview
+
+<Collapse title="With icon actions" :actions="iconActions">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</Collapse>
+
+@tab Vue
+
+```vue
+<template>
+  <Collapse title="With icon actions" :actions="actions">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </Collapse>
+</template>
+
+<script setup lang="ts">
+  import { Collapse } from '@ghentcdh/ui';
+  import type { CollapseAction } from '@ghentcdh/ui';
+
+  const actions: CollapseAction[] = [
+    { icon: 'Edit', tooltip: 'Edit', onClick: () => console.log('Edit') },
+    { icon: 'Delete', tooltip: 'Delete', onClick: () => console.log('Delete') },
+  ];
 </script>
 ```
 
@@ -195,11 +236,22 @@ When `disabled` is set, the collapse stays open and cannot be toggled.
 
 ### Collapse
 
-| Prop       | Type      | Default | Description                                    |
-|------------|-----------|---------|------------------------------------------------|
-| `title`    | `string`  | -       | The title displayed in the collapse header     |
-| `opened`   | `boolean` | `true`  | Whether the collapse is expanded by default    |
-| `disabled` | `boolean` | `false` | Keeps the collapse open and prevents toggling  |
+| Prop       | Type               | Default | Description                                    |
+|------------|--------------------|---------|------------------------------------------------|
+| `title`    | `string`           | -       | The title displayed in the collapse header     |
+| `opened`   | `boolean`          | `true`  | Whether the collapse is expanded by default    |
+| `disabled` | `boolean`          | `false` | Keeps the collapse open and prevents toggling  |
+| `actions`  | `CollapseAction[]` | `[]`    | Action buttons rendered in the header          |
+
+### CollapseAction
+
+| Property   | Type       | Required | Description                       |
+|------------|------------|----------|-----------------------------------|
+| `label`    | `string`   | no       | Button text                       |
+| `icon`     | `IconProp` | no       | Icon name or component            |
+| `tooltip`  | `string`   | no       | Tooltip text                      |
+| `disabled` | `boolean`  | no       | Disables the action button        |
+| `onClick`  | `function` | yes      | Click handler                     |
 
 ### Slots
 
@@ -207,7 +259,6 @@ When `disabled` is set, the collapse stays open and cannot be toggled.
 |-----------|--------------------------------------------------------------|
 | `default` | The collapsible content                                      |
 | `list`    | Structured list content (removes padding, wraps in `<ul>`)   |
-| `actions` | Controls rendered in the header, click-isolated from toggle  |
 
 ### CollapseRow
 

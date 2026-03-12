@@ -2,22 +2,19 @@
 
 A collapsible checkbox list for filtering items, with optional color dots and count badges.
 
-<script setup>import {ref} from 'vue';
+<script setup>
+import { ref } from 'vue';
 
 const items = [
-  { id: 'person', label: 'Person', color: '#3b82f6' },
-  { id: 'location', label: 'Location', color: '#22c55e' },
-  { id: 'organization', label: 'Organization', color: '#f59e0b' },
-  { id: 'event', label: 'Event', color: '#ef4444' },
+  { id: 'person', label: 'Person', count: 12, color: '#3b82f6' },
+  { id: 'location', label: 'Location', count: 5, color: '#22c55e' },
+  { id: 'organization', label: 'Organization', count: 8, color: '#f59e0b' },
+  { id: 'event', label: 'Event', count: 0, color: '#ef4444' },
 ];
 
 const selected = ref(items.map((i) => i.id));
 const selectedWithCount = ref(items.map((i) => i.id));
-
-const countFn = (item) => {
-  const counts = { person: 12, location: 5, organization: 8, event: 0 };
-  return counts[item.id] || 0;
-};
+const selectedWithCounts = ref(items.map((i) => i.id));
 </script>
 
 ## Usage
@@ -40,7 +37,6 @@ const countFn = (item) => {
 @tab Vue
 
 ```vue
-
 <template>
   <Filter
     title="Entity filter"
@@ -55,10 +51,10 @@ const countFn = (item) => {
   import { Filter } from '@ghentcdh/ui';
 
   const items = [
-    { id: 'person', label: 'Person', color: '#3b82f6' },
-    { id: 'location', label: 'Location', color: '#22c55e' },
-    { id: 'organization', label: 'Organization', color: '#f59e0b' },
-    { id: 'event', label: 'Event', color: '#ef4444' },
+    { id: 'person', label: 'Person', count: 12, color: '#3b82f6' },
+    { id: 'location', label: 'Location', count: 5, color: '#22c55e' },
+    { id: 'organization', label: 'Organization', count: 8, color: '#f59e0b' },
+    { id: 'event', label: 'Event', count: 0, color: '#ef4444' },
   ];
 
   const selected = ref(items.map((i) => i.id));
@@ -77,8 +73,22 @@ const countFn = (item) => {
 | `labelKey`   | `string`                     | `'label'`   | Key to read the display label from each item                            |
 | `valueKey`   | `string`                     | `'id'`      | Key to read the unique id from each item                                |
 | `colorKey`   | `string`                     | `undefined` | Key to read a background color (renders a color dot)                    |
-| `countFn`    | `(item) => number`           | `undefined` | Function returning a count for each item (renders a badge)              |
+| `countKey`   | `string`                     | `'count'`   | Key to read a count from each item (renders a badge if > 0)             |
+| `counts`     | `Record<string, number>`     | `undefined` | External map of item id to count (overrides `countKey`)                 |
 | `opened`     | `boolean`                    | `true`      | Whether the collapse is expanded by default                             |
+
+### FilterItem
+
+A convenience type for items that follow the default key conventions.
+
+```ts
+type FilterItem = {
+  id: string;
+  label: string;
+  count: number;
+  color?: string;
+};
+```
 
 ## Events
 
@@ -89,6 +99,8 @@ const countFn = (item) => {
 ## Examples
 
 ### With count badges
+
+Items with a `count` property automatically show a badge when the count is greater than 0.
 
 ::: tabs
 
@@ -101,7 +113,6 @@ const countFn = (item) => {
     :items="items"
     v-model="selectedWithCount"
     color-key="color"
-    :count-fn="countFn"
   />
 </div>
 </ClientOnly>
@@ -109,14 +120,63 @@ const countFn = (item) => {
 @tab Vue
 
 ```vue
-
 <template>
   <Filter
     title="Entity filter"
     :items="items"
-    v-model="selectedWithCount"
+    v-model="selected"
     color-key="color"
-    :count-fn="countFn"
+  />
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue';
+  import { Filter } from '@ghentcdh/ui';
+  import type { FilterItem } from '@ghentcdh/ui';
+
+  const items: FilterItem[] = [
+    { id: 'person', label: 'Person', count: 12, color: '#3b82f6' },
+    { id: 'location', label: 'Location', count: 5, color: '#22c55e' },
+    { id: 'organization', label: 'Organization', count: 8, color: '#f59e0b' },
+    { id: 'event', label: 'Event', count: 0, color: '#ef4444' },
+  ];
+
+  const selected = ref(items.map((i) => i.id));
+</script>
+```
+
+:::
+
+### With external counts
+
+Use the `counts` prop to provide counts from an external source instead of embedding them in items.
+
+::: tabs
+
+@tab Preview
+
+<ClientOnly>
+<div style="max-width: 300px">
+  <Filter
+    title="Entity filter"
+    :items="items"
+    v-model="selectedWithCounts"
+    color-key="color"
+    :counts="{ person: 42, location: 7, organization: 3, event: 0 }"
+  />
+</div>
+</ClientOnly>
+
+@tab Vue
+
+```vue
+<template>
+  <Filter
+    title="Entity filter"
+    :items="items"
+    v-model="selected"
+    color-key="color"
+    :counts="counts"
   />
 </template>
 
@@ -131,12 +191,8 @@ const countFn = (item) => {
     { id: 'event', label: 'Event', color: '#ef4444' },
   ];
 
-  const selectedWithCount = ref(items.map((i) => i.id));
-
-  const countFn = (item) => {
-    const counts = { person: 12, location: 5, organization: 8, event: 0 };
-    return counts[item.id] || 0;
-  };
+  const selected = ref(items.map((i) => i.id));
+  const counts = { person: 42, location: 7, organization: 3, event: 0 };
 </script>
 ```
 
@@ -153,9 +209,9 @@ const countFn = (item) => {
   <Filter
     title="Status filter"
     :items="[
-      { code: 'active', name: 'Active' },
-      { code: 'inactive', name: 'Inactive' },
-      { code: 'pending', name: 'Pending' },
+      { code: 'active', name: 'Active', count: 0 },
+      { code: 'inactive', name: 'Inactive', count: 0 },
+      { code: 'pending', name: 'Pending', count: 0 },
     ]"
     label-key="name"
     value-key="code"
@@ -166,7 +222,6 @@ const countFn = (item) => {
 @tab Vue
 
 ```vue
-
 <template>
   <Filter
     title="Status filter"
@@ -182,9 +237,9 @@ const countFn = (item) => {
   import { Filter } from '@ghentcdh/ui';
 
   const items = [
-    { code: 'active', name: 'Active' },
-    { code: 'inactive', name: 'Inactive' },
-    { code: 'pending', name: 'Pending' },
+    { code: 'active', name: 'Active', count: 0 },
+    { code: 'inactive', name: 'Inactive', count: 0 },
+    { code: 'pending', name: 'Pending', count: 0 },
   ];
 
   const selected = ref(items.map((i) => i.code));
@@ -212,7 +267,6 @@ const countFn = (item) => {
 @tab Vue
 
 ```vue
-
 <template>
   <Filter
     title="Closed by default"
@@ -226,8 +280,8 @@ const countFn = (item) => {
   import { Filter } from '@ghentcdh/ui';
 
   const items = [
-    { id: 'person', label: 'Person' },
-    { id: 'location', label: 'Location' },
+    { id: 'person', label: 'Person', count: 0 },
+    { id: 'location', label: 'Location', count: 0 },
   ];
 </script>
 ```
