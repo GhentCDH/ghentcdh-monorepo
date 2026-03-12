@@ -6,18 +6,30 @@
       disabled ? 'collapse-open' : '',
     ]"
   >
-    <input v-if="!disabled" type="checkbox" :checked="checked" tabindex="-1" />
+    <input
+      v-if="!disabled"
+      type="checkbox"
+      :checked="checked"
+      tabindex="-1"
+    >
     <div class="collapse-title text-gray-500 text-xs font-medium">
       <div class="flex items-center justify-between">
         <span>{{ title }}</span>
-        <div v-if="slots.actions" class="relative z-10" @click.stop>
+        <div
+          v-if="slots.actions"
+          class="relative z-10"
+          @click.stop
+        >
           <slot name="actions" />
         </div>
       </div>
     </div>
     <div :class="['collapse-content', slots.list ? 'p-0' : '']">
       <slot />
-      <ul v-if="slots.list" class="list bg-base-100">
+      <ul
+        v-if="slots.list"
+        class="list bg-base-100"
+      >
         <slot name="list" />
       </ul>
     </div>
