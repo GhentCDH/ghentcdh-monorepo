@@ -151,6 +151,34 @@ import { Btn } from '@ghentcdh/ui';
 
 :::
 
+### Tooltip
+
+::: tabs
+
+@tab Preview
+
+<div class="flex gap-2 items-center">
+  <Btn tooltip="Add a new item" :icon="IconEnum.Plus">Add</Btn>
+  <Btn tooltip="Edit this item" :icon="IconEnum.Edit" color="secondary">Edit</Btn>
+  <Btn tooltip="Delete this item" :icon="IconEnum.Delete" color="error" square />
+</div>
+
+@tab Vue
+
+```vue
+<template>
+  <Btn tooltip="Add a new item" :icon="IconEnum.Plus">Add</Btn>
+  <Btn tooltip="Edit this item" :icon="IconEnum.Edit" color="secondary">Edit</Btn>
+  <Btn tooltip="Delete this item" :icon="IconEnum.Delete" color="error" square />
+</template>
+
+<script setup>
+import { Btn, IconEnum } from '@ghentcdh/ui';
+</script>
+```
+
+:::
+
 ### Square
 
 ::: tabs

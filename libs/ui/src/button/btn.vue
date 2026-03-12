@@ -5,7 +5,7 @@
       'btn p-1 flex justify-center flex-nowrap',
       ButtonColor[props.color],
       ButtonSize[props.size],
-      { 'btn-outline': props.outline, 'btn-square': props.square },
+      { 'btn-outline': props.outline, 'btn-square': props.square, 'tooltip': props.tooltip },
     ]"
     :href="props.href"
     :type="props.type"
