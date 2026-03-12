@@ -3,14 +3,18 @@
     <aside
       v-if="hasLeft"
       id="drawer-left"
-      class="min-h-0 relative flex-shrink-0 bg-white transition-all duration-300 ease-in-out overflow-visible flex"
+      class="min-h-0 relative flex-shrink-0 bg-white overflow-visible flex"
     >
       <div
-        v-if="open.left"
-        :style="{ width: widthLeft + 'px' }"
-        class="h-full overflow-y-auto p-4 bg-white shadow-sm"
+        :style="{ width: open.left ? widthLeft + 'px' : '0px' }"
+        class="h-full overflow-hidden bg-white shadow-sm transition-[width] duration-300 ease-in-out"
       >
-        <slot name="left-drawer" />
+        <div
+          :style="{ width: widthLeft + 'px' }"
+          class="h-full overflow-y-auto p-4"
+        >
+          <slot name="left-drawer" />
+        </div>
       </div>
       <button
         class="hover:bg-base-300 hover:text-base-content transition-colors cursor-pointer"
@@ -27,7 +31,7 @@
     </div>
     <aside
       v-if="hasRight"
-      class="min-h-0 relative flex-shrink-0 bg-white transition-all duration-300 ease-in-out overflow-visible flex"
+      class="min-h-0 relative flex-shrink-0 bg-white overflow-visible flex"
     >
       <button
         class="hover:bg-base-300 hover:text-base-content transition-colors cursor-pointer"
@@ -39,11 +43,15 @@
         />
       </button>
       <div
-        v-if="open.right"
-        :style="{ width: widthRight + 'px' }"
-        class="h-full overflow-y-auto p-4 bg-white shadow-sm"
+        :style="{ width: open.right ? widthRight + 'px' : '0px' }"
+        class="h-full overflow-hidden bg-white shadow-sm transition-[width] duration-300 ease-in-out"
       >
-        <slot name="right-drawer" />
+        <div
+          :style="{ width: widthRight + 'px' }"
+          class="h-full overflow-y-auto p-4"
+        >
+          <slot name="right-drawer" />
+        </div>
       </div>
     </aside>
   </main>
