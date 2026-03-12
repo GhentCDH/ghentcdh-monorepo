@@ -13,3 +13,27 @@
     margin-top: 0;
   }
 }
+
+.input-xs {
+  @apply w-12;
+}
+
+.input-sm {
+  @apply w-24;
+}
+
+.input-md {
+  @apply w-36;
+}
+
+.input-lg {
+  @apply w-48;
+}
+
+.input-xl {
+  @apply w-64;
+}
+
+.input-full {
+  @apply w-full;
+}

@@ -198,20 +198,12 @@ export class ControlBuilder<
   }
 
   width(width: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full') {
-    const sizes = {
-      xs: 'w-12',
-      sm: 'w-24',
-      md: 'w-36',
-      lg: 'w-48',
-      xl: 'w-64',
-      full: 'w-full',
-    };
     return this.addOptions({
       styles: {
         ...this.options?.styles,
         width,
         control: {
-          wrapper: ` ${sizes[width] ?? sizes.lg}`,
+          wrapper: `input-${width}`,
         },
       },
     });
