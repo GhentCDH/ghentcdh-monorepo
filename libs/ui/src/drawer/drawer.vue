@@ -1,5 +1,5 @@
 <template>
-  <main class="flex h-full overflow-hidden">
+  <main class="flex h-full overflow-hidden gap-2">
     <aside
       v-if="hasLeft"
       id="drawer-left"
@@ -21,7 +21,7 @@
         @click="toggle('left')"
       >
         <Icon
-          :size="'sm'"
+          :size="'lg'"
           :icon="open.left ? IconEnum.ChevronLeft : IconEnum.ChevronRight"
         />
       </button>
@@ -38,7 +38,7 @@
         @click="toggle('right')"
       >
         <Icon
-          :size="'sm'"
+          :size="'lg'"
           :icon="open.right ? IconEnum.ChevronRight : IconEnum.ChevronLeft"
         />
       </button>

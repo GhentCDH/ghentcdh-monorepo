@@ -1,57 +1,33 @@
 <template>
   <component
-    :is="as"
+    :is="props.as"
     :class="[
-      `btn  p-1 flex justify-center flex-nowrap`,
-      ButtonColor[color],
-      ButtonSize[size],
-      { 'btn-outline': outline, 'btn-square': square },
+      'btn p-1 flex justify-center flex-nowrap',
+      ButtonColor[props.color],
+      ButtonSize[props.size],
+      { 'btn-outline': props.outline, 'btn-square': props.square, 'tooltip': props.tooltip },
     ]"
-    v-bind="properties"
-    :data-tip="tooltip"
+    :href="props.href"
+    :type="props.type"
+    :disabled="props.disabled"
+    :data-tip="props.tooltip"
     @click="emit('click')"
   >
     <Icon
-      v-if="icon"
-      :icon="icon"
-      :size="size"
+      v-if="props.icon"
+      :icon="props.icon"
+      :size="props.size"
     />
     <slot />
   </component>
 </template>
 
-<script setup lang="ts">
-import { ButtonTag, ButtonType } from './const';
-import { ButtonColor, Color } from '../const/colors'; // TODO add properties for links
-import type { Size } from '../const/size';
+<script lang="ts" setup>
+import { BtnEmits, BtnProperties } from './Btn.properties';
+import { ButtonColor } from '../const/colors';
 import { ButtonSize } from '../const/size';
-import type { IconEnum } from '../icons';
 import { Icon } from '../icons';
 
-// TODO add properties for links
-
-export interface ButtonProps {
-  href?: string;
-  disabled?: boolean;
-  tooltip?: string;
-  as?: ButtonTag;
-  icon?: IconEnum;
-  type?: ButtonType;
-  outline?: boolean;
-  color?: Color;
-  size?: Size;
-  square?: boolean;
-}
-
-const properties = withDefaults(defineProps<ButtonProps>(), {
-  disabled: false,
-  as: ButtonTag.button,
-  type: ButtonType.button,
-  color: Color.primary,
-  outline: false,
-  size: 'sm',
-  square: false,
-});
-
-const emit = defineEmits(['click']);
+const props = defineProps(BtnProperties);
+const emit = defineEmits(BtnEmits);
 </script>
