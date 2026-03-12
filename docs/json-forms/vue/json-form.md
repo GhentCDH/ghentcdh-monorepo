@@ -6,6 +6,7 @@ import { formSchema, exampleUiSchema } from '@source/json-forms/vue/schema';
 import { ref, shallowRef, onMounted } from 'vue';
 import {FormComponent} from '@ghentcdh/json-forms-vue';
 
+const formData = ref({})
 </script>
 
 # Json form input

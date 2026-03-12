@@ -53,7 +53,6 @@ const fetchOptions = computed(() => {
 
 const handleChange = (result: any) => {
   const { path } = control.value;
-
   _handleChange(path, result);
 };
 </script>

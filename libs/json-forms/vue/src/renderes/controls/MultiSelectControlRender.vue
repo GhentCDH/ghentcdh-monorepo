@@ -3,7 +3,6 @@
     v-bind="controlWrapper"
     v-model="control.data"
     :enabled="control.enabled"
-    :options="appliedOptions?.options"
     @change="handleChange"
     @focus="onFocus"
     @blur="onBlur"

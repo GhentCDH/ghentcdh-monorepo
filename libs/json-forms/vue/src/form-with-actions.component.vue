@@ -50,7 +50,7 @@ const title = computed(() => {
 <template>
   <Collapse :title="title">
     <FormComponent
-      :id="`form_${properties.id}`"
+      :id="`form_${id}`"
       v-model="formData"
       :schema="formSchema.form.schema"
       :uischema="formSchema.form.uiSchema"

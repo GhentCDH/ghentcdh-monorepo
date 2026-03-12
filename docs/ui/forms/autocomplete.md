@@ -15,6 +15,7 @@ label="Enter a starwars character name"
 label-key="name"
 value-key="url"
 />
+{{swapiModel}}
 
 @tab Vue
 
@@ -67,12 +68,12 @@ value-key="url"
 
 ## Keyboard navigation
 
-| Key        | Action                              |
-|------------|-------------------------------------|
-| `ArrowDown`| Move to next option                 |
-| `ArrowUp`  | Move to previous option             |
-| `Enter`    | Select the highlighted option       |
-| `Escape`   | Close the dropdown                  |
+| Key         | Action                        |
+|-------------|-------------------------------|
+| `ArrowDown` | Move to next option           |
+| `ArrowUp`   | Move to previous option       |
+| `Enter`     | Select the highlighted option |
+| `Escape`    | Close the dropdown            |
 
 ## Events
 

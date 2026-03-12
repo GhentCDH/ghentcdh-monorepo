@@ -35,5 +35,3 @@ export const AutocompleteProperties = {
     default: false,
   },
 };
-
-export const AutoCompleteEmits = ['update:modelValue', 'select', 'clear'];

@@ -33,21 +33,19 @@
 <script lang="ts" setup>
 import { computed, nextTick, ref, watch } from 'vue';
 
-import {
-  AutoCompleteEmits,
-  AutocompleteProperties,
-} from './AutoComplete.properties';
+import { AutocompleteProperties } from './AutoComplete.properties';
 import type { OptionValue } from './ListResults.properties';
 import SelectWrapper from './SelectWrapper.vue';
 import { useOptions } from './composables/useOptions';
 import { useAutoCompleteSearch } from './composables/useSearch';
+import type { ControlEmits } from '../core/emits';
 import { mergeStyles } from '../core/styles';
 import { buildInputStyle } from '../core/utils/style';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 const props = defineProps(AutocompleteProperties);
 
-const emit = defineEmits(AutoCompleteEmits);
+const emit = defineEmits<ControlEmits>();
 
 // ─── State ───────────────────────────────────────────────────────────────────
 const inputRef = ref<HTMLInputElement | null>(null);
@@ -111,7 +109,7 @@ const select = (item: OptionValue) => {
   query.value = item.label;
   isOpen.value = false;
   emit('update:modelValue', original);
-  emit('select', item);
+  emit('change', original);
 };
 
 // ─── Clear ───────────────────────────────────────────────────────────────────
