@@ -127,14 +127,87 @@ Use the `#list` slot with `CollapseRow` components to display structured list it
 
 :::
 
+## With header actions
+
+Use the `#actions` slot to add buttons or controls to the collapse header. Actions are click-isolated so they don't toggle the collapse.
+
+::: tabs
+
+@tab Preview
+
+<Collapse title="With actions">
+<template #actions>
+<button class="btn btn-ghost btn-xs">All</button>
+<button class="btn btn-ghost btn-xs">None</button>
+</template>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</Collapse>
+
+@tab Vue
+
+```vue
+<template>
+  <Collapse title="With actions">
+    <template #actions>
+      <button class="btn btn-ghost btn-xs">All</button>
+      <button class="btn btn-ghost btn-xs">None</button>
+    </template>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </Collapse>
+</template>
+
+<script setup>
+  import { Collapse } from "@ghentcdh/ui";
+</script>
+```
+
+:::
+
+## Disabled
+
+When `disabled` is set, the collapse stays open and cannot be toggled.
+
+::: tabs
+
+@tab Preview
+
+<Collapse title="Always open (disabled)" :disabled="true">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</Collapse>
+
+@tab Vue
+
+```vue
+<template>
+  <Collapse title="Always open (disabled)" :disabled="true">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </Collapse>
+</template>
+
+<script setup>
+  import { Collapse } from "@ghentcdh/ui";
+</script>
+```
+
+:::
+
 ## Props
 
 ### Collapse
 
-| Prop     | Type      | Default | Description                                 |
-|----------|-----------|---------|---------------------------------------------|
-| `title`  | `string`  | -       | The title displayed in the collapse header  |
-| `opened` | `boolean` | `true`  | Whether the collapse is expanded by default |
+| Prop       | Type      | Default | Description                                    |
+|------------|-----------|---------|------------------------------------------------|
+| `title`    | `string`  | -       | The title displayed in the collapse header     |
+| `opened`   | `boolean` | `true`  | Whether the collapse is expanded by default    |
+| `disabled` | `boolean` | `false` | Keeps the collapse open and prevents toggling  |
+
+### Slots
+
+| Slot      | Description                                                  |
+|-----------|--------------------------------------------------------------|
+| `default` | The collapsible content                                      |
+| `list`    | Structured list content (removes padding, wraps in `<ul>`)   |
+| `actions` | Controls rendered in the header, click-isolated from toggle  |
 
 ### CollapseRow
 

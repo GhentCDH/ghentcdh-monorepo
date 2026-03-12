@@ -11,6 +11,7 @@
         <button
           v-for="action in actions"
           :key="action.name"
+          tabindex="-1"
           type="button"
           class="btn btn-sm btn-ghost"
           :class="{ 'btn-active': editor?.isActive(action.name) }"
