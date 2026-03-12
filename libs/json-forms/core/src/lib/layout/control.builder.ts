@@ -209,6 +209,7 @@ export class ControlBuilder<
     return this.addOptions({
       styles: {
         ...this.options?.styles,
+        width,
         control: {
           wrapper: ` ${sizes[width] ?? sizes.lg}`,
         },

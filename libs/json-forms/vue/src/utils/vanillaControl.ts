@@ -1,5 +1,5 @@
 import { useVanillaControl } from '@jsonforms/vue-vanilla';
-import { omit } from 'lodash-es';
+import { omit, pick } from 'lodash-es';
 import type { Ref } from 'vue';
 import { computed, ref } from 'vue';
 
@@ -31,6 +31,7 @@ export const useVanillaControlCustom = <
     return {
       ...vanillaControl.controlWrapper.value,
       ...omit(vanillaControl.appliedOptions.value, 'styles'),
+      ...pick(vanillaControl.appliedOptions.value.styles, ['width']),
       isFocused: isFocused.value,
       isTouched: isTouched.value,
     } as any;

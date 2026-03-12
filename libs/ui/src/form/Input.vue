@@ -4,6 +4,7 @@
       v-model="model"
       autocomplete="off"
       :type="type"
+      class="w-full"
       :class="style"
       :disabled="!enabled"
       :autofocus="isFocused"

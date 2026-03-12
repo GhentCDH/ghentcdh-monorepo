@@ -1,7 +1,7 @@
 <template>
   <fieldset
     class="fieldset"
-    :class="[mergedStyles.control.wrapper, width]"
+    :class="[width, mergedStyles.control.wrapper]"
   >
     <legend :class="mergedStyles.control.label">
       <template v-if="!hideLabel">

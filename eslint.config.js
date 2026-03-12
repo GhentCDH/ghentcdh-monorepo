@@ -29,6 +29,23 @@ module.exports = [
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],
     rules: {
       'no-console': ['error', { allow: ['warn', 'error'] }],
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'lodash',
+              message: 'Use lodash-es instead for proper tree-shaking.',
+            },
+          ],
+          patterns: [
+            {
+              group: ['lodash/*'],
+              message: 'Use lodash-es instead for proper tree-shaking.',
+            },
+          ],
+        },
+      ],
       '@typescript-eslint/consistent-type-imports': 'error',
       '@nx/enforce-module-boundaries': [
         'error',

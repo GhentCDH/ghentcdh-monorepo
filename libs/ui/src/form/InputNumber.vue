@@ -4,6 +4,7 @@
       v-model="model"
       autocomplete="off"
       type="number"
+      class="w-full"
       :class="[style]"
       :disabled="!enabled"
       :step="steps"
@@ -19,7 +20,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { InputNumberEmits, InputNumberProperties } from './InputNumber.properties';
+import {
+  InputNumberEmits,
+  InputNumberProperties,
+} from './InputNumber.properties';
 import ControlWrapper from './core/ControlWrapper.vue';
 import { buildInputStyle } from './core/utils/style';
 

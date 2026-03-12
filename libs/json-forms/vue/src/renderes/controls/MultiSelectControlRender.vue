@@ -21,7 +21,6 @@ const props = defineProps({ ...rendererProps<ControlElement>() });
 const {
   control,
   handleChange: _handleChange,
-  appliedOptions,
   onFocus,
   onBlur,
   controlWrapper,

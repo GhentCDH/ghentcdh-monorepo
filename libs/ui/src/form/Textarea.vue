@@ -4,6 +4,7 @@
       v-model="model"
       autocomplete="off"
       type="text"
+      class="w-full"
       :class="style"
       :disabled="!enabled"
       :rows="rows"

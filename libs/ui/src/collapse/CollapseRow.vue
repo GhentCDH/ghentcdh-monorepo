@@ -34,14 +34,9 @@
     <slot />
   </li>
 </template>
-<script setup lang="ts">
-export interface CollapseRowProps {
-  title?: string;
-  label?: string;
-  labelLink?: string;
-  description?: string;
-  descriptionLink?: string;
-}
 
-const properties = withDefaults(defineProps<CollapseRowProps>(), {});
+<script lang="ts" setup>
+import { CollapseRowProperties } from './CollapseRow.properties';
+
+defineProps(CollapseRowProperties);
 </script>

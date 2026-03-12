@@ -23,29 +23,13 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import { ref, useSlots, watch } from 'vue';
+
+<script lang="ts" setup>
+import { ref, useSlots } from 'vue';
+
+import { CollapseProperties } from './Collapse.properties';
 
 const slots = useSlots();
-
-export interface CollapseProps {
-  title: string;
-  opened?: boolean;
-  heightFull?: boolean;
-}
-
-const properties = withDefaults(defineProps<CollapseProps>(), {
-  opened: true,
-});
-
+const properties = defineProps(CollapseProperties);
 const checked = ref(properties.opened);
-
-watch(
-  () => properties.opened,
-  () => {
-    // set checked to true on checkbox
-    // checked.value = properties.opened;
-  },
-  { immediate: true },
-);
 </script>
