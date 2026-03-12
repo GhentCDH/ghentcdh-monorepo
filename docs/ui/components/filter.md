@@ -2,9 +2,7 @@
 
 A collapsible checkbox list for filtering items, with optional color dots and count badges.
 
-<script setup>
-import { ref } from 'vue';
-import { Filter } from '@ghentcdh/ui';
+<script setup>import {ref} from 'vue';
 
 const items = [
   { id: 'person', label: 'Person', color: '#3b82f6' },
@@ -42,6 +40,7 @@ const countFn = (item) => {
 @tab Vue
 
 ```vue
+
 <template>
   <Filter
     title="Entity filter"
@@ -52,17 +51,17 @@ const countFn = (item) => {
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Filter } from '@ghentcdh/ui';
+  import { ref } from 'vue';
+  import { Filter } from '@ghentcdh/ui';
 
-const items = [
-  { id: 'person', label: 'Person', color: '#3b82f6' },
-  { id: 'location', label: 'Location', color: '#22c55e' },
-  { id: 'organization', label: 'Organization', color: '#f59e0b' },
-  { id: 'event', label: 'Event', color: '#ef4444' },
-];
+  const items = [
+    { id: 'person', label: 'Person', color: '#3b82f6' },
+    { id: 'location', label: 'Location', color: '#22c55e' },
+    { id: 'organization', label: 'Organization', color: '#f59e0b' },
+    { id: 'event', label: 'Event', color: '#ef4444' },
+  ];
 
-const selected = ref(items.map((i) => i.id));
+  const selected = ref(items.map((i) => i.id));
 </script>
 ```
 
@@ -70,22 +69,22 @@ const selected = ref(items.map((i) => i.id));
 
 ## Props
 
-| Prop         | Type                          | Default     | Description                                                    |
-|--------------|-------------------------------|-------------|----------------------------------------------------------------|
-| `title`      | `string`                      | -           | The heading displayed in the collapse header                   |
-| `items`      | `Array<Record<string, any>>`  | -           | The list of filterable items                                   |
-| `modelValue` | `Array<any>`                  | `[]`        | Selected item ids (v-model). Initialize with all IDs for "all selected" |
-| `labelKey`   | `string`                      | `'label'`   | Key to read the display label from each item                   |
-| `valueKey`   | `string`                      | `'id'`      | Key to read the unique id from each item                       |
-| `colorKey`   | `string`                      | `undefined` | Key to read a background color (renders a color dot)           |
-| `countFn`    | `(item) => number`            | `undefined` | Function returning a count for each item (renders a badge)     |
-| `opened`     | `boolean`                     | `true`      | Whether the collapse is expanded by default                    |
+| Prop         | Type                         | Default     | Description                                                             |
+|--------------|------------------------------|-------------|-------------------------------------------------------------------------|
+| `title`      | `string`                     | -           | The heading displayed in the collapse header                            |
+| `items`      | `Array<Record<string, any>>` | -           | The list of filterable items                                            |
+| `modelValue` | `Array<any>`                 | `[]`        | Selected item ids (v-model). Initialize with all IDs for "all selected" |
+| `labelKey`   | `string`                     | `'label'`   | Key to read the display label from each item                            |
+| `valueKey`   | `string`                     | `'id'`      | Key to read the unique id from each item                                |
+| `colorKey`   | `string`                     | `undefined` | Key to read a background color (renders a color dot)                    |
+| `countFn`    | `(item) => number`           | `undefined` | Function returning a count for each item (renders a badge)              |
+| `opened`     | `boolean`                    | `true`      | Whether the collapse is expanded by default                             |
 
 ## Events
 
-| Event               | Payload      | Description                          |
-|---------------------|--------------|--------------------------------------|
-| `update:modelValue` | `Array<any>` | Emitted when the selection changes   |
+| Event               | Payload      | Description                        |
+|---------------------|--------------|------------------------------------|
+| `update:modelValue` | `Array<any>` | Emitted when the selection changes |
 
 ## Examples
 
@@ -110,33 +109,34 @@ const selected = ref(items.map((i) => i.id));
 @tab Vue
 
 ```vue
+
 <template>
   <Filter
     title="Entity filter"
     :items="items"
-    v-model="selected"
+    v-model="selectedWithCount"
     color-key="color"
     :count-fn="countFn"
   />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Filter } from '@ghentcdh/ui';
+  import { ref } from 'vue';
+  import { Filter } from '@ghentcdh/ui';
 
-const items = [
-  { id: 'person', label: 'Person', color: '#3b82f6' },
-  { id: 'location', label: 'Location', color: '#22c55e' },
-  { id: 'organization', label: 'Organization', color: '#f59e0b' },
-  { id: 'event', label: 'Event', color: '#ef4444' },
-];
+  const items = [
+    { id: 'person', label: 'Person', color: '#3b82f6' },
+    { id: 'location', label: 'Location', color: '#22c55e' },
+    { id: 'organization', label: 'Organization', color: '#f59e0b' },
+    { id: 'event', label: 'Event', color: '#ef4444' },
+  ];
 
-const selected = ref(items.map((i) => i.id));
+  const selectedWithCount = ref(items.map((i) => i.id));
 
-const countFn = (item) => {
-  const counts = { person: 12, location: 5, organization: 8, event: 0 };
-  return counts[item.id] || 0;
-};
+  const countFn = (item) => {
+    const counts = { person: 12, location: 5, organization: 8, event: 0 };
+    return counts[item.id] || 0;
+  };
 </script>
 ```
 
@@ -166,6 +166,7 @@ const countFn = (item) => {
 @tab Vue
 
 ```vue
+
 <template>
   <Filter
     title="Status filter"
@@ -177,16 +178,16 @@ const countFn = (item) => {
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Filter } from '@ghentcdh/ui';
+  import { ref } from 'vue';
+  import { Filter } from '@ghentcdh/ui';
 
-const items = [
-  { code: 'active', name: 'Active' },
-  { code: 'inactive', name: 'Inactive' },
-  { code: 'pending', name: 'Pending' },
-];
+  const items = [
+    { code: 'active', name: 'Active' },
+    { code: 'inactive', name: 'Inactive' },
+    { code: 'pending', name: 'Pending' },
+  ];
 
-const selected = ref(items.map((i) => i.id));
+  const selected = ref(items.map((i) => i.code));
 </script>
 ```
 
@@ -211,6 +212,7 @@ const selected = ref(items.map((i) => i.id));
 @tab Vue
 
 ```vue
+
 <template>
   <Filter
     title="Closed by default"
@@ -220,13 +222,13 @@ const selected = ref(items.map((i) => i.id));
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Filter } from '@ghentcdh/ui';
+  import { ref } from 'vue';
+  import { Filter } from '@ghentcdh/ui';
 
-const items = [
-  { id: 'person', label: 'Person' },
-  { id: 'location', label: 'Location' },
-];
+  const items = [
+    { id: 'person', label: 'Person' },
+    { id: 'location', label: 'Location' },
+  ];
 </script>
 ```
 

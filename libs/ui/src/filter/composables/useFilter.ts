@@ -1,4 +1,4 @@
-import { type Ref, computed } from 'vue';
+import { computed, type Ref } from 'vue';
 
 export const useFilter = (
   items: Ref<Array<Record<string, any>>>,
@@ -15,7 +15,7 @@ export const useFilter = (
   const selectedLabel = computed(() => {
     const count = modelValue.value.length;
     if (count === 0) return 'None';
-    if (count === 0 || count === allIds.value.length) return 'All';
+    if (count === allIds.value.length) return 'All';
     return `${count}`;
   });
 

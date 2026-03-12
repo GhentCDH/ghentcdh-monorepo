@@ -1,8 +1,5 @@
 <template>
-  <Collapse
-    :title="title"
-    :opened="opened"
-  >
+  <Collapse :title="title" :opened="opened">
     <div class="flex items-center justify-between mb-2">
       <span class="text-xs text-base-content/50">
         {{ selectedLabel }} of {{ items.length }} items
@@ -11,12 +8,16 @@
         <button
           class="btn btn-ghost btn-xs"
           @click="selectAll"
+          type="button"
+          tabindex="-1"
         >
           All
         </button>
         <button
           class="btn btn-ghost btn-xs"
           @click="selectNone"
+          type="button"
+          tabindex="-1"
         >
           None
         </button>
@@ -37,10 +38,10 @@
           @change="
             toggleItem(
               item[valueKey],
-              ($event.target as HTMLInputElement).checked
+              ($event.target as HTMLInputElement).checked,
             )
           "
-        >
+        />
         <span
           v-if="colorKey && item[colorKey]"
           class="w-3 h-3 rounded-full shrink-0 ring-1 ring-black/10"
