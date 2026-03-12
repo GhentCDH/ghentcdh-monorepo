@@ -23,3 +23,4 @@ export * from './tree';
 export * from './loading';
 export * from './collapse';
 export * from './alert';
+export * from './filter';
