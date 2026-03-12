@@ -1,4 +1,4 @@
-import { computed, type Ref } from 'vue';
+import { type Ref, computed } from 'vue';
 
 export const useFilter = (
   items: Ref<Array<Record<string, any>>>,
