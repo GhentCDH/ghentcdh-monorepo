@@ -1,79 +1,70 @@
 <template>
-  <main class="grid grid-cols-[auto_1fr_auto] h-full overflow-hidden">
+  <main class="flex h-full overflow-hidden">
     <aside
+      v-if="hasLeft"
       id="drawer-left"
-      class="min-h-0 min-w-6 relative flex-shrink-0 bg-white shadow-lg transition-all duration-300 ease-in-out border-l border-gray-200 overflow-visible"
+      class="min-h-0 relative flex-shrink-0 bg-white transition-all duration-300 ease-in-out overflow-visible flex"
     >
-      <div
-        :class="['absolute top-0 z-20', open.left ? '-right-0' : '-right-2']"
-      >
-        <button
-          class="btn btn-ghost btn-circle"
-          @click="toggle('left')"
-        >
-          <Icon
-            :size="'sm'"
-            :icon="
-              open.left ? IconEnum.DblChevronLeft : IconEnum.DblChevronRight
-            "
-          />
-        </button>
-      </div>
       <div
         v-if="open.left"
         :style="{ width: widthLeft + 'px' }"
-        class="h-full overflow-y-auto p-4"
+        class="h-full overflow-y-auto p-4 bg-white shadow-sm"
       >
         <slot name="left-drawer" />
       </div>
+      <button
+        class="hover:bg-base-300 hover:text-base-content transition-colors cursor-pointer"
+        @click="toggle('left')"
+      >
+        <Icon
+          :size="'sm'"
+          :icon="open.left ? IconEnum.ChevronLeft : IconEnum.ChevronRight"
+        />
+      </button>
     </aside>
     <div class="flex-1 overflow-y-auto bg-white">
       <slot />
     </div>
     <aside
-      class="min-h-0 min-w-6 relative flex-shrink-0 bg-white shadow-lg transition-all duration-300 ease-in-out border-l border-gray-200 overflow-visible"
+      v-if="hasRight"
+      class="min-h-0 relative flex-shrink-0 bg-white transition-all duration-300 ease-in-out overflow-visible flex"
     >
+      <button
+        class="hover:bg-base-300 hover:text-base-content transition-colors cursor-pointer"
+        @click="toggle('right')"
+      >
+        <Icon
+          :size="'sm'"
+          :icon="open.right ? IconEnum.ChevronRight : IconEnum.ChevronLeft"
+        />
+      </button>
       <div
         v-if="open.right"
         :style="{ width: widthRight + 'px' }"
-        class="h-full overflow-y-auto p-4"
+        class="h-full overflow-y-auto p-4 bg-white shadow-sm"
       >
         <slot name="right-drawer" />
-      </div>
-      <div :class="['absolute top-0 z-20', open.right ? '-left-0' : '-left-2']">
-        <button
-          class="btn btn-ghost btn-circle"
-          @click="toggle('right')"
-        >
-          <Icon
-            :size="'sm'"
-            :icon="
-              open.right ? IconEnum.DblChevronRight : IconEnum.DblChevronLeft
-            "
-          />
-        </button>
       </div>
     </aside>
   </main>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { computed, ref, useSlots } from 'vue';
 
+import { DrawerProperties } from './drawer.properties';
 import { Icon, IconEnum } from '../icons';
 
-const props = withDefaults(
-  defineProps<{
-    widthLeft?: number;
-    widthRight?: number;
-  }>(),
-  {
-    widthLeft: 200,
-    widthRight: 200,
-  },
-);
+const props = defineProps(DrawerProperties);
+const slots = useSlots();
 
-const open = ref({ left: true, right: true });
+const hasLeft = computed(() => !!slots['left-drawer']);
+const hasRight = computed(() => !!slots['right-drawer']);
+
+const open = ref({
+  left: props.initialLeftOpen,
+  right: props.initialRightOpen,
+});
 
 const toggle = (side: 'left' | 'right') => {
   open.value[side] = !open.value[side];
