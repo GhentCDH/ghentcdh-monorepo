@@ -1,44 +1,25 @@
 <template>
   <button
-    :class="[`badge gap-1`, BadgeSize[size], BadgeColor[color]]"
-    :type="type"
-    :disabled="disabled"
+    :class="['badge gap-1', BadgeSize[props.size], BadgeColor[props.color]]"
+    :type="props.type"
+    :disabled="props.disabled"
     @click="emit('click')"
   >
     <slot />
     <Icon
-      v-if="icon"
-      :icon="icon"
-      :size="size"
+      v-if="props.icon"
+      :icon="props.icon"
+      :size="props.size"
     />
   </button>
 </template>
 
-<script setup lang="ts">
-import { ButtonType } from './const';
-import type { Color } from '../const/colors';
+<script lang="ts" setup>
+import { BtnBadgeEmits, BtnBadgeProperties } from './BtnBadge.properties';
 import { BadgeColor } from '../const/colors';
-import type { Size } from '../const/size';
 import { BadgeSize } from '../const/size';
-import type { IconEnum } from '../icons';
 import { Icon } from '../icons';
 
-withDefaults(
-  defineProps<{
-    icon?: IconEnum;
-    type?: ButtonType;
-    color?: Color;
-    disabled?: boolean;
-    size?: Size;
-  }>(),
-  {
-    icon: undefined,
-    type: ButtonType.button,
-    color: undefined,
-    disabled: false,
-    size: 'sm',
-  },
-);
-
-const emit = defineEmits(['click']);
+const props = defineProps(BtnBadgeProperties);
+const emit = defineEmits(BtnBadgeEmits);
 </script>
