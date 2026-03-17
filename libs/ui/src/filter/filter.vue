@@ -1,5 +1,8 @@
 <template>
-  <Collapse :title="title" :opened="opened">
+  <Collapse
+    :title="title"
+    :opened="opened"
+  >
     <div class="flex items-center justify-between mb-2">
       <span class="text-xs text-base-content/50">
         {{ selectedLabel }} of {{ items.length }} items
@@ -41,14 +44,17 @@
               ($event.target as HTMLInputElement).checked,
             )
           "
-        />
+        >
         <span
           v-if="colorKey && item[colorKey]"
           class="w-3 h-3 rounded-full shrink-0 ring-1 ring-black/10"
           :style="{ backgroundColor: item[colorKey] }"
         />
         <span class="text-sm flex-1 select-none">{{ item[labelKey] }}</span>
-        <span v-if="item[countKey] > 0" class="badge badge-sm badge-ghost">
+        <span
+          v-if="item[countKey] > 0"
+          class="badge badge-sm badge-ghost"
+        >
           {{ item[countKey] }}
         </span>
       </label>

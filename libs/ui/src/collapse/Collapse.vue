@@ -53,8 +53,8 @@
 import { ref, useSlots } from 'vue';
 
 import { Btn } from '../button';
-import { Color } from '../const/colors';
 import { CollapseProperties } from './Collapse.properties';
+import { Color } from '../const/colors';
 
 const slots = useSlots();
 const properties = defineProps(CollapseProperties);
