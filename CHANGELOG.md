@@ -1,3 +1,40 @@
+## 0.6.9 (2026-03-17)
+
+### 🚀 Features
+
+- update icons ([afb6bf8](https://github.com/GhentCDH/ghentcdh-monorepo/commit/afb6bf8))
+- update icons ([0262975](https://github.com/GhentCDH/ghentcdh-monorepo/commit/0262975))
+- update autocomplete/select/multiselect ([b1352f4](https://github.com/GhentCDH/ghentcdh-monorepo/commit/b1352f4))
+- update autocomplete/select/multiselect ([98a48f9](https://github.com/GhentCDH/ghentcdh-monorepo/commit/98a48f9))
+- update autocomplete/select/multiselect ([3b49dac](https://github.com/GhentCDH/ghentcdh-monorepo/commit/3b49dac))
+- add key control functionality ([06ea965](https://github.com/GhentCDH/ghentcdh-monorepo/commit/06ea965))
+- cleanup forms ([3a51ad0](https://github.com/GhentCDH/ghentcdh-monorepo/commit/3a51ad0))
+- cleanup forms ([7fbc709](https://github.com/GhentCDH/ghentcdh-monorepo/commit/7fbc709))
+- cleanup forms ([9947d1c](https://github.com/GhentCDH/ghentcdh-monorepo/commit/9947d1c))
+- update table component ([737d782](https://github.com/GhentCDH/ghentcdh-monorepo/commit/737d782))
+- update drawer ([292fd06](https://github.com/GhentCDH/ghentcdh-monorepo/commit/292fd06))
+- add drawer transition ([8f1b598](https://github.com/GhentCDH/ghentcdh-monorepo/commit/8f1b598))
+- add heroicons support and update button/icons docs ([49f0965](https://github.com/GhentCDH/ghentcdh-monorepo/commit/49f0965))
+- add tooltips to buttons ([d075f63](https://github.com/GhentCDH/ghentcdh-monorepo/commit/d075f63))
+- add filter component ([39804e2](https://github.com/GhentCDH/ghentcdh-monorepo/commit/39804e2))
+- add filter component ([d7be896](https://github.com/GhentCDH/ghentcdh-monorepo/commit/d7be896))
+- add actions to collapse ([1f8c1ab](https://github.com/GhentCDH/ghentcdh-monorepo/commit/1f8c1ab))
+- add actions to collapse ([639d89e](https://github.com/GhentCDH/ghentcdh-monorepo/commit/639d89e))
+- add filter component ([72a1375](https://github.com/GhentCDH/ghentcdh-monorepo/commit/72a1375))
+- add filter component ([9d4c380](https://github.com/GhentCDH/ghentcdh-monorepo/commit/9d4c380))
+
+### 🩹 Fixes
+
+- autocomplete json froms component ([654ec3f](https://github.com/GhentCDH/ghentcdh-monorepo/commit/654ec3f))
+- size for json forms ([757ba28](https://github.com/GhentCDH/ghentcdh-monorepo/commit/757ba28))
+- size for json forms ([366bd24](https://github.com/GhentCDH/ghentcdh-monorepo/commit/366bd24))
+- collapse actions and filter count ([73a9fca](https://github.com/GhentCDH/ghentcdh-monorepo/commit/73a9fca))
+- formatting ([f01479b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/f01479b))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.6.8 (2026-02-27)
 
 ### 🚀 Features
