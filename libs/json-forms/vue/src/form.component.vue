@@ -47,7 +47,6 @@ const onChange = (event: Data) => {
   emits('valid', valid.value);
   emits('change', event.data);
   emits('errors', event.errors);
-
   Debugger.debug(event.errors);
 };
 

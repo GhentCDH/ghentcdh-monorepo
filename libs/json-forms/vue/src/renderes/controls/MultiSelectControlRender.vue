@@ -1,7 +1,7 @@
 <template>
   <MultiSelect
     v-bind="controlWrapper"
-    v-model="control.data"
+    :model-value="control.data"
     :enabled="control.enabled"
     @change="handleChange"
     @focus="onFocus"

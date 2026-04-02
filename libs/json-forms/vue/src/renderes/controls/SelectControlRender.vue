@@ -1,7 +1,7 @@
 <template>
   <SelectComponent
     v-bind="controlWrapper"
-    v-model="control.data"
+    :model-value="control.data"
     :enabled="control.enabled"
     :options="appliedOptions?.options"
     @change="handleChange"

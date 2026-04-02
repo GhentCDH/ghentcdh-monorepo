@@ -1,7 +1,7 @@
 <template>
   <InputNumber
     v-bind="controlWrapper"
-    v-model="control.data"
+    :model-value="control.data"
     :enabled="control.enabled"
     :config="appliedOptions"
     :steps="steps"
@@ -19,7 +19,6 @@ import { computed } from 'vue';
 import { InputNumber } from '@ghentcdh/ui';
 
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
-
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
 const { control, onChange, appliedOptions, onFocus, onBlur, controlWrapper } =

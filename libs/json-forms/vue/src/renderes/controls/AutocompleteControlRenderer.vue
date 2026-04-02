@@ -1,7 +1,7 @@
 <template>
   <Autocomplete
     v-bind="bindProperties"
-    v-model="control.data"
+    :model-value="control.data"
     :enabled="control.enabled"
     :fetch-options="fetchOptions"
     @change="handleChange"
@@ -42,11 +42,10 @@ const fetchOptions = computed(() => {
 
   if (!options.uri) return null;
 
-  return () => {
+  return (searchTerm, signal) => {
     const fetch = options.skipAuth ? axios : useApi();
-
     return fetch
-      .get(options.uri)
+      .get(`${options.uri}${searchTerm}`, { signal })
       .then((data) => data.data[options.dataField ?? 'data']);
   };
 });

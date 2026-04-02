@@ -35,6 +35,7 @@ export interface SelectOptions extends ControlOption {
 
 export interface AutocompleteOptions extends Omit<SelectOptions, 'format'> {
   format: 'autocomplete';
+  freeText?: boolean;
 }
 export interface AutocompleteRemoteOptions extends Omit<
   SelectOptions,
@@ -42,6 +43,7 @@ export interface AutocompleteRemoteOptions extends Omit<
 > {
   format: 'autocomplete';
   uri: string;
+  freeText?: boolean;
   dataField?: string;
   skipAuth?: boolean;
 }

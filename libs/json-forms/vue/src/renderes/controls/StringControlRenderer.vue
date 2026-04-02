@@ -1,7 +1,7 @@
 <template>
   <Input
     v-bind="controlWrapper"
-    v-model="control.data"
+    :model-value="control.data"
     :enabled="control.enabled"
     :config="appliedOptions"
     :styles="styles"
