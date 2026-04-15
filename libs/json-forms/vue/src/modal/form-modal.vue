@@ -13,7 +13,6 @@
         v-model="formData"
         :schema="formSchema.schema"
         :uischema="formSchema.uiSchema"
-        :event-listener="eventListener"
         @valid="onValid($event)"
         @change="onChange"
       />

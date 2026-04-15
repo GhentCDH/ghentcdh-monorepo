@@ -91,6 +91,14 @@ const options = [
   { theValue: 'value 3', name: 'value 3' },
   { theValue: 'value 4', name: 'value 4' },
 ];
+export const smallUiSchema = LayoutBuilder.vertical<FormSchema>().addControls(
+  LayoutBuilder.horizontal<FormSchema>().addControls(
+    ControlBuilder.properties('name'),
+    ControlBuilder.properties('firstname')
+      .customLabel('First name')
+      .placeHolder('custom label'),
+  ),
+);
 
 export const exampleUiSchema = LayoutBuilder.vertical<FormSchema>().addControls(
   LayoutBuilder.horizontal<FormSchema>().addControls(

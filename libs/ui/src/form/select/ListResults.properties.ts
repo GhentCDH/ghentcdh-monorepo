@@ -8,7 +8,7 @@ export type OptionValue = {
 export const ListResultsEmits = ['select'];
 
 export const ListProperties = {
-  options: { type: Array as PropType<Array<OptionValue>>, required: true },
+  options: { type: Array as PropType<Array<OptionValue>>, required: false },
   isLoading: {
     type: Boolean,
     default: false,

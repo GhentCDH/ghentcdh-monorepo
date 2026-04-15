@@ -26,7 +26,7 @@
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
-    >
+    />
   </SelectWrapper>
 </template>
 
@@ -40,7 +40,7 @@ import { useOptions } from './composables/useOptions';
 import { useAutoCompleteSearch } from './composables/useSearch';
 import type { ControlEmits } from '../core/emits';
 import { mergeStyles } from '../core/styles';
-import { buildInputStyle } from '../core/utils/style'; // ─── Props ────────────────────────────────────────────────────────────────────
+import { buildInputStyle } from '../core/utils/style';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 const props = defineProps(AutocompleteProperties);

@@ -1,20 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
-import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
+import type { FormSchemaModel, JsonFormsLayout } from '@ghentcdh/json-forms-core';
 import type { TableAction } from '@ghentcdh/ui';
-import {
-  Btn,
-  Card,
-  IconEnum,
-  ModalService,
-  hasCustomEventListener,
-} from '@ghentcdh/ui';
+import { Btn, Card, hasCustomEventListener, IconEnum, ModalService } from '@ghentcdh/ui';
 
 import { FormModal, FormStore } from './index';
 
 import type { FormModalProps, FormModalResult } from './modal/form-modal.props';
-import type { FormEventListener } from './state/form.state';
 import { TableComponent } from './table';
 
 type Data = {
@@ -29,22 +22,38 @@ const properties = withDefaults(
     updateTitle?: string;
     dataUri?: string;
     tableActions?: TableAction[];
-    formSchema: FormSchemaModel;
+    form?: JsonFormsLayout;
+    table?: JsonFormsLayout;
+    filter?: JsonFormsLayout;
+    uri?: string;
+    /**
+     * @deprecated Use `form`, `table`, `filter` and `uri` props instead.
+     */
+    formSchema?: FormSchemaModel;
     initialData?: Data;
-    eventListener?: FormEventListener;
   }>(),
   { initialData: {} as any },
 );
 const reload = ref(0);
 
-let store = new FormStore(properties.formSchema);
-
-watch(
-  () => properties.formSchema,
-  (formSchema) => {
-    store = new FormStore(properties.formSchema);
-  },
+const resolvedForm = computed(
+  () => properties.form ?? properties.formSchema?.form,
 );
+const resolvedTable = computed(
+  () => properties.table ?? properties.formSchema?.table,
+);
+const resolvedFilter = computed(
+  () => properties.filter ?? properties.formSchema?.filter,
+);
+const resolvedUri = computed(
+  () => properties.uri ?? properties.formSchema?.uri,
+);
+
+let store = new FormStore(resolvedUri.value ?? '');
+
+watch(resolvedUri, (uri) => {
+  store = new FormStore(uri ?? '');
+});
 const emit = defineEmits<{
   editData: [Data];
 }>();
@@ -72,12 +81,13 @@ const deleteFn = (data: Data) => {
 };
 
 const openModal = (formData?: any) => {
+  if (!resolvedForm.value) return;
+
   ModalService.openModal<FormModalProps, any>({
     component: FormModal,
     props: {
-      formSchema: properties.formSchema.form,
+      formSchema: resolvedForm.value,
       data: formData ?? properties.initialData,
-      eventListener: properties.eventListener,
       modalTitle: formData?.id
         ? (properties.updateTitle ?? '')
         : properties.createTitle,
@@ -99,23 +109,19 @@ const openModal = (formData?: any) => {
       {{ tableTitle }}
     </h1>
     <div>
-      <Btn
-        :icon="IconEnum.Plus"
-        :outline="true"
-        @click="openModal"
-      >
+      <Btn :icon="IconEnum.Plus" :outline="true" @click="openModal">
         Add new record
       </Btn>
     </div>
   </div>
 
-  <Card v-if="formSchema.table">
+  <Card v-if="resolvedTable">
     <TableComponent
-      v-if="formSchema.uri"
+      v-if="resolvedUri"
       :id="`form_table_${id}`"
-      :layout="formSchema.table"
-      :filter-layout="formSchema.filter"
-      :uri="dataUri ?? formSchema.uri"
+      :layout="resolvedTable"
+      :filter-layout="resolvedFilter"
+      :uri="dataUri ?? resolvedUri"
       :reload="reload"
       :actions="tableActions"
       @edit="edit"

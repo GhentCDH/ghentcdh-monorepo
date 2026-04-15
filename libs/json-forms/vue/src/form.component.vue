@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import { JsonForms } from '@jsonforms/vue';
-import { provide, ref, watch } from 'vue';
+import { provide, ref } from 'vue';
 
 import { Debugger } from '@ghentcdh/tools-vue';
 import { myStyles } from '@ghentcdh/ui';
 
+import type { FormEventPayload } from './composables/useFormEvents';
+import { provideFormEvents } from './composables/useFormEvents';
 import { tailwindRenderers } from './renderes';
-import type { FormEventListener } from './state/form.state';
-import { useFormState } from './state/form.state';
 
 type Data = {
   [key: string]: any;
@@ -25,21 +25,28 @@ const properties = withDefaults(
     schema: any;
     uischema: any;
     renderers?: JsonFormsRendererRegistryEntry[];
-    eventListener?: FormEventListener;
     disabled?: boolean;
   }>(),
   {
     disabled: false,
     renderers: undefined,
-    eventListener: undefined,
   },
 );
 
-const _JSON_FORM_ID = `json-form-${Date.now()}`;
-const formState = useFormState(_JSON_FORM_ID);
 const formData = defineModel<any>();
-const emits = defineEmits(['valid', 'change', 'submit', 'errors']);
+const emits = defineEmits<{
+  (e: 'valid', valid: boolean): void;
+  (e: 'change', data: Data): void;
+  (e: 'submit', event: SubmitFormEvent): void;
+  (e: 'errors', errors: any[]): void;
+  (e: 'events', payload: FormEventPayload): void;
+}>();
 const valid = ref(false);
+
+provideFormEvents((payload) => {
+  console.log('form events', payload);
+  emits('events', payload);
+});
 
 const onChange = (event: Data) => {
   formData.value = event.data;
@@ -59,15 +66,6 @@ const onSubmit = (event: SubmitEvent) => {
   } as SubmitFormEvent);
 };
 
-watch(
-  () => properties.eventListener,
-  () => {
-    if (properties.eventListener)
-      formState.registerEventListener(_JSON_FORM_ID, properties.eventListener);
-  },
-  { immediate: true },
-);
-
 provide('styles', myStyles);
 const renderers = Object.freeze([
   ...(properties.renderers ?? []),
@@ -76,10 +74,7 @@ const renderers = Object.freeze([
 </script>
 
 <template>
-  <form
-    :id="id"
-    @on-submit="onSubmit"
-  >
+  <form :id="id" @on-submit="onSubmit">
     <json-forms
       :key="id"
       :data="formData"

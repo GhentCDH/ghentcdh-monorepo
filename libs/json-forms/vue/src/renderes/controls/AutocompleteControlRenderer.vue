@@ -7,6 +7,7 @@
     @change="handleChange"
     @focus="onFocus"
     @blur="onBlur"
+    @create="create()"
   />
 </template>
 
@@ -21,6 +22,7 @@ import { useApi } from '@ghentcdh/tools-vue';
 import { Autocomplete } from '@ghentcdh/ui';
 
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
+import { useFormEvents } from '../../composables/useFormEvents';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
 const {
@@ -35,8 +37,11 @@ const {
 const bindProperties = computed(() => ({
   ...controlWrapper.value,
   ...appliedOptions.value,
+  enableCreate: !!appliedOptions.value.enableCreate,
 }));
 
+console.table(props.schema);
+console.table(props.uischema);
 const fetchOptions = computed(() => {
   const options = appliedOptions.value as AutocompleteRemoteOptions;
 
@@ -53,5 +58,17 @@ const fetchOptions = computed(() => {
 const handleChange = (result: any) => {
   const { path } = control.value;
   _handleChange(path, result);
+};
+const formEvents = useFormEvents();
+const create = () => {
+  formEvents.dispatch({
+    event: 'create',
+    type: control.value.path,
+    onSuccess: (result) => {
+      console.log('create success', result);
+      handleChange(result);
+    },
+  });
+  // window.location.href = `${controlWrapper.value.createUri}`; //
 };
 </script>

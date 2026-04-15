@@ -36,14 +36,14 @@ export interface SelectOptions extends ControlOption {
 export interface AutocompleteOptions extends Omit<SelectOptions, 'format'> {
   format: 'autocomplete';
   freeText?: boolean;
+  enableCreate?: string;
 }
 export interface AutocompleteRemoteOptions extends Omit<
-  SelectOptions,
+  AutocompleteOptions,
   'format' | 'options'
 > {
   format: 'autocomplete';
   uri: string;
-  freeText?: boolean;
   dataField?: string;
   skipAuth?: boolean;
 }
@@ -176,7 +176,9 @@ export class ControlBuilder<
   }
 
   autocomplete(
-    options: Omit<AutocompleteOptions | AutocompleteRemoteOptions, 'format'>,
+    options:
+      | Omit<AutocompleteOptions, 'format'>
+      | Omit<AutocompleteRemoteOptions, 'format'>,
   ) {
     return this.addOptions({
       format: ControlType.autocomplete,
