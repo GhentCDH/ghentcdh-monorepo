@@ -1,50 +1,41 @@
+
+<template>
+  <form :id="id" @on-submit="onSubmit">
+    <json-forms
+      :key="id"
+      :data="formData"
+      :schema="schema"
+      :uischema="uischema"
+      :renderers="renderers"
+      :enabled="!disabled"
+      @change="onChange"
+      @submit="onSubmit"
+    />
+  </form>
+</template>
+
 <script setup lang="ts">
-import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import { JsonForms } from '@jsonforms/vue';
 import { provide, ref } from 'vue';
 
 import { Debugger } from '@ghentcdh/tools-vue';
 import { myStyles } from '@ghentcdh/ui';
 
-import type { FormEventPayload } from './composables/useFormEvents';
 import { provideFormEvents } from './composables/useFormEvents';
+import type { FormEventPayload } from './composables/useFormEvents';
+import {
+  FormComponentEmits,
+  FormComponentProperties,
+} from './form.component.properties';
+import type { Data, SubmitFormEvent } from './form.component.properties';
 import { tailwindRenderers } from './renderes';
 
-type Data = {
-  [key: string]: any;
-};
-
-export type SubmitFormEvent = {
-  data: Data;
-  valid: boolean;
-};
-
-const properties = withDefaults(
-  defineProps<{
-    id: string;
-    schema: any;
-    uischema: any;
-    renderers?: JsonFormsRendererRegistryEntry[];
-    disabled?: boolean;
-  }>(),
-  {
-    disabled: false,
-    renderers: undefined,
-  },
-);
-
+const properties = defineProps(FormComponentProperties);
+const emits = defineEmits(FormComponentEmits);
 const formData = defineModel<any>();
-const emits = defineEmits<{
-  (e: 'valid', valid: boolean): void;
-  (e: 'change', data: Data): void;
-  (e: 'submit', event: SubmitFormEvent): void;
-  (e: 'errors', errors: any[]): void;
-  (e: 'events', payload: FormEventPayload): void;
-}>();
 const valid = ref(false);
 
-provideFormEvents((payload) => {
-  console.log('form events', payload);
+provideFormEvents((payload: FormEventPayload) => {
   emits('events', payload);
 });
 
@@ -72,18 +63,3 @@ const renderers = Object.freeze([
   ...tailwindRenderers,
 ]);
 </script>
-
-<template>
-  <form :id="id" @on-submit="onSubmit">
-    <json-forms
-      :key="id"
-      :data="formData"
-      :schema="schema"
-      :uischema="uischema"
-      :renderers="renderers"
-      :enabled="!disabled"
-      @change="onChange"
-      @submit="onSubmit"
-    />
-  </form>
-</template>

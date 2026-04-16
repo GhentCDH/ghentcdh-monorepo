@@ -1,27 +1,59 @@
+<template>
+  <Collapse :title="title">
+    <FormComponent
+      :id="`form_${id}`"
+      v-model="formData"
+      :schema="resolvedSchema"
+      :uischema="resolvedUischema"
+      @valid="onValid($event)"
+      @submit="save"
+      @events="emits('events', $event)"
+    />
+    <div class="card-actions flex justify-between">
+      <div>
+        <Alert
+          v-if="!valid && submitted"
+          message="The form is not valid"
+          type="error"
+        />
+      </div>
+      <div class="flex justify-end gap-2">
+        <slot name="actions" />
+        <Btn
+          v-if="!formData.id"
+          :outline="true"
+          @click="clear"
+        >
+          Clear
+        </Btn>
+        <Btn
+          :color="Color.primary"
+          :disabled="submitted"
+          @click="save"
+        >
+          Save
+        </Btn>
+      </div>
+    </div>
+  </Collapse>
+</template>
+
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
-import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
 import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
 
-import type { FormEventPayload } from './composables/useFormEvents';
 import FormComponent from './form.component.vue';
+import {
+  FormWithActionsEmits,
+  FormWithActionsProperties,
+} from './form-with-actions.component.properties';
 import { FormStore } from './form.store';
 
-const properties = defineProps<{
-  id: string;
-  createTitle: string;
-  updateTitle?: string;
-  schema?: any;
-  uiSchema?: any;
-  uri?: string;
-  /**
-   * @deprecated Use `schema`, `uiSchema` and `uri` props instead.
-   */
-  formSchema?: Pick<FormSchemaModel, 'form' | 'uri'>;
-}>();
-const valid = ref(false);
+const properties = defineProps(FormWithActionsProperties);
+const emits = defineEmits(FormWithActionsEmits);
 const formData = defineModel<any>();
+const valid = ref(false);
 const submitted = ref(false);
 
 const resolvedSchema = computed(
@@ -34,18 +66,11 @@ const resolvedUri = computed(
   () => properties.uri ?? properties.formSchema?.uri,
 );
 
-const store = ref(resolvedUri.value ? new FormStore(uri) : null);
+const store = ref(resolvedUri.value ? new FormStore(resolvedUri.value) : null);
 
 watch(resolvedUri, (uri) => {
   store.value = uri ? new FormStore(uri) : null;
 });
-
-const emits = defineEmits<{
-  (e: 'success'): void;
-  (e: 'submit', data: any): void;
-  (e: 'valid', valid: boolean): void;
-  (e: 'events', payload: FormEventPayload): void;
-}>();
 
 const save = () => {
   submitted.value = true;
@@ -79,33 +104,3 @@ const title = computed(() => {
   return formData.value?.id ? properties.updateTitle : properties.createTitle;
 });
 </script>
-
-<template>
-  <Collapse :title="title">
-    <FormComponent
-      :id="`form_${id}`"
-      v-model="formData"
-      :schema="resolvedSchema"
-      :uischema="resolvedUischema"
-      @valid="onValid($event)"
-      @submit="save"
-      @events="emits('events', $event)"
-    />
-    <div class="card-actions flex justify-between">
-      <div>
-        <Alert
-          v-if="!valid && submitted"
-          message="The form is not valid"
-          type="error"
-        />
-      </div>
-      <div class="flex justify-end gap-2">
-        <slot name="actions" />
-        <Btn v-if="!formData.id" :outline="true" @click="clear"> Clear </Btn>
-        <Btn :color="Color.primary" :disabled="submitted" @click="save">
-          Save
-        </Btn>
-      </div>
-    </div>
-  </Collapse>
-</template>

@@ -1,4 +1,7 @@
 export * from './form.store';
+export * from './form.component.properties';
+export * from './form-with-actions.component.properties';
+export * from './form-with-table.component.properties';
 export * from './renderes/controls';
 export * from './renderes/array';
 export * from './renderes/layouts';
