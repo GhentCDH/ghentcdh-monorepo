@@ -19,7 +19,7 @@
       autocomplete="off"
       autocorrect="off"
       spellcheck="false"
-      :class="[style, width]"
+      :class="[style, 'w-full']"
       :value="query"
       :placeholder="placeholder"
       :disabled="!enabled"
@@ -40,7 +40,7 @@ import { useOptions } from './composables/useOptions';
 import { useAutoCompleteSearch } from './composables/useSearch';
 import type { ControlEmits } from '../core/emits';
 import { mergeStyles } from '../core/styles';
-import { buildInputStyle } from '../core/utils/style';
+import { buildInputStyle } from '../core/utils/style'; // ─── Props ────────────────────────────────────────────────────────────────────
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 const props = defineProps(AutocompleteProperties);

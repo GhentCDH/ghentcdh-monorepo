@@ -1,9 +1,9 @@
 <template>
   <div ref="selectWrapperRef">
     <ControlWrapper v-bind="props">
-      <div class="flex items-center">
-        <div class="relative" @keydown="onKeydown">
-          <div class="overflow-hidden">
+      <div class="flex items-center w-full">
+        <div class="relative w-full" @keydown="onKeydown">
+          <div class="overflow-hidden w-full">
             <slot />
           </div>
           <!-- Right icons -->

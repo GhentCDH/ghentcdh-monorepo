@@ -3,7 +3,7 @@
     v-bind="properties"
     :open="true"
     :disable-close="false"
-    :width="formSchema.modalSize"
+    :width="modalSize"
     @close-modal="onCancel"
   >
     <template #content>
@@ -11,10 +11,11 @@
       <FormComponent
         :id="`modal-${id}`"
         v-model="formData"
-        :schema="formSchema.schema"
-        :uischema="formSchema.uiSchema"
+        :schema="schema"
+        :uischema="uiSchema"
         @valid="onValid($event)"
         @change="onChange"
+        @events="emits('events', $event)"
       />
       <slot name="content-after" />
     </template>
@@ -27,7 +28,7 @@
         Cancel
       </Btn>
       <Btn
-        :disabled="!valid"
+        :disabled="!hasBeenValid"
         @click="onSubmit"
       >
         Save
@@ -47,13 +48,15 @@ import type { FormModalProps } from './form-modal.props';
 const properties = withDefaults(defineProps<FormModalProps>(), {
   cancelLabel: 'cancel',
   saveLabel: 'save',
+  modalSize: 'md',
 });
 
 const id = `modal_${Math.floor(Math.random() * 1000)}`;
 
 const valid = ref(false);
+const hasBeenValid = ref(false);
 const formData = defineModel<any>();
-const emits = defineEmits(['closeModal']);
+const emits = defineEmits(['closeModal', 'events']);
 
 if (properties.data) {
   formData.value = properties.data;
@@ -61,6 +64,7 @@ if (properties.data) {
 
 const onValid = (v: boolean) => {
   valid.value = v;
+  if (v) hasBeenValid.value = true;
 };
 
 const onCancel = () => {

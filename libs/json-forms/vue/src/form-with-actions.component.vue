@@ -43,11 +43,11 @@ import { computed, ref, watch } from 'vue';
 
 import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
 
-import FormComponent from './form.component.vue';
 import {
   FormWithActionsEmits,
   FormWithActionsProperties,
 } from './form-with-actions.component.properties';
+import FormComponent from './form.component.vue';
 import { FormStore } from './form.store';
 
 const properties = defineProps(FormWithActionsProperties);

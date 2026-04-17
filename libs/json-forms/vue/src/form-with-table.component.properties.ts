@@ -1,9 +1,6 @@
 import type { PropType } from 'vue';
 
-import type {
-  FormSchemaModel,
-  JsonFormsLayout,
-} from '@ghentcdh/json-forms-core';
+import type { FormSchemaModel, JsonFormsLayout } from '@ghentcdh/json-forms-core';
 import type { TableAction } from '@ghentcdh/ui';
 
 /** Generic record type used for form/table data payloads. */
@@ -41,4 +38,10 @@ export const FormWithTableProperties = {
 export const FormWithTableEmits = [
   /** Emitted when a table row is edited and a custom listener is bound. */
   'editData',
+  /** Emitted after a record is successfully saved (created or updated). Payload: `{ id?: string, data: Data }`. */
+  'save',
+  /** Emitted after a record is successfully deleted. Payload: the deleted record. */
+  'delete',
+  /** Forwarded form events dispatched by custom renderers inside the modal (e.g. "create"). Payload: `FormEventPayload`. */
+  'events',
 ];

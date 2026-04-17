@@ -1,6 +1,6 @@
+import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import type { PropType } from 'vue';
 
-import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 
 /** Generic record type used for form data payloads. */
 export type Data = {

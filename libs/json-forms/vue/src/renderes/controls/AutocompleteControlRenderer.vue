@@ -21,8 +21,8 @@ import type { AutocompleteRemoteOptions } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 import { Autocomplete } from '@ghentcdh/ui';
 
-import { useVanillaControlCustom } from '../../utils/vanillaControl';
 import { useFormEvents } from '../../composables/useFormEvents';
+import { useVanillaControlCustom } from '../../utils/vanillaControl';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
 const {
@@ -40,8 +40,6 @@ const bindProperties = computed(() => ({
   enableCreate: !!appliedOptions.value.enableCreate,
 }));
 
-console.table(props.schema);
-console.table(props.uischema);
 const fetchOptions = computed(() => {
   const options = appliedOptions.value as AutocompleteRemoteOptions;
 
@@ -65,7 +63,6 @@ const create = () => {
     event: 'create',
     type: control.value.path,
     onSuccess: (result) => {
-      console.log('create success', result);
       handleChange(result);
     },
   });

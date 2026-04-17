@@ -32,21 +32,28 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
-import { Btn, Card, hasCustomEventListener, IconEnum, ModalService } from '@ghentcdh/ui';
+import {
+  Btn,
+  Card,
+  IconEnum,
+  ModalService,
+  hasCustomEventListener,
+} from '@ghentcdh/ui';
 
-import { FormModal, FormStore } from './index';
+import { type FormModalResult, FormModalService, FormStore } from './index';
+
+import type { Data } from './form-with-table.component.properties';
 import {
   FormWithTableEmits,
   FormWithTableProperties,
 } from './form-with-table.component.properties';
-import type { Data } from './form-with-table.component.properties';
-import type { FormModalProps, FormModalResult } from './modal/form-modal.props';
 import { TableComponent } from './table';
 
 const properties = defineProps(FormWithTableProperties);
 const emit = defineEmits(FormWithTableEmits);
 const reload = ref(0);
 
+// Resolve individual props or fall back to the deprecated `formSchema` bundle
 const resolvedForm = computed(
   () => properties.form ?? properties.formSchema?.form,
 );
@@ -60,6 +67,7 @@ const resolvedUri = computed(
   () => properties.uri ?? properties.formSchema?.uri,
 );
 
+// Recreate the store whenever the resolved URI changes
 let store = new FormStore(resolvedUri.value ?? '');
 
 watch(resolvedUri, (uri) => {
@@ -68,6 +76,7 @@ watch(resolvedUri, (uri) => {
 
 const hasEdit = hasCustomEventListener('editData');
 
+// Delegate to a custom edit handler when one is bound, otherwise open the modal
 const edit = (data: Data) => {
   if (hasEdit) {
     emit('editData', data);
@@ -76,37 +85,44 @@ const edit = (data: Data) => {
   openModal(data);
 };
 
+// Confirm before deleting a record, then reload the table
 const deleteFn = (data: Data) => {
   ModalService.showConfirm({
     title: 'Delete record',
     message: 'Are you sure to delete, the data will be lost?',
     onClose: (result) => {
       if (result.confirmed) {
-        store.delete(data).then(() => (reload.value = Date.now()));
+        store.delete(data).then(() => {
+          reload.value = Date.now();
+          emit('delete', data);
+        });
       }
     },
   });
 };
 
+// Open the create/edit modal using `FormModalService`
 const openModal = (formData?: any) => {
   if (!resolvedForm.value) return;
 
-  ModalService.openModal<FormModalProps, any>({
-    component: FormModal,
-    props: {
-      formSchema: resolvedForm.value,
-      data: formData ?? properties.initialData,
-      modalTitle: formData?.id
-        ? (properties.updateTitle ?? '')
-        : properties.createTitle,
-      onClose: (result: FormModalResult) => {
-        if (result && result.valid) {
-          store.save(formData?.id, result.data).then(() => {
-            reload.value = Date.now();
-          });
-        }
-      },
+  const isUpdate = !!formData?.id;
+
+  FormModalService.openModal({
+    formSchema: resolvedForm.value,
+    initialData: formData ?? properties.initialData,
+    modalTitle:
+      (isUpdate
+        ? (properties.updateTitle ?? properties.createTitle)
+        : properties.createTitle) ?? '',
+    onClose: (result: FormModalResult) => {
+      if (result && result.valid) {
+        store.save(formData?.id, result.data).then(() => {
+          reload.value = Date.now();
+          emit('save', { id: formData?.id, data: result.data });
+        });
+      }
     },
+    onEvents: (payload) => emit('events', payload),
   });
 };
 </script>

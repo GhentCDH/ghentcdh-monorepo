@@ -12,7 +12,6 @@ export const useVanillaControlCustom = <
   input: I,
   adaptTarget: (target: any) => any = (v) => v.value,
 ) => {
-  console.log(input);
   const vanillaControl = useVanillaControl(input, adaptTarget);
 
   const isTouched = ref(false);

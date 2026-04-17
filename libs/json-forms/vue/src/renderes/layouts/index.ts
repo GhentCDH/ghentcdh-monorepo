@@ -3,6 +3,7 @@ import { rankWith, uiTypeIs } from '@jsonforms/core';
 import { LayoutTypes } from '@ghentcdh/json-forms-core';
 
 import CollapseLayout from './CollapseLayout.vue';
+import GridLayout from './GridLayout.vue';
 import HorizontalLayout from './HorizontalLayout.vue';
 import VerticalLayout from './VerticalLayout.vue';
 
@@ -18,5 +19,9 @@ export const layoutRenderers = [
   {
     tester: rankWith(10, uiTypeIs(LayoutTypes.CollapseLayout)),
     renderer: CollapseLayout,
+  },
+  {
+    tester: rankWith(10, uiTypeIs(LayoutTypes.GridLayout)),
+    renderer: GridLayout,
   },
 ];
