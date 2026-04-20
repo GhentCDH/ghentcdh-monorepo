@@ -1,8 +1,5 @@
 <template>
-  <Collapse
-    :title="title"
-    :height-full="fullHeight"
-  >
+  <Collapse :title="title" :height-full="fullHeight">
     <div :class="['flex flex-col', { 'overflow-hidden h-full': scrollable }]">
       <div
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"
@@ -31,25 +28,9 @@
         </div>
         <div class="flex justify-end gap-2">
           <slot name="actions" />
-          <Btn
-            v-if="getId"
-            :outline="true"
-            @click="cancel"
-          >
-            Cancel
-          </Btn>
-          <Btn
-            v-else
-            :outline="true"
-            @click="clear"
-          >
-            Clear
-          </Btn>
-          <Btn
-            :color="Color.primary"
-            :disabled="submitted"
-            @click="save"
-          >
+          <Btn v-if="recordId" :outline="true" @click="cancel"> Cancel </Btn>
+          <Btn v-else :outline="true" @click="clear"> Clear </Btn>
+          <Btn :color="Color.primary" :disabled="submitted" @click="save">
             Save
           </Btn>
         </div>
@@ -76,16 +57,16 @@ const emits = defineEmits(FormWithActionsEmits);
 
 const formData = ref<any>(properties.modelValue);
 const initialFormData = ref<any>(structuredClone(toRaw(properties.modelValue)));
-const getId = ref(properties.modelValue?.id ?? null);
+const recordId = ref(properties.modelValue?.id ?? null);
 const valid = ref(false);
 const submitted = ref(false);
 
 // Only fires when the parent changes v-model from outside
 watch(
   () => properties.modelValue,
-  (newValue) => {
-    if (newValue === formData.value) return;
-    getId.value = newValue?.id ?? null;
+  (newValue, oldValue) => {
+    if (newValue === oldValue) return;
+    recordId.value = newValue?.id ?? null;
     initialFormData.value = structuredClone(toRaw(newValue));
     formData.value = newValue;
   },
@@ -107,7 +88,7 @@ const save = () => {
   }
 
   if (store.value) {
-    store.value.save(getId.value, formData.value).then(() => {
+    store.value.save(recordId.value, formData.value).then(() => {
       emits('success');
     });
   } else {
@@ -137,6 +118,6 @@ const onValid = (v: boolean) => {
 const title = computed(() => {
   if (!properties.updateTitle) return properties.createTitle;
 
-  return getId.value ? properties.updateTitle : properties.createTitle;
+  return recordId.value ? properties.updateTitle : properties.createTitle;
 });
 </script>
