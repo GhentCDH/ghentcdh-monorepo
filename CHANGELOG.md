@@ -1,3 +1,22 @@
+## 0.7.0 (2026-04-20)
+
+### 🚀 Features
+
+- update autocomplete ([7a97b31](https://github.com/GhentCDH/ghentcdh-monorepo/commit/7a97b31))
+- update json forms ([7f6b59e](https://github.com/GhentCDH/ghentcdh-monorepo/commit/7f6b59e))
+- update json forms ([8283e89](https://github.com/GhentCDH/ghentcdh-monorepo/commit/8283e89))
+- update json forms ([845526f](https://github.com/GhentCDH/ghentcdh-monorepo/commit/845526f))
+- update json forms ([a868d8f](https://github.com/GhentCDH/ghentcdh-monorepo/commit/a868d8f))
+- update json forms ([c3da96e](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c3da96e))
+- update json forms ([e553b5b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/e553b5b))
+- update json forms ([b50b7f3](https://github.com/GhentCDH/ghentcdh-monorepo/commit/b50b7f3))
+- update json forms ([1a4ae9d](https://github.com/GhentCDH/ghentcdh-monorepo/commit/1a4ae9d))
+- update json forms ([0cd3131](https://github.com/GhentCDH/ghentcdh-monorepo/commit/0cd3131))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.6.9 (2026-03-17)
 
 ### 🚀 Features
