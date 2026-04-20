@@ -4,7 +4,7 @@
       :id="`form_${id}`"
       v-model="formData"
       :schema="resolvedSchema"
-      :uischema="resolvedUischema"
+      :ui-schema="resolvedUischema"
       @valid="onValid($event)"
       @submit="save"
       @events="emits('events', $event)"
@@ -56,15 +56,9 @@ const formData = defineModel<any>();
 const valid = ref(false);
 const submitted = ref(false);
 
-const resolvedSchema = computed(
-  () => properties.schema ?? properties.formSchema?.form.schema,
-);
-const resolvedUischema = computed(
-  () => properties.uiSchema ?? properties.formSchema?.form.uiSchema,
-);
-const resolvedUri = computed(
-  () => properties.uri ?? properties.formSchema?.uri,
-);
+const resolvedSchema = computed(() => properties.schema);
+const resolvedUischema = computed(() => properties.uiSchema);
+const resolvedUri = computed(() => properties.uri);
 
 const store = ref(resolvedUri.value ? new FormStore(resolvedUri.value) : null);
 

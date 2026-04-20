@@ -51,6 +51,8 @@ export const provideFormEvents = (dispatch: FormEventDispatch): FormEvents => {
 export const useFormEvents = (): FormEvents => {
   return inject(
     FORM_EVENTS_KEY,
-    createFormEvents(() => {}),
+    createFormEvents(() => {
+      // placeholder
+    }),
   );
 };

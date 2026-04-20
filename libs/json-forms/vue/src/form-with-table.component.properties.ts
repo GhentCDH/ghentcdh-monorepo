@@ -1,6 +1,6 @@
 import type { PropType } from 'vue';
 
-import type { FormSchemaModel, JsonFormsLayout } from '@ghentcdh/json-forms-core';
+import type { JsonFormsLayout } from '@ghentcdh/json-forms-core';
 import type { TableAction } from '@ghentcdh/ui';
 
 /** Generic record type used for form/table data payloads. */
@@ -29,8 +29,6 @@ export const FormWithTableProperties = {
   filter: { type: Object as PropType<JsonFormsLayout> },
   /** Base URI used by `FormStore` for CRUD operations and as the default table data source. */
   uri: { type: String },
-  /** @deprecated Use `form`, `table`, `filter` and `uri` props instead. */
-  formSchema: { type: Object as PropType<FormSchemaModel> },
   /** Default data used when opening the create modal. */
   initialData: { type: Object as PropType<Data>, default: () => ({}) },
 };

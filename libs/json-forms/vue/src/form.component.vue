@@ -8,7 +8,7 @@
       :key="id"
       :data="formData"
       :schema="schema"
-      :uischema="uischema"
+      :uischema="uiSchema"
       :renderers="renderers"
       :enabled="!disabled"
       @change="onChange"

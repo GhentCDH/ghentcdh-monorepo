@@ -1,7 +1,5 @@
 import type { PropType } from 'vue';
 
-import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
-
 export const FormWithActionsProperties = {
   /** Unique identifier; the inner form receives `form_${id}` as its id. */
   id: { type: String, required: true },
@@ -15,10 +13,6 @@ export const FormWithActionsProperties = {
   uiSchema: { type: Object as PropType<any> },
   /** When provided, the component submits the form to this URI via `FormStore`. */
   uri: { type: String },
-  /** @deprecated Use `schema`, `uiSchema` and `uri` props instead. */
-  formSchema: {
-    type: Object as PropType<Pick<FormSchemaModel, 'form' | 'uri'>>,
-  },
 };
 
 export const FormWithActionsEmits = [

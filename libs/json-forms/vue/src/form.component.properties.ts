@@ -21,7 +21,7 @@ export const FormComponentProperties = {
   /** JSON schema describing the shape of the form data. */
   schema: { type: Object as PropType<any>, required: true },
   /** UI schema describing the layout and controls. */
-  uischema: { type: Object as PropType<any>, required: true },
+  uiSchema: { type: Object as PropType<any>, required: true },
   /** Extra renderer entries merged in front of the built-in tailwind renderers. */
   renderers: {
     type: Array as PropType<JsonFormsRendererRegistryEntry[]>,

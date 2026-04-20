@@ -26,7 +26,7 @@
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
-    />
+    >
   </SelectWrapper>
 </template>
 

@@ -2,7 +2,10 @@
   <div ref="selectWrapperRef">
     <ControlWrapper v-bind="props">
       <div class="flex items-center w-full">
-        <div class="relative w-full" @keydown="onKeydown">
+        <div
+          class="relative w-full"
+          @keydown="onKeydown"
+        >
           <div class="overflow-hidden w-full">
             <slot />
           </div>
@@ -85,7 +88,7 @@
           size="lg"
           tooltip="Create new"
           @click="emits('create')"
-        ></Btn>
+        />
       </div>
     </ControlWrapper>
   </div>
@@ -98,8 +101,8 @@ import {
   SelectWrapperEmits,
   SelectWrapperProperties,
 } from './SelectWrapper.properties';
+import Btn from '../../button/btn.vue';
 import ControlWrapper from '../core/ControlWrapper.vue';
-import { Btn } from '@ghentcdh/ui';
 
 const props = defineProps(SelectWrapperProperties);
 

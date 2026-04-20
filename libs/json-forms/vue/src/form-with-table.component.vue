@@ -18,8 +18,10 @@
     <TableComponent
       v-if="resolvedUri"
       :id="`form_table_${id}`"
-      :layout="resolvedTable"
-      :filter-layout="resolvedFilter"
+      :ui-schema="resolvedTable.uiSchema"
+      :schema="resolvedTable.schema"
+      :filter-ui-schema="resolvedFilter?.uiSchema"
+      :filter-schema="resolvedFilter?.schema"
       :uri="dataUri ?? resolvedUri"
       :reload="reload"
       :actions="tableActions"
@@ -53,19 +55,10 @@ const properties = defineProps(FormWithTableProperties);
 const emit = defineEmits(FormWithTableEmits);
 const reload = ref(0);
 
-// Resolve individual props or fall back to the deprecated `formSchema` bundle
-const resolvedForm = computed(
-  () => properties.form ?? properties.formSchema?.form,
-);
-const resolvedTable = computed(
-  () => properties.table ?? properties.formSchema?.table,
-);
-const resolvedFilter = computed(
-  () => properties.filter ?? properties.formSchema?.filter,
-);
-const resolvedUri = computed(
-  () => properties.uri ?? properties.formSchema?.uri,
-);
+const resolvedForm = computed(() => properties.form);
+const resolvedTable = computed(() => properties.table);
+const resolvedFilter = computed(() => properties.filter);
+const resolvedUri = computed(() => properties.uri);
 
 // Recreate the store whenever the resolved URI changes
 let store = new FormStore(resolvedUri.value ?? '');
@@ -108,7 +101,9 @@ const openModal = (formData?: any) => {
   const isUpdate = !!formData?.id;
 
   FormModalService.openModal({
-    formSchema: resolvedForm.value,
+    schema: resolvedForm.value.schema,
+    uiSchema: resolvedForm.value.uiSchema,
+    modalSize: resolvedForm.value.modalSize,
     initialData: formData ?? properties.initialData,
     modalTitle:
       (isUpdate

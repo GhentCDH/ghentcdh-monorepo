@@ -12,7 +12,7 @@
         :id="`modal-${id}`"
         v-model="formData"
         :schema="schema"
-        :uischema="uiSchema"
+        :ui-schema="uiSchema"
         @valid="onValid($event)"
         @change="onChange"
         @events="emits('events', $event)"
