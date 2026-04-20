@@ -7,7 +7,7 @@
       <Btn
         :icon="IconEnum.Plus"
         :outline="true"
-        @click="openModal"
+        @click="create"
       >
         Add new record
       </Btn>
@@ -34,21 +34,12 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
-import {
-  Btn,
-  Card,
-  IconEnum,
-  ModalService,
-  hasCustomEventListener,
-} from '@ghentcdh/ui';
+import { Btn, Card, IconEnum, ModalService, hasCustomEventListener } from '@ghentcdh/ui';
 
 import { type FormModalResult, FormModalService, FormStore } from './index';
 
 import type { Data } from './form-with-table.component.properties';
-import {
-  FormWithTableEmits,
-  FormWithTableProperties,
-} from './form-with-table.component.properties';
+import { FormWithTableEmits, FormWithTableProperties } from './form-with-table.component.properties';
 import { TableComponent } from './table';
 
 const properties = defineProps(FormWithTableProperties);
@@ -68,14 +59,27 @@ watch(resolvedUri, (uri) => {
 });
 
 const hasEdit = hasCustomEventListener('editData');
+const customEdit = hasCustomEventListener('custom:edit');
+const customCreate = hasCustomEventListener('custom:create');
 
 // Delegate to a custom edit handler when one is bound, otherwise open the modal
 const edit = (data: Data) => {
+  if (customEdit) {
+    emit('custom:edit', data);
+    return;
+  }
   if (hasEdit) {
     emit('editData', data);
     return;
   }
   openModal(data);
+};
+const create = () => {
+  if (customCreate) {
+    emit('custom:create');
+    return;
+  }
+  openModal();
 };
 
 // Confirm before deleting a record, then reload the table

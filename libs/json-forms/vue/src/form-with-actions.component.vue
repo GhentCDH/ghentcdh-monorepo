@@ -32,18 +32,18 @@
         <div class="flex justify-end gap-2">
           <slot name="actions" />
           <Btn
-            v-if="!formData.id"
-            :outline="true"
-            @click="clear"
-          >
-            Clear
-          </Btn>
-          <Btn
-            v-if="formData.id"
+            v-if="recordId"
             :outline="true"
             @click="cancel"
           >
             Cancel
+          </Btn>
+          <Btn
+            v-else
+            :outline="true"
+            @click="clear"
+          >
+            Clear
           </Btn>
           <Btn
             :color="Color.primary"
@@ -59,7 +59,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import type { PropType } from 'vue';
+import { computed, ref, toRaw, watch } from 'vue';
 
 import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
 
@@ -67,12 +68,28 @@ import { FormWithActionsEmits, FormWithActionsProperties } from './form-with-act
 import FormComponent from './form.component.vue';
 import { FormStore } from './form.store';
 
-const properties = defineProps(FormWithActionsProperties);
+const properties = defineProps({
+  ...FormWithActionsProperties,
+  modelValue: { type: Object as PropType<any>, default: () => ({}) },
+});
 const emits = defineEmits(FormWithActionsEmits);
-const formData = defineModel<any>();
-// const initialFormData = ref(structuredClone(formData.value));
+
+const formData = ref<any>(properties.modelValue);
+const initialFormData = ref<any>(structuredClone(toRaw(properties.modelValue)));
+const recordId = ref(properties.modelValue?.id ?? null);
 const valid = ref(false);
 const submitted = ref(false);
+
+// Only fires when the parent changes v-model from outside
+watch(
+  () => properties.modelValue,
+  (newValue, oldValue) => {
+    if (newValue === formData.value) return;
+    recordId.value = newValue?.id ?? null;
+    initialFormData.value = structuredClone(toRaw(newValue));
+    formData.value = newValue;
+  },
+);
 
 const store = computed(() =>
   properties.uri ? new FormStore(properties.uri) : null,
@@ -80,6 +97,7 @@ const store = computed(() =>
 
 const updateValue = (data: any) => {
   formData.value = data;
+  emits('update:modelValue', data);
 };
 
 const save = () => {
@@ -89,7 +107,7 @@ const save = () => {
   }
 
   if (store.value) {
-    store.value.save(formData.value.id, formData.value).then(() => {
+    store.value.save(recordId.value, formData.value).then(() => {
       emits('success');
     });
   } else {
@@ -100,11 +118,13 @@ const save = () => {
 const clear = () => {
   formData.value = { id: null };
   submitted.value = false;
+  emits('update:modelValue', formData.value);
 };
 
 const cancel = () => {
-  // formData.value = structuredClone(initialFormData.value);
+  formData.value = structuredClone(toRaw(initialFormData.value));
   submitted.value = false;
+  emits('update:modelValue', formData.value);
   emits('cancel');
 };
 
@@ -117,6 +137,6 @@ const onValid = (v: boolean) => {
 const title = computed(() => {
   if (!properties.updateTitle) return properties.createTitle;
 
-  return formData.value?.id ? properties.updateTitle : properties.createTitle;
+  return recordId.value ? properties.updateTitle : properties.createTitle;
 });
 </script>
