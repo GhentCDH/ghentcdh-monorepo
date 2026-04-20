@@ -1,3 +1,17 @@
+## 0.8.2 (2026-04-20)
+
+### 🚀 Features
+
+- make json-forms nicer ([1614adf](https://github.com/GhentCDH/ghentcdh-monorepo/commit/1614adf))
+- make json-forms nicer ([19dc4e2](https://github.com/GhentCDH/ghentcdh-monorepo/commit/19dc4e2))
+- update json forms ([46c5e40](https://github.com/GhentCDH/ghentcdh-monorepo/commit/46c5e40))
+- update json forms ([5b02d7c](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5b02d7c))
+- update json forms ([5a5f70a](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5a5f70a))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.8.1 (2026-04-20)
 
 This was a version bump only, there were no code changes.
