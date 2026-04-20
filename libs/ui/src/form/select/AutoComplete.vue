@@ -19,7 +19,7 @@
       autocomplete="off"
       autocorrect="off"
       spellcheck="false"
-      :class="[style, width]"
+      :class="[style, 'w-full']"
       :value="query"
       :placeholder="placeholder"
       :disabled="!enabled"
@@ -40,7 +40,7 @@ import { useOptions } from './composables/useOptions';
 import { useAutoCompleteSearch } from './composables/useSearch';
 import type { ControlEmits } from '../core/emits';
 import { mergeStyles } from '../core/styles';
-import { buildInputStyle } from '../core/utils/style';
+import { buildInputStyle } from '../core/utils/style'; // ─── Props ────────────────────────────────────────────────────────────────────
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 const props = defineProps(AutocompleteProperties);
@@ -82,7 +82,8 @@ watch(
 // ─── Input events ────────────────────────────────────────────────────────────
 const onInput = (e: Event) => {
   query.value = (e.target as HTMLInputElement).value;
-  if (!props.freeText) emit('update:modelValue', '');
+  if (props.freeText) emit('update:modelValue', query.value);
+  else emit('update:modelValue', '');
   triggerSearch(query.value);
   isOpen.value = true;
 };
@@ -96,8 +97,9 @@ function onBlur() {
   // Small delay so click on list item fires first
   setTimeout(() => {
     isOpen.value = false;
-    // If not free-text and nothing selected, reset
-    if (!props.freeText && !props.modelValue) {
+    if (props.freeText) {
+      emit('change', query.value);
+    } else if (!props.modelValue) {
       query.value = '';
     }
   }, 150);

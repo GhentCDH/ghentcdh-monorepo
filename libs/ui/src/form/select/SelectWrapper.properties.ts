@@ -11,9 +11,11 @@ export const SelectProperties = {
   /** Key to use as the stored
    value when options are objects */
   valueKey: { type: String, default: 'value' },
+  /** add a new button next to the list*/
+  enableCreate: { type: Boolean, default: false },
 };
 
-export const SelectWrapperEmits = ['select', 'clear', 'close'];
+export const SelectWrapperEmits = ['select', 'clear', 'close', 'create'];
 
 export const SelectWrapperProperties = {
   ...ListProperties,

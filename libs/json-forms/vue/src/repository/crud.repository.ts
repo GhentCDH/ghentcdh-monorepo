@@ -1,7 +1,5 @@
 import type { AxiosRequestInterceptorUse } from 'axios';
 
-import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
-
 type RequestOptions = {
   skipAuth?: boolean;
   queryParams?: Record<string, any>;
@@ -26,7 +24,7 @@ type RepositoryOptions = {
 };
 
 export const createRepository = <T extends { id?: string }>(
-  formSchemaModel: Pick<FormSchemaModel, 'uri'>,
+  formSchemaModel: { uri: string },
   httpRequest: HttpRequest<T>,
   options: RepositoryOptions = {},
 ) => {

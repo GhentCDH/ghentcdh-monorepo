@@ -12,6 +12,7 @@ export const ControlType = {
   custom: 'custom',
   select: 'select',
   mutliSelect: 'mutliSelect',
+  boolean: 'boolean',
 } as const;
 
 export interface TextAreaOptions extends ControlOption {
@@ -35,9 +36,11 @@ export interface SelectOptions extends ControlOption {
 
 export interface AutocompleteOptions extends Omit<SelectOptions, 'format'> {
   format: 'autocomplete';
+  freeText?: boolean;
+  enableCreate?: boolean;
 }
 export interface AutocompleteRemoteOptions extends Omit<
-  SelectOptions,
+  AutocompleteOptions,
   'format' | 'options'
 > {
   format: 'autocomplete';
@@ -174,12 +177,21 @@ export class ControlBuilder<
   }
 
   autocomplete(
-    options: Omit<AutocompleteOptions | AutocompleteRemoteOptions, 'format'>,
+    options:
+      | Omit<AutocompleteOptions, 'format'>
+      | Omit<AutocompleteRemoteOptions, 'format'>,
   ) {
     return this.addOptions({
       format: ControlType.autocomplete,
       dataField: 'data',
       ...(options ?? {}),
+    });
+  }
+
+  control(format: string, options?: Partial<ControlOption>) {
+    return this.addOptions({
+      format,
+      ...options,
     });
   }
 

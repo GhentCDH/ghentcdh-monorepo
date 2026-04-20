@@ -30,16 +30,6 @@
             />
           </div>
           <div v-if="showActions">
-            <template v-for="action in actions">
-              <Btn
-                v-if="action.show(element)"
-                :key="action.label"
-                :icon="action.icon"
-                :outline="true"
-                @click="dispatchEvent(action.label, element)"
-              />
-            </template>
-
             <Btn
               v-if="showDelete"
               :icon="IconEnum.Delete"
@@ -85,13 +75,8 @@ import {
 } from '@jsonforms/vue';
 import { useVanillaArrayControl } from '@jsonforms/vue-vanilla';
 import { computed } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { Btn, IconEnum } from '@ghentcdh/ui';
-
-import { mapArrayActions } from './map-array-actions';
-import { useFormState } from '../../state/form.state';
-
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
 const vanillaArrayControl = useVanillaArrayControl(
@@ -110,27 +95,11 @@ if (!control.value.data || control.value.data.length < 1) {
 const noData = computed(
   () => !control.value.data || control.value.data.length === 0,
 );
-const actions = computed(() => {
-  const actions = props.uischema.options?.actions ?? [];
-
-  return mapArrayActions(useRouter(), actions);
-});
 
 const showDelete = computed(() => control.value.data?.length > 1);
-const labelKey = computed(() => {
-  const key = control.value.uischema?.options?.labelKey;
-  if (!key) return null;
-
-  return key;
-});
 
 const deleteButtonClick = (index: number) => {
   vanillaArrayControl.removeItems(control.value.path, [index])();
-};
-
-const dispatchEvent = (event, data) => {
-  const form_id = '';
-  useFormState(form_id).dispatchEvent(form_id, event, data);
 };
 
 const addButtonClick = () => {

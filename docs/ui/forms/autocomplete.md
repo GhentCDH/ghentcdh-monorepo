@@ -107,6 +107,8 @@ import { Autocomplete } from "@ghentcdh/ui";
 import { ref } from 'vue';
 
 const model = ref(null);
+const freeTextModel = ref('');
+const freeTextRemoteModel = ref('');
 const swapiModel = ref(null);
 const options = [{
     value: 1,
@@ -370,6 +372,106 @@ errors="Some error"
 
 <script setup>
   import { Autocomplete } from "@ghentcdh/ui";
+</script>
+```
+
+:::
+
+### Free text with static options
+
+When `freeText` is enabled, the input keeps the typed value even if no option is selected. This is useful when you want to allow custom values alongside suggestions.
+
+::: tabs
+
+@tab Preview
+
+<div class="flex gap-2">
+<Autocomplete
+    v-model="freeTextModel"
+    label="Type or select a value"
+    :options="options"
+    :free-text="true"
+/>
+<pre>{{ freeTextModel }}</pre>
+</div>
+
+@tab Vue
+
+```vue
+
+<template>
+  <Autocomplete
+    v-model="model"
+    label="Type or select a value"
+    :options="options"
+    :free-text="true"
+  />
+</template>
+
+<script setup>
+  import { Autocomplete } from "@ghentcdh/ui";
+  import { ref } from "vue";
+
+  const model = ref("");
+  const options = [
+    { value: 1, label: "Option 1" },
+    { value: 2, label: "Option 2" },
+    { value: 3, label: "Option 3" },
+  ];
+</script>
+```
+
+:::
+
+### Free text with remote API
+
+Combine `freeText` with `fetchOptions` to allow custom input while also offering remote suggestions.
+
+::: tabs
+
+@tab Preview
+
+<div class="flex gap-2">
+<Autocomplete
+    v-model="freeTextRemoteModel"
+    label="Search or enter a custom name"
+    :fetchOptions="fetchOptions"
+    label-key="name"
+    value-key="url"
+    :free-text="true"
+/>
+<pre>{{ freeTextRemoteModel }}</pre>
+</div>
+
+@tab Vue
+
+```vue
+
+<template>
+  <Autocomplete
+    v-model="model"
+    label="Search or enter a custom name"
+    :fetchOptions="fetchOptions"
+    label-key="name"
+    value-key="url"
+    :free-text="true"
+  />
+</template>
+
+<script setup>
+  import { Autocomplete } from "@ghentcdh/ui";
+  import { ref } from "vue";
+
+  const model = ref("");
+
+  const fetchOptions = async (searchTerm, signal) => {
+    const response = await fetch(
+      `https://swapi.dev/api/people/?search=${searchTerm}`,
+      { signal }
+    );
+    const data = await response.json();
+    return data.results;
+  };
 </script>
 ```
 

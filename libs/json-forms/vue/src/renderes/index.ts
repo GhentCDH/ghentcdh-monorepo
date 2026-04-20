@@ -14,15 +14,6 @@ export const customRenderers = [
   // ...labelRenderers,
 ].flat();
 
-const customRenderesName = customRenderers.map((c) => {
-  return c.renderer.name;
-});
-// customRenderesName.push('ArrayListRenderer');
-
-const useVanillaRenderers = vanillaRenderers.filter(
-  (v) => !customRenderesName.includes(v.renderer.name),
-);
-
 export const tailwindRenderers = [
   ...vanillaRenderers,
   ...customRenderers,

@@ -19,6 +19,7 @@
     <!-- No results -->
     <li
       v-else-if="options.length === 0"
+      tabindex="-1"
       class="pointer-events-none"
     >
       <span class="px-3 py-2 text-sm opacity-50 italic">

@@ -15,6 +15,7 @@ export const LayoutTypes = {
   HorizontalLayout: 'HorizontalLayout',
   VerticalLayout: 'VerticalLayout',
   CollapseLayout: 'CollapseLayout',
+  GridLayout: 'GridLayout',
 } as const;
 
 type _LayoutTypes = (typeof LayoutTypes)[keyof typeof LayoutTypes];
@@ -41,6 +42,10 @@ export class LayoutBuilder<TYPE> extends BuilderWithElements<LayoutType, TYPE> {
 
   static vertical<TYPE>(): LayoutBuilder<TYPE> {
     return new LayoutBuilder<TYPE>(LayoutTypes.VerticalLayout);
+  }
+
+  static grid<TYPE>(): LayoutBuilder<TYPE> {
+    return new LayoutBuilder<TYPE>(LayoutTypes.GridLayout);
   }
 
   titleKey(titleKey: string) {

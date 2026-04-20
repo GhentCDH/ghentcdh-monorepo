@@ -1,12 +1,13 @@
 <template>
   <Autocomplete
     v-bind="bindProperties"
-    v-model="control.data"
+    :model-value="control.data"
     :enabled="control.enabled"
     :fetch-options="fetchOptions"
     @change="handleChange"
     @focus="onFocus"
     @blur="onBlur"
+    @create="create()"
   />
 </template>
 
@@ -20,6 +21,7 @@ import type { AutocompleteRemoteOptions } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 import { Autocomplete } from '@ghentcdh/ui';
 
+import { useFormEvents } from '../../composables/useFormEvents';
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
@@ -35,6 +37,7 @@ const {
 const bindProperties = computed(() => ({
   ...controlWrapper.value,
   ...appliedOptions.value,
+  enableCreate: !!appliedOptions.value.enableCreate,
 }));
 
 const fetchOptions = computed(() => {
@@ -42,11 +45,10 @@ const fetchOptions = computed(() => {
 
   if (!options.uri) return null;
 
-  return () => {
+  return (searchTerm, signal) => {
     const fetch = options.skipAuth ? axios : useApi();
-
     return fetch
-      .get(options.uri)
+      .get(`${options.uri}${searchTerm}`, { signal })
       .then((data) => data.data[options.dataField ?? 'data']);
   };
 });
@@ -54,5 +56,16 @@ const fetchOptions = computed(() => {
 const handleChange = (result: any) => {
   const { path } = control.value;
   _handleChange(path, result);
+};
+const formEvents = useFormEvents();
+const create = () => {
+  formEvents.dispatch({
+    event: 'create',
+    type: control.value.path,
+    onSuccess: (result) => {
+      handleChange(result);
+    },
+  });
+  // window.location.href = `${controlWrapper.value.createUri}`; //
 };
 </script>

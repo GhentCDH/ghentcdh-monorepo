@@ -1,6 +1,7 @@
 import { uiTypeIs } from '@jsonforms/core';
 import {
   and,
+  isBooleanControl as _isBooleanControl,
   optionIs,
   or,
   schemaTypeIs,
@@ -47,4 +48,8 @@ export const isMultiselectControl = and(
 export const isSelectControl = and(
   uiTypeIs('Control'),
   optionIs('format', ControlType.select),
+);
+export const isBooleanControl = or(
+  _isBooleanControl,
+  and(uiTypeIs('Control'), optionIs('format', ControlType.boolean)),
 );

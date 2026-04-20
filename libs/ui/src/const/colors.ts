@@ -9,7 +9,7 @@ export const ButtonColor: Record<Color, string> = {
   blank: 'btn-ghost',
   primary: 'btn-primary',
   secondary: 'btn-soft btn-primary',
-  error: 'btn-error text-white',
+  error: 'btn-error',
 };
 
 export const BadgeColor: Record<Color, string> = {

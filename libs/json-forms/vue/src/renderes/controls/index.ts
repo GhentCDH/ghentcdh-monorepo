@@ -1,4 +1,4 @@
-import { isBooleanControl, isIntegerControl, isNumberControl, rankWith } from '@jsonforms/core';
+import { isIntegerControl, isNumberControl, rankWith } from '@jsonforms/core';
 
 import AutocompleteControlRenderer from './AutocompleteControlRenderer.vue';
 import BooleanControlRenderer from './BooleanControlRenderer.vue';
@@ -11,6 +11,7 @@ import StringControlRenderer from './StringControlRenderer.vue';
 import TextAreaControlRenderer from './TextAreaControlRenderer.vue';
 import {
   isAutoCompleteControl,
+  isBooleanControl,
   isMarkdownControl,
   isMultiselectControl,
   isSelectControl,

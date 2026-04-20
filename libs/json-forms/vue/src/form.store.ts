@@ -1,17 +1,8 @@
-// import { defineStore } from 'pinia';
-import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 import { NotificationService } from '@ghentcdh/ui';
 
 export class FormStore {
-  constructor(private readonly schema: Pick<FormSchemaModel, 'uri'>) {
-    // if (this.uri.value === schema.uri) return;
-    // uri.value = schema.uri;
-  }
-
-  private get uri() {
-    return this.schema.uri;
-  }
+  constructor(private readonly uri: string) {}
 
   public async delete<T>(data: T & { id?: string }) {
     return useApi()

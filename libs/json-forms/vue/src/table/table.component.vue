@@ -1,31 +1,51 @@
+<template>
+  <div>
+    <div
+      v-if="filterUiSchema && filterSchema"
+      class="mb-2"
+    >
+      <TableFilter
+        :layout="{ uiSchema: filterUiSchema, schema: filterSchema }"
+        :filters="store.filters.value"
+        @change-filters="onChangeFilters"
+      />
+    </div>
+    <div>
+      <Table
+        :display-columns="displayColumns"
+        :sort="sort"
+        :page="store.pageData.value"
+        :loading="store.loading.value"
+        :data="store.tableData.value"
+        :actions="actions"
+        @update-page="onUpdatePage"
+        @delete="deleteFn"
+        @edit="edit"
+        @sort="onSort"
+      />
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { isArray } from 'lodash-es';
 import { computed, watch } from 'vue';
 
-import type {
-  ColumnDef,
-  JsonFormsLayout,
-  TextCellType,
-} from '@ghentcdh/json-forms-core';
+import type { ColumnDef, TextCellType } from '@ghentcdh/json-forms-core';
 import { findColumnDef } from '@ghentcdh/json-forms-core';
-import type { TableAction } from '@ghentcdh/ui';
 import { Table, TextCell } from '@ghentcdh/ui';
 
 import TableFilter from './filter/table-filter.vue';
+import {
+  TableComponentEmits,
+  TableComponentProperties,
+} from './table.component.properties';
 import { useTableStore } from './table.store';
 
-const properties = defineProps<{
-  id: string;
-  layout: JsonFormsLayout;
-  filterLayout?: JsonFormsLayout;
-  uri: string;
-  reload?: number;
-  actions?: TableAction[];
-}>();
+const properties = defineProps(TableComponentProperties);
+const emit = defineEmits(TableComponentEmits);
 
 // TODO add reload functionality!
-
-const emit = defineEmits(['delete', 'edit']);
 
 watch(
   () => properties.reload,
@@ -38,7 +58,7 @@ let store = useTableStore(properties.id);
 
 watch(
   () => properties.uri,
-  (formSchema) => {
+  () => {
     store.init(properties.uri);
   },
   { immediate: true },
@@ -57,10 +77,9 @@ const components = {
 };
 
 const displayColumns = computed(() => {
-  const { schema, uiSchema } = properties.layout;
-  return uiSchema.elements.map((e) => {
+  return properties.uiSchema.elements.map((e) => {
     const element = e as TextCellType;
-    const def = findColumnDef(element, schema);
+    const def = findColumnDef(element, properties.schema);
     const type = isArray(def.type) ? def.type[0] : def.type;
     let component: any;
     if (element.options?.format && element.options.format in components) {
@@ -86,6 +105,7 @@ const onChangeFilters = (filters: any) => {
 const onUpdatePage = (page: number) => {
   store.updatePage(page);
 };
+
 const onSort = (id: string) => {
   store.sort(id);
 };
@@ -94,33 +114,3 @@ const sort = computed(() => {
   return store.sorting.value ?? { orderBy: '', ascending: 1 };
 });
 </script>
-
-<template>
-  <div>
-    <div
-      v-if="filterLayout"
-      class="mb-2"
-    >
-      <TableFilter
-        v-if="filterLayout"
-        :layout="filterLayout"
-        :filters="store.filters.value"
-        @change-filters="onChangeFilters"
-      />
-    </div>
-    <div>
-      <Table
-        :display-columns="displayColumns"
-        :sort="sort"
-        :page="store.pageData.value"
-        :loading="store.loading.value"
-        :data="store.tableData.value"
-        :actions="actions"
-        @update-page="onUpdatePage"
-        @delete="deleteFn"
-        @edit="edit"
-        @sort="onSort"
-      />
-    </div>
-  </div>
-</template>

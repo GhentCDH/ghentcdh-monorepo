@@ -1,98 +1,3 @@
-<script setup lang="ts">
-import { ref, watch } from 'vue';
-
-import type { FormSchemaModel } from '@ghentcdh/json-forms-core';
-import type { TableAction } from '@ghentcdh/ui';
-import {
-  Btn,
-  Card,
-  IconEnum,
-  ModalService,
-  hasCustomEventListener,
-} from '@ghentcdh/ui';
-
-import { FormModal, FormStore } from './index';
-
-import type { FormModalProps, FormModalResult } from './modal/form-modal.props';
-import type { FormEventListener } from './state/form.state';
-import { TableComponent } from './table';
-
-type Data = {
-  [key: string]: any;
-};
-
-const properties = withDefaults(
-  defineProps<{
-    id: string;
-    tableTitle: string;
-    createTitle: string;
-    updateTitle?: string;
-    dataUri?: string;
-    tableActions?: TableAction[];
-    formSchema: FormSchemaModel;
-    initialData?: Data;
-    eventListener?: FormEventListener;
-  }>(),
-  { initialData: {} as any },
-);
-const reload = ref(0);
-
-let store = new FormStore(properties.formSchema);
-
-watch(
-  () => properties.formSchema,
-  (formSchema) => {
-    store = new FormStore(properties.formSchema);
-  },
-);
-const emit = defineEmits<{
-  editData: [Data];
-}>();
-
-const hasEdit = hasCustomEventListener('editData');
-
-const edit = (data: Data) => {
-  if (hasEdit) {
-    emit('editData', data);
-    return;
-  }
-  openModal(data);
-};
-
-const deleteFn = (data: Data) => {
-  ModalService.showConfirm({
-    title: 'Delete record',
-    message: 'Are you sure to delete, the data will be lost?',
-    onClose: (result) => {
-      if (result.confirmed) {
-        store.delete(data).then(() => (reload.value = Date.now()));
-      }
-    },
-  });
-};
-
-const openModal = (formData?: any) => {
-  ModalService.openModal<FormModalProps, any>({
-    component: FormModal,
-    props: {
-      formSchema: properties.formSchema.form,
-      data: formData ?? properties.initialData,
-      eventListener: properties.eventListener,
-      modalTitle: formData?.id
-        ? (properties.updateTitle ?? '')
-        : properties.createTitle,
-      onClose: (result: FormModalResult) => {
-        if (result && result.valid) {
-          store.save(formData?.id, result.data).then(() => {
-            reload.value = Date.now();
-          });
-        }
-      },
-    },
-  });
-};
-</script>
-
 <template>
   <div class="flex justify-between items-center mb-2">
     <h1>
@@ -109,13 +14,15 @@ const openModal = (formData?: any) => {
     </div>
   </div>
 
-  <Card v-if="formSchema.table">
+  <Card v-if="resolvedTable">
     <TableComponent
-      v-if="formSchema.uri"
+      v-if="resolvedUri"
       :id="`form_table_${id}`"
-      :layout="formSchema.table"
-      :filter-layout="formSchema.filter"
-      :uri="dataUri ?? formSchema.uri"
+      :ui-schema="resolvedTable.uiSchema"
+      :schema="resolvedTable.schema"
+      :filter-ui-schema="resolvedFilter?.uiSchema"
+      :filter-schema="resolvedFilter?.schema"
+      :uri="dataUri ?? resolvedUri"
       :reload="reload"
       :actions="tableActions"
       @edit="edit"
@@ -123,3 +30,94 @@ const openModal = (formData?: any) => {
     />
   </Card>
 </template>
+
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue';
+
+import {
+  Btn,
+  Card,
+  IconEnum,
+  ModalService,
+  hasCustomEventListener,
+} from '@ghentcdh/ui';
+
+import { type FormModalResult, FormModalService, FormStore } from './index';
+
+import type { Data } from './form-with-table.component.properties';
+import {
+  FormWithTableEmits,
+  FormWithTableProperties,
+} from './form-with-table.component.properties';
+import { TableComponent } from './table';
+
+const properties = defineProps(FormWithTableProperties);
+const emit = defineEmits(FormWithTableEmits);
+const reload = ref(0);
+
+const resolvedForm = computed(() => properties.form);
+const resolvedTable = computed(() => properties.table);
+const resolvedFilter = computed(() => properties.filter);
+const resolvedUri = computed(() => properties.uri);
+
+// Recreate the store whenever the resolved URI changes
+let store = new FormStore(resolvedUri.value ?? '');
+
+watch(resolvedUri, (uri) => {
+  store = new FormStore(uri ?? '');
+});
+
+const hasEdit = hasCustomEventListener('editData');
+
+// Delegate to a custom edit handler when one is bound, otherwise open the modal
+const edit = (data: Data) => {
+  if (hasEdit) {
+    emit('editData', data);
+    return;
+  }
+  openModal(data);
+};
+
+// Confirm before deleting a record, then reload the table
+const deleteFn = (data: Data) => {
+  ModalService.showConfirm({
+    title: 'Delete record',
+    message: 'Are you sure to delete, the data will be lost?',
+    onClose: (result) => {
+      if (result.confirmed) {
+        store.delete(data).then(() => {
+          reload.value = Date.now();
+          emit('delete', data);
+        });
+      }
+    },
+  });
+};
+
+// Open the create/edit modal using `FormModalService`
+const openModal = (formData?: any) => {
+  if (!resolvedForm.value) return;
+
+  const isUpdate = !!formData?.id;
+
+  FormModalService.openModal({
+    schema: resolvedForm.value.schema,
+    uiSchema: resolvedForm.value.uiSchema,
+    modalSize: resolvedForm.value.modalSize,
+    initialData: formData ?? properties.initialData,
+    modalTitle:
+      (isUpdate
+        ? (properties.updateTitle ?? properties.createTitle)
+        : properties.createTitle) ?? '',
+    onClose: (result: FormModalResult) => {
+      if (result && result.valid) {
+        store.save(formData?.id, result.data).then(() => {
+          reload.value = Date.now();
+          emit('save', { id: formData?.id, data: result.data });
+        });
+      }
+    },
+    onEvents: (payload) => emit('events', payload),
+  });
+};
+</script>
