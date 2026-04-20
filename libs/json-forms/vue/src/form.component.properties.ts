@@ -1,7 +1,6 @@
 import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import type { PropType } from 'vue';
 
-
 /** Generic record type used for form data payloads. */
 export type Data = {
   [key: string]: any;
@@ -29,6 +28,7 @@ export const FormComponentProperties = {
   },
   /** Disables all controls inside the form. */
   disabled: { type: Boolean, default: false },
+  formData: { type: Object as PropType<Data>, default: () => ({}) },
 };
 
 export const FormComponentEmits = [

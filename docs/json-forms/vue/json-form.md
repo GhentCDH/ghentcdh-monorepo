@@ -1,6 +1,8 @@
 # Form
 
-The `FormComponent` renders a JSON-schema based form using [JSON Forms](https://jsonforms.io/) combined with the Tailwind/daisyUI renderers from `@ghentcdh/ui`. It takes a JSON `schema` and a `uischema`, binds the data via `v-model`, and emits rich lifecycle events — including a generic `events` channel that custom renderers can dispatch on.
+The `FormComponent` renders a JSON-schema based form using [JSON Forms](https://jsonforms.io/) combined with the Tailwind/daisyUI renderers from `@ghentcdh/ui`. It takes a JSON `schema` and a `uiSchema`, binds the data via the `formData` prop, and emits rich lifecycle events — including a generic `events` channel that custom renderers can dispatch on.
+
+When `formData` is set from outside the component, the data is automatically stripped of unknown properties using the Zod schema derived from the JSON schema.
 
 ## Usage
 
@@ -13,8 +15,9 @@ The `FormComponent` renders a JSON-schema based form using [JSON Forms](https://
     <FormComponent
       id="demo-form"
       :schema="formSchema"
-      :uischema="exampleUiSchema"
-      v-model="formData"
+      :ui-schema="exampleUiSchema"
+      :form-data="formData"
+      @change="formData = $event"
     />
     <pre>{{ formData }}</pre>
   </div>
@@ -27,8 +30,9 @@ The `FormComponent` renders a JSON-schema based form using [JSON Forms](https://
   <FormComponent
     id="my-form"
     :schema="schema"
-    :uischema="uischema"
-    v-model="formData"
+    :ui-schema="uiSchema"
+    :form-data="formData"
+    @change="formData = $event"
   />
 </template>
 
@@ -48,18 +52,17 @@ const formData = ref({});
 | ----------- | ---------------------------------- | -------- | ------- | ---------------------------------------------------------------------------------- |
 | `id`        | `String`                           | true     | —       | Unique id applied to the underlying `<form>` element and to the `<json-forms>` key |
 | `schema`    | `any`                              | true     | —       | JSON schema describing the shape of the form data                                  |
-| `uischema`  | `any`                              | true     | —       | UI schema describing the layout and controls                                       |
+| `uiSchema`  | `any`                              | true     | —       | UI schema describing the layout and controls                                       |
+| `formData`  | `Data`                             | false    | `{}`    | Initial form data. When changed from outside, unknown properties are stripped via Zod |
 | `renderers` | `JsonFormsRendererRegistryEntry[]` | false    | —       | Extra renderers merged in front of the built-in `tailwindRenderers`                |
 | `disabled`  | `Boolean`                          | false    | `false` | Disables all controls inside the form                                              |
-
-`v-model` binds to the form data object.
 
 ## Events
 
 | Event     | Payload                                     | Description                                                                              |
 | --------- | ------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `valid`   | `valid: boolean`                            | Emitted whenever validity changes. `true` when the form has no validation errors         |
 | `change`  | `data: Record<string, any>`                 | Emitted on every change with the latest form data                                        |
+| `valid`   | `valid: boolean`                            | Emitted whenever validity changes. `true` when the form has no validation errors         |
 | `errors`  | `errors: any[]`                             | Array of validation errors produced by Ajv. Empty when the form is valid                 |
 | `submit`  | `{ data, valid }: SubmitFormEvent`          | Emitted when the native form submit handler fires                                        |
 | `events`  | `payload: FormEventPayload`                 | Generic event channel for custom renderers — see [Custom events](#custom-events) below   |
@@ -121,8 +124,9 @@ Bind to the `events` emit on `FormComponent` to intercept dispatches from render
   <FormComponent
     id="my-form"
     :schema="schema"
-    :uischema="uischema"
-    v-model="formData"
+    :ui-schema="uiSchema"
+    :form-data="formData"
+    @change="formData = $event"
     @events="onFormEvent"
   />
 </template>
@@ -148,9 +152,10 @@ Extra renderers can be supplied via the `renderers` prop. They are merged in fro
 <FormComponent
   id="my-form"
   :schema="schema"
-  :uischema="uischema"
+  :ui-schema="uiSchema"
   :renderers="[myCustomEntry]"
-  v-model="formData"
+  :form-data="formData"
+  @change="formData = $event"
 />
 ```
 
@@ -188,9 +193,9 @@ Renders every control in a read-only state.
 <FormComponent
   id="demo-form-disabled"
   :schema="formSchema"
-  :uischema="exampleUiSchema"
+  :ui-schema="exampleUiSchema"
   :disabled="true"
-  v-model="formDataDisabled"
+  :form-data="formDataDisabled"
 />
 
 @tab Vue
@@ -200,9 +205,9 @@ Renders every control in a read-only state.
   <FormComponent
     id="disabled-form"
     :schema="schema"
-    :uischema="uischema"
+    :ui-schema="uiSchema"
     :disabled="true"
-    v-model="formData"
+    :form-data="formData"
   />
 </template>
 
@@ -227,8 +232,9 @@ Hook into `@events` to receive payloads dispatched by custom renderers. Call `on
 <FormComponent
   id="demo-form-events"
   :schema="formSchema"
-  :uischema="exampleUiSchema"
-  v-model="formDataEvents"
+  :ui-schema="exampleUiSchema"
+  :form-data="formDataEvents"
+  @change="formDataEvents = $event"
   @events="onFormEvent"
 />
 
@@ -244,8 +250,9 @@ Hook into `@events` to receive payloads dispatched by custom renderers. Call `on
   <FormComponent
     id="events-form"
     :schema="schema"
-    :uischema="uischema"
-    v-model="formData"
+    :ui-schema="uiSchema"
+    :form-data="formData"
+    @change="formData = $event"
     @events="onFormEvent"
   />
 </template>

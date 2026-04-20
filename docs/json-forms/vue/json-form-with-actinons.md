@@ -17,7 +17,7 @@ When the `uri` prop is provided, the component saves the form data to the backen
       create-title="Create record"
       update-title="Update record"
       :schema="formSchema"
-      :uischema="smallUiSchema"
+      :ui-schema="smallUiSchema"
       v-model="formData"
       @submit="onSubmit"
       @valid="onValid"
@@ -35,7 +35,7 @@ When the `uri` prop is provided, the component saves the form data to the backen
     create-title="Create record"
     update-title="Update record"
     :schema="schema"
-    :uischema="uischema"
+    :ui-schema="uiSchema"
     v-model="formData"
     @submit="onSubmit"
     @valid="onValid"
@@ -63,26 +63,29 @@ const onValid = (valid) => {
 
 ## Props
 
-| Prop           | Type                                   | Required | Default | Description                                                                                          |
-| -------------- | -------------------------------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `id`           | `String`                               | true     | —       | Unique identifier used to generate the internal form id (`form_${id}`)                               |
-| `createTitle`  | `String`                               | true     | —       | Title shown when creating a new record (`formData.id` is falsy)                                      |
-| `updateTitle`  | `String`                               | false    | —       | Title shown when editing an existing record. Falls back to `createTitle` if not provided             |
-| `schema`       | `any`                                  | false    | —       | JSON schema describing the form data shape                                                           |
-| `uischema`     | `any`                                  | false    | —       | UI schema describing the layout and control rendering                                                |
-| `uri`          | `String`                               | false    | —       | When provided, the component submits the form to this URI via `FormStore` instead of emitting events |
-| `formSchema`   | `Pick<FormSchemaModel, 'form' \| 'uri'>` | false  | —       | **Deprecated** — use `schema`, `uischema` and `uri` instead. Kept for backwards compatibility         |
+| Prop           | Type     | Required | Default | Description                                                                                          |
+| -------------- | -------- | -------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| `id`           | `String` | true     | —       | Unique identifier used to generate the internal form id (`form_${id}`)                               |
+| `createTitle`  | `String` | true     | —       | Title shown when creating a new record (`formData.id` is falsy)                                      |
+| `updateTitle`  | `String` | false    | —       | Title shown when editing an existing record. Falls back to `createTitle` if not provided             |
+| `schema`       | `any`    | false    | —       | JSON schema describing the form data shape                                                           |
+| `uiSchema`     | `any`    | false    | —       | UI schema describing the layout and control rendering                                                |
+| `uri`          | `String`  | false    | —       | When provided, the component submits the form to this URI via `FormStore` instead of emitting events |
+| `scrollable`   | `Boolean` | false    | `false` | When true, the form content scrolls and the action bar stays pinned at the bottom                    |
+| `fullHeight`   | `Boolean` | false    | `false` | When true, the component takes the full height of its parent                                         |
 
 `v-model` binds to the form data object.
 
 ## Events
 
-| Event     | Payload                 | Description                                                                                              |
-| --------- | ----------------------- | -------------------------------------------------------------------------------------------------------- |
-| `submit`  | `data: any`             | Emitted when the user clicks **Save** and the form is valid, **only when `uri` is not defined**          |
-| `valid`   | `valid: boolean`        | Emitted whenever the form validity changes                                                               |
-| `success` | —                       | Emitted after a successful backend save (only when `uri` is defined)                                     |
-| `events`  | `payload: FormEventPayload` | Forwards form events from the inner `FormComponent`                                                  |
+| Event     | Payload                       | Description                                                                                              |
+| --------- | ----------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `submit`  | `data: any`                   | Emitted when the user clicks **Save** and the form is valid, **only when `uri` is not defined**          |
+| `valid`   | `valid: boolean`              | Emitted whenever the form validity changes                                                               |
+| `errors`  | `errors: any[]`               | Forwards the raw Ajv validation errors from the inner `FormComponent`                                    |
+| `success` | —                             | Emitted after a successful backend save (only when `uri` is defined)                                     |
+| `events`  | `payload: FormEventPayload`   | Forwards form events from the inner `FormComponent`                                                      |
+| `cancel`  | —                             | Emitted when the **Cancel** button is clicked (only visible when editing an existing record)              |
 
 ## Slots
 
@@ -137,7 +140,7 @@ When `uri` is provided, clicking **Save** posts the form data to the backend. No
   create-title="Create user"
   update-title="Update user"
   :schema="formSchema"
-  :uischema="smallUiSchema"
+  :ui-schema="smallUiSchema"
   uri="/api/users"
   v-model="formDataWithUri"
   @success="() => {}"
@@ -153,7 +156,7 @@ When `uri` is provided, clicking **Save** posts the form data to the backend. No
     create-title="Create user"
     update-title="Update user"
     :schema="schema"
-    :uischema="uischema"
+    :ui-schema="uiSchema"
     uri="/api/users"
     v-model="formData"
     @success="onSuccess"
@@ -186,7 +189,7 @@ When `uri` is omitted, the component emits `submit` with the form data so you ca
   id="demo-form-custom"
   create-title="Create record"
   :schema="formSchema"
-  :uischema="smallUiSchema"
+  :ui-schema="smallUiSchema"
   v-model="formData"
   @submit="onSubmit"
   @valid="onValid"
@@ -206,7 +209,7 @@ When `uri` is omitted, the component emits `submit` with the form data so you ca
     id="custom-form"
     create-title="Create record"
     :schema="schema"
-    :uischema="uischema"
+    :ui-schema="uiSchema"
     v-model="formData"
     @submit="onSubmit"
     @valid="onValid"
@@ -243,7 +246,7 @@ Use the `actions` slot to place additional buttons next to the built-in **Clear*
   id="demo-form-actions"
   create-title="Create record"
   :schema="formSchema"
-  :uischema="smallUiSchema"
+  :ui-schema="smallUiSchema"
   v-model="formDataCustomActions"
 >
   <template #actions>
@@ -259,7 +262,7 @@ Use the `actions` slot to place additional buttons next to the built-in **Clear*
     id="custom-actions-form"
     create-title="Create record"
     :schema="schema"
-    :uischema="uischema"
+    :ui-schema="uiSchema"
     v-model="formData"
   >
     <template #actions>
@@ -279,45 +282,6 @@ const doSomething = () => {
   // ...
 };
 </script>
-```
-
-:::
-
-### Deprecated `formSchema` prop
-
-The legacy `formSchema` prop still works for backwards compatibility, but new code should use `schema`, `uischema` and `uri` instead.
-
-::: tabs
-
-@tab Vue (deprecated)
-
-```vue
-<template>
-  <FormWithActions
-    id="legacy-form"
-    create-title="Create record"
-    :form-schema="{
-      form: { schema, uiSchema: uischema },
-      uri: '/api/users',
-    }"
-    v-model="formData"
-  />
-</template>
-```
-
-@tab Vue (preferred)
-
-```vue
-<template>
-  <FormWithActions
-    id="modern-form"
-    create-title="Create record"
-    :schema="schema"
-    :uischema="uischema"
-    uri="/api/users"
-    v-model="formData"
-  />
-</template>
 ```
 
 :::

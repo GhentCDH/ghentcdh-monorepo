@@ -13,6 +13,10 @@ export const FormWithActionsProperties = {
   uiSchema: { type: Object as PropType<any> },
   /** When provided, the component submits the form to this URI via `FormStore`. */
   uri: { type: String },
+  /** When true, the form content scrolls and the action bar stays pinned. */
+  scrollable: { type: Boolean, default: false },
+  /** When true, the component takes the full height of its parent. */
+  fullHeight: { type: Boolean, default: false },
 };
 
 export const FormWithActionsEmits = [
@@ -26,4 +30,7 @@ export const FormWithActionsEmits = [
   'valid',
   /** Forwards custom renderer events (`FormEventPayload`). */
   'events',
+  'errors',
+  /** Emitted when the cancel button is clicked (only visible when editing). */
+  'cancel',
 ];
