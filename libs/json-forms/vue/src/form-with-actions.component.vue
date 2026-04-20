@@ -65,7 +65,7 @@ const submitted = ref(false);
 watch(
   () => properties.modelValue,
   (newValue, oldValue) => {
-    if (newValue === oldValue) return;
+    if (newValue === formData.value) return;
     recordId.value = newValue?.id ?? null;
     initialFormData.value = structuredClone(toRaw(newValue));
     formData.value = newValue;
