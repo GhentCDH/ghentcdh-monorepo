@@ -2,7 +2,7 @@
 
 A wrapper around `FormComponent` that adds a collapsible card with **Save** and **Clear** actions, validation feedback, and optional automatic submission to a backend.
 
-When the `uri` prop is provided, the component saves the form data to the backend via `FormStore` (POST for new records, PATCH for existing ones based on `formData.id`). When `uri` is not provided, the component emits a `submit` event so the consumer can handle submission.
+When the `uri` prop is provided, the component saves the form data to the backend via `FormStore` (POST for new records, PATCH for existing ones based on the initially provided form data's `id`). When `uri` is not provided, the component emits a `submit` event so the consumer can handle submission.
 
 ## Usage
 
@@ -66,8 +66,8 @@ const onValid = (valid) => {
 | Prop           | Type     | Required | Default | Description                                                                                          |
 | -------------- | -------- | -------- | ------- | ---------------------------------------------------------------------------------------------------- |
 | `id`           | `String` | true     | —       | Unique identifier used to generate the internal form id (`form_${id}`)                               |
-| `createTitle`  | `String` | true     | —       | Title shown when creating a new record (`formData.id` is falsy)                                      |
-| `updateTitle`  | `String` | false    | —       | Title shown when editing an existing record. Falls back to `createTitle` if not provided             |
+| `createTitle`  | `String` | true     | —       | Title shown when the initially provided form data has no `id`                                        |
+| `updateTitle`  | `String` | false    | —       | Title shown when the initially provided form data has an `id`. Falls back to `createTitle`           |
 | `schema`       | `any`    | false    | —       | JSON schema describing the form data shape                                                           |
 | `uiSchema`     | `any`    | false    | —       | UI schema describing the layout and control rendering                                                |
 | `uri`          | `String`  | false    | —       | When provided, the component submits the form to this URI via `FormStore` instead of emitting events |
@@ -95,12 +95,13 @@ const onValid = (valid) => {
 
 ## Behaviour
 
-- The inner form is wrapped in a `Collapse` component that uses `createTitle` / `updateTitle` as its header.
+- The inner form is wrapped in a `Collapse` component that uses `createTitle` / `updateTitle` as its header, determined by whether the initially provided form data has an `id`.
 - Clicking **Save** sets `submitted` to `true` and validates. If valid:
-  - When `uri` is defined: the data is saved via `FormStore` (POST if `formData.id` is falsy, PATCH otherwise) and `success` is emitted.
+  - When `uri` is defined: the data is saved via `FormStore` (POST if the initial data's `id` is falsy, PATCH otherwise) and `success` is emitted.
   - When `uri` is not defined: the `submit` event is emitted with the current form data.
 - If the form is invalid when **Save** is clicked, an error `Alert` is shown.
 - The **Clear** button resets `formData` to `{ id: null }` and is only visible for new records (when `formData.id` is falsy).
+- The **Cancel** button is only visible when editing an existing record (when `formData.id` is truthy). It restores the form data to its initial state and emits `cancel`.
 
 <script setup lang="ts">
 import { formSchema, smallUiSchema } from '@source/json-forms/vue/schema';

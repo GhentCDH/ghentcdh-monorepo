@@ -42,4 +42,6 @@ export const FormWithTableEmits = [
   'delete',
   /** Forwarded form events dispatched by custom renderers inside the modal (e.g. "create"). Payload: `FormEventPayload`. */
   'events',
+  'custom:edit',
+  'custom:create',
 ];

@@ -1,8 +1,5 @@
 <template>
-  <dialog
-    :id="id"
-    class="modal"
-  >
+  <dialog :id="id" class="modal">
     <div :class="[`modal-box bg-white`, ModalSize[width]]">
       <button
         v-if="!disableClose"
@@ -18,7 +15,7 @@
       <div class="pt-4">
         <slot name="content" />
       </div>
-      <div class="modal-action">
+      <div class="flex justify-end gap-2 p-2 mt-2 border-t border-gray-300">
         <slot name="actions" />
       </div>
     </div>
@@ -26,10 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { onMounted, watch } from 'vue';
 
-import type { Size } from '../const';
+import type { Size } from '../const'; // Dictionary of Modal size classes
 
 // Dictionary of Modal size classes
 const ModalSize: Record<string, string> = {
