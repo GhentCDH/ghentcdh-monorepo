@@ -1,7 +1,8 @@
-import type { PropType } from 'vue';
 
 import type { JsonSchema } from '@jsonforms/core';
 import type { Layout } from '@jsonforms/core/src/models/uischema';
+import type { PropType } from 'vue';
+
 import type { TableAction } from '@ghentcdh/ui';
 
 export const TableComponentProperties = {
