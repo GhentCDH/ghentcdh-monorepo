@@ -32,8 +32,6 @@ export const FormComponentProperties = {
 };
 
 export const FormComponentEmits = [
-  /** v-model binding. */
-  'update:modelValue',
   /** Emitted whenever validity changes (`true` = no errors). */
   'valid',
   /** Emitted on every change with the latest form data. */

@@ -26,7 +26,7 @@ const formData = ref({
      <h2>Fixed data array</h2>
       <FormComponent
         :schema="formSchema"
-        :uischema="fixedArrayUiSchema"
+        :ui-schema="fixedArrayUiSchema"
         v-model="formData"
       />
     </div>
@@ -34,7 +34,7 @@ const formData = ref({
      <h2>Variable data array</h2>
       <FormComponent
         :schema="formSchema"
-        :uischema="arrayUiSchema"
+        :ui-schema="arrayUiSchema"
         v-model="formData"
       />
     </div>

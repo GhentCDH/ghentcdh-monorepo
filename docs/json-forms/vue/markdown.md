@@ -56,7 +56,7 @@ onMounted(async () => {
     <component
       :is="FormComponent"
       :schema="schema"
-      :uischema="uischema"
+      :ui-schema="uischema"
       v-model="formData"
     />
     <pre>{{ formData }}</pre>

@@ -1,6 +1,4 @@
-
-import type { JsonSchema } from '@jsonforms/core';
-import type { Layout } from '@jsonforms/core/src/models/uischema';
+import type { JsonSchema, Layout } from '@jsonforms/core';
 import type { PropType } from 'vue';
 
 import type { TableAction } from '@ghentcdh/ui';

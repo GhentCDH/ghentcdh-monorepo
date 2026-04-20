@@ -1,9 +1,8 @@
-# Vue json-forms frontend 
+# Vue json-forms frontend
 
 A json-forms library for Vue.js that allows you to create forms based on a JSON schema and a UI schema.
 
 It uses the components inside `@ghentcdh/ui` for styling
-
 
 ## Install the library
 
@@ -35,9 +34,9 @@ A json form can be shown using the `FormComponent` component. The component requ
 import {FormComponent} from '@ghentcdh/json-forms-vue';
 
 <div>
-  <FormComponent 
+  <FormComponent
     :schema="schema"
-    :uischema="uischema"
+    :ui-schema="uischema"
     v-model="formData" />
   <pre>{{formData}}</pre>
 </div>

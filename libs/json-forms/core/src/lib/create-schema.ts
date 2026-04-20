@@ -1,6 +1,5 @@
 // import { generateSchema } from '@anatine/zod-openapi';
-import type { JsonSchema } from '@jsonforms/core';
-import type { Layout } from '@jsonforms/core/src/models/uischema';
+import type { JsonSchema, Layout } from '@jsonforms/core';
 import type { ZodObject } from 'zod';
 import { toJSONSchema } from 'zod';
 
