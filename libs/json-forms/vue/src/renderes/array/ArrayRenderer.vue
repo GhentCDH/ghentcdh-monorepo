@@ -97,12 +97,6 @@ const noData = computed(
 );
 
 const showDelete = computed(() => control.value.data?.length > 1);
-const labelKey = computed(() => {
-  const key = control.value.uischema?.options?.labelKey;
-  if (!key) return null;
-
-  return key;
-});
 
 const deleteButtonClick = (index: number) => {
   vanillaArrayControl.removeItems(control.value.path, [index])();
