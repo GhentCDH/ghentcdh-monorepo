@@ -1,5 +1,8 @@
 <template>
-  <Collapse :title="title" :height-full="fullHeight">
+  <Collapse
+    :title="title"
+    :height-full="fullHeight"
+  >
     <div :class="['flex flex-col', { 'overflow-hidden h-full': scrollable }]">
       <div
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"
@@ -28,9 +31,25 @@
         </div>
         <div class="flex justify-end gap-2">
           <slot name="actions" />
-          <Btn v-if="getId" :outline="true" @click="cancel"> Cancel </Btn>
-          <Btn v-else :outline="true" @click="clear"> Clear </Btn>
-          <Btn :color="Color.primary" :disabled="submitted" @click="save">
+          <Btn
+            v-if="getId"
+            :outline="true"
+            @click="cancel"
+          >
+            Cancel
+          </Btn>
+          <Btn
+            v-else
+            :outline="true"
+            @click="clear"
+          >
+            Clear
+          </Btn>
+          <Btn
+            :color="Color.primary"
+            :disabled="submitted"
+            @click="save"
+          >
             Save
           </Btn>
         </div>
