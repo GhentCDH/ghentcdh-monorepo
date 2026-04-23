@@ -15,6 +15,8 @@
       class="truncate block text-left"
       :class="[style, width]"
       @click="isOpen = true"
+      :aria-label="id"
+      role="combobox"
     >
       {{ displayValue ?? 'Select value' }}
     </button>

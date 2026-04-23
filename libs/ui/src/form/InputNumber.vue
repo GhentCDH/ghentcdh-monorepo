@@ -3,6 +3,7 @@
     <input
       v-model="model"
       autocomplete="off"
+      :aria-label="id"
       type="number"
       class="w-full"
       :class="[style]"
@@ -13,7 +14,7 @@
       @change="onChange"
       @focus="onFocus"
       @blur="onBlur"
-    >
+    />
   </ControlWrapper>
 </template>
 
@@ -26,6 +27,7 @@ import {
 } from './InputNumber.properties';
 import ControlWrapper from './core/ControlWrapper.vue';
 import { buildInputStyle } from './core/utils/style';
+import Input from './Input.vue';
 
 const properties = defineProps(InputNumberProperties);
 const emit = defineEmits(InputNumberEmits);

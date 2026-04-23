@@ -2,36 +2,20 @@
   <table class="table w-full">
     <thead>
       <tr>
-        <th
-          v-for="column in displayColumns"
-          :key="column.scope"
-        >
-          <SortHeader
-            :column="column"
-            v-bind="sort"
-            @sort="onSort"
-          />
+        <th v-for="column in displayColumns" :key="column.scope">
+          <SortHeader :column="column" v-bind="sort" @sort="onSort" />
         </th>
         <th />
       </tr>
     </thead>
     <tbody>
       <tr v-if="loading">
-        <td
-          :colspan="displayColumns.length + 1"
-          class="text-center"
-        >
+        <td :colspan="displayColumns.length + 1" class="text-center">
           <span class="loading loading-bars loading-xs" />
         </td>
       </tr>
-      <tr
-        v-for="item in data"
-        :key="item.id"
-      >
-        <td
-          v-for="column in displayColumns"
-          :key="column.scope"
-        >
+      <tr v-for="item in data" :key="item.id" :ui-id="`table_${item.id}`">
+        <td v-for="column in displayColumns" :key="column.scope">
           <component
             :is="column.component"
             v-bind="column"
@@ -43,6 +27,7 @@
           <span class="flex gap-2">
             <Btn
               v-for="action of actions"
+              :area-label="action.label"
               :key="action.label"
               :icon="action.icon"
               :outline="true"
@@ -52,12 +37,14 @@
             </Btn>
             <Btn
               v-if="hasEdit"
+              area-label="Edit"
               :icon="IconEnum.Edit"
               :outline="true"
               @click="edit(item)"
             />
             <Btn
               v-if="hasDelete"
+              area-label="Delete"
               :icon="IconEnum.Delete"
               :outline="true"
               @click="deleteFn(item)"
@@ -84,7 +71,10 @@ import { computed, useAttrs } from 'vue';
 import TextCell from './cells/text.cell.vue';
 import SortHeader from './header/sort.header.vue';
 import PaginationComponent from './pagination.component.vue';
-import { TableComponentEmits, TableComponentProperties } from './table.component.properties';
+import {
+  TableComponentEmits,
+  TableComponentProperties,
+} from './table.component.properties';
 import Btn from '../button/btn.vue';
 import { IconEnum } from '../icons';
 

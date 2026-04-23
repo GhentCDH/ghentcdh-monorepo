@@ -4,6 +4,7 @@
       v-model="model"
       autocomplete="off"
       type="text"
+      :aria-label="id"
       class="w-full"
       :class="style"
       :disabled="!enabled"

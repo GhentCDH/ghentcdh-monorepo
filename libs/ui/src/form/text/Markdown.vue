@@ -2,6 +2,8 @@
   <ControlWrapper v-bind="properties">
     <div
       :class="[minHeight]"
+      :aria-label="id"
+      role="textbox"
       class="card bg-base-100 border border-base-300 w-full"
     >
       <!-- Toolbar -->

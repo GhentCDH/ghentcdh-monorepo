@@ -2,6 +2,7 @@
   <ControlWrapper v-bind="properties">
     <input
       v-model="model"
+      :aria-label="id"
       autocomplete="off"
       :type="type"
       class="w-full"
@@ -12,7 +13,7 @@
       @change="onChange"
       @focus="onFocus"
       @blur="onBlur"
-    >
+    />
   </ControlWrapper>
 </template>
 

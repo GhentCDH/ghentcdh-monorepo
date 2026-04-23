@@ -13,6 +13,7 @@
       ref="inputRef"
       type="text"
       role="combobox"
+      :aria-label="id"
       :aria-expanded="isOpen"
       aria-autocomplete="list"
       aria-haspopup="listbox"
@@ -26,7 +27,7 @@
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
-    >
+    />
   </SelectWrapper>
 </template>
 
