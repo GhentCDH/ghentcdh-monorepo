@@ -1,9 +1,15 @@
 <template>
   <nav class="navbar bg-base-100 shadow-sm">
     <div class="flex-1">
-      <div v-if="breadcrumbs" class="breadcrumbs text-sm">
+      <div
+        v-if="breadcrumbs"
+        class="breadcrumbs text-sm"
+      >
         <ul>
-          <li v-for="breadcrumb in breadcrumbs" :key="breadcrumb.label">
+          <li
+            v-for="breadcrumb in breadcrumbs"
+            :key="breadcrumb.label"
+          >
             <RouterLink
               v-if="breadcrumb.routerLink"
               :to="{ name: breadcrumb.routerLink, params: breadcrumb.params }"
@@ -21,7 +27,11 @@
     </div>
     <div class="flex grow justify-end px-2">
       <div class="flex items-stretch">
-        <MenuItem v-for="item in menu" :key="item.label" v-bind="item" />
+        <MenuItem
+          v-for="item in menu"
+          :key="item.label"
+          v-bind="item"
+        />
       </div>
     </div>
   </nav>

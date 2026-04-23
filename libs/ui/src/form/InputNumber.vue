@@ -14,20 +14,20 @@
       @change="onChange"
       @focus="onFocus"
       @blur="onBlur"
-    />
+    >
   </ControlWrapper>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 
+import Input from './Input.vue';
 import {
   InputNumberEmits,
   InputNumberProperties,
 } from './InputNumber.properties';
 import ControlWrapper from './core/ControlWrapper.vue';
 import { buildInputStyle } from './core/utils/style';
-import Input from './Input.vue';
 
 const properties = defineProps(InputNumberProperties);
 const emit = defineEmits(InputNumberEmits);

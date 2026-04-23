@@ -2,20 +2,37 @@
   <table class="table w-full">
     <thead>
       <tr>
-        <th v-for="column in displayColumns" :key="column.scope">
-          <SortHeader :column="column" v-bind="sort" @sort="onSort" />
+        <th
+          v-for="column in displayColumns"
+          :key="column.scope"
+        >
+          <SortHeader
+            :column="column"
+            v-bind="sort"
+            @sort="onSort"
+          />
         </th>
         <th />
       </tr>
     </thead>
     <tbody>
       <tr v-if="loading">
-        <td :colspan="displayColumns.length + 1" class="text-center">
+        <td
+          :colspan="displayColumns.length + 1"
+          class="text-center"
+        >
           <span class="loading loading-bars loading-xs" />
         </td>
       </tr>
-      <tr v-for="item in data" :key="item.id" :ui-id="`table_${item.id}`">
-        <td v-for="column in displayColumns" :key="column.scope">
+      <tr
+        v-for="item in data"
+        :key="item.id"
+        :ui-id="`table_${item.id}`"
+      >
+        <td
+          v-for="column in displayColumns"
+          :key="column.scope"
+        >
           <component
             :is="column.component"
             v-bind="column"
@@ -27,8 +44,8 @@
           <span class="flex gap-2">
             <Btn
               v-for="action of actions"
-              :area-label="action.label"
               :key="action.label"
+              :area-label="action.label"
               :icon="action.icon"
               :outline="true"
               @click="action.action(item)"

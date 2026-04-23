@@ -1,6 +1,9 @@
 <template>
   <div class="flex items-center justify-center h-full">
-    <ControlWrapper v-bind="properties" :hide-label="true">
+    <ControlWrapper
+      v-bind="properties"
+      :hide-label="true"
+    >
       <label class="fieldset-label">
         <input
           v-model="model"
@@ -12,7 +15,7 @@
           @change="onChange"
           @focus="onFocus"
           @blur="onBlur"
-        />
+        >
         <span class="font-bold text-gray-500 text-sm"> {{ label }}</span>
       </label>
     </ControlWrapper>
@@ -23,9 +26,9 @@
 import { computed } from 'vue';
 
 import { CheckboxEmits, CheckboxProperties } from './Checkbox.properties';
+import Input from './Input.vue';
 import ControlWrapper from './core/ControlWrapper.vue';
 import { buildInputStyle } from './core/utils/style';
-import Input from './Input.vue';
 
 const properties = defineProps(CheckboxProperties);
 const emit = defineEmits(CheckboxEmits);
