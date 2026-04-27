@@ -45,7 +45,7 @@
             <Btn
               v-for="action of actions"
               :key="action.label"
-              :area-label="action.label"
+              :aria-label="action.label"
               :icon="action.icon"
               :outline="true"
               @click="action.action(item)"
@@ -54,14 +54,14 @@
             </Btn>
             <Btn
               v-if="hasEdit"
-              area-label="Edit"
+              aria-label="Edit"
               :icon="IconEnum.Edit"
               :outline="true"
               @click="edit(item)"
             />
             <Btn
               v-if="hasDelete"
-              area-label="Delete"
+              aria-label="Delete"
               :icon="IconEnum.Delete"
               :outline="true"
               @click="deleteFn(item)"

@@ -6,6 +6,7 @@
       class="min-h-0 relative flex-shrink-0 bg-white overflow-visible flex"
     >
       <div
+        id="drawer-left-panel"
         :style="{ width: open.left ? widthLeft + 'px' : '0px' }"
         class="h-full overflow-hidden bg-white shadow-sm transition-[width] duration-300 ease-in-out"
       >
@@ -17,6 +18,9 @@
         </div>
       </div>
       <button
+        :aria-expanded="open.left"
+        aria-controls="drawer-left-panel"
+        :aria-label="open.left ? 'Collapse left panel' : 'Expand left panel'"
         class="hover:bg-base-300 hover:text-base-content transition-colors cursor-pointer"
         @click="toggle('left')"
       >
@@ -34,6 +38,9 @@
       class="min-h-0 relative flex-shrink-0 bg-white overflow-visible flex"
     >
       <button
+        :aria-expanded="open.right"
+        aria-controls="drawer-right-panel"
+        :aria-label="open.right ? 'Collapse right panel' : 'Expand right panel'"
         class="hover:bg-base-300 hover:text-base-content transition-colors cursor-pointer"
         @click="toggle('right')"
       >
@@ -43,6 +50,7 @@
         />
       </button>
       <div
+        id="drawer-right-panel"
         :style="{ width: open.right ? widthRight + 'px' : '0px' }"
         class="h-full overflow-hidden bg-white shadow-sm transition-[width] duration-300 ease-in-out"
       >

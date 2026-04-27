@@ -2,6 +2,7 @@
   <component
     :is="resolvedIcon"
     v-if="resolvedIcon"
+    aria-hidden="true"
     :class="[
       {
         'w-full h-full': !size,

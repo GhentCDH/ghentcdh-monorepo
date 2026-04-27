@@ -14,7 +14,7 @@
               v-if="breadcrumb.routerLink"
               :to="{ name: breadcrumb.routerLink, params: breadcrumb.params }"
               role="navigation"
-              :area-label="breadcrumb.label"
+              :aria-label="breadcrumb.label"
             >
               {{ breadcrumb.label }}
             </RouterLink>

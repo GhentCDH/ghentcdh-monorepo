@@ -12,6 +12,7 @@
       type="checkbox"
       :checked="checked"
       tabindex="-1"
+      :aria-label="'Toggle ' + title"
       @change="isOpen = ($event.target as HTMLInputElement).checked"
     >
     <div class="collapse-title text-gray-500 text-xs font-medium">

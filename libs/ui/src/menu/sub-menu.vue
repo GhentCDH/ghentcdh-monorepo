@@ -3,6 +3,7 @@
     <div
       tabindex="0"
       role="button"
+      aria-haspopup="menu"
       :class="[btnClass, 'btn btn-ghost text-right flex-nowrap flex']"
     >
       <span> {{ label }}</span>
@@ -14,6 +15,7 @@
     </div>
     <ul
       tabindex="0"
+      role="menu"
       class="menu dropdown-content bg-white z-1 mt-4 p-2 shadow-sm"
     >
       <li class="min-w-max flex-no-wrap text-black">
