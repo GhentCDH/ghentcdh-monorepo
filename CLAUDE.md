@@ -1,28 +1,30 @@
+Here's the compressed version:
+
 # Conventions
 
 ## Project overview
 
 - NX monorepo (`nx@22.5.2`) with `pnpm@10.1.0`
 - Libs: `ui`, `authentication/{api,vue}`, `core/types`, `json-forms/{api,core,vue}`, `tools/{api,vue}`
-- Build: Vite 7 with `vite-plugin-dts` for library builds (CJS + ESM)
-- Docs: VuePress 2 with `vuepress-theme-hope`
+- Build: Vite 7 + `vite-plugin-dts` for lib builds (CJS + ESM)
+- Docs: VuePress 2 + `vuepress-theme-hope`
 
 ## Code style
 
 - TypeScript strict mode
-- pnpm for package management
+- pnpm package management
 - NX monorepo conventions
 - Prefer `type` over `interface`
-- Prefer arrow function expressions: `const functionName = () => {}`
+- Prefer arrow functions: `const functionName = () => {}`
 - Prettier: single quotes (`"singleQuote": true`)
-- ESLint flat config with scope-based module boundary constraints
+- ESLint flat config, scope-based module boundary constraints
 
 ## Vue
 
-- Vue 3.5 with `<script setup lang="ts">`
-- Always put `<template>` first, then `<script setup>`
-- Component file: `ComponentName.vue` with props in `ComponentName.properties.ts`
-- Props use Vue object syntax with `PropType`:
+- Vue 3.5 + `<script setup lang="ts">`
+- `<template>` first, then `<script setup>`
+- File: `ComponentName.vue`, props in `ComponentName.properties.ts`
+- Props use Vue object syntax + `PropType`:
 
 ```ts
 import type { PropType } from 'vue';
@@ -35,22 +37,22 @@ export const MyComponentProperties = {
 export const MyComponentEmits = ['update:modelValue', 'select'];
 ```
 
-- Composables go in a `composables/` folder next to the component that uses them
+- Composables in `composables/` folder next to component
 - Naming: `useFeatureName.ts` (e.g., `useSearch.ts`, `useOptions.ts`)
 
 ## Styling
 
-- Tailwind CSS 4 + daisyUI 5 with a custom `ugent` theme
-- SCSS for theme variables and utilities (`_scss/` folder)
-- Use Tailwind utility classes in templates; avoid inline styles
+- Tailwind CSS 4 + daisyUI 5, custom `ugent` theme
+- SCSS for theme vars/utilities (`_scss/` folder)
+- Tailwind utility classes in templates; no inline styles
 
 ## Testing
 
-- Use Vitest for unit tests (jsdom environment, globals enabled)
-- Use Playwright for e2e tests
-- Always use `describe`/`it` block structure
-- Mock with `vi.fn()` / `vi.spyOn()`
-- Prefer table testing with `it.each` using tagged template literal syntax when input is simple/tabular:
+- Vitest for unit tests (jsdom, globals enabled)
+- Playwright for e2e
+- `describe`/`it` block structure
+- Mock: `vi.fn()` / `vi.spyOn()`
+- Prefer table testing via `it.each` tagged template literal when input simple/tabular:
 
 ```ts
 it.each`
@@ -62,18 +64,18 @@ it.each`
 });
 ```
 
-- Use array syntax for `it.each` only when rows contain functions or complex objects that don't fit a table format
-- Co-locate test files as `*.spec.ts` in a `__tests__/` folder next to the source file
+- Array syntax for `it.each` only when rows contain functions/complex objects
+- Co-locate tests as `*.spec.ts` in `__tests__/` folder next to source
 
 ## Documentation (docs/)
 
-- Use `::: tabs` / `@tab Preview` / `@tab Vue` for all code examples
-- Structure: Usage (with tabs), then Props/Events/other details, then Examples (with tabs)
-- Usage section shows the primary use case with Preview and Vue tabs
-- Examples section shows variants (required, errors, custom keys, etc.) each with Preview and Vue tabs
-- `<script setup>` block and `<ClientOnly>` wrapper go between the details and examples sections
+- `::: tabs` / `@tab Preview` / `@tab Vue` for all code examples
+- Structure: Usage (with tabs) → Props/Events/details → Examples (with tabs)
+- Usage shows primary use case with Preview + Vue tabs
+- Examples show variants (required, errors, custom keys, etc.) each with Preview + Vue tabs
+- `<script setup>` block + `<ClientOnly>` wrapper between details and examples sections
 
 ## Git
 
-- Commit messages follow Conventional Commits (enforced by commitlint)
+- Conventional Commits (enforced by commitlint)
 - Husky for pre-commit hooks

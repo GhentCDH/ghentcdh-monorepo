@@ -1,5 +1,8 @@
 <template>
-  <Collapse :title="title" :height-full="fullHeight">
+  <Collapse
+    :title="title"
+    :height-full="fullHeight"
+  >
     <div :class="['flex flex-col', { 'overflow-hidden h-full': scrollable }]">
       <div
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"
@@ -36,7 +39,12 @@
           >
             Cancel
           </Btn>
-          <Btn aria-label="Clear" v-else :outline="true" @click="clear">
+          <Btn
+            v-else
+            aria-label="Clear"
+            :outline="true"
+            @click="clear"
+          >
             Clear
           </Btn>
           <Btn

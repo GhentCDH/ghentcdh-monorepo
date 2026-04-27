@@ -1,5 +1,9 @@
 <template>
-  <dialog :id="id" class="modal" :aria-label="name">
+  <dialog
+    :id="id"
+    class="modal"
+    :aria-label="name"
+  >
     <div :class="[`modal-box bg-white`, ModalSize[width]]">
       <button
         v-if="!disableClose"
@@ -26,8 +30,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { onMounted, watch } from 'vue';
 
-import { ModalSize } from '../const/size';
 import { ModalEmits, ModalProperties } from './modal.properties';
+import { ModalSize } from '../const/size';
 
 const properties = defineProps(ModalProperties);
 
