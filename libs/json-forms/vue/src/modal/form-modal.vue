@@ -23,14 +23,12 @@
       <Btn
         :color="Color.secondary"
         :outline="true"
+        aria-label="Cancel"
         @click="onCancel"
       >
         Cancel
       </Btn>
-      <Btn
-        :disabled="!hasBeenValid"
-        @click="onSubmit"
-      >
+      <Btn :disabled="!hasBeenValid" aria-label="Save" @click="onSubmit">
         Save
       </Btn>
     </template>

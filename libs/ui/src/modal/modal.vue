@@ -1,8 +1,5 @@
 <template>
-  <dialog
-    :id="id"
-    class="modal"
-  >
+  <dialog :id="id" class="modal" :aria-label="name">
     <div :class="[`modal-box bg-white`, ModalSize[width]]">
       <button
         v-if="!disableClose"
@@ -29,34 +26,14 @@
 import { v4 as uuidv4 } from 'uuid';
 import { onMounted, watch } from 'vue';
 
-import type { Size } from '../const'; // Dictionary of Modal size classes
+import { ModalSize } from '../const/size';
+import { ModalEmits, ModalProperties } from './modal.properties';
 
-// Dictionary of Modal size classes
-const ModalSize: Record<string, string> = {
-  xs: 'max-w-xs w-[50VW]',
-  sm: 'max-w-sm w-[50VW]',
-  lg: 'max-w-2xl w-[80VW]',
-  xl: 'max-w-[80VW] w-[80VW]',
-};
-
-const properties = withDefaults(
-  defineProps<{
-    modalTitle: string;
-    buttonLabel?: string;
-    buttonSaveLabel?: string;
-    data?: any;
-    open: boolean;
-    disableClose?: boolean;
-    width?: Size;
-  }>(),
-  { open: false, disableClose: false, width: 'sm' },
-);
+const properties = defineProps(ModalProperties);
 
 const id = `modal_${uuidv4()}`;
 
-const emits = defineEmits<{
-  closeModal: [];
-}>();
+const emits = defineEmits(ModalEmits);
 
 const openModal = () => {
   const modal = document.getElementById(id) as HTMLDialogElement;
@@ -73,7 +50,7 @@ defineExpose({ closeModal, openModal });
 
 watch(
   () => properties.open,
-  (value, oldValue, onCleanup) => {
+  () => {
     if (properties.open) openModal();
     else closeModal();
   },

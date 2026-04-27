@@ -1,8 +1,5 @@
 <template>
-  <Collapse
-    :title="title"
-    :height-full="fullHeight"
-  >
+  <Collapse :title="title" :height-full="fullHeight">
     <div :class="['flex flex-col', { 'overflow-hidden h-full': scrollable }]">
       <div
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"
@@ -33,19 +30,17 @@
           <slot name="actions" />
           <Btn
             v-if="recordId"
+            aria-label="Cancel"
             :outline="true"
             @click="cancel"
           >
             Cancel
           </Btn>
-          <Btn
-            v-else
-            :outline="true"
-            @click="clear"
-          >
+          <Btn aria-label="Clear" v-else :outline="true" @click="clear">
             Clear
           </Btn>
           <Btn
+            aria-label="Save"
             :color="Color.primary"
             :disabled="submitted"
             @click="save"
@@ -64,7 +59,10 @@ import { computed, ref, toRaw, watch } from 'vue';
 
 import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
 
-import { FormWithActionsEmits, FormWithActionsProperties } from './form-with-actions.component.properties';
+import {
+  FormWithActionsEmits,
+  FormWithActionsProperties,
+} from './form-with-actions.component.properties';
 import FormComponent from './form.component.vue';
 import { FormStore } from './form.store';
 

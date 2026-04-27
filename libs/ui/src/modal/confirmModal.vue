@@ -1,9 +1,5 @@
 <template>
-  <Modal
-    :modal-title="title"
-    :open="true"
-    :disable-close="true"
-  >
+  <Modal :modal-title="title" :open="true" :disable-close="true">
     <template #content>
       {{ message }}
     </template>
@@ -11,11 +7,12 @@
       <Btn
         :color="Color.secondary"
         :outline="true"
+        :aria-label="cancelLabel"
         @click="closeMe(false)"
       >
         {{ cancelLabel }}
       </Btn>
-      <Btn @click="closeMe(true)">
+      <Btn :aria-label="confirmLabel" @click="closeMe(true)">
         {{ confirmLabel }}
       </Btn>
     </template>

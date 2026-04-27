@@ -17,6 +17,7 @@ export type SubmitFormEvent = {
 export const FormComponentProperties = {
   /** Unique id applied to the `<form>` element and used as `<json-forms>` key. */
   id: { type: String, required: true },
+  name: { type: String, default: 'form' },
   /** JSON schema describing the shape of the form data. */
   schema: { type: Object as PropType<any>, required: true },
   /** UI schema describing the layout and controls. */

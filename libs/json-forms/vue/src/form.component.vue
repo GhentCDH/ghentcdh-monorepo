@@ -1,8 +1,5 @@
 <template>
-  <form
-    :id="id"
-    @submit.prevent="onSubmit"
-  >
+  <form :id="id" @submit.prevent="onSubmit" :aria-label="name">
     <json-forms
       :key="id"
       :data="internalFormData"
@@ -27,7 +24,10 @@ import { myStyles } from '@ghentcdh/ui';
 import type { FormEventPayload } from './composables/useFormEvents';
 import { provideFormEvents } from './composables/useFormEvents';
 import type { Data, SubmitFormEvent } from './form.component.properties';
-import { FormComponentEmits, FormComponentProperties } from './form.component.properties';
+import {
+  FormComponentEmits,
+  FormComponentProperties,
+} from './form.component.properties';
 import { tailwindRenderers } from './renderes';
 
 const properties = defineProps(FormComponentProperties);

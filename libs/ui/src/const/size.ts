@@ -1,5 +1,13 @@
 export type Size = 'xs' | 'sm' | 'lg' | 'xl';
 
+// Dictionary of Modal size classes
+export const ModalSize: Record<Size, string> = {
+  xs: 'max-w-xs w-[50VW]',
+  sm: 'max-w-sm w-[50VW]',
+  lg: 'max-w-2xl w-[80VW]',
+  xl: 'max-w-[80VW] w-[80VW]',
+};
+
 // Dictionary of button size classes
 export const ButtonSize: Record<Size, string> = {
   xs: 'btn-xs',
