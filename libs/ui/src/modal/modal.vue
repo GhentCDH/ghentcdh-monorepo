@@ -4,8 +4,8 @@
     class="modal"
     role="dialog"
     aria-modal="true"
-    :aria-labelledby="titleId"
-    :aria-describedby="contentId"
+    :aria-labelledby="modalTitle"
+    :aria-describedby="modalTitle"
     @cancel.prevent="onCancel"
   >
     <div :class="[`modal-box bg-white`, ModalSize[width]]">
@@ -18,16 +18,10 @@
       >
         ✕
       </button>
-      <h3
-        :id="titleId"
-        class="font-bold"
-      >
+      <h3 :id="titleId" class="font-bold">
         {{ modalTitle }}
       </h3>
-      <div
-        :id="contentId"
-        class="pt-4"
-      >
+      <div :id="contentId" class="pt-4">
         <slot name="content" />
       </div>
       <div class="flex justify-end gap-2 p-2 mt-2 border-t border-gray-300">
@@ -39,7 +33,7 @@
 
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid';
-import { computed, onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 import { ModalEmits, ModalProperties } from './modal.properties';
 import { useFocusTrap } from '../composables';

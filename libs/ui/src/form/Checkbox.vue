@@ -1,9 +1,6 @@
 <template>
   <div class="flex items-center justify-center h-full">
-    <ControlWrapper
-      v-bind="properties"
-      :hide-label="true"
-    >
+    <ControlWrapper v-bind="properties" :hide-label="true">
       <label class="fieldset-label">
         <input
           v-model="model"
@@ -15,7 +12,7 @@
           @change="onChange"
           @focus="onFocus"
           @blur="onBlur"
-        >
+        />
         <span class="font-bold text-gray-500 text-sm"> {{ label }}</span>
       </label>
     </ControlWrapper>
@@ -35,7 +32,7 @@ const emit = defineEmits(CheckboxEmits);
 const model = defineModel();
 
 const onChange = (event: Event) => {
-  emit('change', event);
+  emit('change', model.value);
 };
 const onFocus = (event: FocusEvent) => {
   emit('focus', event);

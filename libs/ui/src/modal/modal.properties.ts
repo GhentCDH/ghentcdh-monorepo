@@ -10,7 +10,6 @@ export const ModalProperties = {
   open: { type: Boolean, default: false },
   disableClose: { type: Boolean, default: false },
   width: { type: String as PropType<Size>, default: 'sm' },
-  name: { type: String, required: true },
 };
 
 export const ModalEmits = ['closeModal'];

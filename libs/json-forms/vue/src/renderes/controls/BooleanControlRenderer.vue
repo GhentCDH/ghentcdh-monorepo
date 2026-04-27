@@ -4,7 +4,7 @@
     :model-value="control.data"
     :enabled="control.enabled"
     :config="appliedOptions"
-    @change="onChange"
+    @change="handleChange"
     @focus="onFocus"
     @blur="onBlur"
   />
@@ -19,8 +19,21 @@ import { Checkbox } from '@ghentcdh/ui';
 import { useVanillaControlCustom } from '../../utils/vanillaControl';
 
 const props = defineProps({ ...rendererProps<ControlElement>() });
-const { control, onChange, appliedOptions, onFocus, onBlur, controlWrapper } =
-  useVanillaControlCustom(useJsonFormsControl(props), (target) => {
-    return Boolean(target.value) ?? false;
-  });
+const {
+  control,
+  handleChange: _handleChange,
+  appliedOptions,
+  onFocus,
+  onBlur,
+  controlWrapper,
+} = useVanillaControlCustom(useJsonFormsControl(props), (target) => {
+  if (!target.value) {
+    handleChange(false);
+  }
+  return Boolean(target.value) ?? false;
+});
+const handleChange = (result: boolean) => {
+  const { path } = control.value;
+  _handleChange(path, result);
+};
 </script>

@@ -62,6 +62,7 @@ const create = () => {
   formEvents.dispatch({
     event: 'create',
     type: control.value.path,
+    data: control.value.data,
     onSuccess: (result) => {
       handleChange(result);
     },

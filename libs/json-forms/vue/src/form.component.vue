@@ -1,9 +1,5 @@
 <template>
-  <form
-    :id="id"
-    :aria-label="name"
-    @submit.prevent="onSubmit"
-  >
+  <form :id="id" @submit.prevent="onSubmit">
     <json-forms
       :key="id"
       :data="internalFormData"
