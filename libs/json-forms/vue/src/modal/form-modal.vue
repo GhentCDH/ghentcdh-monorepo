@@ -29,7 +29,11 @@
       >
         Cancel
       </Btn>
-      <Btn :disabled="!hasBeenValid" aria-label="Save" @click="onSubmit">
+      <Btn
+        :disabled="!hasBeenValid"
+        aria-label="Save"
+        @click="onSubmit"
+      >
         Save
       </Btn>
     </template>

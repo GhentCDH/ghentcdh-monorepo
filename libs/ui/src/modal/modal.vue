@@ -18,10 +18,16 @@
       >
         ✕
       </button>
-      <h3 :id="titleId" class="font-bold">
+      <h3
+        :id="titleId"
+        class="font-bold"
+      >
         {{ modalTitle }}
       </h3>
-      <div :id="contentId" class="pt-4">
+      <div
+        :id="contentId"
+        class="pt-4"
+      >
         <slot name="content" />
       </div>
       <div class="flex justify-end gap-2 p-2 mt-2 border-t border-gray-300">
