@@ -1,3 +1,15 @@
+## 0.8.4 (2026-04-27)
+
+### 🚀 Features
+
+- add area labels for testing ([ef98b60](https://github.com/GhentCDH/ghentcdh-monorepo/commit/ef98b60))
+- add area labels for testing ([201f3d5](https://github.com/GhentCDH/ghentcdh-monorepo/commit/201f3d5))
+- add area labels for testing ([589b049](https://github.com/GhentCDH/ghentcdh-monorepo/commit/589b049))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 0.8.3 (2026-04-23)
 
 ### 🚀 Features
