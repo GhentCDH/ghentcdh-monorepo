@@ -33,13 +33,10 @@ import { computed, watch } from 'vue';
 
 import type { ColumnDef, TextCellType } from '@ghentcdh/json-forms-core';
 import { findColumnDef } from '@ghentcdh/json-forms-core';
-import { Table, TextCell } from '@ghentcdh/ui';
+import { BooleanCell, Table, TextCell } from '@ghentcdh/ui';
 
 import TableFilter from './filter/table-filter.vue';
-import {
-  TableComponentEmits,
-  TableComponentProperties,
-} from './table.component.properties';
+import { TableComponentEmits, TableComponentProperties } from './table.component.properties';
 import { useTableStore } from './table.store';
 
 const properties = defineProps(TableComponentProperties);
@@ -74,6 +71,7 @@ const deleteFn = (data: unknown) => {
 
 const components = {
   TextCell,
+  BooleanCell,
 };
 
 const displayColumns = computed(() => {

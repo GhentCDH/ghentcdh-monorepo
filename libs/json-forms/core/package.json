@@ -12,9 +12,9 @@
     }
   },
   "peerDependencies": {
-    "@anatine/zod-openapi": "^2.2.0",
-    "@jsonforms/core": "^3.4.0",
-    "zod": "^3.24.0"
+    "@anatine/zod-openapi": "2.2.8",
+    "@jsonforms/core": "3.7.0",
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@anatine/zod-openapi": "2.2.8",

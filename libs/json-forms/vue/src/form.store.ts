@@ -25,8 +25,9 @@ export class FormStore {
       : useApi().post(this.uri, data);
 
     return promise
-      .then(() => {
+      .then((response) => {
         NotificationService.success('Data saved');
+        return response.data;
       })
       .catch((error) => {
         console.error(error);

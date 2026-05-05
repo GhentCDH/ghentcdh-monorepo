@@ -16,11 +16,10 @@ export type TextCellType = {
   scope: string;
   options?: KeyValueOption;
 };
-
 export class TextCellBuilder<TYPE> extends Builder<TextCellType> {
   private options: KeyValueOption | TextCellOption | undefined;
 
-  private constructor(
+  protected constructor(
     private readonly scope: string,
     type = 'TextCell',
   ) {
@@ -41,7 +40,7 @@ export class TextCellBuilder<TYPE> extends Builder<TextCellType> {
 
   setSortId(sortId: string): TextCellBuilder<TYPE> {
     this.options = {
-      ...(this.options ?? { format: 'TextCell' }),
+      ...(this.options ?? { format: this.type }),
       sortId: sortId,
     };
     return this;
@@ -56,6 +55,14 @@ export class TextCellBuilder<TYPE> extends Builder<TextCellType> {
   }
 }
 
+export class BooleanCellBuilder extends TextCellBuilder<boolean> {
+  protected constructor(scope: string) {
+    super(scope, 'BooleanCell');
+  }
+  static override properties<TYPE>(property: keyof TYPE): BooleanCellBuilder {
+    return new BooleanCellBuilder(`#/properties/${property as string}`);
+  }
+}
 export class TableBuilder<TYPE> {
   private builder: LayoutBuilder<TYPE>;
 

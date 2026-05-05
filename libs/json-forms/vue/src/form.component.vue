@@ -27,10 +27,7 @@ import { myStyles } from '@ghentcdh/ui';
 import type { FormEventPayload } from './composables/useFormEvents';
 import { provideFormEvents } from './composables/useFormEvents';
 import type { Data, SubmitFormEvent } from './form.component.properties';
-import {
-  FormComponentEmits,
-  FormComponentProperties,
-} from './form.component.properties';
+import { FormComponentEmits, FormComponentProperties } from './form.component.properties';
 import { tailwindRenderers } from './renderes';
 
 const properties = defineProps(FormComponentProperties);
@@ -39,11 +36,11 @@ const valid = ref(false);
 const zodSchema = computed(() => fromJSONSchema(properties.schema));
 
 const stripFormData = (data: any) => {
-  const safeParse = zodSchema.value?.strip().safeParse(data);
+  const safeParse = zodSchema.value?.partial().strip().safeParse(data);
   return safeParse?.success ? safeParse.data : (data ?? {});
 };
 
-const internalFormData = ref(properties.formData ?? {});
+const internalFormData = ref({});
 
 watch(
   () => properties.formData,

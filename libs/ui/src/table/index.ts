@@ -5,4 +5,5 @@ export { default as TableComponent } from './table.component.vue';
  */
 export { default as Table } from './table.component.vue';
 export { default as TextCell } from './cells/text.cell.vue';
+export { default as BooleanCell } from './cells/boolean.cell.vue';
 export * from './table.model';

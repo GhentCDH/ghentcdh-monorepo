@@ -11,7 +11,7 @@
 
       <FormComponent
         :id="`modal-${id}`"
-        v-model="formData"
+        :form-data="formData"
         :schema="schema"
         :ui-schema="uiSchema"
         @valid="onValid($event)"
@@ -29,11 +29,7 @@
       >
         Cancel
       </Btn>
-      <Btn
-        :disabled="!hasBeenValid"
-        aria-label="Save"
-        @click="onSubmit"
-      >
+      <Btn :disabled="!hasBeenValid" aria-label="Save" @click="onSubmit">
         Save
       </Btn>
     </template>
