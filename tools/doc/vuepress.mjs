@@ -81,6 +81,7 @@ const searchMdFiles = (dir, depth, currentDepth) => {
   if (depth <= currentDepth) return mdFiles;
 
   files.forEach((file) => {
+    if (file === 'node_modules' || file === 'dist') return;
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
     if (stat.isDirectory()) {

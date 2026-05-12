@@ -40,7 +40,7 @@ export class TextCellBuilder<TYPE> extends Builder<TextCellType> {
 
   setSortId(sortId: string): TextCellBuilder<TYPE> {
     this.options = {
-      ...(this.options ?? { format: this.type }),
+      ...(this.options ?? { format: this.type as TextCellOption['format'] }),
       sortId: sortId,
     };
     return this;

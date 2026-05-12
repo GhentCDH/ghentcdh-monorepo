@@ -25,7 +25,7 @@ export async function loadRuntimeConfig<RUNTIME_CONFIG extends RuntimeConfig>(
       throw new Error(`Failed to load config: ${response.status}`);
     }
     cachedConfig = await response.json();
-    cachedConfig.authToken = config.authToken || 'GHENTCDH_DEFAULT_TOKEN';
+    cachedConfig!.authToken = config.authToken || 'GHENTCDH_DEFAULT_TOKEN';
     return cachedConfig as RUNTIME_CONFIG;
   } catch (error) {
     console.error('Failed to load runtime config:', error);

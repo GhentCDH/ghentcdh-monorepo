@@ -8,10 +8,10 @@ export type FilterItem = {
 };
 
 export const FilterProperties = {
-  title: { type: String, required: true },
+  title: { type: String, required: true as const },
   items: {
     type: Array as PropType<Array<Record<string, any>>>,
-    required: true,
+    required: true as const,
   },
   modelValue: {
     type: Array as PropType<Array<FilterItem | any>>,

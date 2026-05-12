@@ -18,7 +18,7 @@
     </template>
     <!-- No results -->
     <li
-      v-else-if="options.length === 0"
+      v-else-if="options?.length === 0"
       tabindex="-1"
       class="pointer-events-none"
     >

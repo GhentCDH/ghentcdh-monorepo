@@ -7,9 +7,9 @@ export type PageProps = {
 };
 
 export const PaginationButtonProperties = {
-  currentPage: { type: Number, required: true },
-  page: { type: Number, required: true },
-  label: { type: String, required: true },
+  currentPage: { type: Number, required: true as const },
+  page: { type: Number, required: true as const },
+  label: { type: String, required: true as const },
   neverActive: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
 };

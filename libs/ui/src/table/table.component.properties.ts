@@ -14,10 +14,13 @@ export type TableSort = {
 };
 
 export const TableComponentProperties = {
-  loading: { type: Boolean, default: false },
+  loading: { type: Boolean, default: false as const },
   actions: { type: Array as PropType<TableAction[]> },
   data: { type: Array as PropType<any[]> },
-  displayColumns: { type: Array as PropType<DisplayColumn[]>, required: true },
+  displayColumns: {
+    type: Array as PropType<DisplayColumn[]>,
+    required: true as const,
+  },
   page: { type: Object as PropType<TablePage> },
   sort: { type: Object as PropType<TableSort> },
 };

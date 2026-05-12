@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance, AxiosRequestInterceptorUse } from 'axios';
+import axios, { type AxiosInstance } from 'axios';
 
 import { getRuntimeConfig } from './runtime.config';
 

@@ -50,7 +50,7 @@ watch(
   { immediate: true },
 );
 
-const onChange = (event: Event) => {
+const onChange = (event: unknown) => {
   emit('change', event);
 };
 

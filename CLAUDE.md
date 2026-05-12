@@ -69,6 +69,8 @@ npx nx affected -t test --base=origin/main  # test affected
 - `<template>` first, then `<script setup>`
 - File: `ComponentName.vue`, props in `ComponentName.properties.ts`
 - Props use Vue object syntax + `PropType` (see `/component` skill for full pattern)
+- Props defined in separate `ComponentName.properties.ts` files
+- Use `required: true as const` (not `required: true`) to ensure correct type inference
 - Composables in `composables/` folder next to component, named `useFeatureName.ts`
 
 ## Styling

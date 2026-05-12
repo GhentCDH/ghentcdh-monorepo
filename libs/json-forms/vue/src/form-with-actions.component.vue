@@ -1,5 +1,5 @@
 <template>
-  <Collapse :title="title" :height-full="fullHeight">
+  <Collapse :title="title" :height-full="fullHeight" :scrollable="true">
     <div :class="['flex flex-col', { 'overflow-hidden h-full': scrollable }]">
       <div
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"

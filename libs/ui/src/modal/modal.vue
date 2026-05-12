@@ -8,7 +8,12 @@
     :aria-describedby="modalTitle"
     @cancel.prevent="onCancel"
   >
-    <div :class="[`modal-box bg-white`, ModalSize[width]]">
+    <div
+      :class="[
+        `modal-box bg-white min-h-0 max-h-[90vh] flex flex-col overflow-hidden`,
+        ModalSize[width],
+      ]"
+    >
       <button
         v-if="!disableClose"
         type="button"
@@ -18,19 +23,15 @@
       >
         ✕
       </button>
-      <h3
-        :id="titleId"
-        class="font-bold"
-      >
+      <h3 :id="titleId" class="font-bold shrink-0">
         {{ modalTitle }}
       </h3>
-      <div
-        :id="contentId"
-        class="pt-4"
-      >
+      <div :id="contentId" class="pt-4 flex-1 min-h-0 flex flex-col">
         <slot name="content" />
       </div>
-      <div class="flex justify-end gap-2 p-2 mt-2 border-t border-gray-300">
+      <div
+        class="flex justify-end gap-2 pt-2 mt-2 border-t border-gray-300 shrink-0"
+      >
         <slot name="actions" />
       </div>
     </div>

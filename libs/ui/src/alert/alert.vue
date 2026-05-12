@@ -9,14 +9,14 @@
 </template>
 
 <script setup lang="ts">
-import type { NotificationType } from './alert.model.ts';
+import type { AlertType } from './alert.model.ts';
 
 defineProps<{
   message: string;
-  type: NotificationType;
+  type: AlertType;
 }>();
 
-const Colors: Record<NotificationType, string> = {
+const Colors: Record<AlertType, string> = {
   success: 'alert-success',
   error: 'alert-error',
   warning: 'alert-warning',

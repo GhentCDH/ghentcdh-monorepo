@@ -1,4 +1,5 @@
 // ─── Helpers ─────────────────────────────────────────────────────────────────
+import type { Ref } from 'vue';
 import { ref } from 'vue';
 
 import type { OptionValue } from '../ListResults.properties';
@@ -19,12 +20,12 @@ export const getValue = (item: any, props: OptionsProperties) => {
 };
 
 type OptionsStrategy<ITEM> = {
-  options: ReturnType<typeof ref<OptionValue[]>>;
+  options: Ref<OptionValue[]>;
 
   setOptions: (options: ITEM[] | undefined) => void;
   getOption: (options: ITEM) => OptionValue | undefined;
   getOriginal: (options: OptionValue) => ITEM | undefined;
-  getOriginals: (...options: OptionValue[]) => ITEM | undefined;
+  getOriginals: (...options: OptionValue[]) => ITEM[];
   getLabels: (...options: ITEM[]) => string[];
   getValues: (...options: ITEM[]) => string[];
 };
@@ -34,7 +35,7 @@ const DefaultOptionsStrategy = <ITEM>(
 ): OptionsStrategy<ITEM> => {
   const options = ref<OptionValue[]>([]);
   const originalMap = new Map<string, ITEM>();
-  const optionMap = new Map<string, ITEM>();
+  const optionMap = new Map<string, OptionValue>();
 
   const setOptions = (_options: ITEM[] | undefined) => {
     const optionList = [] as OptionValue[];
@@ -48,6 +49,7 @@ const DefaultOptionsStrategy = <ITEM>(
       };
 
       originalMap.set(optionValue.value, option);
+      optionMap.set(optionValue.value, optionValue);
 
       optionList.push(optionValue);
     });
@@ -60,7 +62,7 @@ const DefaultOptionsStrategy = <ITEM>(
   };
 
   const getOriginals = (...optionList: OptionValue[]): ITEM[] => {
-    return optionList.map(getOriginal).filter(Boolean);
+    return optionList.map(getOriginal).filter(Boolean) as ITEM[];
   };
 
   const getOption = (option: ITEM): OptionValue | undefined => {

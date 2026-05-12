@@ -11,9 +11,10 @@ export type CollapseAction = {
 };
 
 export const CollapseProperties = {
-  title: { type: String, required: true },
+  title: { type: String, required: true as const },
   opened: { type: Boolean, default: true },
   heightFull: { type: Boolean, default: false },
+  scrollable: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   actions: {
     type: Array as PropType<Array<CollapseAction>>,

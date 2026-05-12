@@ -87,8 +87,8 @@
         </div>
         <Btn
           v-if="enableCreate"
-          :icon="'Plus'"
-          color="blank"
+          :icon="IconEnum.Plus"
+          :color="Color.blank"
           size="lg"
           tooltip="Create new"
           aria-label="create"
@@ -107,6 +107,8 @@ import {
   SelectWrapperProperties,
 } from './SelectWrapper.properties';
 import Btn from '../../button/btn.vue';
+import { Color } from '../../const/colors';
+import { IconEnum } from '../../icons/icon-list';
 import ControlWrapper from '../core/ControlWrapper.vue';
 
 const props = defineProps(SelectWrapperProperties);

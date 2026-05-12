@@ -19,16 +19,16 @@ export const MarkdownComponentProperties = {
   minHeight: { type: String, default: 'min-h-96' },
   actions: {
     type: Object as PropType<ToolbarAction[]>,
-    default: () => [
+    default: (): ToolbarAction[] => [
       {
         label: '<strong>B</strong>',
         name: 'bold',
-        action: (editor) => editor?.chain().focus().toggleBold().run(),
+        action: (editor: Editor | undefined) => editor?.chain().focus().toggleBold().run(),
       },
       {
         label: '<em>I</em>',
         name: 'italic',
-        action: (editor) => editor?.chain().focus().toggleItalic().run(),
+        action: (editor: Editor | undefined) => editor?.chain().focus().toggleItalic().run(),
       },
     ],
   },

@@ -67,6 +67,15 @@ export interface ControlOption {
   placeholder?: string;
   hideLabel?: boolean;
   hideActions?: boolean;
+  layout?: 'row' | 'column';
+  labelKey?: string;
+  valueKey?: string;
+  options?: Array<any>;
+  dataField?: string;
+  uri?: string;
+  skipAuth?: boolean;
+  freeText?: boolean;
+  enableCreate?: boolean;
 }
 
 export type ControlTypes = {

@@ -67,7 +67,7 @@ const select = (result: OptionValue) => {
 
   if (hasValue(result))
     selection = selection.filter(
-      (s) => optionsHelper.getOption(s) !== result.value,
+      (s) => optionsHelper.getOption(s)?.value !== result.value,
     );
   else {
     const original = optionsHelper.getOriginal(result);

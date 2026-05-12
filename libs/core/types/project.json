@@ -1,7 +1,7 @@
 {
   "name": "core-types",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "core/types/src",
+  "sourceRoot": "libs/core/types/src",
   "projectType": "library",
   "tags": ["scope:shared"],
   "targets": {
@@ -9,10 +9,11 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/core/types",
-        "main": "core/types/src/index.ts",
-        "tsConfig": "core/types/tsconfig.lib.json",
-        "assets": ["core/types/*.md"]
+        "outputPath": "dist/libs/core/types",
+        "main": "libs/core/types/src/index.ts",
+        "tsConfig": "libs/core/types/tsconfig.lib.json",
+        "packageJson": "libs/core/types/package.json",
+        "assets": ["libs/core/types/*.md"]
       }
     }
   }
