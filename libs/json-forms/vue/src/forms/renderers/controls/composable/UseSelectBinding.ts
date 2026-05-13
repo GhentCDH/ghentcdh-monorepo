@@ -1,9 +1,12 @@
-import { useCustomControlBinding } from './UseControlBinding';
-import { computed } from 'vue';
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
-import type { FieldContext } from 'vee-validate';
-import { SelectOptions } from '@ghentcdh/json-forms-core';
 import { pick } from 'lodash-es';
+import type { FieldContext } from 'vee-validate';
+import { computed } from 'vue';
+
+import type { SelectOptions } from '@ghentcdh/json-forms-core';
+
+
+import { useCustomControlBinding } from './UseControlBinding';
 
 const useSelectInput =
   (...fields: string[]) =>

@@ -1,8 +1,10 @@
 <template>
+  the markdown thing
   <Markdown
     v-bind="wrapper"
     :model-value="value"
     @change="onChange"
+    @blur="onBlur"
   />
 </template>
 
@@ -15,12 +17,16 @@ import { useControlBinding } from './composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { wrapper, value, field } = useControlBinding(
-  props.uischema,
-  props.schema,
-);
+const {
+  wrapper,
+  value,
+  field,
+  onBlur,
+  onChange: onFieldChange,
+} = useControlBinding(props.uischema, props.schema);
 
 const onChange = (val: string) => {
   field.setValue(val);
+  onFieldChange();
 };
 </script>

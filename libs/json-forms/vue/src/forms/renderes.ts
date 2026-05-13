@@ -1,9 +1,5 @@
 import { arrayRenderers } from './renderers/array/ArrayRenderers';
-import { controlRenderers } from './renderers/controls/ControlRenderers';
+import { index } from './renderers/controls';
 import { layoutRenderes } from './renderers/layout/LayoutRenders';
 
-export const customRenderes = [
-  layoutRenderes,
-  controlRenderers,
-  arrayRenderers,
-].flat();
+export const customRenderes = [layoutRenderes, index, arrayRenderers].flat();

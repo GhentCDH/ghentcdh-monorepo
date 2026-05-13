@@ -3,6 +3,7 @@
     v-bind="wrapper"
     :model-value="value"
     @change="onChange"
+    @blur="onBlur"
   />
 </template>
 
@@ -21,12 +22,11 @@ const useBooleanBinding = useCustomControlBinding({
   },
 });
 
-const { wrapper, value, field } = useBooleanBinding(
-  props.uischema,
-  props.schema,
-);
+const { wrapper, value, field, onBlur, onChange: onFieldChange } =
+  useBooleanBinding(props.uischema, props.schema);
 
 const onChange = (val: boolean) => {
   field.setValue(Boolean(val) ?? false);
+  onFieldChange();
 };
 </script>

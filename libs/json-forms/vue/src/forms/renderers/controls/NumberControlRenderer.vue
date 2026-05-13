@@ -3,6 +3,8 @@
     v-bind="wrapper"
     v-model="value"
     :steps="0.01"
+    @blur="onBlur"
+    @change="onChange"
   />
 </template>
 
@@ -15,7 +17,9 @@ import { useControlBinding } from './composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { wrapper, value } = useControlBinding(props.uischema, props.schema, {
-  defaultType: 'number',
-});
+const { wrapper, value, onBlur, onChange } = useControlBinding(
+  props.uischema,
+  props.schema,
+  { defaultType: 'number' },
+);
 </script>

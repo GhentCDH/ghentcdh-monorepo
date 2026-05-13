@@ -1,6 +1,12 @@
 <template>
-  <form :id="id" @submit.prevent="onSubmit">
-    <Dispatch :uischema="uiSchema" :schema="schema" />
+  <form
+    :id="id"
+    @submit.prevent="onSubmit"
+  >
+    <Dispatch
+      :uischema="uiSchema"
+      :schema="schema"
+    />
   </form>
 </template>
 
@@ -12,10 +18,10 @@ import { fromJSONSchema } from 'zod';
 import { myStyles } from '@ghentcdh/ui';
 
 import Dispatch from './Dispatch.vue';
-import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from './errorMode';
-import { registerZodErrorMap } from './errorMessages';
 import type { Data, SubmitFormEvent } from './FormComponent.properties';
 import { VeeFormComponentEmits, VeeFormComponentProperties } from './FormComponent.properties';
+import { registerZodErrorMap } from './errorMessages';
+import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from './errorMode';
 import { customRenderes } from './renderes';
 import type { FormEventPayload } from '../composables/useFormEvents';
 import { provideFormEvents } from '../composables/useFormEvents';

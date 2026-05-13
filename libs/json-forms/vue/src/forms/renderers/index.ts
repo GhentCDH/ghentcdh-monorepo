@@ -1,3 +1,3 @@
-export * from './controls/ControlRenderers';
+export * from './controls';
 export * from './layout/LayoutRenders';
 export * from './array/ArrayRenderers';

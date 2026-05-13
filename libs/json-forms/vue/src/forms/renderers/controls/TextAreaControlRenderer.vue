@@ -2,6 +2,8 @@
   <Textarea
     v-bind="wrapper"
     v-model="value"
+    @blur="onBlur"
+    @change="onChange"
   />
 </template>
 
@@ -14,5 +16,8 @@ import { useControlBinding } from './composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { wrapper, value } = useControlBinding(props.uischema, props.schema);
+const { wrapper, value, onBlur, onChange } = useControlBinding(
+  props.uischema,
+  props.schema,
+);
 </script>

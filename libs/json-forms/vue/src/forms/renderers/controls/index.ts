@@ -20,7 +20,7 @@ import {
   isTextAreaControl
 } from '../../../renderes/tester';
 
-export const controlRenderers = [
+export const index = [
   { tester: rankWith(10, isStringFormat), renderer: StringControlRenderer },
   {
     tester: rankWith(11, isTextAreaControl),

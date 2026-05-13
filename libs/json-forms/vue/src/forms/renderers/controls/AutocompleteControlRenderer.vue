@@ -4,6 +4,7 @@
     :model-value="value"
     :fetch-options="fetchOptions"
     @change="onChange"
+    @blur="onBlur"
     @create="onCreate"
   />
 </template>
@@ -23,10 +24,14 @@ import { useAutocompleteBinding } from './composable/UseSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { wrapper, value, field, appliedOptions } = useAutocompleteBinding(
-  props.uischema,
-  props.schema,
-);
+const {
+  wrapper,
+  value,
+  field,
+  onBlur,
+  onChange: onFieldChange,
+  appliedOptions,
+} = useAutocompleteBinding(props.uischema, props.schema);
 
 const fetchOptions = computed(() => {
   const options = appliedOptions.value as AutocompleteRemoteOptions;
@@ -43,6 +48,7 @@ const fetchOptions = computed(() => {
 
 const onChange = (val: any) => {
   field.setValue(val);
+  onFieldChange();
 };
 
 const formEvents = useFormEvents();

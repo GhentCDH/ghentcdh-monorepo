@@ -1,10 +1,13 @@
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import type { FieldContext } from 'vee-validate';
 import { useField } from 'vee-validate';
-import { computed, inject, Ref } from 'vue';
-import type { UseInputOptions } from './UseInput';
-import { UseInputOptions, useInputProps } from './UseInput';
-import { ControlOption } from '@ghentcdh/json-forms-core';
+import type { Ref } from 'vue';
+import { computed, inject, watch } from 'vue';
+
+import type { ControlOption } from '@ghentcdh/json-forms-core';
+
+import type { UseInputOptions , UseInputOptions} from './UseInput';
+import { useInputProps } from './UseInput';
 import { scopeToPath } from '../../../scope';
 
 export type useCustomProps = (
@@ -35,10 +38,26 @@ export const useCustomControlBinding = <
       value: {},
     };
 
+    const onBlur = () => field.handleBlur(new Event('blur'));
+    const onChange = () => field.handleChange(field.value.value);
+
+    // Mark dirty when value changes via v-model (e.g. typing in text input)
+    // Native change event only fires on blur for text inputs, so this covers keystroke updates.
+    let initialized = false;
+    watch(field.value, (val) => {
+      if (!initialized) {
+        initialized = true;
+        return;
+      }
+      field.handleChange(val);
+    });
+
     return {
       wrapper: computed(() => ({ ...wrapper.value, ...customWrapper.value })),
       value: field.value,
       field,
+      onBlur,
+      onChange,
       appliedOptions: computed(
         () => uischema.options ?? ({} as CONTROL_OPTION),
       ),

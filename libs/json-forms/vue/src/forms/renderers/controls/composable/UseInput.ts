@@ -4,8 +4,8 @@ import { computed, inject, ref } from 'vue';
 
 import { mergeStyles, type MyStyles } from '@ghentcdh/ui';
 
-import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from '../../../errorMode';
 import { formatError } from '../../../errorMessages';
+import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from '../../../errorMode';
 import { resolveSchema, scopeToPath } from '../../../scope';
 
 export interface InputProps {
@@ -98,6 +98,11 @@ export const useInputProps = (
     }
   });
 
+  const width =
+    opts.colspan || styles?.width === 'full'
+      ? 'w-full'
+      : (opts.width ?? 'min-w-input');
+
   return computed<InputProps>(() => ({
     id: path,
     placeholder: opts.placeholder,
@@ -115,7 +120,7 @@ export const useInputProps = (
     isTouched: shouldShowError.value,
     hideLabel: opts.hideLabel ?? false,
     styles: styles,
-    width: styles?.width === 'full' ? 'w-full' : (opts.width ?? 'w-48'),
+    width,
     type: inferredType,
     ...options.overrides,
   }));

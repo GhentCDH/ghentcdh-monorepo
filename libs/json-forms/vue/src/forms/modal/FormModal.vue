@@ -10,8 +10,8 @@
       <slot name="content-before" />
 
       <FormComponent
-        ref="formRef"
         :id="`modal-${id}`"
+        ref="formRef"
         :form-data="formData"
         :schema="schema"
         :ui-schema="uiSchema"
@@ -47,9 +47,9 @@ import { ref } from 'vue';
 
 import { Btn, Color, Modal } from '@ghentcdh/ui';
 
-import type { ErrorMode } from '../errorMode';
 import type { FormModalProps } from '../../modal/form-modal.props';
 import FormComponent from '../FormComponent.vue';
+import type { ErrorMode } from '../errorMode';
 
 const properties = withDefaults(
   defineProps<FormModalProps & { errorMode?: ErrorMode }>(),

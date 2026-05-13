@@ -4,7 +4,7 @@ title: Markdown input
 
 # Markdown input
 
-A markdown editor control for `FormComponent`. Use `ControlBuilder.properties('field').markdown()` to render a rich-text markdown editor instead of a plain text input.
+A markdown editor control for `JsonForm`. Use `ControlBuilder.properties('field').markdown()` to render a rich-text markdown editor instead of a plain text input.
 
 ## Usage
 
@@ -13,24 +13,21 @@ A markdown editor control for `FormComponent`. Use `ControlBuilder.properties('f
 @tab Preview
 
 <ClientOnly>
-  <div v-if="FormComp && uiSchema">
-    <component
-      :is="FormComp"
-      id="demo-markdown"
-      :schema="schema"
-      :ui-schema="uiSchema"
-      :form-data="formData"
-      @change="formData = $event"
-    />
-    <pre>{{ formData }}</pre>
-  </div>
+  <JsonForm 
+    id="markdown-form"
+    :schema="schema"
+    :ui-schema="uiSchema"
+    :form-data="formData"
+    @change="formData = $event"
+  />
 </ClientOnly>
 
 @tab Vue
 
 ```vue
+
 <template>
-  <FormComponent
+  <JsonForm
     id="markdown-form"
     :schema="schema"
     :ui-schema="uiSchema"
@@ -40,27 +37,27 @@ A markdown editor control for `FormComponent`. Use `ControlBuilder.properties('f
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { ControlBuilder, LayoutBuilder } from '@ghentcdh/json-forms-core';
-import { FormComponent } from '@ghentcdh/json-forms-vue';
+  import { ref } from 'vue';
+  import { ControlBuilder, LayoutBuilder } from '@ghentcdh/json-forms-core';
+  import { JsonForm } from '@ghentcdh/json-forms-vue';
 
-const schema = {
-  type: 'object',
-  properties: {
-    content: { type: 'string' },
-  },
-  required: ['content'],
-};
+  const schema = {
+    type: 'object',
+    properties: {
+      content: { type: 'string' },
+    },
+    required: ['content'],
+  };
 
-const uiSchema = LayoutBuilder.vertical()
-  .addControls(
-    LayoutBuilder.horizontal().addControls(
-      ControlBuilder.properties('content').markdown(),
-    ),
-  )
-  .build();
+  const uiSchema = LayoutBuilder.vertical()
+    .addControls(
+      LayoutBuilder.horizontal().addControls(
+        ControlBuilder.properties('content').markdown(),
+      ),
+    )
+    .build();
 
-const formData = ref({ content: '**Bold** and *italic*' });
+  const formData = ref({ content: '**Bold** and *italic*' });
 </script>
 ```
 
@@ -85,44 +82,27 @@ const uiSchema = LayoutBuilder.vertical()
 The markdown control supports standard formatting: **bold**, *italic*, ~~strikethrough~~, and more.
 
 <script setup lang="ts">
-import { ref, shallowRef, onMounted } from 'vue';
+//
 
-const formData = ref({
-  stringControl: `Example text **Bold**
-Example text *italic*
-Example text ~~strikethrough~~
+  import { ref } from 'vue';
+  import { ControlBuilder, LayoutBuilder } from '@ghentcdh/json-forms-core';
+  import { JsonForm } from '@ghentcdh/json-forms-vue';
 
- some more text`,
-});
-
-const schema = {
-  type: 'object',
-  properties: {
-    stringControl: {
-      type: 'string',
-      maxLength: 5,
+  const schema = {
+    type: 'object',
+    properties: {
+      content: { type: 'string' },
     },
-  },
-  required: ['stringControl'],
-};
+    required: ['content'],
+  };
 
-const FormComp = shallowRef<any>(null);
-const uiSchema = ref<any>(null);
-
-onMounted(async () => {
-  const core = await import('@ghentcdh/json-forms-core');
-  const vuePkg = await import('@ghentcdh/json-forms-vue');
-
-  FormComp.value = vuePkg.FormComponent;
-
-  const { ControlBuilder, LayoutBuilder } = core;
-
-  uiSchema.value = LayoutBuilder.vertical()
+  const uiSchema = LayoutBuilder.vertical()
     .addControls(
       LayoutBuilder.horizontal().addControls(
-        ControlBuilder.properties('stringControl').markdown(),
+        ControlBuilder.properties('content').markdown(),
       ),
     )
     .build();
-});
+
+  const formData = ref({ content: '**Bold** and *italic*' });
 </script>

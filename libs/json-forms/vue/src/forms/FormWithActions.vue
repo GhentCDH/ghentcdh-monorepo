@@ -9,8 +9,8 @@
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"
       >
         <FormComponent
-          ref="formRef"
           :id="`form_${id}`"
+          ref="formRef"
           :form-data="formData"
           :schema="schema"
           :ui-schema="uiSchema"
