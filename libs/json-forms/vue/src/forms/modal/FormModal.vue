@@ -10,10 +10,12 @@
       <slot name="content-before" />
 
       <FormComponent
+        ref="formRef"
         :id="`modal-${id}`"
         :form-data="formData"
         :schema="schema"
         :ui-schema="uiSchema"
+        :error-mode="errorMode"
         @valid="onValid($event)"
         @change="onChange"
         @events="emits('events', $event)"
@@ -45,17 +47,23 @@ import { ref } from 'vue';
 
 import { Btn, Color, Modal } from '@ghentcdh/ui';
 
+import type { ErrorMode } from '../errorMode';
 import type { FormModalProps } from '../../modal/form-modal.props';
 import FormComponent from '../FormComponent.vue';
 
-const properties = withDefaults(defineProps<FormModalProps>(), {
-  cancelLabel: 'cancel',
-  saveLabel: 'save',
-  modalSize: 'md',
-});
+const properties = withDefaults(
+  defineProps<FormModalProps & { errorMode?: ErrorMode }>(),
+  {
+    cancelLabel: 'cancel',
+    saveLabel: 'save',
+    modalSize: 'md',
+    errorMode: 'onBlur',
+  },
+);
 
 const id = `modal_${Math.floor(Math.random() * 1000)}`;
 
+const formRef = ref<InstanceType<typeof FormComponent>>();
 const valid = ref(false);
 const hasBeenValid = ref(false);
 const formData = defineModel<any>();
@@ -80,6 +88,7 @@ const onChange = (data: any) => {
 };
 
 const onSubmit = () => {
+  formRef.value?.markSubmitted();
   if (!valid.value) return;
   emits('closeModal', { data: formData.value, valid: valid.value });
 };

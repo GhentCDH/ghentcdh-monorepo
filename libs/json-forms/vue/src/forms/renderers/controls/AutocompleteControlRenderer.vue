@@ -1,8 +1,7 @@
 <template>
   <Autocomplete
-    v-bind="bindProperties"
+    v-bind="wrapper"
     :model-value="value"
-    :enabled="wrapper.enabled"
     :fetch-options="fetchOptions"
     @change="onChange"
     @create="onCreate"
@@ -20,22 +19,17 @@ import { Autocomplete } from '@ghentcdh/ui';
 
 import { useFormEvents } from '../../../composables/useFormEvents';
 import { scopeToPath } from '../../scope';
-import { useControlBinding } from './composable/UseControlBinding';
+import { useAutocompleteBinding } from './composable/UseSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { wrapper, value, field } = useControlBinding(
+const { wrapper, value, field, appliedOptions } = useAutocompleteBinding(
   props.uischema,
   props.schema,
 );
 
-const bindProperties = computed(() => ({
-  ...wrapper.value,
-  enableCreate: !!(props.uischema.options as any)?.enableCreate,
-}));
-
 const fetchOptions = computed(() => {
-  const options = (props.uischema.options ?? {}) as AutocompleteRemoteOptions;
+  const options = appliedOptions.value as AutocompleteRemoteOptions;
 
   if (!options.uri) return null;
 

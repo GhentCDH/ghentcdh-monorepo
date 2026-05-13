@@ -12,19 +12,18 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import { computed } from 'vue';
 
 import { SelectComponent } from '@ghentcdh/ui';
-
-import { useControlBinding } from './composable/UseControlBinding';
+import { useSelectBinding } from './composable/UseSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { wrapper, value, field } = useControlBinding(
+const { wrapper, value, field, appliedOptions } = useSelectBinding(
   props.uischema,
   props.schema,
 );
 
-const selectOptions = computed(
-  () => (props.uischema.options as any)?.options ?? [],
-);
+const selectOptions = computed(() => {
+  return (appliedOptions.options as any) ?? [];
+});
 
 const onChange = (val: any) => {
   field.setValue(val);

@@ -11,11 +11,17 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 
 import { Checkbox } from '@ghentcdh/ui';
 
-import { useControlBinding } from './composable/UseControlBinding';
+import { useCustomControlBinding } from './composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { wrapper, value, field } = useControlBinding(
+const useBooleanBinding = useCustomControlBinding({
+  setDefaultValue: (field) => {
+    if (field.value.value === undefined) field.setValue(false);
+  },
+});
+
+const { wrapper, value, field } = useBooleanBinding(
   props.uischema,
   props.schema,
 );

@@ -17,6 +17,8 @@ export * from './repository';
 export * from './composables/useFormEvents';
 
 // New vee-validate system
+export type { ErrorMode } from './forms/errorMode';
+export { formatError, registerZodErrorMap } from './forms/errorMessages';
 export { default as JsonForm } from './forms/FormComponent.vue';
 export { default as JsonFormWithActions } from './forms/FormWithActions.vue';
 export { default as JsonFormModal } from './forms/modal/FormModal.vue';

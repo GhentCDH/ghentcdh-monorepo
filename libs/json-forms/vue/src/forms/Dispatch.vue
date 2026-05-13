@@ -1,7 +1,7 @@
 <template>
   <component
-    v-if="renderer"
     :is="renderer"
+    v-if="renderer"
     :uischema="uischema"
     :schema="resolved"
   />
@@ -42,7 +42,11 @@ if (props.pathPrefix !== undefined) {
 
 const resolved = computed(() => {
   const u = props.uischema as any;
-  return u.scope ? resolveSchema(rootSchema, u.scope) : props.schema;
+  if (!u.scope) return props.schema;
+  const fromRoot = resolveSchema(rootSchema, u.scope);
+  if (fromRoot) return fromRoot;
+  // Fallback: resolve against local schema (e.g. array itemSchema)
+  return resolveSchema(props.schema, u.scope) ?? props.schema;
 });
 
 const renderer = computed(() =>

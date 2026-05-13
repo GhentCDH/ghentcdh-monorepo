@@ -14,7 +14,7 @@
       @change="onChange"
       @focus="onFocus"
       @blur="onBlur"
-    />
+    >
   </ControlWrapper>
 </template>
 

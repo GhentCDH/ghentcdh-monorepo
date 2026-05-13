@@ -2,6 +2,8 @@ import type { PropType } from 'vue';
 
 import type { Data, SubmitFormEvent } from '../form.component.properties';
 
+import type { ErrorMode } from './errorMode';
+
 export type { Data, SubmitFormEvent };
 
 export const VeeFormComponentProperties = {
@@ -11,6 +13,11 @@ export const VeeFormComponentProperties = {
   uiSchema: { type: Object as PropType<any>, required: true as const },
   disabled: { type: Boolean, default: false },
   formData: { type: Object as PropType<Data>, default: () => ({}) },
+  errorMode: {
+    type: String as PropType<ErrorMode>,
+    // FIXME change to onBlur
+    default: 'always' as const,
+  },
 };
 
 export const VeeFormComponentEmits = [

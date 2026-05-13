@@ -50,8 +50,8 @@ import { computed } from 'vue';
 
 import { Collapse } from '@ghentcdh/ui';
 
-import Dispatch from '../../Dispatch.vue';
 import { COLSPAN } from './colspan';
+import Dispatch from '../../Dispatch.vue';
 
 const props = defineProps<{
   uischema: UISchemaElement;

@@ -1,5 +1,13 @@
 import { rankWith } from '@jsonforms/core';
 
+import AutocompleteControlRenderer from './AutocompleteControlRenderer.vue';
+import BooleanControlRenderer from './BooleanControlRenderer.vue';
+import MarkdownControlRenderer from './MarkdownControlRenderer.vue';
+import MultiSelectControlRenderer from './MultiSelectControlRenderer.vue';
+import NumberControlRenderer from './NumberControlRenderer.vue';
+import SelectControlRenderer from './SelectControlRenderer.vue';
+import StringControlRenderer from './StringControlRenderer.vue';
+import TextAreaControlRenderer from './TextAreaControlRenderer.vue';
 import {
   isAutoCompleteControl,
   isBooleanControl,
@@ -11,14 +19,6 @@ import {
   isStringFormat,
   isTextAreaControl
 } from '../../../renderes/tester';
-import StringControlRenderer from './StringControlRenderer.vue';
-import BooleanControlRenderer from './BooleanControlRenderer.vue';
-import SelectControlRenderer from './SelectControlRenderer.vue';
-import MultiSelectControlRenderer from './MultiSelectControlRenderer.vue';
-import AutocompleteControlRenderer from './AutocompleteControlRenderer.vue';
-import NumberControlRenderer from './NumberControlRenderer.vue';
-import MarkdownControlRenderer from './MarkdownControlRenderer.vue';
-import TextAreaControlRenderer from './TextAreaControlRenderer.vue';
 
 export const controlRenderers = [
   { tester: rankWith(10, isStringFormat), renderer: StringControlRenderer },

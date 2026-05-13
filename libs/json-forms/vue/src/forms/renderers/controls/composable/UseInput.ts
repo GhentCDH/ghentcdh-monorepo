@@ -1,9 +1,11 @@
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import type { FieldContext } from 'vee-validate';
-import { computed, inject } from 'vue';
+import { computed, inject, ref } from 'vue';
 
 import { mergeStyles, type MyStyles } from '@ghentcdh/ui';
 
+import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from '../../../errorMode';
+import { formatError } from '../../../errorMessages';
 import { resolveSchema, scopeToPath } from '../../../scope';
 
 export interface InputProps {
@@ -78,11 +80,31 @@ export const useInputProps = (
 
   const styles = mergeStyles(opts.styles) as any;
 
+  const errorMode = inject(ERROR_MODE_KEY, ref('onBlur'));
+  const submitted = inject(FORM_SUBMITTED_KEY, ref(false));
+
+  const shouldShowError = computed(() => {
+    if (!errorMessage.value) return false;
+    switch (errorMode.value) {
+      case 'always':
+        return true;
+      case 'onChange':
+        return meta.dirty;
+      case 'onSubmit':
+        return submitted.value;
+      case 'onBlur':
+      default:
+        return meta.touched;
+    }
+  });
+
   return computed<InputProps>(() => ({
     id: path,
     placeholder: opts.placeholder,
     description: s.description,
-    errors: meta.touched ? errorMessage.value : undefined,
+    errors: shouldShowError.value
+      ? (opts.errorMessage ?? formatError(errorMessage.value))
+      : undefined,
     label:
       opts.label ??
       labelFromScope.charAt(0).toUpperCase() + labelFromScope.slice(1),
@@ -90,7 +112,7 @@ export const useInputProps = (
     required: isRequired,
     enabled: opts.readonly !== true,
     isFocused: false,
-    isTouched: meta.touched,
+    isTouched: shouldShowError.value,
     hideLabel: opts.hideLabel ?? false,
     styles: styles,
     width: styles?.width === 'full' ? 'w-full' : (opts.width ?? 'w-48'),
