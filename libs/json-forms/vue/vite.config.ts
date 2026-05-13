@@ -52,6 +52,7 @@ export default defineConfig({
         'axios',
         'lodash-es',
         'vue',
+        'vee-validate',
         'vue-router',
       ],
       output: {

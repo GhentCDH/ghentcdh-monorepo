@@ -68,9 +68,12 @@ import { computed, ref, toRaw, watch } from 'vue';
 
 import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
 
-import { FormWithActionsEmits, FormWithActionsProperties } from './form-with-actions.component.properties';
-import FormComponent from './form.component.vue';
-import { FormStore } from './form.store';
+import {
+  FormWithActionsEmits,
+  FormWithActionsProperties,
+} from '../form-with-actions.component.properties';
+import { FormStore } from '../form.store';
+import FormComponent from './FormComponent.vue';
 
 const properties = defineProps({
   ...FormWithActionsProperties,
@@ -84,10 +87,9 @@ const recordId = ref(properties.modelValue?.id ?? null);
 const valid = ref(false);
 const submitted = ref(false);
 
-// Only fires when the parent changes v-model from outside
 watch(
   () => properties.modelValue,
-  (newValue, oldValue) => {
+  (newValue) => {
     if (newValue === formData.value) return;
     recordId.value = newValue?.id ?? null;
     initialFormData.value = structuredClone(toRaw(newValue));
@@ -106,9 +108,7 @@ const updateValue = (data: any) => {
 
 const save = () => {
   submitted.value = true;
-  if (!valid.value) {
-    return;
-  }
+  if (!valid.value) return;
 
   if (store.value) {
     store.value.save(recordId.value, formData.value).then((response) => {
@@ -140,7 +140,6 @@ const onValid = (v: boolean) => {
 
 const title = computed(() => {
   if (!properties.updateTitle) return properties.createTitle;
-
   return recordId.value ? properties.updateTitle : properties.createTitle;
 });
 </script>

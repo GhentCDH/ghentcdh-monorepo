@@ -53,3 +53,11 @@ export const isBooleanControl = or(
   _isBooleanControl,
   and(uiTypeIs('Control'), optionIs('format', ControlType.boolean)),
 );
+export const isNumberFormat = and(
+  uiTypeIs('Control'),
+  or(optionIs('format', ControlType.number), schemaTypeIs('number')),
+);
+export const isIntegerFormat = and(
+  uiTypeIs('Control'),
+  or(optionIs('format', ControlType.integer), schemaTypeIs('integer')),
+);

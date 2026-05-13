@@ -1,0 +1,32 @@
+<template>
+  <SelectComponent
+    v-bind="wrapper"
+    :model-value="value"
+    :options="selectOptions"
+    @change="onChange"
+  />
+</template>
+
+<script setup lang="ts">
+import type { ControlElement, JsonSchema } from '@jsonforms/core';
+import { computed } from 'vue';
+
+import { SelectComponent } from '@ghentcdh/ui';
+
+import { useControlBinding } from './composable/UseControlBinding';
+
+const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
+
+const { wrapper, value, field } = useControlBinding(
+  props.uischema,
+  props.schema,
+);
+
+const selectOptions = computed(
+  () => (props.uischema.options as any)?.options ?? [],
+);
+
+const onChange = (val: any) => {
+  field.setValue(val);
+};
+</script>

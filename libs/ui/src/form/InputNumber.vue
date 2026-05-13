@@ -14,7 +14,7 @@
       @change="onChange"
       @focus="onFocus"
       @blur="onBlur"
-    >
+    />
   </ControlWrapper>
 </template>
 
@@ -44,6 +44,6 @@ const onBlur = (event: Event) => {
 };
 
 const style = computed(() =>
-  buildInputStyle(properties.styles.control.input, properties),
+  buildInputStyle(properties.styles?.control?.input, properties),
 );
 </script>

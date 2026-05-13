@@ -1,0 +1,86 @@
+<template>
+  <Modal
+    v-bind="properties"
+    :open="true"
+    :disable-close="false"
+    :width="modalSize"
+    @close-modal="onCancel"
+  >
+    <template #content>
+      <slot name="content-before" />
+
+      <FormComponent
+        :id="`modal-${id}`"
+        :form-data="formData"
+        :schema="schema"
+        :ui-schema="uiSchema"
+        @valid="onValid($event)"
+        @change="onChange"
+        @events="emits('events', $event)"
+      />
+      <slot name="content-after" />
+    </template>
+    <template #actions>
+      <Btn
+        :color="Color.secondary"
+        :outline="true"
+        aria-label="Cancel"
+        @click="onCancel"
+      >
+        Cancel
+      </Btn>
+      <Btn
+        :disabled="!hasBeenValid"
+        aria-label="Save"
+        @click="onSubmit"
+      >
+        Save
+      </Btn>
+    </template>
+  </Modal>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+import { Btn, Color, Modal } from '@ghentcdh/ui';
+
+import type { FormModalProps } from '../../modal/form-modal.props';
+import FormComponent from '../FormComponent.vue';
+
+const properties = withDefaults(defineProps<FormModalProps>(), {
+  cancelLabel: 'cancel',
+  saveLabel: 'save',
+  modalSize: 'md',
+});
+
+const id = `modal_${Math.floor(Math.random() * 1000)}`;
+
+const valid = ref(false);
+const hasBeenValid = ref(false);
+const formData = defineModel<any>();
+const emits = defineEmits(['closeModal', 'events']);
+
+if (properties.data) {
+  formData.value = properties.data;
+}
+
+const onValid = (v: boolean) => {
+  valid.value = v;
+  if (v) hasBeenValid.value = true;
+};
+
+const onCancel = () => {
+  formData.value = {};
+  emits('closeModal', null);
+};
+
+const onChange = (data: any) => {
+  formData.value = data;
+};
+
+const onSubmit = () => {
+  if (!valid.value) return;
+  emits('closeModal', { data: formData.value, valid: valid.value });
+};
+</script>

@@ -8,6 +8,8 @@
   "dependencies": {
     "zod": "4.3.6",
     "@jsonforms/core": "3.7.0",
-    "lodash-es": "4.17.23"
+    "lodash-es": "4.17.23",
+    "@ghentcdh/json-forms-core": "0.8.6",
+    "tslib": "^2.3.0"
   }
 }
