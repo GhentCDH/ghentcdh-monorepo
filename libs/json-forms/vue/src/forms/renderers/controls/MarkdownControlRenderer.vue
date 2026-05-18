@@ -1,5 +1,4 @@
 <template>
-  the markdown thing
   <Markdown
     v-bind="wrapper"
     :model-value="value"

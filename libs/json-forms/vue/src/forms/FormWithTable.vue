@@ -40,10 +40,10 @@ import type { TableAction } from '@ghentcdh/ui';
 import { Btn, Card, IconEnum, ModalService, hasCustomEventListener } from '@ghentcdh/ui';
 
 import type { ErrorMode } from './errorMode';
-import type { FormModalResult } from '../modal/form-modal.props';
-import { VeeFormModalService } from './modal/FormModalService';
 import { FormStore } from '../form.store';
+import type { FormModalResult } from '../modal/form-modal.props';
 import { TableComponent } from '../table';
+import { VeeFormModalService } from './modal/FormModalService';
 
 type Data = { [key: string]: any };
 

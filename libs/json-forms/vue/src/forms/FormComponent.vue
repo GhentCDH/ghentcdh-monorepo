@@ -53,11 +53,11 @@ const submitted = ref(false);
 provide(ERROR_MODE_KEY, toRef(properties, 'errorMode'));
 provide(FORM_SUBMITTED_KEY, submitted);
 
-// Trigger validation on mount so 'always' mode can show errors immediately
-onMounted(() => {
-  if (properties.errorMode === 'always') {
-    validate();
-  }
+// Validate on mount to emit accurate initial validity state.
+// This does NOT set touched/dirty, so errors only display per errorMode rules.
+onMounted(async () => {
+  const result = await validate();
+  emits('valid', result.valid);
 });
 
 provideFormEvents((payload: FormEventPayload) => {

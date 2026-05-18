@@ -1,3 +1,4 @@
+/** @deprecated Use JsonFormWithActions instead. */
 import type { PropType } from 'vue';
 
 export const FormWithActionsProperties = {

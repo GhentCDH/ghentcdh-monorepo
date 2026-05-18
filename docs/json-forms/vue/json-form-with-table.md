@@ -1,6 +1,6 @@
 # Form with table
 
-A full CRUD component that combines a data table with a modal form for creating and editing records. It displays a heading, an **Add new record** button, and a `TableComponent` inside a `Card`. Records are created and edited via `FormModalService` and persisted through `FormStore`.
+A full CRUD component that combines a data table with a modal form for creating and editing records. It displays a heading, an **Add new record** button, and a `TableComponent` inside a `Card`. Records are created and edited via `VeeFormModalService` and persisted through `FormStore`.
 
 ## Usage
 
@@ -10,7 +10,7 @@ A full CRUD component that combines a data table with a modal form for creating 
 
 ```vue
 <template>
-  <FormWithTableComponent
+  <JsonFormWithTable
     id="users"
     table-title="Users"
     create-title="Create user"
@@ -25,7 +25,7 @@ A full CRUD component that combines a data table with a modal form for creating 
 </template>
 
 <script setup>
-import { FormWithTableComponent } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
 
 const formLayout = {
   schema: formJsonSchema,
@@ -57,19 +57,20 @@ const onDelete = (data) => {
 
 ## Props
 
-| Prop           | Type               | Required | Default | Description                                                                                |
-| -------------- | ------------------ | -------- | ------- | ------------------------------------------------------------------------------------------ |
-| `id`           | `String`           | true     | —       | Unique identifier used to generate the table id (`form_table_${id}`)                       |
-| `tableTitle`   | `String`           | true     | —       | Heading displayed above the table                                                          |
-| `createTitle`  | `String`           | true     | —       | Title shown in the create modal                                                            |
-| `updateTitle`  | `String`           | false    | —       | Title shown in the edit modal. Falls back to `createTitle`                                 |
-| `form`         | `JsonFormsLayout`  | false    | —       | Layout for the create/edit modal form (`{ schema, uiSchema, modalSize? }`)                 |
-| `table`        | `JsonFormsLayout`  | false    | —       | Layout for the table columns (`{ schema, uiSchema }`)                                     |
-| `filter`       | `JsonFormsLayout`  | false    | —       | Layout for the table filter controls (`{ schema, uiSchema }`)                              |
-| `uri`          | `String`           | false    | —       | Base URI used by `FormStore` for CRUD operations and as the default table data source      |
-| `dataUri`      | `String`           | false    | —       | Overrides `uri` as the data source for the table                                           |
-| `tableActions` | `TableAction[]`    | false    | —       | Custom action buttons rendered in each table row                                           |
-| `initialData`  | `Data`             | false    | `{}`    | Default data used when opening the create modal                                            |
+| Prop           | Type               | Required | Default    | Description                                                                                |
+| -------------- | ------------------ | -------- | ---------- | ------------------------------------------------------------------------------------------ |
+| `id`           | `String`           | true     | —          | Unique identifier used to generate the table id (`form_table_${id}`)                       |
+| `tableTitle`   | `String`           | true     | —          | Heading displayed above the table                                                          |
+| `createTitle`  | `String`           | true     | —          | Title shown in the create modal                                                            |
+| `updateTitle`  | `String`           | false    | —          | Title shown in the edit modal. Falls back to `createTitle`                                 |
+| `form`         | `JsonFormsLayout`  | false    | —          | Layout for the create/edit modal form (`{ schema, uiSchema, modalSize? }`)                 |
+| `table`        | `JsonFormsLayout`  | false    | —          | Layout for the table columns (`{ schema, uiSchema }`)                                     |
+| `filter`       | `JsonFormsLayout`  | false    | —          | Layout for the table filter controls (`{ schema, uiSchema }`)                              |
+| `uri`          | `String`           | false    | —          | Base URI used by `FormStore` for CRUD operations and as the default table data source      |
+| `dataUri`      | `String`           | false    | —          | Overrides `uri` as the data source for the table                                           |
+| `tableActions` | `TableAction[]`    | false    | —          | Custom action buttons rendered in each table row                                           |
+| `initialData`  | `Object`           | false    | `{}`       | Default data used when opening the create modal                                            |
+| `errorMode`    | `ErrorMode`        | false    | `'onBlur'` | Controls when validation errors are displayed in the modal form (see [JsonForm error modes](./json-form.md#error-modes)) |
 
 ### `JsonFormsLayout`
 
@@ -83,21 +84,24 @@ type JsonFormsLayout = {
 
 ## Events
 
-| Event      | Payload                           | Description                                                                                          |
-| ---------- | --------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `save`     | `{ id?: string, data: Data }`    | Emitted after a record is successfully saved (created or updated)                                    |
-| `delete`   | `data: Data`                      | Emitted after a record is successfully deleted                                                       |
-| `editData` | `data: Data`                      | Emitted when a table row is edited and a custom `@editData` listener is bound                        |
-| `events`   | `payload: FormEventPayload`       | Forwards form events dispatched by custom renderers inside the modal                                 |
+| Event           | Payload                           | Description                                                                                          |
+| --------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `save`          | `{ id?: string, data: Data }`    | Emitted after a record is successfully saved (created or updated)                                    |
+| `delete`        | `data: Data`                      | Emitted after a record is successfully deleted                                                       |
+| `editData`      | `data: Data`                      | Emitted when a table row is edited and a custom `@editData` listener is bound                        |
+| `events`        | `payload: FormEventPayload`       | Forwards form events dispatched by custom renderers inside the modal                                 |
+| `custom:edit`   | `data: Data`                      | Emitted when a custom edit handler is bound via `@custom:edit`                                       |
+| `custom:create` | —                                 | Emitted when a custom create handler is bound via `@custom:create`                                   |
 
 ## Behaviour
 
 - The component renders a heading (`tableTitle`) with an **Add new record** button.
 - The `TableComponent` is rendered inside a `Card` and fetches data from `dataUri ?? uri`.
-- Clicking **Add new record** or a table row's edit action opens a `FormModalService` modal with the `form` layout.
+- Clicking **Add new record** or a table row's edit action opens a `VeeFormModalService` modal with the `form` layout.
 - On save, the component calls `FormStore.save()` (POST for new, PATCH for existing) and reloads the table.
 - On delete, a confirmation dialog is shown via `ModalService.showConfirm()`. If confirmed, `FormStore.delete()` is called and the table reloads.
 - If a custom `@editData` listener is bound, editing delegates to that handler instead of opening the modal.
+- If a `@custom:edit` or `@custom:create` listener is bound, those take priority over the default modal behavior.
 
 ## Examples
 
@@ -109,7 +113,7 @@ type JsonFormsLayout = {
 
 ```vue
 <template>
-  <FormWithTableComponent
+  <JsonFormWithTable
     id="books"
     table-title="Books"
     create-title="Add book"
@@ -120,7 +124,7 @@ type JsonFormsLayout = {
 </template>
 
 <script setup>
-import { FormWithTableComponent } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
 </script>
 ```
 
@@ -136,7 +140,7 @@ Use `@editData` to intercept edits and navigate to a detail page instead of open
 
 ```vue
 <template>
-  <FormWithTableComponent
+  <JsonFormWithTable
     id="books"
     table-title="Books"
     create-title="Add book"
@@ -149,7 +153,7 @@ Use `@editData` to intercept edits and navigate to a detail page instead of open
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { FormWithTableComponent } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
 
 const router = useRouter();
 
@@ -171,7 +175,7 @@ Use `dataUri` to fetch table data from a different endpoint than the one used fo
 
 ```vue
 <template>
-  <FormWithTableComponent
+  <JsonFormWithTable
     id="books"
     table-title="Books"
     create-title="Add book"
@@ -183,7 +187,33 @@ Use `dataUri` to fetch table data from a different endpoint than the one used fo
 </template>
 
 <script setup>
-import { FormWithTableComponent } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
+</script>
+```
+
+:::
+
+### With error mode on modal form
+
+::: tabs
+
+@tab Vue
+
+```vue
+<template>
+  <JsonFormWithTable
+    id="books"
+    table-title="Books"
+    create-title="Add book"
+    :form="formLayout"
+    :table="tableLayout"
+    uri="/api/books"
+    error-mode="onChange"
+  />
+</template>
+
+<script setup>
+import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
 </script>
 ```
 

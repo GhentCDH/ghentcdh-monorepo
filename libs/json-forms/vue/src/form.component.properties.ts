@@ -1,3 +1,4 @@
+/** @deprecated Use JsonForm + VeeFormComponentProperties from the new vee-validate system. */
 import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import type { PropType } from 'vue';
 

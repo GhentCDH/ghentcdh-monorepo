@@ -93,13 +93,18 @@ const layout = opts.layout ?? 'column';
 const showActions = computed(() => !opts.hideActions);
 
 const detail = computed<UISchemaElement | undefined>(
-  () => (props.uischema as any)._detail,
+  () => (props.uischema as any)._detail ?? opts.detail,
 );
 
 const childElements = computed<UISchemaElement[]>(() => {
-  if (detail.value) {
-    return (detail.value as any).elements ?? [detail.value];
+  if (!detail.value) {
+    return (props.uischema as any).elements ?? [];
   }
-  return (props.uischema as any).elements ?? [];
+  // If detail is a layout type, dispatch it as-is (e.g. CollapseLayout)
+  const type = detail.value.type;
+  if (type && type !== 'Control') {
+    return [detail.value];
+  }
+  return (detail.value as any).elements ?? [detail.value];
 });
 </script>

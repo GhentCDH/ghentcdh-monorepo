@@ -1,3 +1,4 @@
+/** @deprecated Use JsonFormWithTable instead. */
 import type { PropType } from 'vue';
 
 import type { JsonFormsLayout } from '@ghentcdh/json-forms-core';

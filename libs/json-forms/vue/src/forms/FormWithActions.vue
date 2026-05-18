@@ -18,7 +18,7 @@
           @change="updateValue"
           @valid="onValid($event)"
           @submit="save"
-          @errors="emits('errors', $event)"
+          @errors="onErrors"
           @events="emits('events', $event)"
         />
       </div>
@@ -71,10 +71,7 @@ import { computed, ref, toRaw, watch } from 'vue';
 import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
 
 import type { ErrorMode } from './errorMode';
-import {
-  FormWithActionsEmits,
-  FormWithActionsProperties,
-} from '../form-with-actions.component.properties';
+import { FormWithActionsEmits, FormWithActionsProperties } from '../form-with-actions.component.properties';
 import { FormStore } from '../form.store';
 import FormComponent from './FormComponent.vue';
 
@@ -151,4 +148,8 @@ const title = computed(() => {
   if (!properties.updateTitle) return properties.createTitle;
   return recordId.value ? properties.updateTitle : properties.createTitle;
 });
+
+const onErrors = (errors: any) => {
+  emits('errors', errors);
+};
 </script>
