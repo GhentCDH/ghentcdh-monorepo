@@ -16,5 +16,6 @@
         "assets": ["libs/core/types/*.md"]
       }
     }
-  }
+  },
+  "implicitDependencies": ["json-forms-core"]
 }
