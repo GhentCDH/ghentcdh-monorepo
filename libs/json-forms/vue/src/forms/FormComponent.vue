@@ -1,14 +1,6 @@
 <template>
-  {{ errors }}
-  {{ formData }}
-  <form
-    :id="id"
-    @submit.prevent="onSubmit"
-  >
-    <Dispatch
-      :uischema="uiSchema"
-      :schema="schema"
-    />
+  <form :id="id" @submit.prevent="onSubmit">
+    <Dispatch :uischema="uiSchema" :schema="schema" />
   </form>
 </template>
 
@@ -22,10 +14,7 @@ import { myStyles } from '@ghentcdh/ui';
 
 import Dispatch from './Dispatch.vue';
 import type { Data, SubmitFormEvent } from './FormComponent.properties';
-import {
-  JsonFormComponentEmits,
-  JsonFormComponentProperties,
-} from './FormComponent.properties';
+import { JsonFormComponentEmits, JsonFormComponentProperties } from './FormComponent.properties';
 import { registerZodErrorMap } from './errorMessages';
 import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from './errorMode';
 import { customRenderes } from './renderes';
