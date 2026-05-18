@@ -321,12 +321,6 @@ importers:
       '@jsonforms/core':
         specifier: 3.7.0
         version: 3.7.0
-      '@jsonforms/vue':
-        specifier: 3.7.0
-        version: 3.7.0(@jsonforms/core@3.7.0)(vue@3.5.29(typescript@5.9.3))
-      '@jsonforms/vue-vanilla':
-        specifier: 3.7.0
-        version: 3.7.0(@jsonforms/core@3.7.0)(@jsonforms/vue@3.7.0(@jsonforms/core@3.7.0)(vue@3.5.29(typescript@5.9.3)))(vue@3.5.29(typescript@5.9.3))
       '@vueuse/core':
         specifier: 14.2.1
         version: 14.2.1(vue@3.5.29(typescript@5.9.3))
@@ -2011,19 +2005,6 @@ packages:
 
   '@jsonforms/core@3.7.0':
     resolution: {integrity: sha512-CE9viWtwi9QWLqlWLeOul1/R1GRAyOA9y6OoUpsCc0FhyR+g5p29F3k0fUExHWxL0Sf4KHcXYkfhtqfRBPS8ww==}
-
-  '@jsonforms/vue-vanilla@3.7.0':
-    resolution: {integrity: sha512-+wCnot4j0dXHx4cZg1bC7GunVhNCn0bYYCzsy+zJGJwQmdjQ/pdaDcF6CaS7crL/rO1lrEfW+03oJNBi50YDyw==}
-    peerDependencies:
-      '@jsonforms/core': 3.7.0
-      '@jsonforms/vue': 3.7.0
-      vue: ^3.5.0
-
-  '@jsonforms/vue@3.7.0':
-    resolution: {integrity: sha512-S5NXYeu6lTh2yfNmPz17TRo32dSYqAhOe8Co2mp0lmeq1ODJNBQs8SesXqBRdVMEmMK20ZW/1i7i/38J0TGjdw==}
-    peerDependencies:
-      '@jsonforms/core': 3.7.0
-      vue: ^3.5.0
 
   '@lit-labs/ssr-dom-shim@1.5.1':
     resolution: {integrity: sha512-Aou5UdlSpr5whQe8AA/bZG0jMj96CoJIWbGfZ91qieWu5AWUMKw8VR/pAkQkJYvBNhmCcWnZlyyk5oze8JIqYA==}
@@ -10763,19 +10744,6 @@ snapshots:
       ajv: 8.18.0
       ajv-formats: 2.1.1(ajv@8.18.0)
       lodash: 4.17.23
-
-  '@jsonforms/vue-vanilla@3.7.0(@jsonforms/core@3.7.0)(@jsonforms/vue@3.7.0(@jsonforms/core@3.7.0)(vue@3.5.29(typescript@5.9.3)))(vue@3.5.29(typescript@5.9.3))':
-    dependencies:
-      '@jsonforms/core': 3.7.0
-      '@jsonforms/vue': 3.7.0(@jsonforms/core@3.7.0)(vue@3.5.29(typescript@5.9.3))
-      lodash: 4.17.23
-      vue: 3.5.29(typescript@5.9.3)
-
-  '@jsonforms/vue@3.7.0(@jsonforms/core@3.7.0)(vue@3.5.29(typescript@5.9.3))':
-    dependencies:
-      '@jsonforms/core': 3.7.0
-      lodash: 4.17.23
-      vue: 3.5.29(typescript@5.9.3)
 
   '@lit-labs/ssr-dom-shim@1.5.1': {}
 
