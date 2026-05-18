@@ -37,3 +37,7 @@
 .input-full {
   @apply flex-grow-1;
 }
+
+.min-w-input {
+  @apply w-full min-w-48;
+}

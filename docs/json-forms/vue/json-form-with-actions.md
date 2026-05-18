@@ -1,6 +1,6 @@
 # Form with actions
 
-A wrapper around `FormComponent` that adds a collapsible card with **Save** and **Clear** actions, validation feedback, and optional automatic submission to a backend.
+A wrapper around `JsonForm` that adds a collapsible card with **Save** and **Clear** actions, validation feedback, and optional automatic submission to a backend.
 
 When the `uri` prop is provided, the component saves the form data to the backend via `FormStore` (POST for new records, PATCH for existing ones based on the initially provided form data's `id`). When `uri` is not provided, the component emits a `submit` event so the consumer can handle submission.
 
@@ -12,7 +12,7 @@ When the `uri` prop is provided, the component saves the form data to the backen
 
 <ClientOnly>
   <div>
-    <FormWithActions
+    <JsonFormWithActions
       id="demo-form"
       create-title="Create record"
       update-title="Update record"
@@ -30,7 +30,7 @@ When the `uri` prop is provided, the component saves the form data to the backen
 
 ```vue
 <template>
-  <FormWithActions
+  <JsonFormWithActions
     id="demo-form"
     create-title="Create record"
     update-title="Update record"
@@ -44,7 +44,7 @@ When the `uri` prop is provided, the component saves the form data to the backen
 
 <script setup>
 import { ref } from 'vue';
-import { FormWithActions } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithActions } from '@ghentcdh/json-forms-vue';
 
 const formData = ref({});
 
@@ -63,16 +63,17 @@ const onValid = (valid) => {
 
 ## Props
 
-| Prop           | Type     | Required | Default | Description                                                                                          |
-| -------------- | -------- | -------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `id`           | `String` | true     | —       | Unique identifier used to generate the internal form id (`form_${id}`)                               |
-| `createTitle`  | `String` | true     | —       | Title shown when the initially provided form data has no `id`                                        |
-| `updateTitle`  | `String` | false    | —       | Title shown when the initially provided form data has an `id`. Falls back to `createTitle`           |
-| `schema`       | `any`    | false    | —       | JSON schema describing the form data shape                                                           |
-| `uiSchema`     | `any`    | false    | —       | UI schema describing the layout and control rendering                                                |
-| `uri`          | `String`  | false    | —       | When provided, the component submits the form to this URI via `FormStore` instead of emitting events |
-| `scrollable`   | `Boolean` | false    | `false` | When true, the form content scrolls and the action bar stays pinned at the bottom                    |
-| `fullHeight`   | `Boolean` | false    | `false` | When true, the component takes the full height of its parent                                         |
+| Prop           | Type        | Required | Default    | Description                                                                                          |
+| -------------- | ----------- | -------- | ---------- | ---------------------------------------------------------------------------------------------------- |
+| `id`           | `String`    | true     | —          | Unique identifier used to generate the internal form id (`form_${id}`)                               |
+| `createTitle`  | `String`    | true     | —          | Title shown when the initially provided form data has no `id`                                        |
+| `updateTitle`  | `String`    | false    | —          | Title shown when the initially provided form data has an `id`. Falls back to `createTitle`           |
+| `schema`       | `Object`    | false    | —          | JSON schema describing the form data shape                                                           |
+| `uiSchema`     | `Object`    | false    | —          | UI schema describing the layout and control rendering                                                |
+| `uri`          | `String`    | false    | —          | When provided, the component submits the form to this URI via `FormStore` instead of emitting events |
+| `scrollable`   | `Boolean`   | false    | `false`    | When true, the form content scrolls and the action bar stays pinned at the bottom                    |
+| `fullHeight`   | `Boolean`   | false    | `false`    | When true, the component takes the full height of its parent                                         |
+| `errorMode`    | `ErrorMode` | false    | `'onBlur'` | Controls when validation errors are displayed (see [JsonForm error modes](./json-form.md#error-modes)) |
 
 `v-model` binds to the form data object.
 
@@ -82,9 +83,9 @@ const onValid = (valid) => {
 | --------- | ----------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `submit`  | `data: any`                   | Emitted when the user clicks **Save** and the form is valid, **only when `uri` is not defined**          |
 | `valid`   | `valid: boolean`              | Emitted whenever the form validity changes                                                               |
-| `errors`  | `errors: any[]`               | Forwards the raw Ajv validation errors from the inner `FormComponent`                                    |
+| `errors`  | `errors: { path, message }[]` | Forwards validation errors from the inner `JsonForm`                                                    |
 | `success` | —                             | Emitted after a successful backend save (only when `uri` is defined)                                     |
-| `events`  | `payload: FormEventPayload`   | Forwards form events from the inner `FormComponent`                                                      |
+| `events`  | `payload: FormEventPayload`   | Forwards form events from the inner `JsonForm`                                                           |
 | `cancel`  | —                             | Emitted when the **Cancel** button is clicked (only visible when editing an existing record)              |
 
 ## Slots
@@ -96,7 +97,7 @@ const onValid = (valid) => {
 ## Behaviour
 
 - The inner form is wrapped in a `Collapse` component that uses `createTitle` / `updateTitle` as its header, determined by whether the initially provided form data has an `id`.
-- Clicking **Save** sets `submitted` to `true` and validates. If valid:
+- Clicking **Save** marks the form as submitted (triggers `onSubmit` error mode) and validates. If valid:
   - When `uri` is defined: the data is saved via `FormStore` (POST if the initial data's `id` is falsy, PATCH otherwise) and `success` is emitted.
   - When `uri` is not defined: the `submit` event is emitted with the current form data.
 - If the form is invalid when **Save** is clicked, an error `Alert` is shown.
@@ -106,7 +107,7 @@ const onValid = (valid) => {
 <script setup lang="ts">
 import { formSchema, smallUiSchema } from '@source/json-forms/vue/schema';
 import { ref } from 'vue';
-import { FormWithActions } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithActions } from '@ghentcdh/json-forms-vue';
 
 const formData = ref({});
 const lastSubmit = ref(null);
@@ -136,7 +137,7 @@ When `uri` is provided, clicking **Save** posts the form data to the backend. No
 
 @tab Preview
 
-<FormWithActions
+<JsonFormWithActions
   id="demo-form-uri"
   create-title="Create user"
   update-title="Update user"
@@ -152,7 +153,7 @@ When `uri` is provided, clicking **Save** posts the form data to the backend. No
 
 ```vue
 <template>
-  <FormWithActions
+  <JsonFormWithActions
     id="user-form"
     create-title="Create user"
     update-title="Update user"
@@ -166,7 +167,7 @@ When `uri` is provided, clicking **Save** posts the form data to the backend. No
 
 <script setup>
 import { ref } from 'vue';
-import { FormWithActions } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithActions } from '@ghentcdh/json-forms-vue';
 
 const formData = ref({});
 
@@ -186,7 +187,7 @@ When `uri` is omitted, the component emits `submit` with the form data so you ca
 
 @tab Preview
 
-<FormWithActions
+<JsonFormWithActions
   id="demo-form-custom"
   create-title="Create record"
   :schema="formSchema"
@@ -206,7 +207,7 @@ When `uri` is omitted, the component emits `submit` with the form data so you ca
 
 ```vue
 <template>
-  <FormWithActions
+  <JsonFormWithActions
     id="custom-form"
     create-title="Create record"
     :schema="schema"
@@ -219,7 +220,7 @@ When `uri` is omitted, the component emits `submit` with the form data so you ca
 
 <script setup>
 import { ref } from 'vue';
-import { FormWithActions } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithActions } from '@ghentcdh/json-forms-vue';
 
 const formData = ref({});
 
@@ -235,6 +236,47 @@ const onValid = (valid) => {
 
 :::
 
+### With error mode
+
+Use `error-mode` to control when validation errors appear.
+
+::: tabs
+
+@tab Preview
+
+<JsonFormWithActions
+  id="demo-form-errormode"
+  create-title="Create record (onChange)"
+  :schema="formSchema"
+  :ui-schema="smallUiSchema"
+  error-mode="onChange"
+  v-model="formDataCustomActions"
+/>
+
+@tab Vue
+
+```vue
+<template>
+  <JsonFormWithActions
+    id="onchange-form"
+    create-title="Create record"
+    :schema="schema"
+    :ui-schema="uiSchema"
+    error-mode="onChange"
+    v-model="formData"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { JsonFormWithActions } from '@ghentcdh/json-forms-vue';
+
+const formData = ref({});
+</script>
+```
+
+:::
+
 ### With custom actions slot
 
 Use the `actions` slot to place additional buttons next to the built-in **Clear** and **Save** buttons.
@@ -243,7 +285,7 @@ Use the `actions` slot to place additional buttons next to the built-in **Clear*
 
 @tab Preview
 
-<FormWithActions
+<JsonFormWithActions
   id="demo-form-actions"
   create-title="Create record"
   :schema="formSchema"
@@ -253,13 +295,13 @@ Use the `actions` slot to place additional buttons next to the built-in **Clear*
   <template #actions>
     <button class="btn btn-outline">Extra action</button>
   </template>
-</FormWithActions>
+</JsonFormWithActions>
 
 @tab Vue
 
 ```vue
 <template>
-  <FormWithActions
+  <JsonFormWithActions
     id="custom-actions-form"
     create-title="Create record"
     :schema="schema"
@@ -269,12 +311,12 @@ Use the `actions` slot to place additional buttons next to the built-in **Clear*
     <template #actions>
       <Btn :outline="true" @click="doSomething">Extra action</Btn>
     </template>
-  </FormWithActions>
+  </JsonFormWithActions>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { FormWithActions } from '@ghentcdh/json-forms-vue';
+import { JsonFormWithActions } from '@ghentcdh/json-forms-vue';
 import { Btn } from '@ghentcdh/ui';
 
 const formData = ref({});

@@ -16,19 +16,21 @@ export const MarkdownEmits = ['change'];
 export const MarkdownComponentProperties = {
   ...ControlWrapperProperties,
   width: { type: String, default: 'w-48' },
-  minHeight: { type: String, default: 'min-h-96' },
+  minHeight: { type: String, default: 'min-h-[50vh]' },
   actions: {
     type: Object as PropType<ToolbarAction[]>,
     default: (): ToolbarAction[] => [
       {
         label: '<strong>B</strong>',
         name: 'bold',
-        action: (editor: Editor | undefined) => editor?.chain().focus().toggleBold().run(),
+        action: (editor: Editor | undefined) =>
+          editor?.chain().focus().toggleBold().run(),
       },
       {
         label: '<em>I</em>',
         name: 'italic',
-        action: (editor: Editor | undefined) => editor?.chain().focus().toggleItalic().run(),
+        action: (editor: Editor | undefined) =>
+          editor?.chain().focus().toggleItalic().run(),
       },
     ],
   },

@@ -44,6 +44,6 @@ const onBlur = (event: Event) => {
 };
 
 const style = computed(() =>
-  buildInputStyle(properties.styles.control.input, properties),
+  buildInputStyle(properties.styles?.control?.input, properties),
 );
 </script>

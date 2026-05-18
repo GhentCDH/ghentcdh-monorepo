@@ -46,12 +46,11 @@ export default defineConfig({
         '@ghentcdh/ui',
         '@jsonforms/core',
         '@jsonforms/core/src/testers/testers',
-        '@jsonforms/vue',
-        '@jsonforms/vue-vanilla',
         '@vueuse/core',
         'axios',
         'lodash-es',
         'vue',
+        'vee-validate',
         'vue-router',
       ],
       output: {

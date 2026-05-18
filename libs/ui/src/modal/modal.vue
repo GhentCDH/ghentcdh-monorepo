@@ -23,10 +23,16 @@
       >
         ✕
       </button>
-      <h3 :id="titleId" class="font-bold shrink-0">
+      <h3
+        :id="titleId"
+        class="font-bold shrink-0"
+      >
         {{ modalTitle }}
       </h3>
-      <div :id="contentId" class="pt-4 flex-1 min-h-0 flex flex-col">
+      <div
+        :id="contentId"
+        class="pt-4 flex-1 min-h-0 flex flex-col"
+      >
         <slot name="content" />
       </div>
       <div
