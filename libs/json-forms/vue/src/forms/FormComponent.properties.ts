@@ -1,9 +1,15 @@
 import type { PropType } from 'vue';
 
-import type { Data, SubmitFormEvent } from '../form.component.properties';
 import type { ErrorMode } from './errorMode';
 
-export type { Data, SubmitFormEvent };
+export type Data = {
+  [key: string]: any;
+};
+
+export type SubmitFormEvent = {
+  data: Data;
+  valid: boolean;
+};
 
 export const VeeFormComponentProperties = {
   id: { type: String, required: true as const },

@@ -3,9 +3,12 @@ import { ModalService } from '@ghentcdh/ui';
 
 import FormModal from './FormModal.vue';
 import type { FormEventPayload } from '../../composables/useFormEvents';
-import type { FormModalProps, FormModalResult } from '../../modal/form-modal.props';
+import type {
+  FormModalProps,
+  FormModalResult,
+} from '../../modal/form-modal.props';
 
-export class VeeFormModalService {
+export class JsonFormModalService {
   static openModal<DATA = any>({
     initialData,
     modalTitle,

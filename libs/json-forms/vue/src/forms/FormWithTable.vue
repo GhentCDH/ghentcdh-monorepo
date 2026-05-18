@@ -4,11 +4,7 @@
       {{ tableTitle }}
     </h1>
     <div>
-      <Btn
-        :icon="IconEnum.Plus"
-        :outline="true"
-        @click="create"
-      >
+      <Btn :icon="IconEnum.Plus" :outline="true" @click="create">
         Add new record
       </Btn>
     </div>
@@ -37,13 +33,13 @@ import { computed, ref, watch } from 'vue';
 
 import type { JsonFormsLayout } from '@ghentcdh/json-forms-core';
 import type { TableAction } from '@ghentcdh/ui';
-import { Btn, Card, IconEnum, ModalService, hasCustomEventListener } from '@ghentcdh/ui';
+import { Btn, Card, hasCustomEventListener, IconEnum, ModalService } from '@ghentcdh/ui';
 
 import type { ErrorMode } from './errorMode';
 import { FormStore } from '../form.store';
 import type { FormModalResult } from '../modal/form-modal.props';
 import { TableComponent } from '../table';
-import { VeeFormModalService } from './modal/FormModalService';
+import { JsonFormModalService } from './modal/FormModalService';
 
 type Data = { [key: string]: any };
 
@@ -131,7 +127,7 @@ const openModal = (formData?: any) => {
 
   const isUpdate = !!formData?.id;
 
-  VeeFormModalService.openModal({
+  JsonFormModalService.openModal({
     schema: resolvedForm.value.schema,
     uiSchema: resolvedForm.value.uiSchema,
     modalSize: resolvedForm.value.modalSize,

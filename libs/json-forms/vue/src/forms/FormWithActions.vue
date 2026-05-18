@@ -53,7 +53,7 @@
           <Btn
             aria-label="Save"
             :color="Color.primary"
-            :disabled="submitted"
+            :disabled="!valid"
             @click="save"
           >
             Save
@@ -71,19 +71,33 @@ import { computed, ref, toRaw, watch } from 'vue';
 import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
 
 import type { ErrorMode } from './errorMode';
-import { FormWithActionsEmits, FormWithActionsProperties } from '../form-with-actions.component.properties';
 import { FormStore } from '../form.store';
 import FormComponent from './FormComponent.vue';
 
 const properties = defineProps({
-  ...FormWithActionsProperties,
+  id: { type: String, required: true as const },
+  createTitle: { type: String, required: true as const },
+  updateTitle: { type: String },
+  schema: { type: Object as PropType<any> },
+  uiSchema: { type: Object as PropType<any> },
+  uri: { type: String },
+  scrollable: { type: Boolean, default: false },
+  fullHeight: { type: Boolean, default: false },
   modelValue: { type: Object as PropType<any>, default: () => ({}) },
   errorMode: {
     type: String as PropType<ErrorMode>,
     default: 'onBlur' as const,
   },
 });
-const emits = defineEmits(FormWithActionsEmits);
+const emits = defineEmits([
+  'update:modelValue',
+  'success',
+  'submit',
+  'valid',
+  'events',
+  'errors',
+  'cancel',
+]);
 
 const formRef = ref<InstanceType<typeof FormComponent>>();
 const formData = ref<any>(properties.modelValue);
