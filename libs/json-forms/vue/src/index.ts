@@ -1,4 +1,4 @@
-export * from './modal/form-modal.props';
+export * from './forms/modal/FormModal.properties';
 export * from './table';
 export * from './repository';
 export * from './composables/useFormEvents';

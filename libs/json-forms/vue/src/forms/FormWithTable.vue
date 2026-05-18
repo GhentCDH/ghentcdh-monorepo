@@ -4,7 +4,11 @@
       {{ tableTitle }}
     </h1>
     <div>
-      <Btn :icon="IconEnum.Plus" :outline="true" @click="create">
+      <Btn
+        :icon="IconEnum.Plus"
+        :outline="true"
+        @click="create"
+      >
         Add new record
       </Btn>
     </div>
@@ -28,47 +32,23 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import { computed, ref, watch } from 'vue';
 
-import type { JsonFormsLayout } from '@ghentcdh/json-forms-core';
-import type { TableAction } from '@ghentcdh/ui';
-import { Btn, Card, hasCustomEventListener, IconEnum, ModalService } from '@ghentcdh/ui';
+import { Btn, Card, IconEnum, ModalService, hasCustomEventListener } from '@ghentcdh/ui';
 
-import type { ErrorMode } from './errorMode';
+import type { Data } from './FormWithTable.properties';
+import {
+  FormWithTableEmits,
+  FormWithTableProperties,
+} from './FormWithTable.properties';
+import type { FormModalResult } from './modal/FormModal.properties';
 import { FormStore } from '../form.store';
-import type { FormModalResult } from '../modal/form-modal.props';
 import { TableComponent } from '../table';
 import { JsonFormModalService } from './modal/FormModalService';
 
-type Data = { [key: string]: any };
+const properties = defineProps(FormWithTableProperties);
 
-const properties = defineProps({
-  id: { type: String, required: true as const },
-  tableTitle: { type: String, required: true as const },
-  createTitle: { type: String, required: true as const },
-  updateTitle: { type: String },
-  dataUri: { type: String },
-  tableActions: { type: Array as PropType<TableAction[]> },
-  form: { type: Object as PropType<JsonFormsLayout> },
-  table: { type: Object as PropType<JsonFormsLayout> },
-  filter: { type: Object as PropType<JsonFormsLayout> },
-  uri: { type: String },
-  initialData: { type: Object as PropType<Data>, default: () => ({}) },
-  errorMode: {
-    type: String as PropType<ErrorMode>,
-    default: 'onBlur' as const,
-  },
-});
-
-const emit = defineEmits([
-  'editData',
-  'save',
-  'delete',
-  'events',
-  'custom:edit',
-  'custom:create',
-]);
+const emit = defineEmits(FormWithTableEmits);
 
 const reload = ref(0);
 

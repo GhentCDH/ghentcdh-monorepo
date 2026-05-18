@@ -16,7 +16,7 @@
         :schema="schema"
         :ui-schema="uiSchema"
         :error-mode="errorMode"
-        @valid="onValid($event)"
+        @errors="onErrors"
         @change="onChange"
         @events="emits('events', $event)"
       />
@@ -31,43 +31,28 @@
       >
         Cancel
       </Btn>
-      <Btn
-        :disabled="!hasBeenValid"
-        aria-label="Save"
-        @click="onSubmit"
-      >
-        Save
-      </Btn>
+      <Btn :disabled="!valid" aria-label="Save" @click="onSubmit"> Save </Btn>
     </template>
   </Modal>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 import { Btn, Color, Modal } from '@ghentcdh/ui';
 
-import type { FormModalProps } from '../../modal/form-modal.props';
+import { FormModalEmits, FormModalProperties } from './FormModal.properties';
 import FormComponent from '../FormComponent.vue';
-import type { ErrorMode } from '../errorMode';
+import { isEmpty } from 'lodash-es';
 
-const properties = withDefaults(
-  defineProps<FormModalProps & { errorMode?: ErrorMode }>(),
-  {
-    cancelLabel: 'cancel',
-    saveLabel: 'save',
-    modalSize: 'md',
-    errorMode: 'onBlur',
-  },
-);
+const properties = defineProps(FormModalProperties);
 
 const id = `modal_${Math.floor(Math.random() * 1000)}`;
 
 const formRef = ref<InstanceType<typeof FormComponent>>();
 const valid = ref(false);
-const hasBeenValid = ref(false);
 const formData = defineModel<any>();
-const emits = defineEmits(['closeModal', 'events']);
+const emits = defineEmits(FormModalEmits);
 
 if (properties.data) {
   formData.value = properties.data;
@@ -75,7 +60,6 @@ if (properties.data) {
 
 const onValid = (v: boolean) => {
   valid.value = v;
-  if (v) hasBeenValid.value = true;
 };
 
 const onCancel = () => {
@@ -92,4 +76,14 @@ const onSubmit = () => {
   if (!valid.value) return;
   emits('closeModal', { data: formData.value, valid: valid.value });
 };
+const onErrors = (errors: any) => {
+  emits('errors', errors);
+  valid.value = isEmpty(errors);
+};
+
+watch(valid, (newValid, oldValid) => {
+  if (newValid !== oldValid) {
+    emits('valid', newValid);
+  }
+});
 </script>

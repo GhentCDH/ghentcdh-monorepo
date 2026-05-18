@@ -1,12 +1,8 @@
 <template>
-  <form
-    :id="id"
-    @submit.prevent="onSubmit"
-  >
-    <Dispatch
-      :uischema="uiSchema"
-      :schema="schema"
-    />
+  {{ errors }}
+  {{ formData }}
+  <form :id="id" @submit.prevent="onSubmit">
+    <Dispatch :uischema="uiSchema" :schema="schema" />
   </form>
 </template>
 
@@ -15,11 +11,15 @@ import { useForm } from 'vee-validate';
 import { computed, onMounted, provide, ref, toRaw, toRef, watch } from 'vue';
 import { fromJSONSchema } from 'zod';
 
+import { enforceRequiredStringMinLength } from '@ghentcdh/json-forms-core';
 import { myStyles } from '@ghentcdh/ui';
 
 import Dispatch from './Dispatch.vue';
 import type { Data, SubmitFormEvent } from './FormComponent.properties';
-import { VeeFormComponentEmits, VeeFormComponentProperties } from './FormComponent.properties';
+import {
+  JsonFormComponentEmits,
+  JsonFormComponentProperties,
+} from './FormComponent.properties';
 import { registerZodErrorMap } from './errorMessages';
 import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from './errorMode';
 import { customRenderes } from './renderes';
@@ -28,13 +28,14 @@ import { provideFormEvents } from '../composables/useFormEvents';
 
 registerZodErrorMap();
 
-const properties = defineProps(VeeFormComponentProperties);
-const emits = defineEmits(VeeFormComponentEmits);
+const properties = defineProps(JsonFormComponentProperties);
+const emits = defineEmits(JsonFormComponentEmits);
 
 const zodSchema = computed(() => {
   if (!properties.schema) return undefined;
   try {
-    return fromJSONSchema(properties.schema);
+    const patched = enforceRequiredStringMinLength(properties.schema);
+    return fromJSONSchema(patched);
   } catch {
     return undefined;
   }

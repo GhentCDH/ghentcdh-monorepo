@@ -40,6 +40,9 @@ export const registerZodErrorMap = () => {
       }
       if (issue.code === 'too_small') {
         const i = issue as any;
+        if (i.type === 'string' && i.minimum === 1) {
+          return { message: 'This field is required' };
+        }
         if (i.type === 'string') {
           return { message: `Must be at least ${i.minimum} characters` };
         }

@@ -1,4 +1,4 @@
-import type { PropType } from 'vue';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 
 import type { ErrorMode } from './errorMode';
 
@@ -11,24 +11,37 @@ export type SubmitFormEvent = {
   valid: boolean;
 };
 
-export const VeeFormComponentProperties = {
+export const JsonFormComponentProperties = {
+  /** Unique identifier used to namespace the form element. */
   id: { type: String, required: true as const },
+  /** HTML name attribute for the form. */
   name: { type: String, default: 'form' },
+  /** JSON schema describing the shape of the form data. */
   schema: { type: Object as PropType<any>, required: true as const },
+  /** UI schema describing the layout and controls. */
   uiSchema: { type: Object as PropType<any>, required: true as const },
+  /** Disable all form controls. */
   disabled: { type: Boolean, default: false },
+  /** Current form data object. */
   formData: { type: Object as PropType<Data>, default: () => ({}) },
+  /** When validation errors are shown (`'onBlur'`, `'onChange'`, `'onSubmit'`, `'always'`). */
   errorMode: {
     type: String as PropType<ErrorMode>,
-    // FIXME change to onBlur
     default: 'onChanges' as const,
   },
 };
 
-export const VeeFormComponentEmits = [
-  'valid',
+export type JsonFormComponentProp = ExtractPublicPropTypes<
+  typeof JsonFormComponentProperties
+>;
+
+export const JsonFormComponentEmits = [
+  /** Emitted when form data changes. */
   'change',
+  /** Emitted on form submission. */
   'submit',
+  /** Emitted when validation errors change. */
   'errors',
+  /** Emitted when a custom renderer dispatches a form event. */
   'events',
 ];

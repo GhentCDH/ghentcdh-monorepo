@@ -2,11 +2,8 @@ import type { SizeType } from '@ghentcdh/json-forms-core';
 import { ModalService } from '@ghentcdh/ui';
 
 import FormModal from './FormModal.vue';
+import type { FormModalProp, FormModalResult } from './FormModal.properties';
 import type { FormEventPayload } from '../../composables/useFormEvents';
-import type {
-  FormModalProps,
-  FormModalResult,
-} from '../../modal/form-modal.props';
 
 export class JsonFormModalService {
   static openModal<DATA = any>({
@@ -26,7 +23,7 @@ export class JsonFormModalService {
     onClose: (result: FormModalResult) => void;
     onEvents?: (payload: FormEventPayload) => void;
   }) {
-    ModalService.openModal<FormModalProps, FormModalResult>({
+    ModalService.openModal<FormModalProp, FormModalResult>({
       component: FormModal,
       props: {
         schema,

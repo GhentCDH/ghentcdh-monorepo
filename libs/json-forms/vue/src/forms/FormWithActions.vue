@@ -1,9 +1,5 @@
 <template>
-  <Collapse
-    :title="title"
-    :height-full="fullHeight"
-    :scrollable="true"
-  >
+  <Collapse :title="title" :height-full="fullHeight" :scrollable="true">
     <div :class="['flex flex-col', { 'overflow-hidden h-full': scrollable }]">
       <div
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"
@@ -16,7 +12,6 @@
           :ui-schema="uiSchema"
           :error-mode="errorMode"
           @change="updateValue"
-          @valid="onValid($event)"
           @submit="save"
           @errors="onErrors"
           @events="emits('events', $event)"
@@ -25,13 +20,6 @@
       <div
         class="flex justify-end gap-2 p-2 mt-2 border-t border-gray-300 z-[30] shrink-0"
       >
-        <div>
-          <Alert
-            v-if="!valid && submitted"
-            message="The form is not valid"
-            type="error"
-          />
-        </div>
         <div class="flex justify-end gap-2">
           <slot name="actions" />
           <Btn
@@ -42,12 +30,7 @@
           >
             Cancel
           </Btn>
-          <Btn
-            v-else
-            aria-label="Clear"
-            :outline="true"
-            @click="clear"
-          >
+          <Btn v-else aria-label="Clear" :outline="true" @click="clear">
             Clear
           </Btn>
           <Btn
@@ -65,46 +48,23 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import { computed, ref, toRaw, watch } from 'vue';
 
-import { Alert, Btn, Collapse, Color } from '@ghentcdh/ui';
+import { Btn, Collapse, Color } from '@ghentcdh/ui';
 
-import type { ErrorMode } from './errorMode';
+import { FormWithActionsEmits, FormWithActionsProperties } from './FormWithActions.properties';
 import { FormStore } from '../form.store';
 import FormComponent from './FormComponent.vue';
+import { isEmpty } from 'lodash-es';
 
-const properties = defineProps({
-  id: { type: String, required: true as const },
-  createTitle: { type: String, required: true as const },
-  updateTitle: { type: String },
-  schema: { type: Object as PropType<any> },
-  uiSchema: { type: Object as PropType<any> },
-  uri: { type: String },
-  scrollable: { type: Boolean, default: false },
-  fullHeight: { type: Boolean, default: false },
-  modelValue: { type: Object as PropType<any>, default: () => ({}) },
-  errorMode: {
-    type: String as PropType<ErrorMode>,
-    default: 'onBlur' as const,
-  },
-});
-const emits = defineEmits([
-  'update:modelValue',
-  'success',
-  'submit',
-  'valid',
-  'events',
-  'errors',
-  'cancel',
-]);
+const properties = defineProps(FormWithActionsProperties);
+const emits = defineEmits(FormWithActionsEmits);
 
 const formRef = ref<InstanceType<typeof FormComponent>>();
 const formData = ref<any>(properties.modelValue);
 const initialFormData = ref<any>(structuredClone(toRaw(properties.modelValue)));
 const recordId = ref(properties.modelValue?.id ?? null);
 const valid = ref(false);
-const submitted = ref(false);
 
 watch(
   () => properties.modelValue,
@@ -126,7 +86,6 @@ const updateValue = (data: any) => {
 };
 
 const save = () => {
-  submitted.value = true;
   formRef.value?.markSubmitted();
   if (!valid.value) return;
 
@@ -141,21 +100,13 @@ const save = () => {
 
 const clear = () => {
   formData.value = { id: null };
-  submitted.value = false;
   emits('update:modelValue', formData.value);
 };
 
 const cancel = () => {
   formData.value = structuredClone(toRaw(initialFormData.value));
-  submitted.value = false;
   emits('update:modelValue', formData.value);
   emits('cancel');
-};
-
-const onValid = (v: boolean) => {
-  submitted.value = false;
-  valid.value = v;
-  emits('valid', v);
 };
 
 const title = computed(() => {
@@ -165,5 +116,12 @@ const title = computed(() => {
 
 const onErrors = (errors: any) => {
   emits('errors', errors);
+  valid.value = isEmpty(errors);
 };
+
+watch(valid, (newValid, oldValid) => {
+  if (newValid !== oldValid) {
+    emits('valid', newValid);
+  }
+});
 </script>
