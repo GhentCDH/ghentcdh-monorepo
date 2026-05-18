@@ -2,8 +2,8 @@ import type { ExtractPublicPropTypes, PropType } from 'vue';
 
 import type { SizeType } from '@ghentcdh/json-forms-core';
 
-import type { ErrorMode } from '../errorMode';
 import type { FormEventPayload } from '../../composables/useFormEvents';
+import type { ErrorMode } from '../errorMode';
 
 export const FormModalProperties = {
   /** Title displayed in the modal header. */

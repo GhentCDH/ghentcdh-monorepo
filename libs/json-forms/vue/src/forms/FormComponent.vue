@@ -1,8 +1,14 @@
 <template>
   {{ errors }}
   {{ formData }}
-  <form :id="id" @submit.prevent="onSubmit">
-    <Dispatch :uischema="uiSchema" :schema="schema" />
+  <form
+    :id="id"
+    @submit.prevent="onSubmit"
+  >
+    <Dispatch
+      :uischema="uiSchema"
+      :schema="schema"
+    />
   </form>
 </template>
 

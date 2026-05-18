@@ -31,19 +31,25 @@
       >
         Cancel
       </Btn>
-      <Btn :disabled="!valid" aria-label="Save" @click="onSubmit"> Save </Btn>
+      <Btn
+        :disabled="!valid"
+        aria-label="Save"
+        @click="onSubmit"
+      >
+        Save
+      </Btn>
     </template>
   </Modal>
 </template>
 
 <script setup lang="ts">
+import { isEmpty } from 'lodash-es';
 import { ref, watch } from 'vue';
 
 import { Btn, Color, Modal } from '@ghentcdh/ui';
 
 import { FormModalEmits, FormModalProperties } from './FormModal.properties';
 import FormComponent from '../FormComponent.vue';
-import { isEmpty } from 'lodash-es';
 
 const properties = defineProps(FormModalProperties);
 

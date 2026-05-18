@@ -1,5 +1,9 @@
 <template>
-  <Collapse :title="title" :height-full="fullHeight" :scrollable="true">
+  <Collapse
+    :title="title"
+    :height-full="fullHeight"
+    :scrollable="true"
+  >
     <div :class="['flex flex-col', { 'overflow-hidden h-full': scrollable }]">
       <div
         :class="['flex-1', { 'overflow-y-auto overflow-x-hidden': scrollable }]"
@@ -30,7 +34,12 @@
           >
             Cancel
           </Btn>
-          <Btn v-else aria-label="Clear" :outline="true" @click="clear">
+          <Btn
+            v-else
+            aria-label="Clear"
+            :outline="true"
+            @click="clear"
+          >
             Clear
           </Btn>
           <Btn
@@ -48,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import { isEmpty } from 'lodash-es';
 import { computed, ref, toRaw, watch } from 'vue';
 
 import { Btn, Collapse, Color } from '@ghentcdh/ui';
@@ -55,7 +65,6 @@ import { Btn, Collapse, Color } from '@ghentcdh/ui';
 import { FormWithActionsEmits, FormWithActionsProperties } from './FormWithActions.properties';
 import { FormStore } from '../form.store';
 import FormComponent from './FormComponent.vue';
-import { isEmpty } from 'lodash-es';
 
 const properties = defineProps(FormWithActionsProperties);
 const emits = defineEmits(FormWithActionsEmits);

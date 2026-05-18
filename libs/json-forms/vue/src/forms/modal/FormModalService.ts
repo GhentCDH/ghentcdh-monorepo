@@ -1,8 +1,8 @@
 import type { SizeType } from '@ghentcdh/json-forms-core';
 import { ModalService } from '@ghentcdh/ui';
 
-import FormModal from './FormModal.vue';
 import type { FormModalProp, FormModalResult } from './FormModal.properties';
+import FormModal from './FormModal.vue';
 import type { FormEventPayload } from '../../composables/useFormEvents';
 
 export class JsonFormModalService {

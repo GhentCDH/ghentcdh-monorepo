@@ -41,9 +41,9 @@ import {
   FormWithTableEmits,
   FormWithTableProperties,
 } from './FormWithTable.properties';
-import type { FormModalResult } from './modal/FormModal.properties';
 import { FormStore } from '../form.store';
 import { TableComponent } from '../table';
+import type { FormModalResult } from './modal/FormModal.properties';
 import { JsonFormModalService } from './modal/FormModalService';
 
 const properties = defineProps(FormWithTableProperties);
