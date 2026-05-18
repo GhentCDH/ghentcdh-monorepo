@@ -15,6 +15,7 @@ A control renderer consists of three parts:
 Every control renderer follows the same pattern:
 
 ```vue
+
 <template>
   <MyInput
     v-bind="controlWrapper"
@@ -27,23 +28,23 @@ Every control renderer follows the same pattern:
 </template>
 
 <script lang="ts" setup>
-import type { ControlElement } from '@jsonforms/core';
-import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
+  import type { ControlElement } from '@jsonforms/core';
+  import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
 
-import { MyInput } from '@ghentcdh/ui';
+  import { MyInput } from '@ghentcdh/ui';
 
-import { useVanillaControlCustom } from '@ghentcdh/json-forms-vue';
+  import { useVanillaControlCustom } from '@ghentcdh/json-forms-vue';
 
-const props = defineProps({ ...rendererProps<ControlElement>() });
-const {
-  control,
-  onChange,
-  appliedOptions,
-  onFocus,
-  onBlur,
-  controlWrapper,
-  styles,
-} = useVanillaControlCustom(useJsonFormsControl(props));
+  const props = defineProps({ ...rendererProps<ControlElement>() });
+  const {
+    control,
+    onChange,
+    appliedOptions,
+    onFocus,
+    onBlur,
+    controlWrapper,
+    styles,
+  } = useVanillaControlCustom(useJsonFormsControl(props));
 </script>
 ```
 
@@ -128,13 +129,13 @@ export const isMyComplexControl = and(
 
 ### Available tester functions
 
-| Function                    | Description                                        |
-| --------------------------- | -------------------------------------------------- |
-| `uiTypeIs(type)`            | Matches if the UI schema type equals `type`        |
-| `optionIs(key, value)`      | Matches if `options[key] === value`                |
-| `schemaTypeIs(type)`        | Matches if the JSON schema type equals `type`      |
-| `and(...testers)`           | All testers must match                             |
-| `or(...testers)`            | Any tester must match                              |
+| Function               | Description                                   |
+|------------------------|-----------------------------------------------|
+| `uiTypeIs(type)`       | Matches if the UI schema type equals `type`   |
+| `optionIs(key, value)` | Matches if `options[key] === value`           |
+| `schemaTypeIs(type)`   | Matches if the JSON schema type equals `type` |
+| `and(...testers)`      | All testers must match                        |
+| `or(...testers)`       | Any tester must match                         |
 
 ### Using `isCustomControl`
 
@@ -154,11 +155,12 @@ ControlBuilder.asCustom<MyType>('fieldName', 'myWidget');
 
 ## Step 3: Register the renderer
 
-Pass your renderer as a registration entry to `FormComponent` via the `renderers` prop:
+Pass your renderer as a registration entry to `JsonFormComponent` via the `renderers` prop:
 
 ```vue
+
 <template>
-  <FormComponent
+  <JsonFormComponent
     id="my-form"
     :schema="schema"
     :ui-schema="uiSchema"
@@ -169,18 +171,19 @@ Pass your renderer as a registration entry to `FormComponent` via the `renderers
 </template>
 
 <script setup>
-import { rankWith } from '@jsonforms/core';
-import { FormComponent } from '@ghentcdh/json-forms-vue';
+  //
+  import { rankWith } from '@jsonforms/core';
+  import { JsonFormComponent } from '@ghentcdh/json-forms-vue';
 
-import MyControlRenderer from './MyControlRenderer.vue';
-import { isMyControl } from './testers';
+  import MyControlRenderer from './MyControlRenderer.vue';
+  import { isMyControl } from './testers';
 
-const customRenderers = [
-  {
-    tester: rankWith(11, isMyControl),
-    renderer: MyControlRenderer,
-  },
-];
+  const customRenderers = [
+    {
+      tester: rankWith(11, isMyControl),
+      renderer: MyControlRenderer,
+    },
+  ];
 </script>
 ```
 
@@ -211,15 +214,15 @@ const uiSchema = LayoutBuilder.vertical<MyType>()
 
 ### Built-in control formats
 
-| Method            | Format          | Description              |
-| ----------------- | --------------- | ------------------------ |
-| *(default)*       | `string`        | Text input               |
-| `.textArea()`     | `textArea`      | Multi-line text          |
-| `.markdown()`     | `markdown`      | Markdown editor          |
-| `.select(opts)`   | `select`        | Dropdown select          |
-| `.mutliSelect()`  | `mutliSelect`   | Multi-select dropdown    |
-| `.autocomplete()` | `autocomplete`  | Autocomplete with search |
-| `.readonly()`     | `string`        | Read-only text input     |
+| Method            | Format         | Description              |
+|-------------------|----------------|--------------------------|
+| *(default)*       | `string`       | Text input               |
+| `.textArea()`     | `textArea`     | Multi-line text          |
+| `.markdown()`     | `markdown`     | Markdown editor          |
+| `.select(opts)`   | `select`       | Dropdown select          |
+| `.mutliSelect()`  | `mutliSelect`  | Multi-select dropdown    |
+| `.autocomplete()` | `autocomplete` | Autocomplete with search |
+| `.readonly()`     | `string`       | Read-only text input     |
 
 ## Dispatching form events
 
@@ -245,6 +248,7 @@ const onCreate = () => {
 The host handles these events via the `@events` listener on `FormComponent`:
 
 ```vue
+
 <FormComponent
   id="my-form"
   :schema="schema"
@@ -263,6 +267,7 @@ A custom color picker renderer:
 @tab ColorPickerRenderer.vue
 
 ```vue
+
 <template>
   <ControlWrapper
     v-bind="controlWrapper"
@@ -279,24 +284,24 @@ A custom color picker renderer:
 </template>
 
 <script lang="ts" setup>
-import type { ControlElement } from '@jsonforms/core';
-import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
-import { ControlWrapper } from '@ghentcdh/ui';
+  import type { ControlElement } from '@jsonforms/core';
+  import { rendererProps, useJsonFormsControl } from '@jsonforms/vue';
+  import { ControlWrapper } from '@ghentcdh/ui';
 
-import { useVanillaControlCustom } from '@ghentcdh/json-forms-vue';
+  import { useVanillaControlCustom } from '@ghentcdh/json-forms-vue';
 
-const props = defineProps({ ...rendererProps<ControlElement>() });
-const {
-  control,
-  handleChange,
-  onFocus,
-  onBlur,
-  controlWrapper,
-} = useVanillaControlCustom(useJsonFormsControl(props));
+  const props = defineProps({ ...rendererProps<ControlElement>() });
+  const {
+    control,
+    handleChange,
+    onFocus,
+    onBlur,
+    controlWrapper,
+  } = useVanillaControlCustom(useJsonFormsControl(props));
 
-const onColorChange = (e: Event) => {
-  handleChange(control.value.path, (e.target as HTMLInputElement).value);
-};
+  const onColorChange = (e: Event) => {
+    handleChange(control.value.path, (e.target as HTMLInputElement).value);
+  };
 </script>
 ```
 
@@ -315,8 +320,9 @@ export const isColorPicker = and(
 @tab Usage
 
 ```vue
+
 <template>
-  <FormComponent
+  <JsonFormComponent
     id="theme-form"
     :schema="schema"
     :ui-schema="uiSchema"
@@ -327,35 +333,37 @@ export const isColorPicker = and(
 </template>
 
 <script setup>
-import { rankWith } from '@jsonforms/core';
-import { ref } from 'vue';
-import { ControlBuilder, LayoutBuilder } from '@ghentcdh/json-forms-core';
-import { FormComponent } from '@ghentcdh/json-forms-vue';
-import ColorPickerRenderer from './ColorPickerRenderer.vue';
-import { isColorPicker } from './tester';
+  //
+  import { rankWith } from '@jsonforms/core';
+  import { ref } from 'vue';
+  import { ControlBuilder, LayoutBuilder } from '@ghentcdh/json-forms-core';
+  import { JsonFormComponent } from '@ghentcdh/json-forms-vue';
+  import ColorPickerRenderer from './ColorPickerRenderer.vue';
+  import { isColorPicker } from './tester';
 
-const schema = {
-  type: 'object',
-  properties: {
-    primaryColor: { type: 'string' },
-  },
-};
+  const schema = {
+    type: 'object',
+    properties: {
+      primaryColor: { type: 'string' },
+    },
+  };
 
-type Theme = { primaryColor: string };
+  type
+  Theme = { primaryColor: string };
 
-const uiSchema = LayoutBuilder.vertical<Theme>()
-  .addControls(
-    ControlBuilder.properties<Theme>('primaryColor')
-      .control('colorPicker')
-      .customLabel('Primary color'),
-  )
-  .build();
+  const uiSchema = LayoutBuilder.vertical < Theme > ()
+    .addControls(
+      ControlBuilder.properties < Theme > ('primaryColor')
+        .control('colorPicker')
+        .customLabel('Primary color'),
+    )
+    .build();
 
-const renderers = [
-  { tester: rankWith(11, isColorPicker), renderer: ColorPickerRenderer },
-];
+  const renderers = [
+    { tester: rankWith(11, isColorPicker), renderer: ColorPickerRenderer },
+  ];
 
-const formData = ref({ primaryColor: '#3b82f6' });
+  const formData = ref({ primaryColor: '#3b82f6' });
 </script>
 ```
 

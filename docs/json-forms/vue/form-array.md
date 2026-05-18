@@ -37,8 +37,9 @@
 @tab Vue
 
 ```vue
+
 <template>
-  <FormComponent
+  <JsonFormComponent
     id="my-array-form"
     :schema="schema"
     :ui-schema="uiSchema"
@@ -48,42 +49,43 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { ControlBuilder, LayoutBuilder } from '@ghentcdh/json-forms-core';
-import { FormComponent } from '@ghentcdh/json-forms-vue';
+  //
+  import { ref } from 'vue';
+  import { ControlBuilder, LayoutBuilder } from '@ghentcdh/json-forms-core';
+  import { JsonFormComponent } from '@ghentcdh/json-forms-vue';
 
-const schema = {
-  type: 'object',
-  properties: {
-    name: { type: 'string' },
-    emails: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          email: { type: 'string' },
+  const schema = {
+    type: 'object',
+    properties: {
+      name: { type: 'string' },
+      emails: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            email: { type: 'string' },
+          },
         },
       },
     },
-  },
-};
+  };
 
-// Variable-length array (add / remove items)
-const uiSchema = LayoutBuilder.vertical()
-  .addControls(
-    ControlBuilder.properties('name'),
-    ControlBuilder.properties('emails').detail(
-      LayoutBuilder.horizontal().addControls(
-        ControlBuilder.properties('email'),
+  // Variable-length array (add / remove items)
+  const uiSchema = LayoutBuilder.vertical()
+    .addControls(
+      ControlBuilder.properties('name'),
+      ControlBuilder.properties('emails').detail(
+        LayoutBuilder.horizontal().addControls(
+          ControlBuilder.properties('email'),
+        ),
       ),
-    ),
-  )
-  .build();
+    )
+    .build();
 
-const formData = ref({
-  name: '',
-  emails: [{ email: '' }],
-});
+  const formData = ref({
+    name: '',
+    emails: [{ email: '' }],
+  });
 </script>
 ```
 
@@ -139,10 +141,7 @@ const arrayUiSchema = LayoutBuilder.vertical()
 
 :::
 
-<script setup lang="ts">
-import { formSchema, fixedArrayUiSchema, arrayUiSchema } from '@source/json-forms/vue/schema';
-import { ref } from 'vue';
-import { FormComponent } from '@ghentcdh/json-forms-vue';
+<script setup lang="ts">import {ref} from 'vue';
 
 const formData = ref({
   name: '123',
