@@ -13,9 +13,9 @@
     },
     "build:ui": {
       "executor": "nx:run-commands",
-      "dependsOn": [],
+      "dependsOn": [{ "projects": ["ui"], "target": "build" }],
       "options": {
-        "command": "nx build ui"
+        "command": "echo 'ui build completed via dependsOn'"
       }
     },
     "build:vuepress": {
