@@ -3,8 +3,7 @@ import { pick } from 'lodash-es';
 import type { FieldContext } from 'vee-validate';
 import { computed } from 'vue';
 
-import type { SelectOptions } from '@ghentcdh/json-forms-core';
-
+import type { AutocompleteAllOptions, SelectOptions } from '@ghentcdh/json-forms-core';
 
 import { useCustomControlBinding } from './UseControlBinding';
 
@@ -21,15 +20,16 @@ export const useSelectBinding = useCustomControlBinding<SelectOptions>({
   useProps: useSelectInput('options', 'labelKey', 'valueKey'),
 });
 
-export const useAutocompleteBinding = useCustomControlBinding<SelectOptions>({
-  useProps: useSelectInput(
-    'options',
-    'labelKey',
-    'valueKey',
-    'uri',
-    'freeText',
-    'enableCreate',
-    'dataField',
-    'skipAuth',
-  ),
-});
+export const useAutocompleteBinding =
+  useCustomControlBinding<AutocompleteAllOptions>({
+    useProps: useSelectInput(
+      'options',
+      'labelKey',
+      'valueKey',
+      'uri',
+      'freeText',
+      'enableCreate',
+      'dataField',
+      'skipAuth',
+    ),
+  });

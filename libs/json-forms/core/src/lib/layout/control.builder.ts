@@ -48,6 +48,19 @@ export interface AutocompleteRemoteOptions extends Omit<
   dataField?: string;
   skipAuth?: boolean;
 }
+export interface AutocompleteResourceOptions extends Omit<
+  AutocompleteOptions,
+  'format' | 'options'
+> {
+  format: 'autocomplete';
+  resource: string;
+  skipAuth?: boolean;
+}
+
+export type AutocompleteAllOptions =
+  | AutocompleteOptions
+  | AutocompleteRemoteOptions
+  | AutocompleteRemoteOptions;
 
 export type ArrayActionType = 'edit';
 export type ArrayAction = {

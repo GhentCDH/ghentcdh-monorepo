@@ -42,6 +42,8 @@ export const JsonFormComponentEmits = [
   'submit',
   /** Emitted when validation errors change. */
   'errors',
+  /** Emitted when form validity changes. */
+  'valid',
   /** Emitted when a custom renderer dispatches a form event. */
   'events',
 ];
