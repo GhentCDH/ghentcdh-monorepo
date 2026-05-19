@@ -21,6 +21,9 @@
     "@jsonforms/core": "3.7.0",
     "zod": "4.3.6"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"

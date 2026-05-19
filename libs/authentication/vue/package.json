@@ -20,6 +20,9 @@
     "keycloak-js": "^26.2.2",
     "vue": "3.5.29"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GhentCDH/ghentcdh-monorepo.git"
