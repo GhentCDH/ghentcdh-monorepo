@@ -11,7 +11,7 @@
       "manifestRootsToUpdate": ["{projectRoot}", "dist/{projectRoot}"]
     }
   },
-  "tags": [],
+  "tags": ["scope:tool"],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
