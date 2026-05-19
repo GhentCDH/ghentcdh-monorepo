@@ -1,31 +1,3 @@
-# 1.0.0 (2026-05-19)
-
-### 🚀 Features
-
-- update json forms logic ([945c5e0](https://github.com/GhentCDH/ghentcdh-monorepo/commit/945c5e0))
-- update json forms logic ([7c1927d](https://github.com/GhentCDH/ghentcdh-monorepo/commit/7c1927d))
-- update json forms logic ([8f724d0](https://github.com/GhentCDH/ghentcdh-monorepo/commit/8f724d0))
-- update json forms logic ([92b59a2](https://github.com/GhentCDH/ghentcdh-monorepo/commit/92b59a2))
-- update json forms logic ([be2ff99](https://github.com/GhentCDH/ghentcdh-monorepo/commit/be2ff99))
-- update json forms logic ([5e2eb08](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5e2eb08))
-- update json forms logic ([590e7f7](https://github.com/GhentCDH/ghentcdh-monorepo/commit/590e7f7))
-- update json forms logic ([831b980](https://github.com/GhentCDH/ghentcdh-monorepo/commit/831b980))
-- update json forms logic ([eceba33](https://github.com/GhentCDH/ghentcdh-monorepo/commit/eceba33))
-- update json forms logic ([eca7bc3](https://github.com/GhentCDH/ghentcdh-monorepo/commit/eca7bc3))
-- update json forms logic ([11371a9](https://github.com/GhentCDH/ghentcdh-monorepo/commit/11371a9))
-- update json forms logic ([dd861ff](https://github.com/GhentCDH/ghentcdh-monorepo/commit/dd861ff))
-- update json forms logic ([5792940](https://github.com/GhentCDH/ghentcdh-monorepo/commit/5792940))
-- support resources in json forms ([9354158](https://github.com/GhentCDH/ghentcdh-monorepo/commit/9354158))
-- support resources in json forms ([752d138](https://github.com/GhentCDH/ghentcdh-monorepo/commit/752d138))
-
-### 🩹 Fixes
-
-- some layout issues ([7b417a4](https://github.com/GhentCDH/ghentcdh-monorepo/commit/7b417a4))
-
-### ❤️ Thank You
-
-- Bo Vandersteene
-
 ## 0.8.6 (2026-04-27)
 
 ### 🚀 Features
