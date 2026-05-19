@@ -6,6 +6,8 @@ import { uiFromJsonSchema } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 
 
+
+/** Supported HTTP methods for resource operations. */
 export const MethodSchema = z.enum(['get', 'post', 'delete', 'put', 'patch']);
 export type Method = z.infer<typeof MethodSchema>;
 export const OperationSchema = z.object({
@@ -39,6 +41,18 @@ const OperationMap: Record<OperationKey, Method> = {
   update: 'get',
 };
 
+/**
+ * Zod schema that validates and transforms a resource definition from the API.
+ *
+ * Accepts a resource descriptor with an `id`, base `uri`, CRUD `operations`,
+ * and optional `schema` (JSON Schema + UI schema). During parsing:
+ *
+ * - If `schema.data` is present but `schema.ui` is missing, a UI schema is
+ *   auto-generated via {@link uiFromJsonSchema} using a GridLayout.
+ * - Each operation is normalized to `{ uri, method }` or `null` based on
+ *   its value (`true` inherits the base uri, a string overrides the uri,
+ *   an object is used as-is, `false`/`undefined` maps to `null`).
+ */
 export const ResourceSchema = z
   .object({
     id: z.string(),
@@ -89,6 +103,14 @@ export const ResourceSchema = z
     };
   });
 
+/**
+ * Fetches and validates a resource definition from the given URI.
+ *
+ * @param resourceUri - Endpoint that returns the resource descriptor JSON.
+ * @param skipAuth - When `true`, uses plain axios instead of the authenticated API client.
+ * @returns Parsed and normalized resource with resolved operations and schemas.
+ * @throws If the response does not match {@link ResourceSchema}.
+ */
 export const getResourceSchema = async (
   resourceUri: string,
   skipAuth: boolean,
