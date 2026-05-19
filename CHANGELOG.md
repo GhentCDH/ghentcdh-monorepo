@@ -1,3 +1,17 @@
+## 1.0.1 (2026-05-19)
+
+### 🩹 Fixes
+
+- add publishConfig with public access to all scoped packages ([ff16397](https://github.com/GhentCDH/ghentcdh-monorepo/commit/ff16397))
+- build ([21b4fa2](https://github.com/GhentCDH/ghentcdh-monorepo/commit/21b4fa2))
+- build ([9ec3d3a](https://github.com/GhentCDH/ghentcdh-monorepo/commit/9ec3d3a))
+- build ([0d14c70](https://github.com/GhentCDH/ghentcdh-monorepo/commit/0d14c70))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+- Claude Opus 4.6
+
 # 1.0.0 (2026-05-19)
 
 ### 🚀 Features
