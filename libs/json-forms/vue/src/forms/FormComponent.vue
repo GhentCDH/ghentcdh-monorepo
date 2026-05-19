@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
-import { computed, onMounted, provide, ref, toRaw, toRef, watch } from 'vue';
+import { computed, nextTick, onMounted, provide, ref, toRaw, toRef, watch } from 'vue';
 import { fromJSONSchema } from 'zod';
 
 import { enforceRequiredStringMinLength } from '@ghentcdh/json-forms-core';
@@ -66,13 +66,22 @@ provideFormEvents((payload: FormEventPayload) => {
   emits('events', payload);
 });
 
+// Prevents the values watcher from emitting 'change' during programmatic
+// setValues calls, which would feed back into the formData prop and create
+// an infinite update cycle.
+let syncing = false;
+
 // Sync external formData changes into vee-validate
 watch(
   () => properties.formData,
   (newData) => {
     if (!newData) return;
     if (JSON.stringify(newData) === JSON.stringify(toRaw(values))) return;
+    syncing = true;
     setValues(newData as Record<string, unknown>);
+    nextTick(() => {
+      syncing = false;
+    });
   },
   { deep: true },
 );
@@ -81,6 +90,7 @@ watch(
 watch(
   values,
   (newValues) => {
+    if (syncing) return;
     const isValid = meta.value.valid;
     emits('valid', isValid);
     emits('change', toRaw(newValues) as Data);

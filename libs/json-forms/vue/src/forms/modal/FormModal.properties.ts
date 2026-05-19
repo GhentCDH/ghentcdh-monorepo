@@ -45,6 +45,10 @@ export const FormModalEmits = [
   'closeModal',
   /** Emitted when a custom renderer dispatches a form event. */
   'events',
+  /** Emitted when validation errors change. */
+  'errors',
+  /** Emitted when form validity changes. */
+  'valid',
 ];
 
 /** Result payload returned when the modal is submitted. */

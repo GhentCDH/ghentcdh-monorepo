@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@anatine/zod-nestjs':
+        specifier: 2.0.12
+        version: 2.0.12(@anatine/zod-openapi@2.2.8(openapi3-ts@4.5.0)(zod@4.3.6))(@nestjs/common@11.1.14(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/swagger@11.2.6(@nestjs/common@11.1.14(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.21(@nestjs/common@11.1.14(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2))(openapi3-ts@4.5.0)(zod@4.3.6)
+      '@heroicons/vue':
+        specifier: 2.2.0
+        version: 2.2.0(vue@3.5.29(typescript@5.9.3))
       '@tiptap/pm':
         specifier: 3.20.0
         version: 3.20.0
@@ -23,6 +29,9 @@ importers:
       vee-validate:
         specifier: 5.0.0-beta.1
         version: 5.0.0-beta.1(vue@3.5.29(typescript@5.9.3))
+      vue-router:
+        specifier: 5.0.3
+        version: 5.0.3(@vue/compiler-sfc@3.5.34)(vue@3.5.29(typescript@5.9.3))
       zod:
         specifier: 4.3.6
         version: 4.3.6
