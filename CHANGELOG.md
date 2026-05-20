@@ -1,3 +1,13 @@
+## 1.0.2 (2026-05-20)
+
+### 🚀 Features
+
+- update eslint and types building ([6d6bc99](https://github.com/GhentCDH/ghentcdh-monorepo/commit/6d6bc99))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 1.0.1 (2026-05-19)
 
 ### 🩹 Fixes
