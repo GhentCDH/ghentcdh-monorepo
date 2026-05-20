@@ -1,7 +1,7 @@
 /// <reference types='vitest' />
-import {nxViteTsPaths} from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import {nxViteTsPaths} from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import {defineConfig} from 'vite';
-import {VitePluginNode} from "vite-plugin-node";
+import {VitePluginNode} from 'vite-plugin-node';
 
 
 export default defineConfig({
@@ -11,7 +11,7 @@ export default defineConfig({
         adapter: 'nest',
         appPath: './src/index.ts',
         // exportName: 'backend',
-        tsCompiler: "swc",
+        tsCompiler: 'swc',
         initAppOnBoot: false,
         swcOptions: {}
     }), nxViteTsPaths(),],

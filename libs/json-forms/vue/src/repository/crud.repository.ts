@@ -77,7 +77,7 @@ export const createRepository = <T extends { id?: string }>(
         return response.data;
       })
       .catch((response) => {
-        handleError(response, `Failed to load data`);
+        handleError(response, 'Failed to load data');
       });
   };
 

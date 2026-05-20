@@ -1,20 +1,18 @@
-const nx = require('@nx/eslint-plugin');
-const importPlugin = require('eslint-plugin-import');
+import importPlugin from 'eslint-plugin-import-x';
+import nx from '@nx/eslint-plugin';
 
-module.exports = [
-  {
-    files: ['**/*.json'],
-    // Override or add rules here
-    rules: {},
-    languageOptions: {
-      parser: require('jsonc-eslint-parser'),
-    },
-  },
-
+export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
-  importPlugin.flatConfigs['recommended'],
+  {
+    files: ['**/*.json'],
+    rules: {},
+    languageOptions: {
+      parser: await import('jsonc-eslint-parser'),
+    },
+  },
+  importPlugin.flatConfigs.recommended,
   {
     ignores: [
       'docs',
@@ -28,6 +26,7 @@ module.exports = [
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],
     rules: {
+      quotes: ['error', 'single'],
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-restricted-imports': [
         'error',
@@ -46,12 +45,20 @@ module.exports = [
           ],
         },
       ],
-      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'inline-type-imports',
+        },
+      ],
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
       '@nx/enforce-module-boundaries': [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
               sourceTag: 'scope:shared',
@@ -124,7 +131,6 @@ module.exports = [
             },
             {
               sourceTag: 'scope:ui',
-              // bannedExternalImports: ['@jsonforms/*'],
               onlyDependOnLibsWithTags: [
                 'scope:ui',
                 'scope:shared',
@@ -135,14 +141,14 @@ module.exports = [
           ],
         },
       ],
-      'import/named': 'off',
-      'import/no-unresolved': 'off',
-      'import/newline-after-import': ['error', { count: 1 }],
-      'import/order': [
+      'import-x/default': 'off',
+      'import-x/named': 'off',
+      'import-x/no-unresolved': 'off',
+      'import-x/newline-after-import': ['error', { count: 1 }],
+      'import-x/order': [
         'error',
         {
           named: true,
-          // sortTypesAmongThemselves: true,
           alphabetize: {
             order: 'asc',
           },
@@ -159,10 +165,5 @@ module.exports = [
         },
       ],
     },
-  },
-  {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    // Override or add rules here
-    rules: {},
   },
 ];

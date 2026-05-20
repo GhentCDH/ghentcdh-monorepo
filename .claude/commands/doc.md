@@ -43,7 +43,7 @@ Brief description of the component.
 |-------|---------|-------------|
 
 <script setup>
-import { ComponentName } from '@mela/package';
+import { ComponentName } from '@ghentcdh/package';
 </script>
 
 ## Examples
