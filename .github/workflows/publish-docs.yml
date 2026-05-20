@@ -40,6 +40,8 @@ jobs:
         with:
           ref: main  # Deploy from main, not the tag
       - uses: ./.github/actions/use-cache
+      - name: Install dependencies
+        run: pnpm install
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - run: DOCS_BASE=/ghentcdh-monorepo npx nx run docs:build
