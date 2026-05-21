@@ -290,6 +290,12 @@ importers:
         specifier: 4.3.6
         version: 4.3.6
 
+  libs/json-forms-vue-test:
+    dependencies:
+      '@playwright/test':
+        specifier: '>=1.50.0'
+        version: 1.60.0
+
   libs/json-forms/api:
     dependencies:
       tslib:
@@ -332,6 +338,9 @@ importers:
       '@ghentcdh/ui':
         specifier: '>=0.6.0'
         version: 0.8.6(@ghentcdh/tools-vue@0.8.6(axios@1.13.5)(vue@3.5.29(typescript@5.9.3)))(@heroicons/vue@2.2.0(vue@3.5.29(typescript@5.9.3)))(@tiptap/pm@3.20.0)(@tiptap/starter-kit@3.20.0)(@tiptap/vue-3@3.20.0(@floating-ui/dom@1.7.6)(@tiptap/core@3.23.4(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)(vue@3.5.29(typescript@5.9.3)))(tiptap-markdown@0.9.0(@tiptap/core@3.23.4(@tiptap/pm@3.20.0)))(uuid@11.1.0)(vue-router@5.0.3(@vue/compiler-sfc@3.5.34)(vue@3.5.29(typescript@5.9.3)))(vue@3.5.29(typescript@5.9.3))
+      vee-validate:
+        specifier: '>=4.0.0'
+        version: 4.15.1(vue@3.5.29(typescript@5.9.3))
     devDependencies:
       '@jsonforms/core':
         specifier: 3.7.0
@@ -8431,6 +8440,11 @@ packages:
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+
+  vee-validate@4.15.1:
+    resolution: {integrity: sha512-DkFsiTwEKau8VIxyZBGdO6tOudD+QoUBPuHj3e6QFqmbfCRj1ArmYWue9lEp6jLSWBIw4XPlDLjFIZNLdRAMSg==}
+    peerDependencies:
+      vue: ^3.4.26
 
   vee-validate@5.0.0-beta.1:
     resolution: {integrity: sha512-Z9cyGtupC5L+9zBzrcw59OFAnHeWJUL/On2fbLSioRo1Evc717xbnx4oPYbH59VvUegYQ1hJZPregAAcH45KOA==}
@@ -17944,6 +17958,12 @@ snapshots:
   validator@13.12.0: {}
 
   vary@1.1.2: {}
+
+  vee-validate@4.15.1(vue@3.5.29(typescript@5.9.3)):
+    dependencies:
+      '@vue/devtools-api': 7.7.9
+      type-fest: 4.41.0
+      vue: 3.5.29(typescript@5.9.3)
 
   vee-validate@5.0.0-beta.1(vue@3.5.29(typescript@5.9.3)):
     dependencies:
