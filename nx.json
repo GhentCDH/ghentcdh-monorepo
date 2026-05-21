@@ -60,7 +60,13 @@
     }
   },
   "release": {
-    "projects": ["*", "!@ghentcdh/source", "!docs"],
+    "projects": [
+      "*",
+      "!@ghentcdh/source",
+      "!docs",
+      "!json-forms-vue-e2e",
+      "!ui-e2e"
+    ],
     "version": {
       "conventionalCommits": true,
       "preVersionCommand": "npx nx run-many -t build"

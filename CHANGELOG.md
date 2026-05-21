@@ -1,3 +1,13 @@
+## 1.0.4 (2026-05-21)
+
+### 🩹 Fixes
+
+- make the vee-validate dependency optional ([45c8b52](https://github.com/GhentCDH/ghentcdh-monorepo/commit/45c8b52))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 1.0.3 (2026-05-20)
 
 ### 🚀 Features
