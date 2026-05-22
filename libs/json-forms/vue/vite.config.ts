@@ -54,6 +54,7 @@ export default defineConfig({
         'vue',
         'vee-validate',
         'vue-router',
+        'zod',
       ],
       output: {
         // Provide global variable name for Vue (for UMD/IIFE builds)
