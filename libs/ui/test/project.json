@@ -1,8 +1,0 @@
-{
-  "name": "ui/testing",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui/test/src",
-  "projectType": "library",
-  "tags": ["scope:tool", "scope:ui"],
-  "implicitDependencies": ["ui"]
-}

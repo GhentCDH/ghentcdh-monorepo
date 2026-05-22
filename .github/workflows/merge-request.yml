@@ -71,7 +71,7 @@ jobs:
       - name: Build UI library
         run: npx nx run ui:build
       - name: Run e2e tests
-        run: npx nx run ui-e2e:e2e --project=chromium
+        run: npx nx run ui-e2e:e2e -- --project=chromium
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
