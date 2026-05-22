@@ -29,7 +29,7 @@ test.describe('Button', () => {
     await fx.goto('/button');
 
     const btn = ButtonHarness.byName(page, 'Disabled');
-    expect(await btn.isDisabled()).toBe(true);
+    await expect(btn).toBeDisabled();
   });
 
   test('outline button is rendered and clickable', async ({ page }) => {
