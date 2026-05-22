@@ -8,3 +8,7 @@ export { AutocompleteHarness } from './AutocompleteHarness';
 export { MultiSelectHarness } from './MultiSelectHarness';
 export { MarkdownHarness, type MarkdownToolbarButton } from './MarkdownHarness';
 export { ModalHarness } from './ModalHarness';
+export { ButtonHarness } from './ButtonHarness';
+export { CollapseHarness } from './CollapseHarness';
+export { AlertHarness } from './AlertHarness';
+export { DrawerHarness } from './DrawerHarness';

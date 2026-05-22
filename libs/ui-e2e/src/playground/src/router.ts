@@ -11,4 +11,8 @@ export const routes: RouteRecordRaw[] = [
   { path: '/autocomplete', name: 'autocomplete', component: () => import('./pages/AutocompletePage.vue') },
   { path: '/markdown', name: 'markdown', component: () => import('./pages/MarkdownPage.vue') },
   { path: '/modal', name: 'modal', component: () => import('./pages/ModalPage.vue') },
+  { path: '/button', name: 'button', component: () => import('./pages/ButtonPage.vue') },
+  { path: '/collapse', name: 'collapse', component: () => import('./pages/CollapsePage.vue') },
+  { path: '/alert', name: 'alert', component: () => import('./pages/AlertPage.vue') },
+  { path: '/drawer', name: 'drawer', component: () => import('./pages/DrawerPage.vue') },
 ];
