@@ -30,13 +30,14 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      // Could also be a form or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        index: 'src/index.ts',
+        testing: 'src/testing/index.ts',
+      },
       name: 'ui',
-      fileName: 'index',
-      // Change this to the formats you want to support.
-      // Don't forget to update your package.json as well.
-      formats: ['cjs', 'esm', 'es'],
+      fileName: (format, entryName) =>
+        `${entryName}.${format === 'cjs' ? 'js' : 'mjs'}`,
+      formats: ['cjs', 'esm'],
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
@@ -44,6 +45,7 @@ export default defineConfig({
         '@ghentcdh/tools-vue',
         '@heroicons/vue/24/outline',
         '@heroicons/vue/24/solid',
+        '@playwright/test',
         '@tiptap/pm',
         '@tiptap/starter-kit',
         '@tiptap/vue-3',
@@ -57,6 +59,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
         },
+        assetFileNames: 'index[extname]',
       },
     },
   },

@@ -69,7 +69,9 @@ const editor = useEditor({
     }),
   ],
   onUpdate({ editor }) {
-    emit('change', (editor.storage as any).markdown.getMarkdown());
+    const markdown = (editor.storage as any).markdown.getMarkdown();
+    model.value = markdown;
+    emit('change', markdown);
   },
 });
 

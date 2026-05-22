@@ -61,6 +61,15 @@ export default [
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
+              sourceTag: 'scope:e2e',
+              onlyDependOnLibsWithTags: [
+                'scope:ui',
+                'scope:shared',
+                'scope:tool',
+                'scope:feature',
+              ],
+            },
+            {
               sourceTag: 'scope:shared',
               bannedExternalImports: [
                 '@vue/*',

@@ -10,9 +10,27 @@
       "import": "./index.mjs",
       "require": "./index.js"
     },
+    "./testing": {
+      "types": "./testing/index.d.ts",
+      "import": "./testing.mjs",
+      "require": "./testing.js"
+    },
     "./index.css": "./index.css"
   },
+  "files": [
+    "*.js",
+    "*.mjs",
+    "*.d.ts",
+    "*.css",
+    "testing/**"
+  ],
+  "peerDependenciesMeta": {
+    "@playwright/test": {
+      "optional": true
+    }
+  },
   "peerDependencies": {
+    "@playwright/test": ">=1.50.0",
     "@ghentcdh/json-forms-core": ">=0.0.1",
     "@ghentcdh/tools-vue": ">=0.6.0",
     "@ghentcdh/ui": ">=0.6.0",

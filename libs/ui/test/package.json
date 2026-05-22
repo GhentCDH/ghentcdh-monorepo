@@ -1,5 +1,5 @@
 {
-  "name": "@ghentcdh/ui-test",
+  "name": "@ghentcdh/ui/testing",
   "version": "1.0.4",
   "private": true,
   "main": "./src/index.ts",
