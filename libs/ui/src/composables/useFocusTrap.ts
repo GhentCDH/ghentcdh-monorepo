@@ -77,7 +77,7 @@ export const useFocusTrap = ({
   watch(isActive, (active) => {
     if (active) activate();
     else deactivate();
-  });
+  }, { immediate: true });
 
   onUnmounted(() => {
     deactivate();
