@@ -15,7 +15,8 @@ export default defineConfig({
     vue(),
     nxViteTsPaths(),
     nxCopyAssetsPlugin(['*.md', '*.mdx']),
-    checker({ typescript: true }),
+    // Skip type-checking during vitest runs — checker conflicts with vitest
+    ...(!process.env['VITEST'] ? [checker({ typescript: true })] : []),
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
