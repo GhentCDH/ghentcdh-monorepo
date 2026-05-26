@@ -1,3 +1,25 @@
+## 1.0.5 (2026-05-26)
+
+### 🚀 Features
+
+- add e2e tests and test harness to ui components ([43966e0](https://github.com/GhentCDH/ghentcdh-monorepo/commit/43966e0))
+- add e2e tests and test harness to ui components ([2efb56b](https://github.com/GhentCDH/ghentcdh-monorepo/commit/2efb56b))
+- add e2e tests and test harness to ui components ([0cb3bfa](https://github.com/GhentCDH/ghentcdh-monorepo/commit/0cb3bfa))
+- add e2e tests and test harness to ui components ([c810ded](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c810ded))
+- add e2e tests and test harness to ui components ([bffb4e4](https://github.com/GhentCDH/ghentcdh-monorepo/commit/bffb4e4))
+- add e2e tests and test harness to ui components ([85886e3](https://github.com/GhentCDH/ghentcdh-monorepo/commit/85886e3))
+- add e2e tests and test harness to ui components ([d7d38b6](https://github.com/GhentCDH/ghentcdh-monorepo/commit/d7d38b6))
+- add e2e tests and test harness to ui components ([50f82e0](https://github.com/GhentCDH/ghentcdh-monorepo/commit/50f82e0))
+- add e2e tests and test harness to ui components ([66e98a7](https://github.com/GhentCDH/ghentcdh-monorepo/commit/66e98a7))
+- add e2e tests and test harness to ui components ([c04f5d9](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c04f5d9))
+- add e2e tests and test harness to ui components ([b8e300d](https://github.com/GhentCDH/ghentcdh-monorepo/commit/b8e300d))
+- add e2e tests and test harness to ui components ([c9e77e6](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c9e77e6))
+- add e2e tests and test harness to ui components ([a7629a3](https://github.com/GhentCDH/ghentcdh-monorepo/commit/a7629a3))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 1.0.4 (2026-05-21)
 
 ### 🩹 Fixes
