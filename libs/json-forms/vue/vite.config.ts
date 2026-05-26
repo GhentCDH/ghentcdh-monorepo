@@ -30,12 +30,13 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        index: 'src/index.ts',
+        testing: 'src/testing/index.ts',
+      },
       name: 'json-forms-vue',
-      fileName: 'index',
-      // Change this to the formats you want to support.
-      // Don't forget to update your package.json as well.
+      fileName: (format, entryName) =>
+        `${entryName}.${format === 'cjs' ? 'js' : 'mjs'}`,
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
@@ -46,12 +47,14 @@ export default defineConfig({
         '@ghentcdh/ui',
         '@jsonforms/core',
         '@jsonforms/core/src/testers/testers',
+        '@playwright/test',
         '@vueuse/core',
         'axios',
         'lodash-es',
         'vue',
         'vee-validate',
         'vue-router',
+        'zod',
       ],
       output: {
         // Provide global variable name for Vue (for UMD/IIFE builds)

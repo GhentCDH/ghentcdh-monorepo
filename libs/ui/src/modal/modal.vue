@@ -4,8 +4,8 @@
     class="modal"
     role="dialog"
     aria-modal="true"
-    :aria-labelledby="modalTitle"
-    :aria-describedby="modalTitle"
+    :aria-labelledby="titleId"
+    :aria-describedby="contentId"
     @cancel.prevent="onCancel"
   >
     <div
