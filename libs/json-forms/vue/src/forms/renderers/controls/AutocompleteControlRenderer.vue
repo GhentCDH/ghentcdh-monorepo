@@ -16,6 +16,7 @@
 <script setup lang="ts">
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import { computedAsync } from '@vueuse/core';
+import { pick } from 'lodash-es';
 
 import type { AutocompleteAllOptions } from '@ghentcdh/json-forms-core';
 import { Autocomplete } from '@ghentcdh/ui';
@@ -45,12 +46,30 @@ const fetchOptions = computedAsync(async () => {
 });
 
 const onChange = (val: any) => {
-  field.setValue(val);
+  setValue(val);
   onFieldChange();
 };
 
 const formEvents = useFormEvents();
 const path = scopeToPath(props.uischema.scope);
+
+const setValue = (result: Record<string, unknown>) => {
+  if (!result || !fetchOptions.value) {
+    field.setValue(result);
+    return;
+  }
+
+  const { valueKey, labelKey } = fetchOptions.value;
+  const keys = [valueKey, labelKey].filter(Boolean) as string[];
+
+  if (keys.length === 0) {
+    field.setValue(result);
+    return;
+  }
+
+  const stripped = pick(result, keys);
+  field.setValue(stripped);
+};
 
 const onCreate = () => {
   if (fetchOptions.value?.enableCreate === false) return;
@@ -63,7 +82,7 @@ const onCreate = () => {
       onClose: (result) => {
         if (!result || !result.valid) return;
         form.create(result.data).then((res) => {
-          field.setValue(res);
+          setValue(res);
         });
       },
     });
@@ -74,9 +93,7 @@ const onCreate = () => {
     event: 'create',
     type: path,
     data: value.value,
-    onSuccess: (result) => {
-      field.setValue(result);
-    },
+    onSuccess: setValue,
   });
 };
 </script>
