@@ -1,7 +1,7 @@
 {
   "name": "@ghentcdh/authentication-api",
   "license": "MIT",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "type": "commonjs",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
