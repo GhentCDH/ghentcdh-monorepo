@@ -78,7 +78,7 @@ const valid = ref(false);
 watch(
   () => properties.modelValue,
   (newValue) => {
-    if (newValue === formData.value) return;
+    if (JSON.stringify(toRaw(newValue)) === JSON.stringify(toRaw(formData.value))) return;
     recordId.value = newValue?.id ?? null;
     initialFormData.value = structuredClone(toRaw(newValue));
     formData.value = newValue;
