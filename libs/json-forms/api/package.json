@@ -7,6 +7,7 @@
   "peerDependencies": {
     "@anatine/zod-nestjs": "^2.0.0",
     "@anatine/zod-openapi": "^2.2.0",
+    "@ghentcdh/json-forms-core": ">=0.0.1",
     "@nestjs/common": "^11.0.0",
     "zod": "^4.0.0"
   },

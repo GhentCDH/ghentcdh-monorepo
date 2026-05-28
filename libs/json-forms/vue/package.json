@@ -2,26 +2,26 @@
   "name": "@ghentcdh/json-forms-vue",
   "version": "1.1.0",
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.mjs",
+  "main": "./index.cjs",
+  "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "import": "./index.js",
+      "require": "./index.cjs"
     },
     "./testing": {
       "types": "./testing/index.d.ts",
-      "import": "./testing.mjs",
-      "require": "./testing.js"
+      "import": "./testing.js",
+      "require": "./testing.cjs"
     },
     "./index.css": "./index.css"
   },
   "files": [
     "*.js",
-    "*.mjs",
-    "*.d.ts",
+    "*.cjs",
+    "**/*.d.ts",
     "*.css",
     "testing/**"
   ],
