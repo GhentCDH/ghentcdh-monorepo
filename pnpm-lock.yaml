@@ -406,37 +406,37 @@ importers:
       '@ghentcdh/tools-vue':
         specifier: '>=0.6.0'
         version: 0.8.6(axios@1.13.5)(vue@3.5.29(typescript@5.9.3))
+      '@heroicons/vue':
+        specifier: ^2.2.0
+        version: 2.2.0(vue@3.5.29(typescript@5.9.3))
       '@playwright/test':
         specifier: '>=1.50.0'
         version: 1.60.0
+      '@tiptap/pm':
+        specifier: ^3.0.0
+        version: 3.20.0
+      '@tiptap/starter-kit':
+        specifier: ^3.0.0
+        version: 3.20.0
+      '@tiptap/vue-3':
+        specifier: ^3.0.0
+        version: 3.20.0(@floating-ui/dom@1.7.6)(@tiptap/core@3.23.4(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)(vue@3.5.29(typescript@5.9.3))
+      tiptap-markdown:
+        specifier: ^0.9.0
+        version: 0.9.0(@tiptap/core@3.23.4(@tiptap/pm@3.20.0))
+      uuid:
+        specifier: ^11.0.0
+        version: 11.1.0
     devDependencies:
-      '@heroicons/vue':
-        specifier: 2.2.0
-        version: 2.2.0(vue@3.5.29(typescript@5.9.3))
       '@tailwindcss/postcss':
         specifier: 4.2.1
         version: 4.2.1
-      '@tiptap/pm':
-        specifier: 3.20.0
-        version: 3.20.0
-      '@tiptap/starter-kit':
-        specifier: 3.20.0
-        version: 3.20.0
-      '@tiptap/vue-3':
-        specifier: 3.20.0
-        version: 3.20.0(@floating-ui/dom@1.7.6)(@tiptap/core@3.23.4(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)(vue@3.5.29(typescript@5.9.3))
       daisyui:
         specifier: 5.5.19
         version: 5.5.19
       tailwindcss:
         specifier: 4.2.1
         version: 4.2.1
-      tiptap-markdown:
-        specifier: 0.9.0
-        version: 0.9.0(@tiptap/core@3.23.4(@tiptap/pm@3.20.0))
-      uuid:
-        specifier: 11.1.0
-        version: 11.1.0
       vue:
         specifier: 3.5.29
         version: 3.5.29(typescript@5.9.3)
