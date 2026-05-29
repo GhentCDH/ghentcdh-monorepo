@@ -4,7 +4,11 @@
       {{ tableTitle }}
     </h1>
     <div>
-      <Btn :icon="IconEnum.Plus" :outline="true" @click="create">
+      <Btn
+        :icon="IconEnum.Plus"
+        :outline="true"
+        @click="create"
+      >
         Add new record
       </Btn>
     </div>
@@ -33,9 +37,9 @@ import { computed, ref, watch } from 'vue';
 import {
   Btn,
   Card,
-  hasCustomEventListener,
   IconEnum,
   ModalService,
+  hasCustomEventListener,
 } from '@ghentcdh/ui';
 
 import type { Data } from './FormWithTable.properties';
