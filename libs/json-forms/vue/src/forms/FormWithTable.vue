@@ -6,9 +6,14 @@
       </div>
     </div>
 
-    <div class="navbar-center"></div>
+    <div class="navbar-center" />
     <div class="navbar-end">
-      <Btn :icon="IconEnum.Plus" @click="create"> Add record </Btn>
+      <Btn
+        :icon="IconEnum.Plus"
+        @click="create"
+      >
+        Add record
+      </Btn>
     </div>
   </div>
   <div class="border border-gray-200">
@@ -33,9 +38,9 @@ import { computed, ref, watch } from 'vue';
 
 import {
   Btn,
-  hasCustomEventListener,
   IconEnum,
   ModalService,
+  hasCustomEventListener,
 } from '@ghentcdh/ui';
 
 import type { Data } from './FormWithTable.properties';
