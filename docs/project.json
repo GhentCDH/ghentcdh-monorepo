@@ -27,7 +27,7 @@
     },
     "build:core": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build:menu"],
+      "dependsOn": ["build:ui-lib", "build:menu"],
       "options": {
         "command": "vuepress build docs/core-site"
       }
