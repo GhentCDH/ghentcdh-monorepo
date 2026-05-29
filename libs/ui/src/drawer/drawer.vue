@@ -3,12 +3,13 @@
     <aside
       v-if="hasLeft"
       id="drawer-left"
-      class="min-h-0 relative flex-shrink-0 bg-white overflow-visible flex"
+      class="min-h-0 relative flex-shrink-0 overflow-visible flex"
     >
       <div
         id="drawer-left-panel"
         :style="{ width: open.left ? widthLeft + 'px' : '0px' }"
-        class="h-full overflow-hidden bg-white shadow-sm transition-[width] duration-300 ease-in-out"
+        class="h-full overflow-hidden shadow-sm transition-[width] duration-300 ease-in-out"
+        :class="[drawerColor]"
       >
         <div
           :style="{ width: widthLeft + 'px' }"
@@ -52,7 +53,8 @@
       <div
         id="drawer-right-panel"
         :style="{ width: open.right ? widthRight + 'px' : '0px' }"
-        class="h-full overflow-hidden bg-white shadow-sm transition-[width] duration-300 ease-in-out"
+        class="h-full overflow-hidden shadow-sm transition-[width] duration-300 ease-in-out"
+        :class="[drawerColor]"
       >
         <div
           :style="{ width: widthRight + 'px' }"

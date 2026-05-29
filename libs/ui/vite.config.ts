@@ -51,7 +51,6 @@ export default defineConfig({
         '@tiptap/starter-kit',
         '@tiptap/vue-3',
         'tiptap-markdown',
-        'uuid',
         'vue',
         'vue-router',
       ],
