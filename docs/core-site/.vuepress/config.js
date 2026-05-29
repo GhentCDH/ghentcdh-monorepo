@@ -3,6 +3,9 @@ import { viteBundler } from '@vuepress/bundler-vite';
 import { defineUserConfig } from 'vuepress';
 import { hopeTheme } from 'vuepress-theme-hope';
 
+import authenticationSideBar from '../authentication/typedoc_sidebar.json';
+import healthSideBar from '../health/typedoc_sidebar.json';
+import loggingSideBar from '../logging/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 
@@ -33,6 +36,9 @@ export default defineUserConfig({
           '@ghentcdh/tools-vue': fileURLToPath(
             new URL('../../../libs/tools/vue/src/index.ts', import.meta.url),
           ),
+          '@ghentcdh/ui/style.css': fileURLToPath(
+            new URL('../../../dist/libs/ui/index.css', import.meta.url),
+          ),
         },
       },
     },
@@ -60,24 +66,20 @@ export default defineUserConfig({
     sidebar: [
       {
         text: 'Authentication',
-        link: '/authentication/',
-      },
-      {
-        text: 'Data',
-        link: '/data/',
+        children: authenticationSideBar,
       },
       {
         text: 'Health',
-        link: '/health/',
+        children: healthSideBar,
       },
       {
         text: 'Logging',
-        link: '/logging/',
+        children: loggingSideBar,
       },
       {
         text: 'Tools',
         children: toolsSideBar,
       },
-    ].flat(),
+    ],
   }),
 });

@@ -3,10 +3,11 @@ import path from 'path';
 
 const docsPath = 'docs/';
 
+const EXCLUDE_ALWAYS = ['node_modules', 'dist', '.vuepress'];
+
 function writeSidebarFile(dir, sidebar) {
   fs.writeFileSync(
     path.join(dir, 'typedoc_sidebar.json'),
-
     JSON.stringify(sidebar),
   );
 }
@@ -15,44 +16,38 @@ function formatText(text) {
   return text.charAt(0).toUpperCase() + text.replaceAll('-', ' ').slice(1);
 }
 
-function generateDirectoryObject(dir, exclude) {
-  const dirPath = path.join(docsPath, dir);
+// fsDir  = path on disk relative to docsPath (e.g. 'core-site/authentication')
+// linkDir = URL path used in sidebar links  (e.g. 'authentication')
+function generateDirectoryObject(fsDir, linkDir, exclude) {
+  const dirPath = path.join(docsPath, fsDir);
   const items = [];
 
   const files = fs.readdirSync(dirPath);
   let indexFile = '';
+
   files.forEach((file) => {
+    if ([...EXCLUDE_ALWAYS, ...exclude].indexOf(file) !== -1) return;
+
     const filePath = path.join(dirPath, file);
     const stat = fs.statSync(filePath);
 
-    // eslint-disable-next-line no-console
-    console.log(exclude, dir, file, exclude.indexOf(file));
-
-    if (exclude.indexOf(file) !== -1) return;
-
     if (stat.isFile()) {
-      const fileName = file.substring(0, file.lastIndexOf('.'));
-
       if (!file.endsWith('.md')) return;
-      if (file === 'index.md') {
-        indexFile = 'index.md';
-        return;
-      }
-      if (file === 'README.md') {
-        indexFile = 'README.md';
-        return;
-      }
+      if (file === 'index.md') { indexFile = 'index.md'; return; }
+      if (file === 'README.md') { indexFile = 'README.md'; return; }
 
-      items.push(`/${dir}/${fileName}`);
-      // items.push({
-      //   collapsed: true,
-      //   text: formatText(fileName),
-      //   link: `/${dir}/${fileName}`,
-      // });
+      const fileName = file.substring(0, file.lastIndexOf('.'));
+      items.push(`/${linkDir}/${fileName}`);
     }
 
     if (stat.isDirectory()) {
-      items.push(generateDirectoryObject(path.join(dir, file), exclude));
+      items.push(
+        generateDirectoryObject(
+          path.join(fsDir, file),
+          path.join(linkDir, file),
+          exclude,
+        ),
+      );
     }
   });
 
@@ -62,15 +57,15 @@ function generateDirectoryObject(dir, exclude) {
     children: items,
     items: items,
     collapsed: true,
-    link: indexFile ? `/${dir}/${indexFile}` : '',
+    link: indexFile ? `/${linkDir}/${indexFile}` : '',
   };
 }
 
-function createMenu(dir, exclude = []) {
-  const dirPath = path.join(docsPath, dir);
-  exclude.push('node_modules', 'dist');
-  const items = generateDirectoryObject(dir, exclude);
-
+// fsDir   = filesystem path relative to docsPath (e.g. 'core-site/tools')
+// linkDir = URL base for sidebar links — defaults to last segment of fsDir
+function createMenu(fsDir, linkDir = path.basename(fsDir), exclude = []) {
+  const dirPath = path.join(docsPath, fsDir);
+  const items = generateDirectoryObject(fsDir, linkDir, exclude);
   writeSidebarFile(dirPath, items.items);
 }
 
@@ -81,7 +76,7 @@ const searchMdFiles = (dir, depth, currentDepth) => {
   if (depth <= currentDepth) return mdFiles;
 
   files.forEach((file) => {
-    if (file === 'node_modules' || file === 'dist') return;
+    if (EXCLUDE_ALWAYS.indexOf(file) !== -1) return;
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
     if (stat.isDirectory()) {
@@ -96,29 +91,36 @@ const searchMdFiles = (dir, depth, currentDepth) => {
 };
 
 const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
-  // Search for the readme files ...
   const searchFiles = searchMdFiles(path.join(from), depth, 0);
   const toDir = path.join(docsPath, to);
 
   searchFiles.forEach((file) => {
+    if (!file.endsWith('README.md')) return;
     const toFile = file.replace(from, toDir);
     const dir = path.dirname(toFile);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
-    if (file.endsWith('README.md')) {
-      console.log(`Copying ${file} to ${toFile}`);
-      fs.copyFileSync(file, toFile);
-    }
+    // eslint-disable-next-line no-console
+    console.log(`Copying ${file} to ${toFile}`);
+    fs.copyFileSync(file, toFile);
   });
 };
 
-copyReadme('', '', 1);
-copyReadme('libs/authentication', 'authentication');
-copyReadme('libs/tools', 'tools');
-copyReadme('libs/ui', 'ui');
-copyReadme('libs/json-forms', 'json-forms');
+// ── ui-site ──────────────────────────────────────────────────────────────────
+copyReadme('libs/ui',         'ui-site/ui');
+copyReadme('libs/json-forms', 'ui-site/json-forms');
 
-createMenu('tools');
-createMenu('ui');
-createMenu('json-forms');
-// createMenu('api', ['_media', 'globals.md']);
+createMenu('ui-site/ui');
+createMenu('ui-site/json-forms');
+
+// ── core-site ─────────────────────────────────────────────────────────────────
+copyReadme('libs/authentication', 'core-site/authentication');
+copyReadme('libs/tools',          'core-site/tools');
+
+createMenu('core-site/authentication');
+createMenu('core-site/tools');
+createMenu('core-site/logging');
+createMenu('core-site/health');
+
+// ── shared root README → both sites ──────────────────────────────────────────
+copyReadme('', 'ui-site',   1);
+copyReadme('', 'core-site', 1);

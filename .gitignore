@@ -30,21 +30,16 @@ coverage
 *.sln
 *.sw?
 
-/docs/.vitepress/*
-!/docs/.vitepress/config.ts
-!/docs/styles/*
 /test_coverage
 /docs/internal
 /docs/api/*
 /docs/components/typedoc_sidebar.json
-/docs/.vuepress/*
 /docs/**/README.md
-!/docs/.vuepress/theme
-!/docs/.vuepress/config.js
-!/docs/.vuepress/client.js
 ocs/core-site/.vuepress/
 /docs/assets
 typedoc_sidebar.json
+**/.cache
+**/.temp
 
 
 
