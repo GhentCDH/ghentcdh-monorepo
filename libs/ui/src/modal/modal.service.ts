@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
 
 import { default as ConfirmModal } from './confirmModal.vue';
@@ -23,7 +22,7 @@ export class ModalService {
   ) {
     const onClose = modal.props.onClose;
 
-    const id = uuidv4();
+    const id = crypto.randomUUID();
     const newModal = modal as unknown as ModalUnknown;
 
     modal.props.onClose = (result: RESULT) => {

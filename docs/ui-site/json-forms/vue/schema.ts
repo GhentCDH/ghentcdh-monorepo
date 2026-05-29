@@ -1,7 +1,7 @@
 import {
   ControlBuilder,
   LayoutBuilder,
-} from '../../../libs/json-forms/core/src';
+} from '@ghentcdh/json-forms-core';
 import { toJSONSchema, z } from 'zod';
 
 export const FormSchema = {

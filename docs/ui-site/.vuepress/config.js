@@ -4,13 +4,35 @@ import { defineUserConfig } from 'vuepress';
 import { hopeTheme } from 'vuepress-theme-hope';
 
 import jsonFormsSideBar from '../json-forms/typedoc_sidebar.json';
-import toolsSideBar from '../tools/typedoc_sidebar.json';
 import uiSideBar from '../ui/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 
+// Open until depth 3, collapsible (and collapsed) from depth 3 onward.
+// depth=1 → top-level children of UI/JSON Forms sections
+function makeCollapsible(items, depth = 1) {
+  return items.map((item) => {
+    if (typeof item === 'string') return item;
+    const result = { ...item };
+    if (result.children?.length) {
+      if (depth >= 3) {
+        result.collapsible = true;
+        result.collapsed = true;
+      } else {
+        delete result.collapsible;
+        delete result.collapsed;
+      }
+      result.children = makeCollapsible(result.children, depth + 1);
+    }
+    if (result.items?.length) {
+      result.items = makeCollapsible(result.items, depth + 1);
+    }
+    return result;
+  });
+}
+
 export default defineUserConfig({
   base: process.env.DOCS_BASE ? `${process.env.DOCS_BASE}/` : '/',
-  title: 'GhentCDH',
+  title: 'GhentCDH UI',
   pagePatterns: ['**/*.md', '!.vuepress', '!**/node_modules'],
   lastUpdated: true,
   cleanUrls: true,
@@ -21,48 +43,44 @@ export default defineUserConfig({
       resolve: {
         alias: {
           '@demo/data': fileURLToPath(
-            new URL('../data/index.ts', import.meta.url),
+            new URL('../../data/index.ts', import.meta.url),
           ),
           '@ghentcdh/logging/frontend': fileURLToPath(
             new URL(
-              '../../libs/logging/frontend/src/index.ts',
+              '../../../libs/logging/frontend/src/index.ts',
               import.meta.url,
             ),
           ),
           '@ghentcdh/ui/style.css': fileURLToPath(
-            new URL('../../dist/libs/ui/index.css', import.meta.url),
+            new URL('../../../dist/libs/ui/index.css', import.meta.url),
           ),
           '@ghentcdh/ui': fileURLToPath(
-            new URL('../../libs/ui/src/index.ts', import.meta.url),
+            new URL('../../../libs/ui/src/index.ts', import.meta.url),
           ),
           '@ghentcdh/authentication-vue': fileURLToPath(
             new URL(
-              '../../libs/authentication/vue/src/index.ts',
+              '../../../libs/authentication/vue/src/index.ts',
               import.meta.url,
             ),
           ),
           '@ghentcdh/json-forms-vue': fileURLToPath(
-            new URL('../../libs/json-forms/vue/src/index.ts', import.meta.url),
+            new URL('../../../libs/json-forms/vue/src/index.ts', import.meta.url),
           ),
           '@ghentcdh/json-forms-core': fileURLToPath(
-            new URL('../../libs/json-forms/core/src/index.ts', import.meta.url),
+            new URL('../../../libs/json-forms/core/src/index.ts', import.meta.url),
           ),
           '@ghentcdh/tools-vue': fileURLToPath(
-            new URL('../../libs/tools/vue/src/index.ts', import.meta.url),
+            new URL('../../../libs/tools/vue/src/index.ts', import.meta.url),
           ),
         },
       },
     },
     vuePluginOptions: {},
   }),
-  // postcss: {
-  //   plugins: [require('@tailwindcss/postcss'), require('autoprefixer')],
-  // },
   theme: hopeTheme({
     docsRepo: 'https://github.com/GhentCDH/ghentcdh-monorepo',
     docsBranch: 'main',
-    docsDir: 'docs',
-    // editLinkPattern: ':repo/tree/:branch/:path',
+    docsDir: 'docs/ui-site',
     lastUpdated: true,
     colorMode: 'light',
     socialLinks: [
@@ -75,26 +93,18 @@ export default defineUserConfig({
         demo: true,
       },
     },
-    // colorModeSwitch: false,
     navbar: [
-      {
-        text: 'Home',
-        link: '/',
-      },
+      { text: 'Home', link: '/' },
     ],
     sidebar: [
       {
-        text: 'tools',
-        children: toolsSideBar,
+        text: 'UI',
+        children: makeCollapsible(uiSideBar),
       },
       {
-        text: 'Ui',
-        children: uiSideBar,
+        text: 'JSON Forms',
+        children: makeCollapsible(jsonFormsSideBar),
       },
-      {
-        text: 'JSON-forms',
-        children: jsonFormsSideBar,
-      },
-    ].flat(),
+    ],
   }),
 });

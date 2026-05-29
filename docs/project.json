@@ -11,37 +11,57 @@
         "command": "ts-node --project tools/tsconfig.tools.json tools/doc/vuepress.mjs"
       }
     },
-    "build:ui": {
+    "build:ui-lib": {
       "executor": "nx:run-commands",
       "dependsOn": [{ "projects": ["ui"], "target": "build" }],
       "options": {
         "command": "echo 'ui build completed via dependsOn'"
       }
     },
-    "build:vuepress": {
+    "build:ui": {
       "executor": "nx:run-commands",
+      "dependsOn": ["build:ui-lib", "build:menu"],
       "options": {
-        "command": "vuepress build docs"
+        "command": "vuepress build docs/ui-site"
+      }
+    },
+    "build:core": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build:ui-lib", "build:menu"],
+      "options": {
+        "command": "vuepress build docs/core-site"
       }
     },
     "build": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build:ui", "build:menu"],
+      "dependsOn": ["build:ui", "build:core"],
       "options": {
-        "command": "vuepress build docs"
-      }
-    },
-    "preview": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "vuepress dev docs"
+        "command": "echo 'All docs built'"
       }
     },
     "serve": {
       "executor": "nx:run-commands",
       "dependsOn": ["build:menu"],
       "options": {
-        "command": "vuepress dev docs"
+        "commands": [
+          "vuepress dev docs/ui-site --port 8081",
+          "vuepress dev docs/core-site --port 8082"
+        ],
+        "parallel": true
+      }
+    },
+    "serve:ui": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build:menu"],
+      "options": {
+        "command": "vuepress dev docs/ui-site"
+      }
+    },
+    "serve:core": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build:menu"],
+      "options": {
+        "command": "vuepress dev docs/core-site"
       }
     }
   }

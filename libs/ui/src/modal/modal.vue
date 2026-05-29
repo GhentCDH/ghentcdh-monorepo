@@ -45,7 +45,6 @@
 </template>
 
 <script setup lang="ts">
-import { v4 as uuidv4 } from 'uuid';
 import { onMounted, ref, watch } from 'vue';
 
 import { ModalEmits, ModalProperties } from './modal.properties';
@@ -54,7 +53,7 @@ import { ModalSize } from '../const/size';
 
 const properties = defineProps(ModalProperties);
 
-const id = `modal_${uuidv4()}`;
+const id = `modal_${crypto.randomUUID()}`;
 const titleId = `${id}_title`;
 const contentId = `${id}_content`;
 

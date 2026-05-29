@@ -11,6 +11,7 @@ permissions:
 
 env:
   DEPENDENCIES_CACHE: cache-node-modules
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   install-deps:

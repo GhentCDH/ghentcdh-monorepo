@@ -1,0 +1,74 @@
+import tailwindcss from '@tailwindcss/vite';
+import { viteBundler } from '@vuepress/bundler-vite';
+import { defineUserConfig } from 'vuepress';
+import { hopeTheme } from 'vuepress-theme-hope';
+
+import authenticationSideBar from '../authentication/typedoc_sidebar.json';
+import coreSideBar from '../core/typedoc_sidebar.json';
+import toolsSideBar from '../tools/typedoc_sidebar.json';
+import { fileURLToPath } from 'node:url';
+
+export default defineUserConfig({
+  base: process.env.DOCS_BASE ? `${process.env.DOCS_BASE}/` : '/',
+  title: 'GhentCDH Core',
+  pagePatterns: ['**/*.md', '!.vuepress', '!**/node_modules'],
+  lastUpdated: true,
+  cleanUrls: true,
+  metaChunk: true,
+  bundler: viteBundler({
+    viteOptions: {
+      plugins: [tailwindcss()],
+      resolve: {
+        alias: {
+          '@ghentcdh/authentication-vue': fileURLToPath(
+            new URL(
+              '../../../libs/authentication/vue/src/index.ts',
+              import.meta.url,
+            ),
+          ),
+          '@ghentcdh/tools-vue': fileURLToPath(
+            new URL('../../../libs/tools/vue/src/index.ts', import.meta.url),
+          ),
+          '@ghentcdh/ui/style.css': fileURLToPath(
+            new URL('../../../dist/libs/ui/index.css', import.meta.url),
+          ),
+        },
+      },
+    },
+    vuePluginOptions: {},
+  }),
+  theme: hopeTheme({
+    docsRepo: 'https://github.com/GhentCDH/ghentcdh-monorepo',
+    docsBranch: 'main',
+    docsDir: 'docs/core-site',
+    lastUpdated: true,
+    colorMode: 'light',
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/GhentCDH/ghentcdh-monorepo' },
+    ],
+    plugins: {
+      mdEnhance: {
+        tabs: true,
+        codetabs: true,
+        demo: true,
+      },
+    },
+    navbar: [
+      { text: 'Home', link: '/' },
+    ],
+    sidebar: [
+      {
+        text: 'Authentication',
+        children: authenticationSideBar,
+      },
+      {
+        text: 'Core',
+        children: coreSideBar,
+      },
+      {
+        text: 'Tools',
+        children: toolsSideBar,
+      },
+    ],
+  }),
+});
