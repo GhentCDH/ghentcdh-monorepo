@@ -1,20 +1,19 @@
 {
   "name": "@ghentcdh/json-forms-vue",
   "version": "1.1.1",
-  "type": "module",
-  "main": "./index.cjs",
-  "module": "./index.js",
+  "main": "./index.js",
+  "module": "./index.mjs",
   "types": "./index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.js",
-      "require": "./index.cjs"
+      "import": "./index.mjs",
+      "require": "./index.js"
     },
     "./testing": {
       "types": "./testing/index.d.ts",
-      "import": "./testing.js",
-      "require": "./testing.cjs"
+      "import": "./testing.mjs",
+      "require": "./testing.js"
     },
     "./index.css": "./index.css"
   },
@@ -30,28 +29,25 @@
       "optional": true
     }
   },
+  "dependencies": {
+    "@jsonforms/core": "^3.4.0",
+    "@vueuse/core": "^14.0.0",
+    "axios": "^1.0.0",
+    "lodash-es": "^4.17.0",
+    "vee-validate": ">=4.0.0",
+    "zod": "^4.0.0"
+  },
   "peerDependencies": {
     "@playwright/test": ">=1.50.0",
     "@ghentcdh/json-forms-core": ">=0.0.1",
     "@ghentcdh/tools-vue": ">=0.6.0",
     "@ghentcdh/ui": ">=0.6.0",
-    "@jsonforms/core": "^3.4.0",
-    "@vueuse/core": "^14.0.0",
-    "axios": "^1.0.0",
-    "lodash-es": "^4.17.0",
     "vue": "^3.5.0",
-    "vee-validate": ">=4.0.0",
-    "vue-router": "^5.0.0",
-    "zod": "^4.0.0"
+    "vue-router": "^5.0.0"
   },
   "devDependencies": {
-    "@jsonforms/core": "3.7.0",
-    "@vueuse/core": "14.2.1",
-    "axios": "1.13.5",
-    "lodash-es": "4.17.23",
     "vue": "3.5.29",
-    "vue-router": "5.0.3",
-    "zod": "4.3.6"
+    "vue-router": "5.0.3"
   },
   "publishConfig": {
     "access": "public"

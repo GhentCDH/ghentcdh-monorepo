@@ -2,15 +2,14 @@
   "name": "@ghentcdh/authentication-vue",
   "license": "MIT",
   "version": "1.1.1",
-  "type": "module",
-  "main": "./index.cjs",
-  "module": "./index.js",
+  "main": "./index.js",
+  "module": "./index.mjs",
   "types": "./index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.js",
-      "require": "./index.cjs"
+      "import": "./index.mjs",
+      "require": "./index.js"
     }
   },
   "peerDependencies": {

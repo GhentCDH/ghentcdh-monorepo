@@ -5,10 +5,19 @@ import { z } from 'zod';
 import { uiFromJsonSchema } from '@ghentcdh/json-forms-core';
 import { useApi } from '@ghentcdh/tools-vue';
 
-
-
 /** Supported HTTP methods for resource operations. */
-export const MethodSchema = z.enum(['get', 'post', 'delete', 'put', 'patch']);
+export const MethodSchema = z.enum([
+  'get',
+  'post',
+  'delete',
+  'put',
+  'patch',
+  'GET',
+  'POST',
+  'DELETE',
+  'PUT',
+  'PATCH',
+]);
 export type Method = z.infer<typeof MethodSchema>;
 export const OperationSchema = z.object({
   uri: z.string(),
@@ -89,7 +98,7 @@ export const ResourceSchema = z
           return { uri: operation, method: 'get' } as Operation;
         return {
           uri: operation.uri,
-          method: operation.method ?? defaultOperation,
+          method: operation.method?.toLowerCase() ?? defaultOperation,
         };
       };
 
