@@ -8,6 +8,7 @@ on:
 
 env:
   DEPENDENCIES_CACHE: cache-node-modules
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
