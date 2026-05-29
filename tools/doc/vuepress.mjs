@@ -91,12 +91,14 @@ const searchMdFiles = (dir, depth, currentDepth) => {
 };
 
 const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
-  const searchFiles = searchMdFiles(path.join(from), depth, 0);
+  const fromDir = from || '.';
+  const searchFiles = searchMdFiles(fromDir, depth, 0);
   const toDir = path.join(docsPath, to);
 
   searchFiles.forEach((file) => {
     if (!file.endsWith('README.md')) return;
-    const toFile = file.replace(from, toDir);
+    const relPath = path.relative(fromDir, file);
+    const toFile = path.join(toDir, relPath);
     const dir = path.dirname(toFile);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     // eslint-disable-next-line no-console
@@ -115,11 +117,11 @@ createMenu('ui-site/json-forms');
 // ── core-site ─────────────────────────────────────────────────────────────────
 copyReadme('libs/authentication', 'core-site/authentication');
 copyReadme('libs/tools',          'core-site/tools');
+copyReadme('libs/core',           'core-site/core');
 
 createMenu('core-site/authentication');
 createMenu('core-site/tools');
-createMenu('core-site/logging');
-createMenu('core-site/health');
+createMenu('core-site/core');
 
 // ── shared root README → both sites ──────────────────────────────────────────
 copyReadme('', 'ui-site',   1);

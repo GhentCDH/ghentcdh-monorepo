@@ -4,8 +4,7 @@ import { defineUserConfig } from 'vuepress';
 import { hopeTheme } from 'vuepress-theme-hope';
 
 import authenticationSideBar from '../authentication/typedoc_sidebar.json';
-import healthSideBar from '../health/typedoc_sidebar.json';
-import loggingSideBar from '../logging/typedoc_sidebar.json';
+import coreSideBar from '../core/typedoc_sidebar.json';
 import toolsSideBar from '../tools/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
 
@@ -21,12 +20,6 @@ export default defineUserConfig({
       plugins: [tailwindcss()],
       resolve: {
         alias: {
-          '@ghentcdh/logging/frontend': fileURLToPath(
-            new URL(
-              '../../../libs/logging/frontend/src/index.ts',
-              import.meta.url,
-            ),
-          ),
           '@ghentcdh/authentication-vue': fileURLToPath(
             new URL(
               '../../../libs/authentication/vue/src/index.ts',
@@ -69,12 +62,8 @@ export default defineUserConfig({
         children: authenticationSideBar,
       },
       {
-        text: 'Health',
-        children: healthSideBar,
-      },
-      {
-        text: 'Logging',
-        children: loggingSideBar,
+        text: 'Core',
+        children: coreSideBar,
       },
       {
         text: 'Tools',

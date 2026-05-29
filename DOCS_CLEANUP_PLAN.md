@@ -89,9 +89,9 @@ Step 6 — Decide on docs/data/ — keep or remove
 
 ## Status
 
-- [ ] Step 1 — Fix vuepress.mjs
-- [ ] Step 2 — Delete leaked/malformed files
-- [ ] Step 3 — Add missing parent READMEs
-- [ ] Step 4 — Replace stubs
-- [ ] Step 5 — Add core/types section
-- [ ] Step 6 — Resolve docs/data/
+- [x] Step 1 — Fix vuepress.mjs
+- [x] Step 2 — Delete leaked/malformed files
+- [x] Step 3 — Add missing parent READMEs
+- [x] Step 4 — Replace stubs
+- [x] Step 5 — Add core/types section
+- [x] Step 6 — Resolve docs/data/ (deleted)

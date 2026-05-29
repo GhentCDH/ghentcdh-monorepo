@@ -2,37 +2,20 @@
   <table class="table w-full">
     <thead>
       <tr>
-        <th
-          v-for="column in displayColumns"
-          :key="column.scope"
-        >
-          <SortHeader
-            :column="column"
-            v-bind="sort"
-            @sort="onSort"
-          />
+        <th v-for="column in displayColumns" :key="column.scope">
+          <SortHeader :column="column" v-bind="sort" @sort="onSort" />
         </th>
         <th />
       </tr>
     </thead>
     <tbody>
       <tr v-if="loading">
-        <td
-          :colspan="displayColumns.length + 1"
-          class="text-center"
-        >
+        <td :colspan="displayColumns.length + 1" class="text-center">
           <span class="loading loading-bars loading-xs" />
         </td>
       </tr>
-      <tr
-        v-for="item in data"
-        :key="item.id"
-        :ui-id="`table_${item.id}`"
-      >
-        <td
-          v-for="column in displayColumns"
-          :key="column.scope"
-        >
+      <tr v-for="item in data" :key="item.id" :ui-id="`table_${item.id}`">
+        <td v-for="column in displayColumns" :key="column.scope">
           <component
             :is="column.component"
             v-bind="column"
@@ -73,7 +56,7 @@
   </table>
   <template v-if="page">
     <PaginationComponent
-      class="border-gray-300 border-t pt-4 border-x-0 border-b-0"
+      class="border-gray-300 border-t py-4 px-2 border-x-0 border-b-0"
       :total-items="page.count"
       :items-per-page="page.pageSize"
       :current-page="page.page"
@@ -88,10 +71,7 @@ import { computed, useAttrs } from 'vue';
 import TextCell from './cells/text.cell.vue';
 import SortHeader from './header/sort.header.vue';
 import PaginationComponent from './pagination.component.vue';
-import {
-  TableComponentEmits,
-  TableComponentProperties,
-} from './table.component.properties';
+import { TableComponentEmits, TableComponentProperties } from './table.component.properties';
 import Btn from '../button/btn.vue';
 import { IconEnum } from '../icons';
 

@@ -1,19 +1,17 @@
 <template>
-  <div class="flex justify-between items-center mb-2">
-    <h1 class="text-xl">
-      {{ tableTitle }}
-    </h1>
-    <div>
-      <Btn
-        :icon="IconEnum.Plus"
-        :outline="true"
-        @click="create"
-      >
-        Add new record
-      </Btn>
+  <div class="navbar bg-base-100 mb-4">
+    <div class="navbar-start">
+      <div class="text-xl">
+        {{ tableTitle }}
+      </div>
+    </div>
+
+    <div class="navbar-center"></div>
+    <div class="navbar-end">
+      <Btn :icon="IconEnum.Plus" @click="create"> Add record </Btn>
     </div>
   </div>
-  <Card v-if="resolvedTable">
+  <div class="border border-gray-200">
     <TableComponent
       v-if="resolvedUri"
       :id="`form_table_${id}`"
@@ -27,16 +25,24 @@
       @edit="edit"
       @delete="deleteFn"
     />
-  </Card>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
-import { Btn, Card, IconEnum, ModalService, hasCustomEventListener } from '@ghentcdh/ui';
+import {
+  Btn,
+  hasCustomEventListener,
+  IconEnum,
+  ModalService,
+} from '@ghentcdh/ui';
 
 import type { Data } from './FormWithTable.properties';
-import { FormWithTableEmits, FormWithTableProperties } from './FormWithTable.properties';
+import {
+  FormWithTableEmits,
+  FormWithTableProperties,
+} from './FormWithTable.properties';
 import { FormStore } from '../form.store';
 import { TableComponent } from '../table';
 import type { FormModalResult } from './modal/FormModal.properties';
