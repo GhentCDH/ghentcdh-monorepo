@@ -107,3 +107,17 @@ The built-in `TextCell` renders text values with overflow truncation. It support
 | `format`     | `string` | Set to `'keyValue'` to read `value[options.key]` from a key/value map.                           |
 
 Values that start with `http` are automatically rendered as `<a>` links (opens in a new tab).
+
+### `BooleanCell`
+
+`BooleanCell` renders a checkmark icon when the cell value is `true`, and nothing otherwise. Use it in place of `TextCell` for boolean columns.
+
+```ts
+import { BooleanCell } from '@ghentcdh/ui';
+
+const columns = [
+  { component: BooleanCell, id: 'active', label: 'Active' },
+];
+```
+
+It reads the value using the same `column.id` lookup as `TextCell` and also supports the `keyValue` format option.

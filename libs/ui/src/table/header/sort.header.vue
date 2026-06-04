@@ -7,7 +7,10 @@
   >
     <span class="whitespace-nowrap"> {{ column.label }}</span>
     <div class="h-4 w-4 relative">
-      <Icon v-if="sortable && sortColumn === sortId" :icon="sortIcon" />
+      <Icon
+        v-if="sortable && sortColumn === sortId"
+        :icon="sortIcon"
+      />
     </div>
   </button>
 </template>

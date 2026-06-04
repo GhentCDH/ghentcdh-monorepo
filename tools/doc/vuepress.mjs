@@ -33,8 +33,14 @@ function generateDirectoryObject(fsDir, linkDir, exclude) {
 
     if (stat.isFile()) {
       if (!file.endsWith('.md')) return;
-      if (file === 'index.md') { indexFile = 'index.md'; return; }
-      if (file === 'README.md') { indexFile = 'README.md'; return; }
+      if (file === 'index.md') {
+        indexFile = 'index.md';
+        return;
+      }
+      if (file === 'README.md') {
+        indexFile = 'README.md';
+        return;
+      }
 
       const fileName = file.substring(0, file.lastIndexOf('.'));
       items.push(`/${linkDir}/${fileName}`);
@@ -108,7 +114,7 @@ const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
 };
 
 // ── ui-site ──────────────────────────────────────────────────────────────────
-copyReadme('libs/ui',         'ui-site/ui');
+copyReadme('libs/ui', 'ui-site/ui');
 copyReadme('libs/json-forms', 'ui-site/json-forms');
 
 createMenu('ui-site/ui');
@@ -116,13 +122,12 @@ createMenu('ui-site/json-forms');
 
 // ── core-site ─────────────────────────────────────────────────────────────────
 copyReadme('libs/authentication', 'core-site/authentication');
-copyReadme('libs/tools',          'core-site/tools');
-copyReadme('libs/core',           'core-site/core');
+copyReadme('libs/tools', 'core-site/tools');
 
 createMenu('core-site/authentication');
 createMenu('core-site/tools');
 createMenu('core-site/core');
 
 // ── shared root README → both sites ──────────────────────────────────────────
-copyReadme('', 'ui-site',   1);
+copyReadme('', 'ui-site', 1);
 copyReadme('', 'core-site', 1);
