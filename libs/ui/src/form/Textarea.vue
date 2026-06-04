@@ -9,6 +9,8 @@
       :class="style"
       :disabled="!enabled"
       :rows="rows"
+      :dir="dir"
+      :style="{ height: height, minHeight: minHeight }"
       :autofocus="isFocused"
       :placeholder="placeholder"
       @change="onChange"

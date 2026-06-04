@@ -25,4 +25,4 @@ export const TableComponentProperties = {
   sort: { type: Object as PropType<TableSort> },
 };
 
-export const TableComponentEmits = ['updatePage', 'sort'];
+export const TableComponentEmits = ['updatePage', 'updatePageSize', 'sort'];

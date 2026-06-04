@@ -2,7 +2,7 @@
   <Collapse :title="title">
     <div class="flex flex-col gap-4">
       <div
-        v-for="(child, i) in uischema.elements"
+        v-for="(child, i) in (uischema as Layout).elements"
         :key="i"
         :class="COLSPAN[(child as any).options?.colspan ?? 12]"
       >
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import type { JsonSchema, UISchemaElement } from '@jsonforms/core';
+import type { JsonSchema, Layout, UISchemaElement } from '@jsonforms/core';
 import { useFieldValue } from 'vee-validate';
 import { computed, inject } from 'vue';
 

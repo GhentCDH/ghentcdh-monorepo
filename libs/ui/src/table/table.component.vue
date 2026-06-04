@@ -1,86 +1,146 @@
 <template>
-  <table class="table w-full">
-    <thead>
-      <tr>
-        <th
-          v-for="column in displayColumns"
-          :key="column.scope"
+  <div class="border border-gray-200 min-h-40">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead
+          class="text-xs text-text-muted font-medium border-b border-gray-200 border-solid sticky top-0 rounded-md"
         >
-          <SortHeader
-            :column="column"
-            v-bind="sort"
-            @sort="onSort"
-          />
-        </th>
-        <th />
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-if="loading">
-        <td
-          :colspan="displayColumns.length + 1"
-          class="text-center"
-        >
-          <span class="loading loading-bars loading-xs" />
-        </td>
-      </tr>
-      <tr
-        v-for="item in data"
-        :key="item.id"
-        :ui-id="`table_${item.id}`"
-      >
-        <td
-          v-for="column in displayColumns"
-          :key="column.scope"
-        >
-          <component
-            :is="column.component"
-            v-bind="column"
-            :data="item"
-            :column="column"
-          />
-        </td>
-        <td>
-          <span class="flex gap-2">
-            <Btn
-              v-for="action of actions"
-              :key="action.label"
-              :aria-label="action.label"
-              :icon="action.icon"
-              :outline="true"
-              @click="action.action(item)"
+          <tr class="border-b border-gray-200">
+            <th
+              v-for="column in displayColumns"
+              :key="column.scope"
+              class="relative px-3 py-1 text-left font-semibold text-text-accent hover:bg-gray-50 select-none border-r border-gray-200"
+              :style="
+                column.width
+                  ? {
+                    width: column.width,
+                    maxWidth: column.width,
+                    minWidth: column.width,
+                  }
+                  : { minWidth: '150px' }
+              "
             >
-              {{ action.label }}
-            </Btn>
-            <Btn
-              v-if="hasEdit"
-              aria-label="Edit"
-              :icon="IconEnum.Edit"
-              :outline="true"
-              @click="edit(item)"
-            />
-            <Btn
-              v-if="hasDelete"
-              aria-label="Delete"
-              :icon="IconEnum.Delete"
-              :outline="true"
-              @click="deleteFn(item)"
-            />
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <template v-if="page">
-    <PaginationComponent
-      class="border-gray-300 border-t py-4 px-2 border-x-0 border-b-0"
-      :total-items="page.count"
-      :items-per-page="page.pageSize"
-      :current-page="page.page"
-      @update-page="onUpdatePage"
-    />
-  </template>
+              <SortHeader
+                :column="column"
+                v-bind="sort"
+                @sort="onSort"
+              />
+            </th>
+            <th
+              class="sticky right-0 w-10 cursor-grab rounded-tr-md visible bg-white shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.05)]"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-if="loading">
+            <td
+              :colspan="displayColumns.length + 1"
+              class="text-center p-2"
+            >
+              <span class="loading loading-bars loading-xs" />
+            </td>
+          </tr>
+          <tr v-else-if="!data?.length">
+            <td
+              :colspan="displayColumns.length + 1"
+              class="text-center p-8 text-bold"
+            >
+              No records found
+            </td>
+          </tr>
+          <tr
+            v-for="item in data"
+            :key="item.id"
+            :ui-id="`table_${item.id}`"
+            class="hover:bg-gray-100 transition-none transition-colors border-b border-gray-200"
+          >
+            <td
+              v-for="column in displayColumns"
+              :key="column.scope"
+              class="py-1 px-3 text-sm overflow-hidden"
+            >
+              <div
+                class="px-3 flex items-center gap-2 rounded-sm relative border hover:bg-gray-50 hover:border-gray-200 border-transparent max-w-56"
+                style="min-width: 100%; min-height: 38px"
+              >
+                <div
+                  class="whitespace-nowrap overflow-hidden overflow-ellipsis"
+                >
+                  <component
+                    :is="column.component"
+                    v-bind="column"
+                    :data="item"
+                    :column="column"
+                  />
+                </div>
+              </div>
+            </td>
+            <td
+              class="align-middle p-0 sticky right-0 bg-white shadow-lg border-gray-200 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.05)]"
+            >
+              <span
+                class="px-3 py-1 items-center justify-end gap-1 h-full flex ]"
+              >
+                <template
+                  v-for="action of actions"
+                  :key="action.label"
+                >
+                  <Btn
+                    v-if="!action.visible || action.visible(item)"
+                    :aria-label="action.tooltip ?? action.label"
+                    :icon="action.icon"
+                    :color="Color.secondary"
+                    @click="action.action(item)"
+                  >
+                    {{ action.label }}
+                  </Btn>
+                </template>
+                <Btn
+                  v-if="hasView"
+                  aria-label="View"
+                  :icon="IconEnum.View"
+                  :color="Color.secondary"
+                  @click="view(item)"
+                />
+                <Btn
+                  v-if="hasEdit"
+                  aria-label="Edit"
+                  :icon="IconEnum.Edit"
+                  :color="Color.secondary"
+                  @click="edit(item)"
+                />
+                <Btn
+                  v-if="hasDelete"
+                  aria-label="Delete"
+                  :icon="IconEnum.Delete"
+                  :color="Color.secondary"
+                  @click="deleteFn(item)"
+                />
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <template v-if="page">
+      <PaginationComponent
+        class="p-3"
+        :total-items="page.count"
+        :items-per-page="page.pageSize"
+        :current-page="page.page"
+        @update-page="onUpdatePage"
+        @update-page-size="onUpdatePageSize"
+      />
+    </template>
+  </div>
 </template>
+
+<script lang="ts">
+export default { inheritAttrs: false };
+</script>
 
 <script lang="ts" setup>
 import { computed, useAttrs } from 'vue';
@@ -88,8 +148,12 @@ import { computed, useAttrs } from 'vue';
 import TextCell from './cells/text.cell.vue';
 import SortHeader from './header/sort.header.vue';
 import PaginationComponent from './pagination.component.vue';
-import { TableComponentEmits, TableComponentProperties } from './table.component.properties';
+import {
+  TableComponentEmits,
+  TableComponentProperties,
+} from './table.component.properties';
 import Btn from '../button/btn.vue';
+import { Color } from '../const/colors';
 import { IconEnum } from '../icons';
 
 const properties = defineProps(TableComponentProperties);
@@ -99,9 +163,13 @@ const properties = defineProps(TableComponentProperties);
 const emits = defineEmits(TableComponentEmits);
 const attrs = useAttrs();
 
+const hasView = computed(() => 'onView' in attrs);
 const hasEdit = computed(() => 'onEdit' in attrs);
 const hasDelete = computed(() => 'onDelete' in attrs);
 
+const view = (data: unknown) => {
+  (attrs.onView as Function)?.(data);
+};
 const edit = (data: unknown) => {
   (attrs.onEdit as Function)?.(data);
 };
@@ -114,11 +182,11 @@ const onUpdatePage = (page: number) => {
   emits('updatePage', page);
 };
 
-const onSort = (id: string) => {
-  emits('sort', id);
+const onUpdatePageSize = (size: number) => {
+  emits('updatePageSize', size);
 };
 
-const components = {
-  TextCell,
+const onSort = (id: string) => {
+  emits('sort', id);
 };
 </script>

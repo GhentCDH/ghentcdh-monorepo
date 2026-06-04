@@ -1,7 +1,7 @@
 {
   "name": "@ghentcdh/json-forms-api",
   "version": "1.1.1",
-  "type": "commonjs",
+  "type": "module",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
   "peerDependencies": {

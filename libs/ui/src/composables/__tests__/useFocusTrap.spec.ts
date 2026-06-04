@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { nextTick, ref } from 'vue';
 
-import { withSetup } from '../../test-utils/withSetup';
+import { withSetup } from './withSetup';
 import { useFocusTrap } from '../useFocusTrap';
 
 const createContainer = () => {

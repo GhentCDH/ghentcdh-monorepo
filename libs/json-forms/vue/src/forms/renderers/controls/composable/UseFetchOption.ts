@@ -1,26 +1,52 @@
-import axios from 'axios';
-
 import type {
   AutocompleteAllOptions,
   AutocompleteRemoteOptions,
   AutocompleteResourceOptions
 } from '@ghentcdh/json-forms-core';
-import { useApi } from '@ghentcdh/tools-vue';
 
 import { getResourceSchema } from './resource';
+import type { HttpClient } from '../../../../http-client';
+
+/**
+ * Resolve `{form.fieldName}` placeholders in a URI against the current form values,
+ * and replace `{q}` (or `{text}`) with the search term.
+ * Falls back to appending the search term if no `{q}` / `{text}` placeholder exists.
+ */
+const resolvePlaceholders = (
+  uri: string,
+  formValues: any,
+  searchTerm: string,
+): string => {
+  const resolved = uri.replace(/\{form\.([^}]+)\}/g, (_, key) =>
+    encodeURIComponent(formValues?.[key] ?? ''),
+  );
+  if (resolved.includes('{q}'))
+    return resolved.replace('{q}', encodeURIComponent(searchTerm));
+  if (resolved.includes('{text}'))
+    return resolved.replace('{text}', searchTerm);
+  return `${resolved}${encodeURIComponent(searchTerm)}`;
+};
 
 /**
  * Creates a fetch function for remote URI-based autocomplete.
- * Appends the search term directly to `options.uri` and extracts
- * results from `options.dataField` (defaults to `'data'`).
+ * Supports `{form.fieldName}` placeholders in the URI resolved from sibling form values.
+ * Use `{q}` in the URI for the search term; falls back to appending it.
  */
-const useRemoteOption = (options: AutocompleteRemoteOptions) => {
+const useRemoteOption = (
+  options: AutocompleteRemoteOptions,
+  http: HttpClient,
+  formValues: any,
+) => {
   return {
     fetchOptions: (searchTerm: string, signal: AbortSignal) => {
-      const fetch = options.skipAuth ? axios : useApi();
-      return fetch
-        .get(`${options.uri}${searchTerm}`, { signal })
-        .then((data: any) => data.data[options.dataField ?? 'data']);
+      const uri = resolvePlaceholders(options.uri, formValues, searchTerm);
+      return http.get(uri, { signal }).then((data: any) => {
+        const body = data.data;
+        // Flat array response → use directly.
+        if (Array.isArray(body)) return body;
+        // Nested response → read the declared or default `data` field.
+        return body[options.dataField ?? 'data'];
+      });
     },
   };
 };
@@ -33,19 +59,19 @@ const useRemoteOption = (options: AutocompleteRemoteOptions) => {
  * returns a form config (JSON Schema + UI schema) and a `create` callback
  * to allow inline creation of new entries from the autocomplete dropdown.
  */
-const useResourceOptions = async (options: AutocompleteResourceOptions) => {
-  const resource = await getResourceSchema(
-    options.resource,
-    options.skipAuth ?? false,
-  );
-  const fetch = options.skipAuth ? axios : useApi();
+const useResourceOptions = async (
+  options: AutocompleteResourceOptions,
+  http: HttpClient,
+  formValues: any,
+) => {
+  const resource = await getResourceSchema(options.resource, http);
   const lookup = resource.operations.lookup!;
   return {
     fetchOptions: (searchTerm: string, signal: AbortSignal) => {
-      const uri = lookup.uri.replace('{text}', searchTerm);
+      const uri = resolvePlaceholders(lookup.uri, formValues, searchTerm);
       const method = lookup.method;
 
-      return fetch[method](uri, { signal }).then(
+      return (http as any)[method](uri, { signal }).then(
         (data: any) => data.data[options.dataField ?? 'data'],
       );
     },
@@ -55,10 +81,10 @@ const useResourceOptions = async (options: AutocompleteResourceOptions) => {
           ui_schema: resource.schema!.ui,
           json_schema: resource.schema!.data,
           title: `Create new ${resource.id}`,
-          create: async (data) => {
+          create: async (data: any) => {
             const create = resource.operations.create!;
-            return fetch[create.method](create.uri, data).then(
-              (result) => result.data,
+            return (http as any)[create.method](create.uri, data).then(
+              (result: any) => result.data,
             );
           },
         }
@@ -74,12 +100,24 @@ const useResourceOptions = async (options: AutocompleteResourceOptions) => {
  * config object with `fetchOptions`, label/value keys, and optional
  * inline-create form details.
  */
-export const useFetchOptions = async (options: AutocompleteAllOptions) => {
-  let config = {};
-  if (options.uri)
-    config = useRemoteOption(options as AutocompleteRemoteOptions);
-  if (options.resource)
-    config = await useResourceOptions(options as AutocompleteResourceOptions);
+export const useFetchOptions = async (
+  options: AutocompleteAllOptions,
+  http: HttpClient,
+  formValues: any = {},
+) => {
+  let config: Record<string, any> = {};
+  if ('uri' in options && options.uri)
+    config = useRemoteOption(
+      options as AutocompleteRemoteOptions,
+      http,
+      formValues,
+    );
+  if ('resource' in options && options.resource)
+    config = await useResourceOptions(
+      options as AutocompleteResourceOptions,
+      http,
+      formValues,
+    );
 
   return {
     fetchOptions: null,

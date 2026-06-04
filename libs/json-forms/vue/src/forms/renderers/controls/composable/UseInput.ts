@@ -5,7 +5,7 @@ import { computed, inject, ref } from 'vue';
 import { type MyStyles, mergeStyles } from '@ghentcdh/ui';
 
 import { formatError } from '../../../errorMessages';
-import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from '../../../errorMode';
+import { ERROR_MODE_KEY, FORM_READONLY_KEY, FORM_SUBMITTED_KEY } from '../../../errorMode';
 import { resolveSchema, scopeToPath } from '../../../scope';
 
 export interface InputProps {
@@ -82,6 +82,7 @@ export const useInputProps = (
 
   const errorMode = inject(ERROR_MODE_KEY, ref('onBlur'));
   const submitted = inject(FORM_SUBMITTED_KEY, ref(false));
+  const formReadonly = inject(FORM_READONLY_KEY, ref(false));
 
   const shouldShowError = computed(() => {
     if (!errorMessage.value) return false;
@@ -115,7 +116,7 @@ export const useInputProps = (
       labelFromScope.charAt(0).toUpperCase() + labelFromScope.slice(1),
     visible: opts.visible ?? true,
     required: isRequired,
-    enabled: opts.readonly !== true,
+    enabled: opts.readonly !== true && !formReadonly.value,
     isFocused: false,
     isTouched: shouldShowError.value,
     hideLabel: opts.hideLabel ?? false,

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/solid';
 import { computed } from 'vue';
 
 import type { TreeNode } from './props';
@@ -33,14 +32,36 @@ const isActive = computed(() => props.active === props.node.id);
         class="flex items-center justify-center"
         @click="emit('toggle', node)"
       >
-        <ChevronDownIcon
+        <!-- chevron-down (solid) -->
+        <svg
           v-if="node.children && isExpanded(node.id)"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
           class="w-3 h-3"
-        />
-        <ChevronRightIcon
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <!-- chevron-right (solid) -->
+        <svg
           v-else
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
           class="w-3 h-3"
-        />
+        >
+          <path
+            fill-rule="evenodd"
+            d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+            clip-rule="evenodd"
+          />
+        </svg>
       </span>
 
       <div

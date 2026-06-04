@@ -1,5 +1,4 @@
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
-import { pick } from 'lodash-es';
 import type { FieldContext } from 'vee-validate';
 import { computed } from 'vue';
 
@@ -12,12 +11,12 @@ const useSelectInput =
   (uischema: ControlElement, schema: JsonSchema, field: FieldContext) => {
     const opts = (uischema.options ?? {}) as Record<string, any>;
     return computed(() => {
-      return pick(opts, fields);
+      return Object.fromEntries(fields.filter((f) => f in opts).map((f) => [f, opts[f]]));
     });
   };
 
 export const useSelectBinding = useCustomControlBinding<SelectOptions>({
-  useProps: useSelectInput('options', 'labelKey', 'valueKey'),
+  useProps: useSelectInput('options', 'values', 'labelKey', 'valueKey', 'clearable'),
 });
 
 export const useAutocompleteBinding =

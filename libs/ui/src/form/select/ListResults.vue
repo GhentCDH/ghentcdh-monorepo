@@ -35,27 +35,30 @@
         :data-index="i"
         role="option"
         :aria-selected="i === activeIndex"
-        @mousedown.prevent="select(item)"
-        @mousemove="activeIndex = i"
+        :aria-disabled="item.disabled"
+        @mousedown.prevent="!item.disabled && select(item)"
+        @mousemove="!item.disabled && (activeIndex = i)"
       >
         <a
-          class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors duration-100"
+          class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm text-base-content no-underline transition-colors duration-100"
           :class="{
-            'active bg-secondary text-primary-content': i === activeIndex,
-            'hover:bg-base-200': i !== activeIndex,
+            'opacity-40 cursor-not-allowed': item.disabled,
+            'cursor-pointer': !item.disabled,
+            'bg-base-200': !item.disabled && i === activeIndex,
+            'bg-base-300': isActive(item),
+            'hover:bg-base-200': !item.disabled && i !== activeIndex,
           }"
         >
           <!-- Highlight matching text -->
           <span
             class="whitespace-nowrap"
-            v-html="highlight(item.label, query)"
+            v-html="highlight(isActive(item), item.label, query)"
           />
-
           <!-- Active checkmark -->
           <svg
             v-if="isActive(item)"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 shrink-0 opacity-80"
+            class="h-4 w-4 shrink-0 opacity-80 text-primary"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -118,7 +121,8 @@ function handleKeydown(e: KeyboardEvent) {
     case 'Enter':
       e.preventDefault();
       if (activeIndex.value >= 0 && activeIndex.value < len) {
-        select(props.options![activeIndex.value]);
+        const item = props.options![activeIndex.value];
+        if (!item.disabled) select(item);
       }
       break;
   }
@@ -134,8 +138,8 @@ defineExpose({ handleKeydown });
 
 <script lang="ts">
 // ─── Highlight helper (outside setup so it's available in template) ───────────
-export function highlight(text: string, query: string) {
-  if (!query) return text;
+export function highlight(isActive: boolean, text: string, query: string) {
+  if (isActive || !query) return text;
   const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return text.replace(
     new RegExp(`(${escaped})`, 'gi'),

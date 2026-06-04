@@ -43,9 +43,10 @@ const DefaultOptionsStrategy = <ITEM>(
     optionMap.clear();
 
     _options?.forEach((option) => {
-      const optionValue = {
+      const optionValue: OptionValue = {
         value: getValue(option, props),
         label: getLabel(option, props),
+        ...((option as any)?.disabled !== undefined && { disabled: !!(option as any).disabled }),
       };
 
       originalMap.set(optionValue.value, option);
@@ -70,7 +71,13 @@ const DefaultOptionsStrategy = <ITEM>(
   };
 
   const getLabels = (...optionList: ITEM[]): string[] => {
-    return optionList.map((option) => getLabel(option, props));
+    return optionList.map((option) => {
+      // When storeValue is used, the stored value is a primitive — look up label from optionMap.
+      if (option !== null && option !== undefined && typeof option !== 'object') {
+        return optionMap.get(String(option))?.label ?? String(option);
+      }
+      return getLabel(option, props);
+    });
   };
 
   const getValues = (...optionList: ITEM[]): string[] => {

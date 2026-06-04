@@ -3,6 +3,12 @@
     :id="id"
     @submit.prevent="onSubmit"
   >
+    <div
+      v-if="formData.id"
+      class="text-gray-500 text-xs mb-2"
+    >
+      ID: {{ formData.id }}
+    </div>
     <Dispatch
       :uischema="uiSchema"
       :schema="schema"
@@ -22,10 +28,11 @@ import Dispatch from './Dispatch.vue';
 import type { Data, SubmitFormEvent } from './FormComponent.properties';
 import { JsonFormComponentEmits, JsonFormComponentProperties } from './FormComponent.properties';
 import { registerZodErrorMap } from './errorMessages';
-import { ERROR_MODE_KEY, FORM_SUBMITTED_KEY } from './errorMode';
-import { customRenderes } from './renderes';
+import { ERROR_MODE_KEY, FORM_READONLY_KEY, FORM_SUBMITTED_KEY } from './errorMode';
+import { customRenderes } from './renderers';
 import type { FormEventPayload } from '../composables/useFormEvents';
 import { provideFormEvents } from '../composables/useFormEvents';
+import { provideHttpClient } from '../composables/useHttpClient';
 
 registerZodErrorMap();
 
@@ -36,7 +43,7 @@ const zodSchema = computed(() => {
   if (!properties.schema) return undefined;
   try {
     const patched = enforceRequiredStringMinLength(properties.schema);
-    return fromJSONSchema(patched);
+    return fromJSONSchema(patched as any);
   } catch {
     return undefined;
   }
@@ -47,13 +54,20 @@ const { values, errors, meta, setValues, validate } = useForm({
   initialValues: properties.formData as Record<string, unknown>,
 });
 
-provide('renderers', customRenderes);
+// Merge base renderers with any extras passed via prop.
+// Extras come last so higher-ranked testers override the defaults.
+provide('renderers', properties.renderers?.length
+  ? [...customRenderes, ...properties.renderers]
+  : customRenderes
+);
+provide('readonlyRenderers', properties.renderers ?? []);
 provide('rootSchema', properties.schema);
 provide('styles', myStyles);
 
 const submitted = ref(false);
 provide(ERROR_MODE_KEY, toRef(properties, 'errorMode'));
 provide(FORM_SUBMITTED_KEY, submitted);
+provide(FORM_READONLY_KEY, toRef(properties, 'readonly'));
 
 // Validate on mount to emit accurate initial validity state.
 // This does NOT set touched/dirty, so errors only display per errorMode rules.
@@ -65,6 +79,10 @@ onMounted(async () => {
 provideFormEvents((payload: FormEventPayload) => {
   emits('events', payload);
 });
+
+if (properties.http) {
+  provideHttpClient(properties.http);
+}
 
 // Prevents the values watcher from emitting 'change' during programmatic
 // setValues calls, which would feed back into the formData prop and create

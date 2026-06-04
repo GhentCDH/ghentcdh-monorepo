@@ -3,6 +3,7 @@
     v-bind="wrapper"
     :model-value="value"
     :options="selectOptions"
+    :clearable="(appliedOptions as any).clearable ?? true"
     @change="onChange"
     @blur="onBlur"
   />
@@ -28,11 +29,18 @@ const {
 } = useSelectBinding(props.uischema, props.schema);
 
 const selectOptions = computed(() => {
-  return (appliedOptions.options as any) ?? [];
+  const opts = appliedOptions.value as any;
+  return opts.options ?? opts.values ?? [];
 });
 
+const valueKey = computed(() => (appliedOptions.value as any).valueKey ?? 'value');
+
 const onChange = (val: any) => {
-  field.setValue(val);
+  const opts = appliedOptions.value as any;
+  const stored = opts.storeValue && val && typeof val === 'object'
+    ? val[valueKey.value]
+    : val;
+  field.setValue(stored);
   onFieldChange();
 };
 </script>

@@ -16,6 +16,8 @@
         :schema="schema"
         :ui-schema="uiSchema"
         :error-mode="errorMode"
+        :http="properties.http"
+        :renderers="properties.renderers"
         @errors="onErrors"
         @change="onChange"
         @events="emits('events', $event)"
@@ -26,24 +28,23 @@
       <Btn
         :color="Color.secondary"
         :outline="true"
-        aria-label="Cancel"
+        :aria-label="cancelLabel"
         @click="onCancel"
       >
-        Cancel
+        {{ cancelLabel }}
       </Btn>
       <Btn
         :disabled="!valid"
-        aria-label="Save"
+        :aria-label="saveLabel"
         @click="onSubmit"
       >
-        Save
+        {{ saveLabel }}
       </Btn>
     </template>
   </Modal>
 </template>
 
 <script setup lang="ts">
-import { isEmpty } from 'lodash-es';
 import { ref, watch } from 'vue';
 
 import { Btn, Color, Modal } from '@ghentcdh/ui';
@@ -53,7 +54,7 @@ import FormComponent from '../FormComponent.vue';
 
 const properties = defineProps(FormModalProperties);
 
-const id = `modal_${Math.floor(Math.random() * 1000)}`;
+const id = `edit_${Math.floor(Math.random() * 1000)}`;
 
 const formRef = ref<InstanceType<typeof FormComponent>>();
 const valid = ref(false);
@@ -84,7 +85,7 @@ const onSubmit = () => {
 };
 const onErrors = (errors: any) => {
   emits('errors', errors);
-  valid.value = isEmpty(errors);
+  valid.value = !errors || (Array.isArray(errors) ? errors.length === 0 : Object.keys(errors).length === 0);
 };
 
 watch(valid, (newValid, oldValid) => {

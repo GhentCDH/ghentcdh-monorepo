@@ -12,16 +12,18 @@ import {
   isAutoCompleteControl,
   isBooleanControl,
   isIntegerFormat,
+  isLinkControl,
   isMarkdownControl,
   isMultiselectControl,
   isNumberFormat,
   isSelectControl,
   isStringFormat,
-  isTextAreaControl
-} from '../../../renderes/tester';
+  isTextAreaControl,
+} from '../../../renderers/tester';
 
 export const index = [
   { tester: rankWith(10, isStringFormat), renderer: StringControlRenderer },
+  { tester: rankWith(13, isLinkControl), renderer: StringControlRenderer },
   {
     tester: rankWith(11, isTextAreaControl),
     renderer: TextAreaControlRenderer,

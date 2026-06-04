@@ -3,8 +3,8 @@
     class="flex items-center"
     @click="onSort"
   >
-    <span class="flex-grow pr-2"> {{ column.label }}</span>
-    <div class="h-4 w-4">
+    <span class="whitespace-nowrap"> {{ column.label }}</span>
+    <div class="h-4 w-4 relative">
       <Icon
         v-if="sortColumn === sortId"
         :icon="sortIcon"
@@ -16,7 +16,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { SortHeaderEmits, SortHeaderProperties } from './sort.header.properties';
+import {
+  SortHeaderEmits,
+  SortHeaderProperties,
+} from './sort.header.properties';
 import type { IconDef } from '../../icons';
 import { Icon, IconEnum } from '../../icons';
 

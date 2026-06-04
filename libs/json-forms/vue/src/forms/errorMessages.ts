@@ -53,7 +53,7 @@ export const registerZodErrorMap = () => {
           return { message: `Must be at most ${i.maximum} characters` };
         }
       }
-      return { message: issue.message };
+      return { message: issue.message ?? '' };
     },
   });
 };

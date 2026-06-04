@@ -1,4 +1,4 @@
-import type { AxiosRequestInterceptorUse } from 'axios';
+import type { HttpClient } from '../http-client';
 
 type RequestOptions = {
   skipAuth?: boolean;
@@ -6,7 +6,7 @@ type RequestOptions = {
   contentType?: string;
 };
 
-export type HttpRequest<T> = AxiosRequestInterceptorUse<any>;
+export type HttpRequest<T> = HttpClient;
 
 export type NotificationStore = {
   info: (message: string) => void;
@@ -98,9 +98,9 @@ export const createRepository = <T extends { id?: string }>(
     return Promise.all(
       objects.map((object) => httpRequest.post(getDataUri(), object, options)),
     )
-      .then((response) => {
+      .then((responses) => {
         handleSuccess(`Created ${notificationEntity}`);
-        return response.data;
+        return responses.map((r) => r.data);
       })
       .catch((response) => {
         handleError(response, `Failed to save ${notificationEntity}`);

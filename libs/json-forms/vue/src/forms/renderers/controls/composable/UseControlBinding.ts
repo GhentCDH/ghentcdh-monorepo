@@ -6,7 +6,7 @@ import { computed, inject, watch } from 'vue';
 
 import type { ControlOption } from '@ghentcdh/json-forms-core';
 
-import type { UseInputOptions , UseInputOptions} from './UseInput';
+import type { UseInputOptions } from './UseInput';
 import { useInputProps } from './UseInput';
 import { scopeToPath } from '../../../scope';
 

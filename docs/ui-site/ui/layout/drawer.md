@@ -45,12 +45,13 @@ Right drawer content
 
 ## Props
 
-| Prop               | Type      | Default | Description                              |
-|--------------------|-----------|---------|------------------------------------------|
-| `widthLeft`        | `Number`  | `200`   | Width in pixels of the left panel        |
-| `widthRight`       | `Number`  | `200`   | Width in pixels of the right panel       |
-| `initialLeftOpen`  | `Boolean` | `true`  | Whether the left panel starts open       |
-| `initialRightOpen` | `Boolean` | `true`  | Whether the right panel starts open      |
+| Prop               | Type      | Default         | Description                                                              |
+|--------------------|-----------|-----------------|--------------------------------------------------------------------------|
+| `widthLeft`        | `Number`  | `200`           | Width in pixels of the left panel                                        |
+| `widthRight`       | `Number`  | `200`           | Width in pixels of the right panel                                       |
+| `initialLeftOpen`  | `Boolean` | `true`          | Whether the left panel starts open                                       |
+| `initialRightOpen` | `Boolean` | `true`          | Whether the right panel starts open                                      |
+| `drawerColor`      | `String`  | `'bg-base-200'` | Tailwind background class applied to both side panels (e.g. `'bg-white'`) |
 
 ## Slots
 

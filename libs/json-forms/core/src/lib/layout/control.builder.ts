@@ -6,17 +6,19 @@ export const ControlType = {
   string: 'string',
   integer: 'Integer',
   autocomplete: 'autocomplete',
-  textArea: 'textArea',
+  textArea: 'textarea',
   markdown: 'markdown',
   array: 'array',
   custom: 'custom',
   select: 'select',
   mutliSelect: 'mutliSelect',
   boolean: 'boolean',
+  link: 'link',
+  relation: 'relation',
 } as const;
 
 export interface TextAreaOptions extends ControlOption {
-  format: 'textArea';
+  format: 'textarea';
 }
 export interface MarkdownOptions extends ControlOption {
   format: 'markdown';
@@ -60,7 +62,7 @@ export interface AutocompleteResourceOptions extends Omit<
 export type AutocompleteAllOptions =
   | AutocompleteOptions
   | AutocompleteRemoteOptions
-  | AutocompleteRemoteOptions;
+  | AutocompleteResourceOptions;
 
 export type ArrayActionType = 'edit';
 export type ArrayAction = {
@@ -181,6 +183,12 @@ export class ControlBuilder<
     return this.addOptions({
       format: ControlType.string,
       readonly: true,
+    });
+  }
+
+  link(): ControlBuilder<TYPE> {
+    return this.addOptions({
+      format: ControlType.link,
     });
   }
 

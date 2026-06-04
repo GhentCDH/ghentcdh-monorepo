@@ -6,6 +6,7 @@
     :is-open="isOpen"
     :query="displayValue"
     :is-active="hasValue"
+    :clearable="properties.clearable"
     @close="close"
     @select="select"
     @clear="clear"
@@ -66,6 +67,7 @@ const style = computed(() =>
 const select = (result: OptionValue) => {
   const original = optionsHelper.getOriginal(result);
   model.value = original;
+  isOpen.value = false;
   onChange(original);
 };
 

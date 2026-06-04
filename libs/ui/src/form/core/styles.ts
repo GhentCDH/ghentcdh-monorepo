@@ -22,7 +22,7 @@ export const myStyles = {
     label: 'fieldset-legend',
     error: '',
     input: 'input',
-    textarea: 'input h-32',
+    textarea: 'textarea h-32',
     checkbox: 'checkbox',
     select: 'input pr-14',
     description: 'form-control--description label text-xs text-gray-500',

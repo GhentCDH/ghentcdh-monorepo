@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { isUndefined } from 'lodash-es';
 import { z } from 'zod';
 
 import { uiFromJsonSchema } from '@ghentcdh/json-forms-core';
-import { useApi } from '@ghentcdh/tools-vue';
+
+import type { HttpClient } from '../../../../http-client';
 
 /** Supported HTTP methods for resource operations. */
 export const MethodSchema = z.enum([
@@ -47,7 +46,7 @@ const OperationMap: Record<OperationKey, Method> = {
   findAll: 'get',
   findOne: 'get',
   lookup: 'get',
-  update: 'get',
+  update: 'patch',
 };
 
 /**
@@ -90,7 +89,7 @@ export const ResourceSchema = z
       const operation = data.operations[key];
 
       const mapResourceSchema = () => {
-        if (isUndefined(operation) || operation === false) return null;
+        if (operation === undefined || operation === false) return null;
 
         if (operation === true)
           return { uri: data.uri, method: defaultOperation } as Operation;
@@ -98,7 +97,7 @@ export const ResourceSchema = z
           return { uri: operation, method: 'get' } as Operation;
         return {
           uri: operation.uri,
-          method: operation.method?.toLowerCase() ?? defaultOperation,
+          method: (operation.method?.toLowerCase() ?? defaultOperation) as Method,
         };
       };
 
@@ -122,11 +121,9 @@ export const ResourceSchema = z
  */
 export const getResourceSchema = async (
   resourceUri: string,
-  skipAuth: boolean,
+  http: HttpClient,
 ) => {
-  const fetch = skipAuth ? axios : useApi();
-
-  return fetch.get(resourceUri).then((response) => {
+  return http.get(resourceUri).then((response) => {
     const resource = ResourceSchema.safeParse(response.data);
     if (!resource.success)
       throw new Error(`Invalid resource schema: ${resource.error}`);

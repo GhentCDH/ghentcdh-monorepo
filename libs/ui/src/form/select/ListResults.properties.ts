@@ -3,6 +3,7 @@ import type { PropType } from 'vue';
 export type OptionValue = {
   label: string;
   value: string;
+  disabled?: boolean;
 };
 
 export const ListResultsEmits = ['select'];

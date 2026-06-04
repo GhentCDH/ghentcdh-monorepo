@@ -22,10 +22,16 @@ const {
   field,
   onBlur,
   onChange: onFieldChange,
+  appliedOptions,
 } = useSelectBinding(props.uischema, props.schema);
 
 const onChange = (val: any) => {
-  field.setValue(val);
+  const opts = appliedOptions.value as any;
+  const valueKey = opts.valueKey ?? 'value';
+  const stored = opts.storeValue && Array.isArray(val)
+    ? val.map((item: any) => (item && typeof item === 'object' ? item[valueKey] : item))
+    : val;
+  field.setValue(stored);
   onFieldChange();
 };
 </script>
