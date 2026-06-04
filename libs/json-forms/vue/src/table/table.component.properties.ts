@@ -1,6 +1,7 @@
 import type { JsonSchema, Layout } from '@jsonforms/core';
 import type { PropType } from 'vue';
 
+import type { Filter } from '@ghentcdh/json-forms-core';
 import type { TableAction, TablePage, TableSort } from '@ghentcdh/ui';
 
 import type { CellRendererEntry } from './cells';
@@ -17,7 +18,7 @@ export const TableComponentProperties = {
   data: { type: Array as PropType<any[]> },
   page: { type: Object as PropType<TablePage> },
   sort: { type: Object as PropType<TableSort> },
-  filter: { type: Object, required: false as const },
+  filter: { type: Array as PropType<Filter[]>, default: () => [] },
   cellRenderers: { type: Array as PropType<CellRendererEntry[]> },
 };
 
