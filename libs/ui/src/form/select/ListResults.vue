@@ -2,7 +2,8 @@
   <ul
     ref="listRef"
     role="listbox"
-    class="absolute z-50 w-full mt-1 bg-base-100 border border-base-300 rounded-box shadow-xl overflow-auto max-h-64 origin-top p-1"
+    class="bg-base-100 border border-base-300 rounded-box shadow-xl overflow-auto max-h-64 origin-top p-1"
+    :class="teleported ? '' : 'absolute z-50 w-full mt-1'"
   >
     <!-- Loading skeleton rows -->
     <template v-if="isLoading">

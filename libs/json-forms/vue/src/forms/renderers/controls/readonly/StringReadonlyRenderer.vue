@@ -46,9 +46,15 @@ const dir = computed<'ltr' | 'rtl'>(() => {
   return (val as 'ltr' | 'rtl') ?? 'ltr';
 });
 
-// When the field value is a nested object (e.g. an included relation),
-// options.key extracts the display property (same as displayKey in column config).
+// When dataPath is set, read from a sibling form field (e.g. bibliography.title).
+// When options.key is set on an object value, extract that property.
 const displayValue = computed(() => {
+  if (opts.dataPath) {
+    // Traverse the dotted dataPath in formValues (e.g. "bibliography" → formValues.bibliography)
+    const nested = opts.dataPath.split('.').reduce((o: any, k: string) => o?.[k], formValues);
+    if (opts.key && nested && typeof nested === 'object') return (nested as any)[opts.key] ?? null;
+    return nested ?? null;
+  }
   const raw = value.value;
   if (raw !== null && typeof raw === 'object' && opts.key) {
     return (raw as any)[opts.key] ?? null;
