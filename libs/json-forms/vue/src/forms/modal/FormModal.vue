@@ -7,22 +7,23 @@
     @close-modal="onCancel"
   >
     <template #content>
-      <slot name="content-before" />
-
-      <FormComponent
-        :id="`modal-${id}`"
-        ref="formRef"
-        :form-data="formData"
-        :schema="schema"
-        :ui-schema="uiSchema"
-        :error-mode="errorMode"
-        :http="properties.http"
-        :renderers="properties.renderers"
-        @errors="onErrors"
-        @change="onChange"
-        @events="emits('events', $event)"
-      />
-      <slot name="content-after" />
+      <div class="overflow-auto">
+        <slot name="content-before" />
+        <FormComponent
+          :id="`modal-${id}`"
+          ref="formRef"
+          :form-data="formData"
+          :schema="schema"
+          :ui-schema="uiSchema"
+          :error-mode="errorMode"
+          :http="properties.http"
+          :renderers="properties.renderers"
+          @errors="onErrors"
+          @change="onChange"
+          @events="emits('events', $event)"
+        />
+        <slot name="content-after" />
+      </div>
     </template>
     <template #actions>
       <Btn
@@ -33,11 +34,7 @@
       >
         {{ cancelLabel }}
       </Btn>
-      <Btn
-        :disabled="!valid"
-        :aria-label="saveLabel"
-        @click="onSubmit"
-      >
+      <Btn :disabled="!valid" :aria-label="saveLabel" @click="onSubmit">
         {{ saveLabel }}
       </Btn>
     </template>
@@ -85,7 +82,11 @@ const onSubmit = () => {
 };
 const onErrors = (errors: any) => {
   emits('errors', errors);
-  valid.value = !errors || (Array.isArray(errors) ? errors.length === 0 : Object.keys(errors).length === 0);
+  valid.value =
+    !errors ||
+    (Array.isArray(errors)
+      ? errors.length === 0
+      : Object.keys(errors).length === 0);
 };
 
 watch(valid, (newValid, oldValid) => {

@@ -20,6 +20,12 @@ export const TableComponentProperties = {
   sort: { type: Object as PropType<TableSort> },
   filter: { type: Array as PropType<Filter[]>, default: () => [] },
   cellRenderers: { type: Array as PropType<CellRendererEntry[]> },
+  hidePagination: { type: Boolean, default: false as const },
 };
 
-export const TableComponentEmits = ['updatePage', 'updatePageSize', 'sort', 'updateFilters'];
+export const TableComponentEmits = [
+  'updatePage',
+  'updatePageSize',
+  'sort',
+  'updateFilters',
+];

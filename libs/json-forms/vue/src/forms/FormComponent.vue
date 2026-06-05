@@ -1,24 +1,24 @@
 <template>
-  <form
-    :id="id"
-    @submit.prevent="onSubmit"
-  >
-    <div
-      v-if="formData.id"
-      class="text-gray-500 text-xs mb-2"
-    >
+  <form :id="id" @submit.prevent="onSubmit">
+    <div v-if="formData.id" class="text-gray-500 text-xs mb-2">
       ID: {{ formData.id }}
     </div>
-    <Dispatch
-      :uischema="uiSchema"
-      :schema="schema"
-    />
+    <Dispatch :uischema="uiSchema" :schema="schema" />
   </form>
 </template>
 
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
-import { computed, nextTick, onMounted, provide, ref, toRaw, toRef, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onMounted,
+  provide,
+  ref,
+  toRaw,
+  toRef,
+  watch,
+} from 'vue';
 import { fromJSONSchema } from 'zod';
 
 import { enforceRequiredStringMinLength } from '@ghentcdh/json-forms-core';
@@ -26,9 +26,16 @@ import { myStyles } from '@ghentcdh/ui';
 
 import Dispatch from './Dispatch.vue';
 import type { Data, SubmitFormEvent } from './FormComponent.properties';
-import { JsonFormComponentEmits, JsonFormComponentProperties } from './FormComponent.properties';
+import {
+  JsonFormComponentEmits,
+  JsonFormComponentProperties,
+} from './FormComponent.properties';
 import { registerZodErrorMap } from './errorMessages';
-import { ERROR_MODE_KEY, FORM_READONLY_KEY, FORM_SUBMITTED_KEY } from './errorMode';
+import {
+  ERROR_MODE_KEY,
+  FORM_READONLY_KEY,
+  FORM_SUBMITTED_KEY,
+} from './errorMode';
 import { customRenderes } from './renderers';
 import type { FormEventPayload } from '../composables/useFormEvents';
 import { provideFormEvents } from '../composables/useFormEvents';
@@ -56,9 +63,11 @@ const { values, errors, meta, setValues, validate } = useForm({
 
 // Merge base renderers with any extras passed via prop.
 // Extras come last so higher-ranked testers override the defaults.
-provide('renderers', properties.renderers?.length
-  ? [...customRenderes, ...properties.renderers]
-  : customRenderes
+provide(
+  'renderers',
+  properties.renderers?.length
+    ? [...customRenderes, ...properties.renderers]
+    : customRenderes,
 );
 provide('readonlyRenderers', properties.renderers ?? []);
 provide('rootSchema', properties.schema);

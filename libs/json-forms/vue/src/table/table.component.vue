@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="filterUiSchema && filterSchema"
-      class="mb-2"
-    >
+    <div v-if="filterUiSchema && filterSchema" class="mb-2">
       <TableFilter
         :layout="{ uiSchema: filterUiSchema, schema: filterSchema }"
         :filters="filter"
@@ -17,6 +14,7 @@
         @sort="(id: string) => emits('sort', id)"
         @update-page="(page: number) => emits('updatePage', page)"
         @update-page-size="(size: number) => emits('updatePageSize', size)"
+        :page="hidePagination ? null : page"
       />
     </div>
   </div>
@@ -31,7 +29,10 @@ import { Table } from '@ghentcdh/ui';
 
 import { defaultCellRenderers, findCellRenderer } from './cells';
 import TableFilter from './filter/table-filter.vue';
-import { TableComponentEmits, TableComponentProperties } from './table.component.properties';
+import {
+  TableComponentEmits,
+  TableComponentProperties,
+} from './table.component.properties';
 
 const properties = defineProps(TableComponentProperties);
 const emits = defineEmits(TableComponentEmits);
