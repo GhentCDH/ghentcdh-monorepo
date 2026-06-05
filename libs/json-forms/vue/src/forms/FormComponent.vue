@@ -1,9 +1,18 @@
 <template>
-  <form :id="id" @submit.prevent="onSubmit">
-    <div v-if="formData.id" class="text-gray-500 text-xs mb-2">
+  <form
+    :id="id"
+    @submit.prevent="onSubmit"
+  >
+    <div
+      v-if="formData.id"
+      class="text-gray-500 text-xs mb-2"
+    >
       ID: {{ formData.id }}
     </div>
-    <Dispatch :uischema="uiSchema" :schema="schema" />
+    <Dispatch
+      :uischema="uiSchema"
+      :schema="schema"
+    />
   </form>
 </template>
 

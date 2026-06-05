@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="filterUiSchema && filterSchema" class="mb-2">
+    <div
+      v-if="filterUiSchema && filterSchema"
+      class="mb-2"
+    >
       <TableFilter
         :layout="{ uiSchema: filterUiSchema, schema: filterSchema }"
         :filters="filter"
@@ -11,10 +14,10 @@
       <Table
         v-bind="properties"
         :display-columns="displayColumns"
+        :page="hidePagination ? null : page"
         @sort="(id: string) => emits('sort', id)"
         @update-page="(page: number) => emits('updatePage', page)"
         @update-page-size="(size: number) => emits('updatePageSize', size)"
-        :page="hidePagination ? null : page"
       />
     </div>
   </div>
