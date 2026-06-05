@@ -76,38 +76,18 @@
               <span
                 class="px-3 py-1 items-center justify-end gap-1 h-full flex ]"
               >
-                <template v-for="action of actions" :key="action.label">
+                <template v-for="action of defaultActions" :key="action.label">
                   <Btn
                     v-if="!action.visible || action.visible(item)"
                     :aria-label="action.tooltip ?? action.label"
                     :icon="action.icon"
                     :color="Color.secondary"
+                    size="xs"
                     @click="action.action(item)"
                   >
                     {{ action.label }}
                   </Btn>
                 </template>
-                <Btn
-                  v-if="hasView"
-                  aria-label="View"
-                  :icon="IconEnum.View"
-                  :color="Color.secondary"
-                  @click="view(item)"
-                />
-                <Btn
-                  v-if="hasEdit"
-                  aria-label="Edit"
-                  :icon="IconEnum.Edit"
-                  :color="Color.secondary"
-                  @click="edit(item)"
-                />
-                <Btn
-                  v-if="hasDelete"
-                  aria-label="Delete"
-                  :icon="IconEnum.Delete"
-                  :color="Color.secondary"
-                  @click="deleteFn(item)"
-                />
               </span>
             </td>
           </tr>
@@ -144,9 +124,35 @@ import {
 } from './table.component.properties';
 import Btn from '../button/btn.vue';
 import { Color } from '../const/colors';
-import { IconEnum } from '../icons';
+import { Icon, IconEnum } from '../icons';
 
 const properties = defineProps(TableComponentProperties);
+
+const defaultActions = computed(() => {
+  const actions = properties.actions ?? [];
+  if (hasView.value) {
+    actions.push({
+      tooltip: 'View',
+      icon: IconEnum.View,
+      action: view,
+    });
+  }
+  if (hasEdit.value) {
+    actions.push({
+      tooltip: 'Edit',
+      icon: IconEnum.Edit,
+      action: edit,
+    });
+  }
+  if (hasDelete.value) {
+    actions.push({
+      tooltip: 'Delete',
+      icon: IconEnum.Delete,
+      action: deleteFn,
+    });
+  }
+  return actions;
+});
 
 // TODO add reload functionality!
 

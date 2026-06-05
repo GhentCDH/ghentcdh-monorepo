@@ -5,7 +5,11 @@
       'btn p-1 flex justify-center flex-nowrap',
       ButtonColor[props.color],
       ButtonSize[props.size],
-      { 'btn-outline': props.outline, 'btn-square': props.square, 'tooltip': props.tooltip },
+      {
+        'btn-outline': props.outline,
+        'btn-square': props.square,
+        tooltip: props.tooltip,
+      },
     ]"
     :href="props.href"
     :type="props.type"
@@ -13,11 +17,7 @@
     :data-tip="props.tooltip"
     @click="emit('click')"
   >
-    <Icon
-      v-if="props.icon"
-      :icon="props.icon"
-      :size="props.size"
-    />
+    <Icon v-if="props.icon" :icon="props.icon" />
     <slot />
   </component>
 </template>
