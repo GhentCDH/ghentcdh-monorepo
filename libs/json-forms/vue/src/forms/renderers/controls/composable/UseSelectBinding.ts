@@ -16,7 +16,7 @@ const useSelectInput =
   };
 
 export const useSelectBinding = useCustomControlBinding<SelectOptions>({
-  useProps: useSelectInput('options', 'values', 'labelKey', 'valueKey', 'clearable'),
+  useProps: useSelectInput('options', 'values', 'uri', 'resource', 'dataField', 'labelKey', 'valueKey', 'clearable', 'storeValue'),
 });
 
 export const useAutocompleteBinding =

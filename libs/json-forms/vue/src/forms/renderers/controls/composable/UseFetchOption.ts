@@ -17,9 +17,13 @@ const resolvePlaceholders = (
   formValues: any,
   searchTerm: string,
 ): string => {
-  const resolved = uri.replace(/\{form\.([^}]+)\}/g, (_, key) =>
-    encodeURIComponent(formValues?.[key] ?? ''),
-  );
+  const resolved = uri.replace(/\{form\.([^}]+)\}/g, (_, key) => {
+    // Support dotted paths e.g. {form.metadata_config.key} → formValues.metadata_config.key
+    const value = key
+      .split('.')
+      .reduce((o: any, k: string) => o?.[k], formValues);
+    return encodeURIComponent(value ?? '');
+  });
   if (resolved.includes('{q}'))
     return resolved.replace('{q}', encodeURIComponent(searchTerm));
   if (resolved.includes('{text}'))
@@ -71,9 +75,9 @@ const useResourceOptions = async (
       const uri = resolvePlaceholders(lookup.uri, formValues, searchTerm);
       const method = lookup.method;
 
-      return (http as any)[method](uri, { signal }).then(
-        (data: any) => data.data[options.dataField ?? 'data'],
-      );
+      return (http as any)
+        [method](uri, { signal })
+        .then((data: any) => data.data[options.dataField ?? 'data']);
     },
     enableCreate: !!resource.operations.create,
     form: resource.operations.create
@@ -83,9 +87,9 @@ const useResourceOptions = async (
           title: `Create new ${resource.id}`,
           create: async (data: any) => {
             const create = resource.operations.create!;
-            return (http as any)[create.method](create.uri, data).then(
-              (result: any) => result.data,
-            );
+            return (http as any)
+              [create.method](create.uri, data)
+              .then((result: any) => result.data);
           },
         }
       : null,

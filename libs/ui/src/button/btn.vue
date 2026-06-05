@@ -17,7 +17,10 @@
     :data-tip="props.tooltip"
     @click="emit('click')"
   >
-    <Icon v-if="props.icon" :icon="props.icon" />
+    <Icon
+      v-if="props.icon"
+      :icon="props.icon"
+    />
     <slot />
   </component>
 </template>

@@ -13,14 +13,18 @@
               :style="
                 column.width
                   ? {
-                      width: column.width,
-                      maxWidth: column.width,
-                      minWidth: column.width,
-                    }
+                    width: column.width,
+                    maxWidth: column.width,
+                    minWidth: column.width,
+                  }
                   : { minWidth: '150px' }
               "
             >
-              <SortHeader :column="column" v-bind="sort" @sort="onSort" />
+              <SortHeader
+                :column="column"
+                v-bind="sort"
+                @sort="onSort"
+              />
             </th>
             <th
               class="sticky right-0 w-10 cursor-grab rounded-tr-md visible bg-white shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.05)]"
@@ -31,7 +35,10 @@
         </thead>
         <tbody>
           <tr v-if="loading">
-            <td :colspan="displayColumns.length + 1" class="text-center p-2">
+            <td
+              :colspan="displayColumns.length + 1"
+              class="text-center p-2"
+            >
               <span class="loading loading-bars loading-xs" />
             </td>
           </tr>
@@ -76,7 +83,10 @@
               <span
                 class="px-3 py-1 items-center justify-end gap-1 h-full flex ]"
               >
-                <template v-for="action of defaultActions" :key="action.label">
+                <template
+                  v-for="action of defaultActions"
+                  :key="action.label"
+                >
                   <Btn
                     v-if="!action.visible || action.visible(item)"
                     :aria-label="action.tooltip ?? action.label"
