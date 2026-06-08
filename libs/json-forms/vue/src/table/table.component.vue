@@ -6,7 +6,7 @@
     @sort="(id: string) => emits('sort', id)"
     @update-page="(page: number) => emits('updatePage', page)"
     @update-page-size="(size: number) => emits('updatePageSize', size)"
-    @selectionChange="emits('selectionChange', e)"
+    @selection-change="emits('selectionChange', e)"
   />
 </template>
 

@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
 import { Input } from '@ghentcdh/ui';
 
 import TableFilter from './filter/table-filter.vue';

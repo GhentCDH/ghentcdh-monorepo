@@ -16,7 +16,7 @@
                 :indeterminate="someSelected"
                 class="cursor-pointer"
                 @change="toggleAll"
-              />
+              >
             </th>
             <th
               v-for="column in displayColumns"
@@ -77,7 +77,7 @@
                 :checked="selectedIds.has(item.id)"
                 class="cursor-pointer"
                 @change="toggleRow(item)"
-              />
+              >
             </td>
             <td
               v-for="column in displayColumns"
@@ -146,7 +146,7 @@ export default { inheritAttrs: false };
 </script>
 
 <script lang="ts" setup>
-import { computed, ref, watch, useAttrs } from 'vue';
+import { computed, ref, useAttrs, watch } from 'vue';
 
 import TextCell from './cells/text.cell.vue';
 import SortHeader from './header/sort.header.vue';

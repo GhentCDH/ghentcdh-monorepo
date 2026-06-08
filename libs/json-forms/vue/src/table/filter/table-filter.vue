@@ -1,13 +1,20 @@
 <template>
-  <div ref="containerRef" class="relative inline-flex">
+  <div
+    ref="containerRef"
+    class="relative inline-flex"
+  >
     <Btn
-      @click="showFilters = !showFilters"
       size="xs"
       color="ghost"
       class="border-gray-300 text-base-content/50 h-8"
+      @click="showFilters = !showFilters"
     >
       <span class="px-2 flex gap-2 items-center">
-        <Icon :icon="IconEnum.Filter" size="sm" class="text-base-300" />
+        <Icon
+          :icon="IconEnum.Filter"
+          size="sm"
+          class="text-base-300"
+        />
         Filters
         <span
           v-if="appliedCount"
@@ -35,13 +42,24 @@
       <div class="divider my-3" />
 
       <div class="flex items-center justify-between">
-        <Btn :icon="IconEnum.Plus" :color="'ghost'" @click="addRow"
-          >Add filter</Btn
+        <Btn
+          :icon="IconEnum.Plus"
+          :color="'ghost'"
+          @click="addRow"
         >
+          Add filter
+        </Btn>
 
         <div class="flex gap-2">
-          <Btn :color="'ghost'" @click="onReset">Reset</Btn>
-          <Btn @click="onApply">Apply</Btn>
+          <Btn
+            :color="'ghost'"
+            @click="onReset"
+          >
+            Reset
+          </Btn>
+          <Btn @click="onApply">
+            Apply
+          </Btn>
         </div>
       </div>
     </div>
@@ -53,9 +71,9 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import type { Filter } from '@ghentcdh/json-forms-core';
 import { extractFilters, filterToString } from '@ghentcdh/json-forms-core';
+import { Btn, Icon, IconEnum } from '@ghentcdh/ui';
 
 import FilterRowInput, { type FieldOption } from './FilterRowInput.vue';
-import { Btn, Icon, IconEnum } from '@ghentcdh/ui';
 
 const showFilters = ref(false);
 const appliedCount = ref(0);
