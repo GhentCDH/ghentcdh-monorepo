@@ -1,8 +1,5 @@
 import { rankWith } from '@jsonforms/core';
-
-import AutocompleteReadonlyRenderer from './AutocompleteReadonlyRenderer.vue';
 import BooleanReadonlyRenderer from './BooleanReadonlyRenderer.vue';
-import LinkReadonlyRenderer from './LinkReadonlyRenderer.vue';
 import MarkdownReadonlyRenderer from './MarkdownReadonlyRenderer.vue';
 import MultiSelectReadonlyRenderer from './MultiSelectReadonlyRenderer.vue';
 import NumberReadonlyRenderer from './NumberReadonlyRenderer.vue';
@@ -38,10 +35,10 @@ export const readonlyControlRenderers = [
   },
   {
     tester: rankWith(12, isAutoCompleteControl),
-    renderer: AutocompleteReadonlyRenderer,
+    renderer: SelectReadonlyRenderer,
   },
   { tester: rankWith(12, isNumberFormat), renderer: NumberReadonlyRenderer },
   { tester: rankWith(12, isIntegerFormat), renderer: NumberReadonlyRenderer },
-  { tester: rankWith(13, isLinkControl), renderer: LinkReadonlyRenderer },
+  { tester: rankWith(13, isLinkControl), renderer: StringReadonlyRenderer },
   { tester: rankWith(10, isObjectControl), renderer: ObjectReadonlyRenderer },
 ];

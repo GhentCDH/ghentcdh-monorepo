@@ -1,9 +1,9 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
-    <pre class="py-1 text-sm whitespace-pre-wrap break-words">{{ formatted }}</pre>
+  <ReadonlyWrapper :uischema="uischema" :schema="schema">
+    object render
+    <pre class="py-1 text-sm whitespace-pre-wrap break-words">{{
+      formatted
+    }}</pre>
   </ReadonlyWrapper>
 </template>
 

@@ -1,22 +1,16 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
-    <p
-      class="py-1 min-h-8 text-sm whitespace-pre-wrap break-words"
-      :dir="dir"
-    >
+  <ReadonlyWrapper :uischema="uischema" :schema="schema">
+    <p class="py-1 min-h-8 text-sm whitespace-pre-wrap break-words" :dir="dir">
       <a
         v-if="isLink"
-        :href="displayValue"
+        :href="_displayValue"
         target="_blank"
         rel="noopener noreferrer"
       >
-        {{ displayValue }}
+        {{ _displayValue }}
       </a>
       <template v-else>
-        {{ displayValue ?? '-' }}
+        {{ _displayValue ?? '-' }}
       </template>
     </p>
   </ReadonlyWrapper>
@@ -29,10 +23,11 @@ import { computed, inject } from 'vue';
 
 import ReadonlyWrapper from './ReadonlyWrapper.vue';
 import { useControlBinding } from '../composable/UseControlBinding';
+import { useDisplayValue } from './useDisplayValue';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { value, appliedOptions } = useControlBinding(props.uischema, props.schema);
+const { value } = useControlBinding(props.uischema, props.schema);
 
 const pathPrefix = inject<string>('pathPrefix', '');
 const opts = (props.uischema.options ?? {}) as any;
@@ -41,28 +36,22 @@ const { values: formValues } = useFormContext();
 
 const dir = computed<'ltr' | 'rtl'>(() => {
   if (!opts.directionField) return (opts.direction as 'ltr' | 'rtl') ?? 'ltr';
-  const key = pathPrefix ? `${pathPrefix}.${opts.directionField}` : opts.directionField;
+  const key = pathPrefix
+    ? `${pathPrefix}.${opts.directionField}`
+    : opts.directionField;
   const val = key.split('.').reduce((o: any, k: string) => o?.[k], formValues);
   return (val as 'ltr' | 'rtl') ?? 'ltr';
 });
 
 // When dataPath is set, read from a sibling form field (e.g. bibliography.title).
 // When options.key is set on an object value, extract that property.
-const displayValue = computed(() => {
-  if (opts.dataPath) {
-    // Traverse the dotted dataPath in formValues (e.g. "bibliography" → formValues.bibliography)
-    const nested = opts.dataPath.split('.').reduce((o: any, k: string) => o?.[k], formValues);
-    if (opts.key && nested && typeof nested === 'object') return (nested as any)[opts.key] ?? null;
-    return nested ?? null;
-  }
-  const raw = value.value;
-  if (raw !== null && typeof raw === 'object' && opts.key) {
-    return (raw as any)[opts.key] ?? null;
-  }
-  return raw ?? null;
+const _displayValue = computed(() => {
+  return useDisplayValue(value.value, formValues, opts);
 });
 
 const isLink = computed(
-  () => typeof displayValue.value === 'string' && displayValue.value.startsWith('http'),
+  () =>
+    typeof _displayValue.value === 'string' &&
+    _displayValue.value.startsWith('http'),
 );
 </script>

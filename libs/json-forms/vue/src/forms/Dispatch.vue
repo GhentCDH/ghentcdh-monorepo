@@ -5,11 +5,8 @@
     :uischema="uischema"
     :schema="resolved"
   />
-  <div
-    v-else
-    class="text-error text-xs"
-  >
-    No renderer for {{ (uischema as any).scope ?? uischema.type }}
+  <div v-else class="text-error text-xs">
+    No renderer for {{ (uischema as any).scope }} type: {{ uischema.type }}
   </div>
 </template>
 
@@ -38,9 +35,11 @@ const formReadonly = inject(FORM_READONLY_KEY, ref(false));
 const effectiveReadonlyRenderers = computed(() =>
   extraReadonlyRenderers.length
     ? [...readonlyRenderers, ...extraReadonlyRenderers]
-    : readonlyRenderers
+    : readonlyRenderers,
 );
-const registry = computed(() => formReadonly.value ? effectiveReadonlyRenderers.value : editableRegistry);
+const registry = computed(() =>
+  formReadonly.value ? effectiveReadonlyRenderers.value : editableRegistry,
+);
 const rootSchema = inject<JsonSchema>('rootSchema')!;
 const parentPrefix = inject<string>('pathPrefix', '');
 
@@ -60,6 +59,10 @@ const resolved = computed(() => {
 });
 
 const renderer = computed(() =>
-  findRenderer(registry.value as RendererEntry[], props.uischema, resolved.value),
+  findRenderer(
+    registry.value as RendererEntry[],
+    props.uischema,
+    resolved.value,
+  ),
 );
 </script>
