@@ -1,67 +1,149 @@
 <template>
-  <div class="">
-    <div class="flex gap-2 items-center mb-2">
-      <template v-if="filters.length">
-        <Btn
-          size="xs"
-          :outline="true"
-          @click="onResetFilters"
+  <div ref="containerRef" class="relative inline-flex">
+    <Btn
+      @click="showFilters = !showFilters"
+      size="xs"
+      color="ghost"
+      class="border-gray-300 text-base-content/50 h-8"
+    >
+      <span class="px-2 flex gap-2 items-center">
+        <Icon :icon="IconEnum.Filter" size="sm" class="text-base-300" />
+        Filters
+        <span
+          v-if="appliedCount"
+          class="badge badge-sm bg-base-300 text-base-700"
         >
-          Reset all filters
-        </Btn>
-      </template>
-    </div>
-    <div class="flex gap-2">
-      <BtnBadge
-        v-for="filter in filters"
-        :key="filter.key"
-        :icon="IconEnum.Close"
-        @click="removeFilter(filter)"
-      >
-        {{ filter.label }}: {{ filter.value }}
-      </BtnBadge>
+          {{ appliedCount }}
+        </span>
+      </span>
+    </Btn>
+
+    <div
+      v-if="showFilters"
+      class="absolute left-1/2 -translate-x-1/2 top-full mt-1 z-50 min-w-[560px] border border-base-200 rounded-xl bg-base-100 shadow-lg p-4"
+    >
+      <div class="flex flex-col gap-2">
+        <FilterRowInput
+          v-for="(row, index) in rows"
+          :key="index"
+          v-model="rows[index]"
+          :fields="fields"
+          @remove="removeRow(index)"
+        />
+      </div>
+
+      <div class="divider my-3" />
+
+      <div class="flex items-center justify-between">
+        <Btn :icon="IconEnum.Plus" :color="'ghost'" @click="addRow"
+          >Add filter</Btn
+        >
+
+        <div class="flex gap-2">
+          <Btn :color="'ghost'" @click="onReset">Reset</Btn>
+          <Btn @click="onApply">Apply</Btn>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-import type { Filter, JsonFormsLayout } from '@ghentcdh/json-forms-core';
-import { Btn, BtnBadge, IconEnum } from '@ghentcdh/ui';
+import type { Filter } from '@ghentcdh/json-forms-core';
+import { extractFilters, filterToString } from '@ghentcdh/json-forms-core';
 
-const formData = ref();
+import FilterRowInput, { type FieldOption } from './FilterRowInput.vue';
+import { Btn, Icon, IconEnum } from '@ghentcdh/ui';
 
-const properties = defineProps<{
-  layout: JsonFormsLayout;
-  filters: Filter[];
+const showFilters = ref(false);
+const appliedCount = ref(0);
+const containerRef = ref<HTMLElement | null>(null);
+
+const onClickOutside = (event: MouseEvent) => {
+  if (
+    containerRef.value &&
+    !containerRef.value.contains(event.target as Node)
+  ) {
+    showFilters.value = false;
+  }
+};
+
+onMounted(() => document.addEventListener('mousedown', onClickOutside));
+onBeforeUnmount(() =>
+  document.removeEventListener('mousedown', onClickOutside),
+);
+const props = defineProps<{
+  /** Active filter strings from the URL, e.g. ["title:foo:contains"] */
+  filters: string[];
+  /** JSON Schema for filterable columns — keys are field ids, titles are labels */
+  filterSchema?: Record<string, any>;
 }>();
 
-const emits = defineEmits<{
-  changeFilters: [data: any];
-  removeFilter: [filter: Filter];
+const emit = defineEmits<{
+  changeFilters: [filters: string[]];
+  close: [];
 }>();
+
+/** Field options derived from the filterSchema properties */
+const fields = computed<FieldOption[]>(() => {
+  const properties = props.filterSchema?.properties as
+    | Record<string, any>
+    | undefined;
+  if (!properties) return [];
+  return Object.entries(properties).map(([key, schema]) => ({
+    value: key,
+    label: (schema as any).title ?? key,
+  }));
+});
+
+const defaultField = computed(() => fields.value[0]?.value ?? '');
+
+const rows = ref<Filter[]>([]);
+
+// Sync rows when the active filters change from outside (URL navigation)
+const emptyRow = (): Filter => ({
+  key: defaultField.value,
+  value: '',
+  operator: 'contains',
+});
 
 watch(
-  () => properties.filters,
-  () => {
-    formData.value = {};
-    properties.filters.forEach((filter) => {
-      // TODO on multiple values
-      formData.value[filter.key] = filter.value;
-    });
+  () => props.filters,
+  (newFilters) => {
+    const parsed = extractFilters(newFilters ?? []);
+    rows.value = parsed.length > 0 ? parsed : [emptyRow()];
+    appliedCount.value = parsed.length;
   },
   { immediate: true },
 );
 
-const onResetFilters = () => {
-  emits('changeFilters', {});
+const addRow = () => {
+  rows.value = [
+    ...rows.value,
+    { key: defaultField.value, value: '', operator: 'contains' },
+  ];
 };
 
-const removeFilter = (filter: Filter) => {
-  // TODO on multiple values
-  formData.value[filter.key] = undefined;
+const removeRow = (index: number) => {
+  const updated = rows.value.filter((_, i) => i !== index);
+  rows.value = updated.length > 0 ? updated : [emptyRow()];
+};
 
-  emits('changeFilters', formData.value);
+const onApply = () => {
+  const serialized = rows.value
+    .filter((r) => r.key && r.value)
+    .map(filterToString);
+  appliedCount.value = serialized.length;
+  emit('changeFilters', serialized);
+  showFilters.value = false;
+};
+
+const onReset = () => {
+  rows.value = [emptyRow()];
+  appliedCount.value = 0;
+  emit('changeFilters', []);
+  showFilters.value = false;
 };
 </script>

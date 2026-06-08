@@ -17,11 +17,8 @@
     :data-tip="props.tooltip"
     @click="emit('click')"
   >
-    <Icon
-      v-if="props.icon"
-      :icon="props.icon"
-    />
-    <slot />
+    <Icon v-if="props.icon" :icon="props.icon" />
+    <span class="whitespace-nowrap"> <slot /></span>
   </component>
 </template>
 

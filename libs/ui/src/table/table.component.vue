@@ -7,6 +7,18 @@
         >
           <tr class="border-b border-gray-200">
             <th
+              v-if="multiselect"
+              class="px-3 py-1 w-10 text-left border-r border-gray-200"
+            >
+              <input
+                type="checkbox"
+                :checked="allSelected"
+                :indeterminate="someSelected"
+                class="cursor-pointer"
+                @change="toggleAll"
+              />
+            </th>
+            <th
               v-for="column in displayColumns"
               :key="column.scope"
               class="relative px-3 py-1 text-left font-semibold text-text-accent hover:bg-gray-50 select-none border-r border-gray-200"
@@ -36,7 +48,7 @@
         <tbody>
           <tr v-if="loading">
             <td
-              :colspan="displayColumns.length + 1"
+              :colspan="displayColumns.length + 1 + (multiselect ? 1 : 0)"
               class="text-center p-2"
             >
               <span class="loading loading-bars loading-xs" />
@@ -44,7 +56,7 @@
           </tr>
           <tr v-else-if="!data?.length">
             <td
-              :colspan="displayColumns.length + 1"
+              :colspan="displayColumns.length + 1 + (multiselect ? 1 : 0)"
               class="text-center p-8 text-bold"
             >
               No records found
@@ -56,6 +68,17 @@
             :ui-id="`table_${item.id}`"
             class="hover:bg-gray-100 transition-none transition-colors border-b border-gray-200"
           >
+            <td
+              v-if="multiselect"
+              class="py-1 px-3"
+            >
+              <input
+                type="checkbox"
+                :checked="selectedIds.has(item.id)"
+                class="cursor-pointer"
+                @change="toggleRow(item)"
+              />
+            </td>
             <td
               v-for="column in displayColumns"
               :key="column.scope"
@@ -123,7 +146,7 @@ export default { inheritAttrs: false };
 </script>
 
 <script lang="ts" setup>
-import { computed, useAttrs } from 'vue';
+import { computed, ref, watch, useAttrs } from 'vue';
 
 import TextCell from './cells/text.cell.vue';
 import SortHeader from './header/sort.header.vue';
@@ -137,6 +160,48 @@ import { Color } from '../const/colors';
 import { Icon, IconEnum } from '../icons';
 
 const properties = defineProps(TableComponentProperties);
+
+// Multiselect
+const selectedIds = ref<Set<any>>(new Set());
+
+watch(
+  () => properties.data,
+  () => {
+    selectedIds.value.clear();
+  }
+);
+
+const allSelected = computed(
+  () =>
+    !!properties.data?.length &&
+    properties.data.every((item) => selectedIds.value.has(item.id))
+);
+
+const someSelected = computed(
+  () =>
+    !!properties.data?.some((item) => selectedIds.value.has(item.id)) &&
+    !allSelected.value
+);
+
+const toggleRow = (item: any) => {
+  const next = new Set(selectedIds.value);
+  if (next.has(item.id)) next.delete(item.id);
+  else next.add(item.id);
+  selectedIds.value = next;
+  emits('selectionChange', properties.data?.filter((d) => next.has(d.id)) ?? []);
+};
+
+const toggleAll = () => {
+  if (allSelected.value) {
+    selectedIds.value = new Set();
+  } else {
+    selectedIds.value = new Set(properties.data?.map((item) => item.id) ?? []);
+  }
+  emits(
+    'selectionChange',
+    properties.data?.filter((d) => selectedIds.value.has(d.id)) ?? []
+  );
+};
 
 const defaultActions = computed(() => {
   const actions = properties.actions ?? [];

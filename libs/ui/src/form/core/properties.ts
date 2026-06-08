@@ -1,22 +1,11 @@
 import type { Editor } from '@tiptap/vue-3';
+import type { ExtractPropTypes } from 'vue';
 
-import type { MyStyles } from './styles';
+import type { ControlWrapperProperties } from './ControlWrapper.properties';
 
-export type ControlProperties = {
-  id?: string;
-  placeholder?: string;
-  description?: string;
-  errors?: string;
-  label?: string;
-  visible?: boolean;
-  required?: boolean;
-  enabled?: boolean;
-  isFocused?: boolean;
-  isTouched?: boolean;
-  hideLabel?: boolean;
-  styles?: MyStyles;
-  width: string;
-};
+export type ControlProperties = ExtractPropTypes<
+  typeof ControlWrapperProperties
+>;
 
 export type ToolbarAction = {
   /** Displayed inside the button (text or HTML, e.g. an icon) */

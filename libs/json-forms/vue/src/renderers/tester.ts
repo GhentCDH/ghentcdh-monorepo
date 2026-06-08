@@ -52,7 +52,7 @@ export const isMarkdownControl = and(
 );
 export const isObjectControl = and(
   uiTypeIs('Control'),
-  schemaTypeIs('object'),
+  // schemaTypeIs('object'),
   (uischema: UISchemaElement) => !(uischema as any).options?.format,
 );
 

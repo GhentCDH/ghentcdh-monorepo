@@ -1,10 +1,7 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
+  <ReadonlyWrapper :uischema="uischema" :schema="schema">
     <span class="py-1 min-h-8 flex items-center text-sm">
-      {{ displayValue ? 'Yes' : 'No' }}
+      <Icon v-if="value === true" :icon="IconEnum.Check" size="sm" />
     </span>
   </ReadonlyWrapper>
 </template>
@@ -17,7 +14,7 @@ import { computed } from 'vue';
 import ReadonlyWrapper from './ReadonlyWrapper.vue';
 import { useDisplayValue } from './useDisplayValue';
 import { useControlBinding } from '../composable/UseControlBinding';
-
+import { Icon, IconEnum } from '@ghentcdh/ui';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

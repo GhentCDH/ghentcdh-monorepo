@@ -88,3 +88,10 @@ export const extractFilters = (filters: string[]) => {
 
   return result;
 };
+
+/** Serialize a Filter object back to the wire format `"key:value:operator"`. */
+export const filterToString = (filter: Filter): string =>
+  `${filter.key}:${filter.value}:${filter.operator}`;
+
+/** Parse a filter string `"key:value:operator"` back into a Filter object. */
+export const stringToFilter = (s: string): Filter => getFilterValues(s);
