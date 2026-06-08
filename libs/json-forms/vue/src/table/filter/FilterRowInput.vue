@@ -3,42 +3,46 @@
     <SelectComponent
       size="sm"
       :value="modelValue.key"
-      @change="update('key', $event.value)"
       :options="fields"
       :clearable="false"
+      @change="update('key', $event.value)"
     />
     <SelectComponent
       size="sm"
       :value="modelValue.operator"
-      @change="onOperatorChange($event.value)"
       :options="OperatorOptions"
       :clearable="false"
+      @change="onOperatorChange($event.value)"
     />
     <Input
       v-if="!noValue"
       size="sm"
       placeholder="Enter a value"
       :value="modelValue.value"
-      @input="update('value', ($event.target as HTMLInputElement).value)"
       :clearable="true"
+      @input="update('value', ($event.target as HTMLInputElement).value)"
     />
-    <div v-else class="flex-1 min-w-0" />
+    <div
+      v-else
+      class="flex-1 min-w-0"
+    />
     <Btn
       :icon="IconEnum.Delete"
       size="xs"
       :outline="true"
       color="error"
       :no-border="true"
-      @click="$emit('remove')"
       tooltip="Remove filter"
+      @click="$emit('remove')"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Btn, IconEnum, Input, SelectComponent } from '@ghentcdh/ui';
 import { computed } from 'vue';
+
 import { type Filter, OperatorNoValue, OperatorOptions, type OperatorType } from '@ghentcdh/json-forms-core';
+import { Btn, IconEnum, Input, SelectComponent } from '@ghentcdh/ui';
 
 export type FieldOption = { label: string; value: string };
 

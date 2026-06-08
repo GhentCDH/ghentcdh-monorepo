@@ -11,8 +11,8 @@
         :value="searchQuery"
         size="sm"
         width="w-48"
-        @input="onSearchInput(($event.target as HTMLInputElement).value)"
         :clearable="true"
+        @input="onSearchInput(($event.target as HTMLInputElement).value)"
       />
 
       <TableFilter

@@ -1,5 +1,8 @@
 <template>
-  <div ref="containerRef" class="relative inline-flex">
+  <div
+    ref="containerRef"
+    class="relative inline-flex"
+  >
     <Btn
       size="xs"
       color="ghost"
@@ -7,7 +10,11 @@
       @click="showFilters = !showFilters"
     >
       <span class="px-2 flex gap-2 items-center">
-        <Icon :icon="IconEnum.Filter" size="sm" class="text-base-500" />
+        <Icon
+          :icon="IconEnum.Filter"
+          size="sm"
+          class="text-base-500"
+        />
         Filters
         <span
           v-if="appliedCount"
@@ -35,13 +42,24 @@
       <div class="divider my-3" />
 
       <div class="flex items-center justify-between">
-        <Btn :icon="IconEnum.Plus" :color="'ghost'" @click="addRow">
+        <Btn
+          :icon="IconEnum.Plus"
+          :color="'ghost'"
+          @click="addRow"
+        >
           Add filter
         </Btn>
 
         <div class="flex gap-2">
-          <Btn :color="'ghost'" @click="onReset"> Reset </Btn>
-          <Btn @click="onApply"> Apply </Btn>
+          <Btn
+            :color="'ghost'"
+            @click="onReset"
+          >
+            Reset
+          </Btn>
+          <Btn @click="onApply">
+            Apply
+          </Btn>
         </div>
       </div>
     </div>

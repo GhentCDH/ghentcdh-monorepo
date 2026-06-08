@@ -18,8 +18,14 @@
     :data-tip="props.tooltip"
     @click="emit('click')"
   >
-    <Icon v-if="props.icon" :icon="props.icon" />
-    <span v-if="$slots.default" class="whitespace-nowrap"><slot /></span>
+    <Icon
+      v-if="props.icon"
+      :icon="props.icon"
+    />
+    <span
+      v-if="$slots.default"
+      class="whitespace-nowrap"
+    ><slot /></span>
   </component>
 </template>
 

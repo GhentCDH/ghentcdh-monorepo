@@ -1,8 +1,16 @@
 <template>
-  <div ref="selectWrapperRef" :aria-label="id" role="select">
+  <div
+    ref="selectWrapperRef"
+    :aria-label="id"
+    role="select"
+  >
     <ControlWrapper v-bind="props">
       <div class="flex items-center w-full">
-        <div ref="inputWrapperRef" class="relative w-full" @keydown="onKeydown">
+        <div
+          ref="inputWrapperRef"
+          class="relative w-full"
+          @keydown="onKeydown"
+        >
           <div class="overflow-hidden w-full">
             <slot />
           </div>
