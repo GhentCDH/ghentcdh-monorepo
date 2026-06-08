@@ -5,7 +5,10 @@
     :uischema="uischema"
     :schema="resolved"
   />
-  <div v-else class="text-error text-xs">
+  <div
+    v-else
+    class="text-error text-xs"
+  >
     No renderer for {{ (uischema as any).scope }} type: {{ uischema.type }}
   </div>
 </template>

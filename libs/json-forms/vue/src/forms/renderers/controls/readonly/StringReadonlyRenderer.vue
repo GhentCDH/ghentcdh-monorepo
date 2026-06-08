@@ -1,6 +1,12 @@
 <template>
-  <ReadonlyWrapper :uischema="uischema" :schema="schema">
-    <p class="py-1 min-h-8 text-sm whitespace-pre-wrap break-words" :dir="dir">
+  <ReadonlyWrapper
+    :uischema="uischema"
+    :schema="schema"
+  >
+    <p
+      class="py-1 min-h-8 text-sm whitespace-pre-wrap break-words"
+      :dir="dir"
+    >
       <a
         v-if="isLink"
         :href="_displayValue"
@@ -22,8 +28,8 @@ import { useFormContext } from 'vee-validate';
 import { computed, inject } from 'vue';
 
 import ReadonlyWrapper from './ReadonlyWrapper.vue';
-import { useControlBinding } from '../composable/UseControlBinding';
 import { useDisplayValue } from './useDisplayValue';
+import { useControlBinding } from '../composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

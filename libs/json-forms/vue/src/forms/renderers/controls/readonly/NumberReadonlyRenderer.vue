@@ -1,5 +1,8 @@
 <template>
-  <ReadonlyWrapper :uischema="uischema" :schema="schema">
+  <ReadonlyWrapper
+    :uischema="uischema"
+    :schema="schema"
+  >
     <p class="py-1 min-h-8 text-sm">
       {{ displayValue }}
     </p>
@@ -8,12 +11,12 @@
 
 <script setup lang="ts">
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
+import { useFormContext } from 'vee-validate';
 import { computed } from 'vue';
 
 import ReadonlyWrapper from './ReadonlyWrapper.vue';
-import { useControlBinding } from '../composable/UseControlBinding';
 import { useDisplayValue } from './useDisplayValue';
-import { useFormContext } from 'vee-validate';
+import { useControlBinding } from '../composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

@@ -1,5 +1,8 @@
 <template>
-  <ReadonlyWrapper :uischema="uischema" :schema="schema">
+  <ReadonlyWrapper
+    :uischema="uischema"
+    :schema="schema"
+  >
     object render
     <pre class="py-1 text-sm whitespace-pre-wrap break-words">{{
       formatted

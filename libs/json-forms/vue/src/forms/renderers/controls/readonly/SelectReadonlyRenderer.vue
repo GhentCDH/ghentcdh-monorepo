@@ -1,5 +1,8 @@
 <template>
-  <ReadonlyWrapper :uischema="uischema" :schema="schema">
+  <ReadonlyWrapper
+    :uischema="uischema"
+    :schema="schema"
+  >
     <p class="py-1 min-h-8 text-sm">
       {{ displayLabel ?? '—' }}
     </p>
@@ -11,8 +14,8 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import { computed } from 'vue';
 
 import ReadonlyWrapper from './ReadonlyWrapper.vue';
-import { useSelectBinding } from '../composable/UseSelectBinding';
 import { useDisplayValue } from './useDisplayValue';
+import { useSelectBinding } from '../composable/UseSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

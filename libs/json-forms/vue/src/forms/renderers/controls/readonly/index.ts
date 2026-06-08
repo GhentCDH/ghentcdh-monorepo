@@ -1,4 +1,5 @@
 import { rankWith } from '@jsonforms/core';
+
 import BooleanReadonlyRenderer from './BooleanReadonlyRenderer.vue';
 import MarkdownReadonlyRenderer from './MarkdownReadonlyRenderer.vue';
 import MultiSelectReadonlyRenderer from './MultiSelectReadonlyRenderer.vue';
