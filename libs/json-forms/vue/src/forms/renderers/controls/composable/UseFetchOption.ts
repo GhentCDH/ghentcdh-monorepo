@@ -79,7 +79,7 @@ const useResourceOptions = async (
         [method](uri, { signal })
         .then((data: any) => data.data[options.dataField ?? 'data']);
     },
-    enableCreate: !!resource.operations.create,
+    enableCreate: !!resource.operations.create && resource.schema.ui,
     form: resource.operations.create
       ? {
           ui_schema: resource.schema!.ui,

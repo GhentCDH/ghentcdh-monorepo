@@ -4,7 +4,7 @@
     :options="values"
     :is-open="isOpen"
     :disabled="!enabled"
-    :query="displayValues"
+    :query="null"
     :is-active="hasValue"
     @close="close"
     @select="select"

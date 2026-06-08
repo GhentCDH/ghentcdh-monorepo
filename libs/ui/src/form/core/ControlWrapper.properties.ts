@@ -18,6 +18,6 @@ export const ControlWrapperProperties = {
     type: Object as PropType<MyStyles>,
     default: () => myStyles,
   },
-  width: { type: String, default: 'w-48' },
+  width: { type: String, default: '!w-48' },
   size: { type: String },
 };

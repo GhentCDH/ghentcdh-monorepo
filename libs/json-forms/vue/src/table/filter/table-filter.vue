@@ -1,8 +1,5 @@
 <template>
-  <div
-    ref="containerRef"
-    class="relative inline-flex"
-  >
+  <div ref="containerRef" class="relative inline-flex">
     <Btn
       size="xs"
       color="ghost"
@@ -10,11 +7,7 @@
       @click="showFilters = !showFilters"
     >
       <span class="px-2 flex gap-2 items-center">
-        <Icon
-          :icon="IconEnum.Filter"
-          size="sm"
-          class="text-base-300"
-        />
+        <Icon :icon="IconEnum.Filter" size="sm" class="text-base-500" />
         Filters
         <span
           v-if="appliedCount"
@@ -42,24 +35,13 @@
       <div class="divider my-3" />
 
       <div class="flex items-center justify-between">
-        <Btn
-          :icon="IconEnum.Plus"
-          :color="'ghost'"
-          @click="addRow"
-        >
+        <Btn :icon="IconEnum.Plus" :color="'ghost'" @click="addRow">
           Add filter
         </Btn>
 
         <div class="flex gap-2">
-          <Btn
-            :color="'ghost'"
-            @click="onReset"
-          >
-            Reset
-          </Btn>
-          <Btn @click="onApply">
-            Apply
-          </Btn>
+          <Btn :color="'ghost'" @click="onReset"> Reset </Btn>
+          <Btn @click="onApply"> Apply </Btn>
         </div>
       </div>
     </div>
@@ -80,12 +62,12 @@ const appliedCount = ref(0);
 const containerRef = ref<HTMLElement | null>(null);
 
 const onClickOutside = (event: MouseEvent) => {
-  if (
-    containerRef.value &&
-    !containerRef.value.contains(event.target as Node)
-  ) {
-    showFilters.value = false;
-  }
+  const target = event.target as Node;
+  // Ignore clicks inside the filter container itself
+  if (containerRef.value?.contains(target)) return;
+  // Ignore clicks inside a teleported select listbox (rendered outside container in <body>)
+  if ((target as Element).closest?.('[data-select-listbox]')) return;
+  showFilters.value = false;
 };
 
 onMounted(() => document.addEventListener('mousedown', onClickOutside));

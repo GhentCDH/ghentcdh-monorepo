@@ -16,6 +16,7 @@ export const BtnProperties = {
   color: { type: String as PropType<Color>, default: Color.primary },
   size: { type: String as PropType<Size>, default: 'sm' as Size },
   square: { type: Boolean, default: false },
+  noBorder: { type: Boolean, default: false },
 };
 
 export const BtnEmits = ['click'];

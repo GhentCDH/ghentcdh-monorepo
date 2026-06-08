@@ -49,6 +49,11 @@ const OperationMap: Record<OperationKey, Method> = {
   update: 'patch',
 };
 
+const schemaDef = z.object({
+  ui: z.any().optional(),
+  data: z.any(),
+});
+
 /**
  * Zod schema that validates and transforms a resource definition from the API.
  *
@@ -66,19 +71,19 @@ export const ResourceSchema = z
     id: z.string(),
     uri: z.string(),
     operations: Operations,
-    schema: z
+    schema: schemaDef.optional(),
+    schemas: z
       .object({
-        ui: z.any().optional(),
-        data: z.any(),
+        form: schemaDef.optional(),
       })
       .optional(),
   })
   .transform((data) => {
-    const schema = data.schema;
-    if (schema) {
-      if (!schema.ui) {
-        schema.ui = uiFromJsonSchema(schema.data);
-      }
+    const schema = data.schema ??
+      data.schemas?.form ?? { ui: undefined, data: undefined };
+
+    if (!schema.ui && schema.data) {
+      schema.ui = uiFromJsonSchema(schema.data);
     }
 
     const operations = {} as Record<OperationKey, Operation | null>;
@@ -97,7 +102,8 @@ export const ResourceSchema = z
           return { uri: operation, method: 'get' } as Operation;
         return {
           uri: operation.uri,
-          method: (operation.method?.toLowerCase() ?? defaultOperation) as Method,
+          method: (operation.method?.toLowerCase() ??
+            defaultOperation) as Method,
         };
       };
 

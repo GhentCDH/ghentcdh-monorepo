@@ -1,15 +1,8 @@
 <template>
-  <div
-    ref="selectWrapperRef"
-    :aria-label="id"
-    role="select"
-  >
+  <div ref="selectWrapperRef" :aria-label="id" role="select">
     <ControlWrapper v-bind="props">
       <div class="flex items-center w-full">
-        <div
-          class="relative w-full"
-          @keydown="onKeydown"
-        >
+        <div ref="inputWrapperRef" class="relative w-full" @keydown="onKeydown">
           <div class="overflow-hidden w-full">
             <slot />
           </div>
@@ -80,7 +73,7 @@
                 ref="listResultsRef"
                 :teleported="true"
                 :style="dropdownStyle"
-                :query="query"
+                :query="null"
                 :options="options"
                 :is-loading="isLoading"
                 :is-active="isActive"
@@ -118,6 +111,7 @@ import ControlWrapper from '../core/ControlWrapper.vue';
 const props = defineProps(SelectWrapperProperties);
 
 const selectWrapperRef = ref<HTMLElement>();
+const inputWrapperRef = ref<HTMLElement>();
 const listResultsRef = ref<InstanceType<typeof ListResults>>();
 const emits = defineEmits(SelectWrapperEmits);
 
@@ -126,8 +120,11 @@ const emits = defineEmits(SelectWrapperEmits);
 const teleportTarget = ref<string | Element>('body');
 
 const dropdownStyle = computed(() => {
-  if (!selectWrapperRef.value) return {};
-  const rect = selectWrapperRef.value.getBoundingClientRect();
+  // Use the input row ref so the dropdown aligns with the bottom of the input,
+  // not the bottom of the full component (which includes the label).
+  const anchor = inputWrapperRef.value ?? selectWrapperRef.value;
+  if (!anchor) return {};
+  const rect = anchor.getBoundingClientRect();
   return {
     position: 'fixed' as const,
     zIndex: 9999,

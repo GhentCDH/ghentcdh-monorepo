@@ -12,9 +12,11 @@
         size="sm"
         width="w-48"
         @input="onSearchInput(($event.target as HTMLInputElement).value)"
+        :clearable="true"
       />
 
       <TableFilter
+        v-if="filterSchema"
         :filters="filters"
         :filter-schema="filterSchema"
         @change-filters="onChangeFilters"

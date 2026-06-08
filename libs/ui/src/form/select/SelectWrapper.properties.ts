@@ -13,7 +13,9 @@ export const SelectProperties = {
   /** add a new button next to the list */
   enableCreate: { type: Boolean, default: false },
   /** Whether to show the clear button when a value is selected */
-  clearable: { type: Boolean, default: true },
+  clearable: { type: Boolean, default: false },
+  /** Alternative to v-model — accepts a string id or a full option object */
+  value: { type: null as unknown as PropType<any>, default: undefined },
 };
 
 export const SelectWrapperEmits = ['select', 'clear', 'close', 'create'];

@@ -2,7 +2,8 @@
   <ul
     ref="listRef"
     role="listbox"
-    class="bg-base-100 border border-base-300 rounded-box shadow-xl overflow-auto max-h-64 origin-top p-1"
+    data-select-listbox
+    class="bg-base-100 border border-base-300 rounded-box shadow-xl overflow-auto max-h-72 origin-top p-1"
     :class="teleported ? '' : 'absolute z-50 w-full mt-1'"
   >
     <!-- Loading skeleton rows -->
@@ -41,7 +42,7 @@
         @mousemove="!item.disabled && (activeIndex = i)"
       >
         <a
-          class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm text-base-content no-underline transition-colors duration-100"
+          class="text-sm flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm text-base-content no-underline transition-colors duration-100"
           :class="{
             'opacity-40 cursor-not-allowed': item.disabled,
             'cursor-pointer': !item.disabled,
@@ -79,7 +80,11 @@
 <script lang="ts" setup>
 import { nextTick, ref, watch } from 'vue';
 
-import { ListProperties, ListResultsEmits, type OptionValue } from './ListResults.properties';
+import {
+  ListProperties,
+  ListResultsEmits,
+  type OptionValue,
+} from './ListResults.properties';
 
 const props = defineProps(ListProperties);
 const activeIndex = ref(-1);

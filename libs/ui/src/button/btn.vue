@@ -9,6 +9,7 @@
         'btn-outline': props.outline,
         'btn-square': props.square,
         tooltip: props.tooltip,
+        'border-0': props.noBorder,
       },
     ]"
     :href="props.href"
@@ -17,11 +18,8 @@
     :data-tip="props.tooltip"
     @click="emit('click')"
   >
-    <Icon
-      v-if="props.icon"
-      :icon="props.icon"
-    />
-    <span class="whitespace-nowrap"> <slot /></span>
+    <Icon v-if="props.icon" :icon="props.icon" />
+    <span v-if="$slots.default" class="whitespace-nowrap"><slot /></span>
   </component>
 </template>
 

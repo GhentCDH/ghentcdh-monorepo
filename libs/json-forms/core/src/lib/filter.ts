@@ -1,7 +1,39 @@
 import type { SortDir } from './request.model';
 
-export const Operator = ['contains', 'equals'] as const;
+export const Operator = [
+  'contains',
+  'not_contains',
+  'equals',
+  'not_equals',
+  'gt',
+  'lt',
+  'isnull',
+  'isnotnull',
+] as const;
+
 export type OperatorType = (typeof Operator)[number];
+
+/** Human-readable label shown in the filter operator dropdown. */
+export const OperatorLabel: Record<OperatorType, string> = {
+  contains: 'contains',
+  not_contains: 'not contains',
+  equals: 'equals',
+  not_equals: 'not equals',
+  gt: '>',
+  lt: '<',
+  isnull: 'is empty',
+  isnotnull: 'is not empty',
+};
+
+export const OperatorOptions = Operator.map((k) => {
+  return {
+    value: k,
+    label: OperatorLabel[k],
+  };
+});
+
+/** Operators that don't require a user-supplied value. */
+export const OperatorNoValue = new Set<OperatorType>(['isnull', 'isnotnull']);
 
 export type Filter = {
   key: string;
@@ -11,11 +43,13 @@ export type Filter = {
 };
 
 const getFilterValues = (filter: string): Filter => {
-  const [key, value, op] = filter.split(':') as string[];
-
-  const operator: OperatorType = Operator.includes(op as any)
-    ? (op as OperatorType)
-    : 'contains';
+  // Format: field:value:operator — last segment is operator when it matches a known operator.
+  const parts = filter.split(':');
+  const key = parts[0] ?? '';
+  const lastPart = parts[parts.length - 1] as OperatorType;
+  const hasOp = parts.length >= 3 && Operator.includes(lastPart);
+  const operator: OperatorType = hasOp ? lastPart : 'contains';
+  const value = hasOp ? parts.slice(1, -1).join(':') : parts.slice(1).join(':');
 
   return { key, value, operator };
 };
