@@ -1,5 +1,8 @@
 <template>
-  <ReadonlyWrapper :uischema="uischema" :schema="schema">
+  <ReadonlyWrapper
+    :uischema="uischema"
+    :schema="schema"
+  >
     <div class="flex gap-2 items-center justify-between">
       <div>
         {{ displayValue }}
@@ -22,11 +25,12 @@
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import { computed } from 'vue';
 
-import ReadonlyWrapper from './ReadonlyWrapper.vue';
-import { useSelectBinding } from '../composable/UseSelectBinding';
-import { scopeToPath } from '../../../scope';
-import { useFormEvents } from '@ghentcdh/json-forms-vue';
 import { Btn, IconEnum } from '@ghentcdh/ui';
+
+import ReadonlyWrapper from './ReadonlyWrapper.vue';
+import { useFormEvents } from '../../../../composables/useFormEvents';
+import { scopeToPath } from '../../../scope';
+import { useSelectBinding } from '../composable/UseSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

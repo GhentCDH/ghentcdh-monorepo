@@ -23,7 +23,11 @@
       <slot name="content-after" />
     </template>
     <template #actions>
-      <Btn v-if="canEdit" :aria-label="editLabel" @click="onEditClick">
+      <Btn
+        v-if="canEdit"
+        :aria-label="editLabel"
+        @click="onEditClick"
+      >
         {{ editLabel }}
       </Btn>
       <Btn

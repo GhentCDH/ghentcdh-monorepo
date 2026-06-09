@@ -1,6 +1,8 @@
 <template>
   <ControlWrapper v-bind="properties">
-    <slot />
+    <div class="hover:bg-base-200 pr-10">
+      <slot />
+    </div>
   </ControlWrapper>
 </template>
 
