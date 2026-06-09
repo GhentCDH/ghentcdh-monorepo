@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { BtnEmits, BtnProperties } from './Btn.properties';
-import { type Color, ButtonColor } from '../const/colors';
+import { ButtonColor, type Color } from '../const/colors';
 import { ButtonSize } from '../const/size';
 import { Icon } from '../icons';
 

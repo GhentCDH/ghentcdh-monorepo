@@ -275,24 +275,6 @@ importers:
         specifier: 3.5.29
         version: 3.5.29(typescript@5.9.3)
 
-  libs/core/types:
-    dependencies:
-      '@ghentcdh/json-forms-core':
-        specifier: '>=0.0.1'
-        version: 0.8.6(@anatine/zod-openapi@2.2.8(openapi3-ts@4.5.0)(zod@4.3.6))(@jsonforms/core@3.7.0)(zod@4.3.6)
-      '@jsonforms/core':
-        specifier: 3.7.0
-        version: 3.7.0
-      lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
-      tslib:
-        specifier: ^2.3.0
-        version: 2.8.1
-      zod:
-        specifier: 4.3.6
-        version: 4.3.6
-
   libs/json-forms/api:
     dependencies:
       '@ghentcdh/json-forms-core':
@@ -392,12 +374,6 @@ importers:
       '@ghentcdh/json-forms-core':
         specifier: '>=0.0.1'
         version: 0.8.6(@anatine/zod-openapi@2.2.8(openapi3-ts@4.5.0)(zod@4.3.6))(@jsonforms/core@3.7.0)(zod@4.3.6)
-      '@ghentcdh/tools-vue':
-        specifier: '>=0.6.0'
-        version: 0.8.6(axios@1.13.5)(vue@3.5.29(typescript@5.9.3))
-      '@heroicons/vue':
-        specifier: ^2.2.0
-        version: 2.2.0(vue@3.5.29(typescript@5.9.3))
       '@playwright/test':
         specifier: '>=1.50.0'
         version: 1.60.0
@@ -6662,9 +6638,6 @@ packages:
 
   lockfile@1.0.4:
     resolution: {integrity: sha512-cvbTwETRfsFh4nHsL1eGWapU1XFi5Ot9E85sWAwia7Y7EgB7vfqcZhTKZ+l7hCGxSPoushMv5GKhT5PdLv03WA==}
-
-  lodash-es@4.17.23:
-    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
 
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
@@ -15927,8 +15900,6 @@ snapshots:
   lockfile@1.0.4:
     dependencies:
       signal-exit: 3.0.7
-
-  lodash-es@4.17.23: {}
 
   lodash.debounce@4.0.8: {}
 
