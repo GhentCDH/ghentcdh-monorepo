@@ -126,7 +126,6 @@ copyReadme('libs/tools', 'core-site/tools');
 
 createMenu('core-site/authentication');
 createMenu('core-site/tools');
-createMenu('core-site/core');
 
 // ── shared root README → both sites ──────────────────────────────────────────
 copyReadme('', 'ui-site', 1);
