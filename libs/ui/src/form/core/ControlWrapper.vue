@@ -1,11 +1,11 @@
 <template>
-  <fieldset
-    class="fieldset"
-    :class="[width, mergedStyles.control.wrapper]"
-  >
+  <fieldset class="fieldset" :class="[width, mergedStyles.control.wrapper]">
     <legend
       class="w-full inline-block"
-      :class="[mergedStyles.control.label, { 'p-0 h-0 leading-none': hideLabel }]"
+      :class="[
+        mergedStyles.control.label,
+        { 'p-0 h-0 leading-none': hideLabel },
+      ]"
     >
       <template v-if="!hideLabel">
         <div class="flex items-center justify-between mb-2">
@@ -18,7 +18,10 @@
       </template>
     </legend>
     <slot />
-    <p :class="['fieldset-label h-4', { 'text-error': showErrors }]">
+    <p
+      v-if="!hideErrors"
+      :class="['fieldset-label h-4', { 'text-error': showErrors }]"
+    >
       {{ showErrors ? errors : showDescription ? description : null }}
     </p>
   </fieldset>

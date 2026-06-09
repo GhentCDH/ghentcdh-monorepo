@@ -1,8 +1,5 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
+  <ReadonlyWrapper v-bind="wrapper">
     <p class="py-1 min-h-8 text-sm">
       {{ displayValue }}
     </p>
@@ -11,19 +8,22 @@
 
 <script setup lang="ts">
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
-import { useFormContext } from 'vee-validate';
 import { computed } from 'vue';
 
-import ReadonlyWrapper from './ReadonlyWrapper.vue';
+import { ReadonlyWrapper } from '@ghentcdh/ui';
+
 import { useDisplayValue } from './useDisplayValue';
 import { useControlBinding } from '../composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { values: formValues } = useFormContext();
-const { value } = useControlBinding(props.uischema, props.schema, {
-  defaultType: 'number',
-});
+const { value, wrapper, formValues } = useControlBinding(
+  props.uischema,
+  props.schema,
+  {
+    defaultType: 'number',
+  },
+);
 
 const displayValue = computed(() => {
   return (

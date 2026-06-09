@@ -1,12 +1,6 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
-    <p
-      class="py-1 min-h-8 text-sm whitespace-pre-wrap break-words"
-      :dir="dir"
-    >
+  <ReadonlyWrapper v-bind="wrapper">
+    <p :dir="dir">
       <a
         v-if="isLink"
         :href="_displayValue"
@@ -24,21 +18,22 @@
 
 <script setup lang="ts">
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
-import { useFormContext } from 'vee-validate';
 import { computed, inject } from 'vue';
 
-import ReadonlyWrapper from './ReadonlyWrapper.vue';
+import { ReadonlyWrapper } from '@ghentcdh/ui';
+
 import { useDisplayValue } from './useDisplayValue';
 import { useControlBinding } from '../composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { value } = useControlBinding(props.uischema, props.schema);
+const { value, wrapper, formValues } = useControlBinding(
+  props.uischema,
+  props.schema,
+);
 
 const pathPrefix = inject<string>('pathPrefix', '');
 const opts = (props.uischema.options ?? {}) as any;
-
-const { values: formValues } = useFormContext();
 
 const dir = computed<'ltr' | 'rtl'>(() => {
   if (!opts.directionField) return (opts.direction as 'ltr' | 'rtl') ?? 'ltr';

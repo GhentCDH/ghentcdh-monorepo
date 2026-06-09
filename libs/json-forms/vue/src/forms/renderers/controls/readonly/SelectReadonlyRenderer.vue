@@ -1,12 +1,7 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
+  <ReadonlyWrapper v-bind="wrapper">
     <div class="flex gap-2 items-center justify-between">
-      <div>
-        {{ displayValue }}
-      </div>
+      <div>{{ wrapper.displayValue[wrapper.labelKey] }}</div>
       <div>
         <Btn
           v-if="value && appliedOptions.resource"
@@ -23,29 +18,25 @@
 
 <script setup lang="ts">
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
-import { computed } from 'vue';
 
-import { Btn, IconEnum } from '@ghentcdh/ui';
+import { Btn, IconEnum, ReadonlyWrapper } from '@ghentcdh/ui';
 
-import ReadonlyWrapper from './ReadonlyWrapper.vue';
 import { useFormEvents } from '../../../../composables/useFormEvents';
 import { scopeToPath } from '../../../scope';
 import { useSelectBinding } from '../composable/UseSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { value, appliedOptions } = useSelectBinding(
+const { value, appliedOptions, wrapper } = useSelectBinding(
   props.uischema,
   props.schema,
 );
-const displayValue = computed(() => {
-  return value.value?.[appliedOptions.value.labelKey] as string;
-});
 
 const formEvents = useFormEvents();
 const view = () => {
+  const options = appliedOptions.value;
   const path = scopeToPath(props.uischema.scope);
-  const id = value.value?.[appliedOptions.value.idKey];
+  const id = wrapper.value?.displayValue[appliedOptions.value.valueKey];
   if (id) {
     formEvents.dispatch({
       event: 'view',

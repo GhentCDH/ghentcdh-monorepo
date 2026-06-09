@@ -1,8 +1,5 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
+  <ReadonlyWrapper v-bind="wrapper">
     <div
       class="prose prose-sm max-w-none py-1 min-h-8"
       v-html="renderedHtml"
@@ -15,7 +12,8 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import { useFormContext } from 'vee-validate';
 import { computed } from 'vue';
 
-import ReadonlyWrapper from './ReadonlyWrapper.vue';
+import { ReadonlyWrapper } from '@ghentcdh/ui';
+
 import { useDisplayValue } from './useDisplayValue';
 import { useControlBinding } from '../composable/UseControlBinding';
 

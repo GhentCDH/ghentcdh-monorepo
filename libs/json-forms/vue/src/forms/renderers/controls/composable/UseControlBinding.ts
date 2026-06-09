@@ -22,8 +22,10 @@ export const useCustomControlBinding = <
 >({
   useProps,
   setDefaultValue,
+  additionalProps,
 }: {
   useProps?: useCustomProps;
+  additionalProps?: useCustomProps;
   setDefaultValue?: (field: FieldContext) => void;
 } = {}) => {
   return (uischema: ControlElement, schema: JsonSchema, options = {}) => {
@@ -53,6 +55,9 @@ export const useCustomControlBinding = <
       field.handleChange(val);
     });
 
+    const customProps =
+      additionalProps?.(uischema, schema, field, options) ??
+      computed(() => ({}));
     return {
       formValues,
       wrapper: computed(() => ({ ...wrapper.value, ...customWrapper.value })),

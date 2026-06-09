@@ -18,4 +18,3 @@ export {
   useControlBinding,
   useCustomControlBinding,
 } from './forms/renderers/controls/composable/UseControlBinding';
-export { default as ReadonlyWrapper } from './forms/renderers/controls/readonly/ReadonlyWrapper.vue';
