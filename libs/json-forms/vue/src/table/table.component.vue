@@ -2,11 +2,11 @@
   <Table
     v-bind="properties"
     :display-columns="displayColumns"
-    :page="hidePagination ? null : page"
+    :page="hidePagination ? undefined : page"
     @sort="(id: string) => emits('sort', id)"
     @update-page="(page: number) => emits('updatePage', page)"
     @update-page-size="(size: number) => emits('updatePageSize', size)"
-    @selection-change="emits('selectionChange', e)"
+    @selection-change="(e: any) => emits('selectionChange', e)"
   />
 </template>
 

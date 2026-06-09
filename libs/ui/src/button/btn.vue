@@ -3,7 +3,7 @@
     :is="props.as"
     :class="[
       'btn p-1 flex justify-center flex-nowrap',
-      ButtonColor[props.color],
+      ButtonColor[props.color as Color],
       ButtonSize[props.size],
       {
         'btn-outline': props.outline,
@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { BtnEmits, BtnProperties } from './Btn.properties';
-import { ButtonColor } from '../const/colors';
+import { type Color, ButtonColor } from '../const/colors';
 import { ButtonSize } from '../const/size';
 import { Icon } from '../icons';
 

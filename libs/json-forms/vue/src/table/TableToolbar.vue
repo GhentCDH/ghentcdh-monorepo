@@ -17,7 +17,7 @@
 
       <TableFilter
         v-if="filterSchema"
-        :filters="filters"
+        :filters="filters ?? []"
         :filter-schema="filterSchema"
         @change-filters="onChangeFilters"
       />

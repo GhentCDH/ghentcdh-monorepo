@@ -14,7 +14,7 @@ const loadDisplayValue = (options: SelectOptions, value: any) => {
   if (!values) return value;
   const valueKey = options.valueKey as string;
   const id = value[valueKey] ?? value;
-  const findValue = values.find((o) => o[valueKey] === id);
+  const findValue = values.find((o: any) => o[valueKey] === id);
 
   return findValue;
 };

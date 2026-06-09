@@ -17,7 +17,7 @@ import { useSelectBinding } from '../composable/UseSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { value, appliedOptions } = useSelectBinding(
+const { value, appliedOptions, wrapper } = useSelectBinding(
   props.uischema,
   props.schema,
 );

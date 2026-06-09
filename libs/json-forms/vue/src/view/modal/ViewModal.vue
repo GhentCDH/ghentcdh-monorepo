@@ -96,7 +96,7 @@ watch(valid, (newValid, oldValid) => {
   }
 });
 
-const handleEvent = (event) => {
+const handleEvent = (event: { event: string; [key: string]: any }) => {
   // ignore events other than view for now
   if (event.event !== 'view') return;
 

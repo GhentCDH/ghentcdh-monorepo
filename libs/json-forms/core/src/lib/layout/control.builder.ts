@@ -32,6 +32,8 @@ export interface DetailOptions extends ControlOption {
 export interface SelectOptions extends ControlOption {
   format: 'select' | 'multiselect';
   options: Array<any>;
+  values?: Array<any>;
+  resource?: string;
   labelKey?: string;
   valueKey?: string;
 }

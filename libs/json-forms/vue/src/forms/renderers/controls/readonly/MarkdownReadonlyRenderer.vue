@@ -19,7 +19,7 @@ import { useControlBinding } from '../composable/UseControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
-const { value } = useControlBinding(props.uischema, props.schema);
+const { value, wrapper } = useControlBinding(props.uischema, props.schema);
 
 const { values: formValues } = useFormContext();
 const renderedHtml = computed(() => {

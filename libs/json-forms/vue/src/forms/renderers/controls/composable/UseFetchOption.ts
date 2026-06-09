@@ -124,11 +124,13 @@ export const useFetchOptions = async (
     );
 
   return {
-    fetchOptions: null,
+    fetchOptions: null as
+      | ((searchTerm: string, signal: AbortSignal) => Promise<any>)
+      | null,
     labelKey: options.labelKey,
     valueKey: options.valueKey,
     enableCreate: options.enableCreate ?? false,
-    form: null,
+    form: null as Record<string, any> | null,
     ...config,
   };
 };

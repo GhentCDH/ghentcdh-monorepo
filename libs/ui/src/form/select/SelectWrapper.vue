@@ -81,7 +81,7 @@
                 ref="listResultsRef"
                 :teleported="true"
                 :style="dropdownStyle"
-                :query="null"
+                :query="undefined"
                 :options="options"
                 :is-loading="isLoading"
                 :is-active="isActive"
