@@ -55,6 +55,8 @@ export const ViewModalEmits = [
   'edit',
   /** Emitted when the Delete button is clicked. Payload: current form data. */
   'delete',
+  /** Emitted when the view event is fired from the form. Payload: payload of the form event */
+  'view',
 ];
 
 /** Result payload returned when the modal is submitted. */

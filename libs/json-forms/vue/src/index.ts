@@ -1,3 +1,5 @@
+export { useDisplayValue } from './forms/renderers/controls/readonly/useDisplayValue';
+
 export type { HttpClient } from './http-client';
 export { provideHttpClient, useHttpClient } from './composables/useHttpClient';
 export * from './forms/modal/FormModal.properties';
@@ -12,5 +14,8 @@ export { default as JsonFormModal } from './forms/modal/FormModal.vue';
 export { JsonFormModalService } from './forms/modal/FormModalService';
 export { customRenderes, readonlyRenderers } from './forms/renderers';
 export { optionIsIgnoreCase } from './renderers/tester';
-export { useControlBinding } from './forms/renderers/controls/composable/UseControlBinding';
+export {
+  useControlBinding,
+  useCustomControlBinding,
+} from './forms/renderers/controls/composable/UseControlBinding';
 export { default as ReadonlyWrapper } from './forms/renderers/controls/readonly/ReadonlyWrapper.vue';

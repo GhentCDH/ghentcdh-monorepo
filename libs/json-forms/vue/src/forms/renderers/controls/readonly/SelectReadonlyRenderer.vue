@@ -1,11 +1,20 @@
 <template>
-  <ReadonlyWrapper
-    :uischema="uischema"
-    :schema="schema"
-  >
-    <p class="py-1 min-h-8 text-sm">
-      {{ displayLabel ?? '—' }}
-    </p>
+  <ReadonlyWrapper :uischema="uischema" :schema="schema">
+    <div class="flex gap-2 items-center justify-between">
+      <div>
+        {{ displayValue }}
+      </div>
+      <div>
+        <Btn
+          v-if="value && appliedOptions.resource"
+          size="xs"
+          color="secondary"
+          :icon="IconEnum.View"
+          tooltip="View"
+          @click="view()"
+        />
+      </div>
+    </div>
   </ReadonlyWrapper>
 </template>
 
@@ -14,8 +23,10 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import { computed } from 'vue';
 
 import ReadonlyWrapper from './ReadonlyWrapper.vue';
-import { useDisplayValue } from './useDisplayValue';
 import { useSelectBinding } from '../composable/UseSelectBinding';
+import { scopeToPath } from '../../../scope';
+import { useFormEvents } from '@ghentcdh/json-forms-vue';
+import { Btn, IconEnum } from '@ghentcdh/ui';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
@@ -23,14 +34,24 @@ const { value, appliedOptions } = useSelectBinding(
   props.uischema,
   props.schema,
 );
-
-const displayLabel = computed(() => {
-  const _value = useDisplayValue(value.value, {}, appliedOptions.value as any);
-  const options = (appliedOptions.value as any).values as
-    | { label: string; value: any }[]
-    | undefined;
-
-  const match = options?.find((o) => o.value === _value);
-  return match?.label ?? String(_value);
+const displayValue = computed(() => {
+  return value.value?.[appliedOptions.value.labelKey] as string;
 });
+
+const formEvents = useFormEvents();
+const view = () => {
+  const path = scopeToPath(props.uischema.scope);
+  const id = value.value?.[appliedOptions.value.idKey];
+  if (id) {
+    formEvents.dispatch({
+      event: 'view',
+      type: path,
+      data: value.value,
+      id,
+      options: appliedOptions.value,
+    });
+
+    // TODO handle the event to view it!
+  }
+};
 </script>

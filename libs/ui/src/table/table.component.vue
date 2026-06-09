@@ -16,7 +16,7 @@
                 :indeterminate="someSelected"
                 class="cursor-pointer"
                 @change="toggleAll"
-              >
+              />
             </th>
             <th
               v-for="column in displayColumns"
@@ -25,18 +25,14 @@
               :style="
                 column.width
                   ? {
-                    width: column.width,
-                    maxWidth: column.width,
-                    minWidth: column.width,
-                  }
+                      width: column.width,
+                      maxWidth: column.width,
+                      minWidth: column.width,
+                    }
                   : { minWidth: '150px' }
               "
             >
-              <SortHeader
-                :column="column"
-                v-bind="sort"
-                @sort="onSort"
-              />
+              <SortHeader :column="column" v-bind="sort" @sort="onSort" />
             </th>
             <th
               class="sticky right-0 w-10 cursor-grab rounded-tr-md visible bg-white shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.05)]"
@@ -68,16 +64,13 @@
             :ui-id="`table_${item.id}`"
             class="hover:bg-gray-100 transition-none transition-colors border-b border-gray-200"
           >
-            <td
-              v-if="multiselect"
-              class="py-1 px-3"
-            >
+            <td v-if="multiselect" class="py-1 px-3">
               <input
                 type="checkbox"
                 :checked="selectedIds.has(item.id)"
                 class="cursor-pointer"
                 @change="toggleRow(item)"
-              >
+              />
             </td>
             <td
               v-for="column in displayColumns"
@@ -106,10 +99,7 @@
               <span
                 class="px-3 py-1 items-center justify-end gap-1 h-full flex ]"
               >
-                <template
-                  v-for="action of defaultActions"
-                  :key="action.label"
-                >
+                <template v-for="action of defaultActions" :key="action.label">
                   <Btn
                     v-if="!action.visible || action.visible(item)"
                     :aria-label="action.tooltip ?? action.label"
@@ -118,7 +108,7 @@
                     size="xs"
                     @click="action.action(item)"
                   >
-                    {{ action.label }}
+                    <span v-if="action.label">{{ action.label }}</span>
                   </Btn>
                 </template>
               </span>
@@ -168,19 +158,19 @@ watch(
   () => properties.data,
   () => {
     selectedIds.value.clear();
-  }
+  },
 );
 
 const allSelected = computed(
   () =>
     !!properties.data?.length &&
-    properties.data.every((item) => selectedIds.value.has(item.id))
+    properties.data.every((item) => selectedIds.value.has(item.id)),
 );
 
 const someSelected = computed(
   () =>
     !!properties.data?.some((item) => selectedIds.value.has(item.id)) &&
-    !allSelected.value
+    !allSelected.value,
 );
 
 const toggleRow = (item: any) => {
@@ -188,7 +178,10 @@ const toggleRow = (item: any) => {
   if (next.has(item.id)) next.delete(item.id);
   else next.add(item.id);
   selectedIds.value = next;
-  emits('selectionChange', properties.data?.filter((d) => next.has(d.id)) ?? []);
+  emits(
+    'selectionChange',
+    properties.data?.filter((d) => next.has(d.id)) ?? [],
+  );
 };
 
 const toggleAll = () => {
@@ -199,7 +192,7 @@ const toggleAll = () => {
   }
   emits(
     'selectionChange',
-    properties.data?.filter((d) => selectedIds.value.has(d.id)) ?? []
+    properties.data?.filter((d) => selectedIds.value.has(d.id)) ?? [],
   );
 };
 

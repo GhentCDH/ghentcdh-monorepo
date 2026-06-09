@@ -66,6 +66,7 @@ export class JsonFormModalService {
     onEdit,
     onDelete,
     renderers,
+    onView,
   }: {
     data?: DATA;
     schema: any;
@@ -86,6 +87,10 @@ export class JsonFormModalService {
      * a listener for the `delete` event emitted by ViewModal.
      */
     onDelete?: (data: DATA) => void;
+    /**
+     * Called when the user clicks view in the form.
+     */
+    onView?: (data: any) => void;
   }) {
     ModalService.openModal<any, ViewModalResult>({
       component: ViewModal,
@@ -109,6 +114,7 @@ export class JsonFormModalService {
         onEdit,
         onDelete,
         renderers,
+        onView,
       },
     });
   }

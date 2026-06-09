@@ -17,16 +17,13 @@
           :readonly="true"
           :ui-schema="uiSchema"
           :renderers="properties.renderers"
+          @events="handleEvent"
         />
       </div>
       <slot name="content-after" />
     </template>
     <template #actions>
-      <Btn
-        v-if="canEdit"
-        :aria-label="editLabel"
-        @click="onEditClick"
-      >
+      <Btn v-if="canEdit" :aria-label="editLabel" @click="onEditClick">
         {{ editLabel }}
       </Btn>
       <Btn
@@ -94,4 +91,11 @@ watch(valid, (newValid, oldValid) => {
     emits('valid', newValid);
   }
 });
+
+const handleEvent = (event) => {
+  // ignore events other than view for now
+  if (event.event !== 'view') return;
+
+  emits('view', event);
+};
 </script>

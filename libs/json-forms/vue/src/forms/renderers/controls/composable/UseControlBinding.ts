@@ -1,6 +1,6 @@
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import type { FieldContext } from 'vee-validate';
-import { useField } from 'vee-validate';
+import { useField, useFormContext } from 'vee-validate';
 import type { Ref } from 'vue';
 import { computed, inject, watch } from 'vue';
 
@@ -27,6 +27,7 @@ export const useCustomControlBinding = <
   setDefaultValue?: (field: FieldContext) => void;
 } = {}) => {
   return (uischema: ControlElement, schema: JsonSchema, options = {}) => {
+    const { values: formValues } = useFormContext();
     const pathPrefix = inject<string>('pathPrefix', '');
     const scopePath = scopeToPath(uischema.scope);
     const path = pathPrefix ? `${pathPrefix}.${scopePath}` : scopePath;
@@ -53,6 +54,7 @@ export const useCustomControlBinding = <
     });
 
     return {
+      formValues,
       wrapper: computed(() => ({ ...wrapper.value, ...customWrapper.value })),
       value: field.value,
       field,
