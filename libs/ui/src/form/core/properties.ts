@@ -1,4 +1,5 @@
 import type { Editor } from '@tiptap/vue-3';
+
 import type { ControlWrapperProps } from './ControlWrapper.properties';
 
 export type ControlProperties = Required<ControlWrapperProps>;
