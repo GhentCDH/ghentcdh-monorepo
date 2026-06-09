@@ -1,7 +1,6 @@
-import { or, rankWith, uiTypeIs } from '@jsonforms/core';
-
 import CollapseLayoutRenderer from './CollapseLayoutRenderer.vue';
 import LayoutRenderer from './LayoutRenderer.vue';
+import { or, rankWith, uiTypeIs } from '../../../renderers/jsonforms-testers';
 
 const isLayoutType = or(
   uiTypeIs('GridLayout'),

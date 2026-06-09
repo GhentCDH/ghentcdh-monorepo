@@ -2,10 +2,7 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 import type { FieldContext } from 'vee-validate';
 import { computed } from 'vue';
 
-import type {
-  AutocompleteAllOptions,
-  SelectOptions,
-} from '@ghentcdh/json-forms-core';
+import type { AutocompleteAllOptions, SelectOptions } from '@ghentcdh/json-forms-core';
 
 import { useCustomControlBinding } from './UseControlBinding';
 
@@ -13,7 +10,7 @@ const loadDisplayValue = (options: SelectOptions, value: any) => {
   const values = options.values;
   if (!values) return value;
   const valueKey = options.valueKey as string;
-  const id = value[valueKey] ?? value;
+  const id = value?.[valueKey] ?? value;
   const findValue = values.find((o: any) => o[valueKey] === id);
 
   return findValue;

@@ -1,5 +1,3 @@
-import { rankWith } from '@jsonforms/core';
-
 import AutocompleteControlRenderer from './AutocompleteControlRenderer.vue';
 import BooleanControlRenderer from './BooleanControlRenderer.vue';
 import MarkdownControlRenderer from './MarkdownControlRenderer.vue';
@@ -8,6 +6,7 @@ import NumberControlRenderer from './NumberControlRenderer.vue';
 import SelectControlRenderer from './SelectControlRenderer.vue';
 import StringControlRenderer from './StringControlRenderer.vue';
 import TextAreaControlRenderer from './TextAreaControlRenderer.vue';
+import { rankWith } from '../../../renderers/jsonforms-testers';
 import {
   isAutoCompleteControl,
   isBooleanControl,

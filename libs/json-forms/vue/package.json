@@ -30,7 +30,6 @@
     }
   },
   "dependencies": {
-    "@jsonforms/core": "^3.4.0",
     "vee-validate": ">=4.0.0",
     "zod": "^4.0.0"
   },
@@ -42,6 +41,7 @@
     "vue-router": "^5.0.0"
   },
   "devDependencies": {
+    "@jsonforms/core": "^3.4.0",
     "vue": "3.5.29",
     "vue-router": "5.0.3"
   },

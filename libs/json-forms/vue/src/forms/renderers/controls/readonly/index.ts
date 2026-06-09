@@ -1,5 +1,3 @@
-import { rankWith } from '@jsonforms/core';
-
 import BooleanReadonlyRenderer from './BooleanReadonlyRenderer.vue';
 import MarkdownReadonlyRenderer from './MarkdownReadonlyRenderer.vue';
 import MultiSelectReadonlyRenderer from './MultiSelectReadonlyRenderer.vue';
@@ -7,6 +5,7 @@ import NumberReadonlyRenderer from './NumberReadonlyRenderer.vue';
 import ObjectReadonlyRenderer from './ObjectReadonlyRenderer.vue';
 import SelectReadonlyRenderer from './SelectReadonlyRenderer.vue';
 import StringReadonlyRenderer from './StringReadonlyRenderer.vue';
+import { rankWith } from '../../../../renderers/jsonforms-testers';
 import {
   isAutoCompleteControl,
   isBooleanControl,

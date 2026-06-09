@@ -1,7 +1,8 @@
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core';
-import { and, isBooleanControl as _isBooleanControl, or, schemaTypeIs, uiTypeIs } from '@jsonforms/core';
 
 import { ControlType } from '@ghentcdh/json-forms-core';
+
+import { and, or, schemaTypeIs, uiTypeIs } from './jsonforms-testers';
 
 export const optionIsIgnoreCase =
   (optionName: string, optionValue: string) =>
@@ -78,7 +79,7 @@ export const isSelectControl = and(
   optionIsIgnoreCase('format', ControlType.select),
 );
 export const isBooleanControl = or(
-  _isBooleanControl,
+  and(uiTypeIs('Control'), schemaTypeIs('boolean')),
   and(uiTypeIs('Control'), optionIsIgnoreCase('format', ControlType.boolean)),
 );
 export const isNumberFormat = and(

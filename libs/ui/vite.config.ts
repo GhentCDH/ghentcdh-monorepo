@@ -44,8 +44,6 @@ export default defineConfig({
       // External packages that should not be bundled into your library.
       external: [
         '@ghentcdh/tools-vue',
-        '@heroicons/vue/24/outline',
-        '@heroicons/vue/24/solid',
         '@playwright/test',
         '@tiptap/pm',
         '@tiptap/starter-kit',

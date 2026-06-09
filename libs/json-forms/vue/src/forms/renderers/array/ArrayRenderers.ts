@@ -1,6 +1,5 @@
-import { rankWith } from '@jsonforms/core';
-
 import ArrayRenderer from './ArrayRenderer.vue';
+import { rankWith } from '../../../renderers/jsonforms-testers';
 import { isArrayRenderer } from '../../../renderers/tester';
 
 
