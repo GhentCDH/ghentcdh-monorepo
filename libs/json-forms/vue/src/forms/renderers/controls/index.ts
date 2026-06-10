@@ -6,7 +6,7 @@ import NumberControlRenderer from './NumberControlRenderer.vue';
 import SelectControlRenderer from './SelectControlRenderer.vue';
 import StringControlRenderer from './StringControlRenderer.vue';
 import TextAreaControlRenderer from './TextAreaControlRenderer.vue';
-import { rankWith } from '../../../renderers/jsonforms-testers';
+import { rankWith } from '../../../testers/jsonforms-testers';
 import {
   isAutoCompleteControl,
   isBooleanControl,
@@ -18,9 +18,9 @@ import {
   isSelectControl,
   isStringFormat,
   isTextAreaControl,
-} from '../../../renderers/tester';
+} from '../../../testers/tester';
 
-export const index = [
+export const controlRenderers = [
   { tester: rankWith(10, isStringFormat), renderer: StringControlRenderer },
   { tester: rankWith(13, isLinkControl), renderer: StringControlRenderer },
   {

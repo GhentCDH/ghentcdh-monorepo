@@ -28,7 +28,7 @@ import { JsonForm } from '@ghentcdh/json-forms-vue';
 </script>
 ```
 
-Internally, when `readonly` is `true` the form swaps its renderer registry from the editable `customRenderes` to `readonlyRenderers`. No other configuration is required — the same UI schema drives both modes.
+Internally, when `readonly` is `true` the form swaps its renderer registry from the editable `customRenderers` to `readonlyRenderers`. No other configuration is required — the same UI schema drives both modes.
 
 ## Readonly renderers
 

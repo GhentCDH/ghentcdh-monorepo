@@ -45,7 +45,7 @@ import {
   FORM_READONLY_KEY,
   FORM_SUBMITTED_KEY,
 } from './errorMode';
-import { customRenderes } from './renderers';
+import { customRenderers } from './renderers';
 import type { FormEventPayload } from '../composables/useFormEvents';
 import { provideFormEvents } from '../composables/useFormEvents';
 import { provideHttpClient } from '../composables/useHttpClient';
@@ -75,8 +75,8 @@ const { values, errors, meta, setValues, validate } = useForm({
 provide(
   'renderers',
   properties.renderers?.length
-    ? [...customRenderes, ...properties.renderers]
-    : customRenderes,
+    ? [...customRenderers, ...properties.renderers]
+    : customRenderers,
 );
 provide('readonlyRenderers', properties.renderers ?? []);
 provide('rootSchema', properties.schema);

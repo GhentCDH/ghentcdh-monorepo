@@ -17,11 +17,11 @@ import type { ColumnDef, TextCellType } from '@ghentcdh/json-forms-core';
 import { findColumnDef } from '@ghentcdh/json-forms-core';
 import { Table } from '@ghentcdh/ui';
 
-import { defaultCellRenderers, findCellRenderer } from './cells';
 import {
   TableComponentEmits,
   TableComponentProperties,
-} from './table.component.properties';
+} from './TableComponent.properties';
+import { defaultCellRenderers, findCellRenderer } from './cells';
 
 const properties = defineProps(TableComponentProperties);
 const emits = defineEmits(TableComponentEmits);

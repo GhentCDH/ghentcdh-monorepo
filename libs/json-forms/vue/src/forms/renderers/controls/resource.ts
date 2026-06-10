@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { uiFromJsonSchema } from '@ghentcdh/json-forms-core';
 
-import type { HttpClient } from '../../../../http-client';
+import type { HttpClient } from '../../../http-client';
 
 /** Supported HTTP methods for resource operations. */
 export const MethodSchema = z.enum([

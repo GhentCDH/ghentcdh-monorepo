@@ -10,7 +10,7 @@
         {{ _displayValue }}
       </a>
       <template v-else>
-        {{ _displayValue ?? '-' }}
+        {{ _displayValue ?? EMPTY_VALUE }}
       </template>
     </p>
   </ReadonlyWrapper>
@@ -22,8 +22,9 @@ import { computed, inject } from 'vue';
 
 import { ReadonlyWrapper } from '@ghentcdh/ui';
 
+import { EMPTY_VALUE } from './constants';
 import { useDisplayValue } from './useDisplayValue';
-import { useControlBinding } from '../composable/UseControlBinding';
+import { useControlBinding } from '../composables/useControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

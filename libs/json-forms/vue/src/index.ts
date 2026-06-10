@@ -1,20 +1,38 @@
-export { useDisplayValue } from './forms/renderers/controls/readonly/useDisplayValue';
-
-export type { HttpClient } from './http-client';
-export { provideHttpClient, useHttpClient } from './composables/useHttpClient';
-export * from './forms/modal/FormModal.properties';
-export * from './table';
-export * from './repository';
-export * from './composables/useFormEvents';
-
+// Types
 export type { ErrorMode } from './forms/errorMode';
-export { formatError, registerZodErrorMap } from './forms/errorMessages';
-export { default as JsonForm } from './forms/FormComponent.vue';
-export { default as JsonFormModal } from './forms/modal/FormModal.vue';
-export { JsonFormModalService } from './forms/modal/FormModalService';
-export { customRenderes, readonlyRenderers } from './forms/renderers';
-export { optionIsIgnoreCase } from './renderers/tester';
+export type { HttpClient } from './http-client';
+export type {
+  FormModalProp,
+  FormModalResult,
+} from './forms/modal/FormModal.properties';
+
+// Composables
 export {
   useControlBinding,
   useCustomControlBinding,
-} from './forms/renderers/controls/composable/UseControlBinding';
+} from './forms/renderers/controls/composables/useControlBinding';
+export { useDisplayValue } from './forms/renderers/controls/readonly/useDisplayValue';
+export * from './composables/useFormEvents';
+export { provideHttpClient, useHttpClient } from './composables/useHttpClient';
+
+// Components
+export { default as JsonForm } from './forms/FormComponent.vue';
+export { default as JsonFormModal } from './forms/modal/FormModal.vue';
+export {
+  FormModalEmits,
+  FormModalProperties,
+} from './forms/modal/FormModal.properties';
+
+// Services
+export { JsonFormModalService } from './forms/modal/FormModalService';
+
+// Renderers & testers
+export { customRenderers, readonlyRenderers } from './forms/renderers';
+export { optionIsIgnoreCase } from './testers/tester';
+
+// Error handling
+export { formatError, registerZodErrorMap } from './forms/errorMessages';
+
+// Repository & table
+export * from './repository';
+export * from './table';

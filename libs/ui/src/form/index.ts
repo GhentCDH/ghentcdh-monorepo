@@ -5,6 +5,7 @@ import MarkdownFallback from './text/MarkdownFallback.vue';
 export { default as SelectComponent } from './select/SelectComponent.vue';
 export { default as ControlWrapper } from './core/ControlWrapper.vue';
 export { default as ReadonlyWrapper } from './core/ReadonlyWrapper.vue';
+export { default as ReadonlyField } from './core/ReadonlyField.vue';
 export { default as Autocomplete } from './select/AutoComplete.vue';
 export { default as MultiSelect } from './select/MultiSelect.vue';
 export * from './core/styles';

@@ -12,7 +12,7 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 
 import { MultiSelect } from '@ghentcdh/ui';
 
-import { useSelectBinding } from './composable/UseSelectBinding';
+import { useSelectBinding } from './composables/useSelectBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

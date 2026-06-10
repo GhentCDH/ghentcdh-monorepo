@@ -17,8 +17,8 @@ import { computed, ref, watch } from 'vue';
 import type { AutocompleteAllOptions } from '@ghentcdh/json-forms-core';
 import { SelectComponent } from '@ghentcdh/ui';
 
-import { useFetchOptions } from './composable/UseFetchOption';
-import { useSelectBinding } from './composable/UseSelectBinding';
+import { useFetchOptions } from './composables/useFetchOption';
+import { useSelectBinding } from './composables/useSelectBinding';
 import { useHttpClient } from '../../../composables/useHttpClient';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();

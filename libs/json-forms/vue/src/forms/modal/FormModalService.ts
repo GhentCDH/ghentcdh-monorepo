@@ -5,11 +5,11 @@ import type { FormModalProp, FormModalResult } from './FormModal.properties';
 import FormModal from './FormModal.vue';
 import type { FormEventPayload } from '../../composables/useFormEvents';
 import type { HttpClient } from '../../http-client';
-import ViewModal from '../../view/modal/ViewModal.vue';
 import {
   type ViewModalProp,
   type ViewModalResult,
-} from '../../view/modal/ViewModalProperties'; // ViewModalProp + Vue event handler keys that modalWrapper's v-bind wires up
+} from '../../view/modal/ViewModal.properties'; // ViewModalProp + Vue event handler keys that modalWrapper's v-bind wires up
+import ViewModal from '../../view/modal/ViewModal.vue';
 
 // ViewModalProp + Vue event handler keys that modalWrapper's v-bind wires up
 // as listeners for ViewModal's 'edit' and 'delete' emits.

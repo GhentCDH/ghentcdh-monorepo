@@ -1,1 +1,1 @@
-export * from './crud.repository';
+export * from './CrudRepository';

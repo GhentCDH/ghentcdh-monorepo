@@ -35,7 +35,7 @@ import { ref } from 'vue';
 
 import { Input } from '@ghentcdh/ui';
 
-import TableFilter from './filter/table-filter.vue';
+import TableFilter from './filter/TableFilter.vue';
 
 const props = defineProps<{
   /** JSON Schema for filterable columns — keys are field ids, titles are labels. */

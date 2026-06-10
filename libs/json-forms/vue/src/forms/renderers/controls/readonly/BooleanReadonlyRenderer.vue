@@ -1,11 +1,30 @@
 <template>
   <ReadonlyWrapper v-bind="wrapper">
-    <span class="py-1 min-h-8 flex items-center text-sm">
+    <span
+      v-if="value === true"
+      class="inline-flex items-center gap-1 text-success"
+    >
       <Icon
-        v-if="value === true"
         :icon="IconEnum.Check"
         size="sm"
       />
+      <span>Yes</span>
+    </span>
+    <span
+      v-else-if="value === false"
+      class="inline-flex items-center gap-1 text-base-content/50"
+    >
+      <Icon
+        :icon="IconEnum.Close"
+        size="sm"
+      />
+      <span>No</span>
+    </span>
+    <span
+      v-else
+      class="text-base-content/50"
+    >
+      {{ EMPTY_VALUE }}
     </span>
   </ReadonlyWrapper>
 </template>
@@ -15,7 +34,8 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 
 import { Icon, IconEnum, ReadonlyWrapper } from '@ghentcdh/ui';
 
-import { useControlBinding } from '../composable/UseControlBinding';
+import { EMPTY_VALUE } from './constants';
+import { useControlBinding } from '../composables/useControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

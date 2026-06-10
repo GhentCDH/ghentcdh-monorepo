@@ -36,8 +36,11 @@ const props = defineProps<{
 }>();
 
 const LAYOUT: Record<string, string> = {
-  GridLayout: 'grid grid-cols-12 gap-3',
-  HorizontalLayout: 'flex flex-row gap-3',
+  // Stack on narrow viewports (e.g. small modals), switch to the 12-column
+  // grid at md+. Children keep their `col-span-*`; with a single column the
+  // span clamps to full width, so fields stack cleanly.
+  GridLayout: 'grid grid-cols-1 gap-3 md:grid-cols-12',
+  HorizontalLayout: 'flex flex-col gap-3 md:flex-row',
   VerticalLayout: 'flex flex-col gap-3',
 };
 

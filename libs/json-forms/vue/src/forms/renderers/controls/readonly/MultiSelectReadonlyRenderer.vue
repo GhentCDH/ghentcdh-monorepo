@@ -1,7 +1,7 @@
 <template>
   <ReadonlyWrapper v-bind="wrapper">
-    <p class="py-1 min-h-8 text-sm">
-      {{ displayLabels || '—' }}
+    <p>
+      {{ displayLabels || EMPTY_VALUE }}
     </p>
   </ReadonlyWrapper>
 </template>
@@ -12,7 +12,8 @@ import { computed } from 'vue';
 
 import { ReadonlyWrapper } from '@ghentcdh/ui';
 
-import { useSelectBinding } from '../composable/UseSelectBinding';
+import { EMPTY_VALUE } from './constants';
+import { useSelectBinding } from '../composables/useSelectBinding';
 
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();

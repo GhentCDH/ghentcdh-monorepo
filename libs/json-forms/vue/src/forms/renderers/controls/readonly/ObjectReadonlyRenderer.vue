@@ -1,8 +1,6 @@
 <template>
   <ReadonlyWrapper v-bind="wrapper">
-    <pre class="py-1 text-sm whitespace-pre-wrap break-words">{{
-      formatted
-    }}</pre>
+    <pre class="whitespace-pre-wrap break-words text-sm">{{ formatted }}</pre>
   </ReadonlyWrapper>
 </template>
 
@@ -12,13 +10,14 @@ import { computed } from 'vue';
 
 import { ReadonlyWrapper } from '@ghentcdh/ui';
 
-import { useControlBinding } from '../composable/UseControlBinding';
+import { EMPTY_VALUE } from './constants';
+import { useControlBinding } from '../composables/useControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 
 const { value, wrapper } = useControlBinding(props.uischema, props.schema);
 
 const formatted = computed(() =>
-  value.value != null ? JSON.stringify(value.value, null, 2) : '-',
+  value.value != null ? JSON.stringify(value.value, null, 2) : EMPTY_VALUE,
 );
 </script>

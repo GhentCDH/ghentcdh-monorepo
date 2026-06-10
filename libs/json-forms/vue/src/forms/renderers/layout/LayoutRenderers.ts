@@ -1,6 +1,6 @@
 import CollapseLayoutRenderer from './CollapseLayoutRenderer.vue';
 import LayoutRenderer from './LayoutRenderer.vue';
-import { or, rankWith, uiTypeIs } from '../../../renderers/jsonforms-testers';
+import { or, rankWith, uiTypeIs } from '../../../testers/jsonforms-testers';
 
 const isLayoutType = or(
   uiTypeIs('GridLayout'),
@@ -8,7 +8,7 @@ const isLayoutType = or(
   uiTypeIs('VerticalLayout'),
 );
 
-export const layoutRenderes = [
+export const layoutRenderers = [
   { tester: rankWith(10, isLayoutType), renderer: LayoutRenderer },
   {
     tester: rankWith(10, uiTypeIs('CollapseLayout')),

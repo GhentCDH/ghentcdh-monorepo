@@ -15,6 +15,8 @@ export const ControlType = {
   boolean: 'boolean',
   link: 'link',
   relation: 'relation',
+  date: 'date',
+  dateTime: 'dateTime',
 } as const;
 
 export interface TextAreaOptions extends ControlOption {

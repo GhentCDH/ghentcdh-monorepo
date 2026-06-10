@@ -18,9 +18,9 @@ import type { JsonSchema, UISchemaElement } from '@jsonforms/core';
 import { computed, inject, provide, ref } from 'vue';
 
 import { FORM_READONLY_KEY } from './errorMode';
-import type { RendererEntry } from './renderer-registry';
-import { findRenderer } from './renderer-registry';
 import { readonlyRenderers } from './renderers';
+import type { RendererEntry } from './renderers/registry';
+import { findRenderer } from './renderers/registry';
 import { resolveSchema } from './scope';
 
 const props = withDefaults(

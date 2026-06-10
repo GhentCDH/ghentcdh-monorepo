@@ -13,6 +13,15 @@ export const optionIsIgnoreCase =
     return val?.toLowerCase() === optionValue?.toLowerCase();
   };
 
+// Matches a control whose (already resolved) schema declares one of the given
+// `format`s, e.g. { type: 'string', format: 'date-time' }.
+const schemaFormatIsOneOf =
+  (...formats: string[]) =>
+  (_uischema: UISchemaElement, schema: JsonSchema): boolean => {
+    const fmt = (schema as any)?.format;
+    return typeof fmt === 'string' && formats.includes(fmt);
+  };
+
 // Matches schemas where any variant in anyOf has the given type,
 // e.g. anyOf: [{ type: 'string' }, { type: 'null' }]
 const anyOfTypeIs =
@@ -91,6 +100,15 @@ export const isIntegerFormat = and(
   or(
     optionIsIgnoreCase('format', ControlType.integer),
     schemaTypeIs('integer'),
+  ),
+);
+
+export const isDateControl = and(
+  uiTypeIs('Control'),
+  or(
+    optionIsIgnoreCase('format', ControlType.date),
+    optionIsIgnoreCase('format', ControlType.dateTime),
+    schemaFormatIsOneOf('date', 'date-time'),
   ),
 );
 

@@ -4,8 +4,8 @@ import type {
   AutocompleteResourceOptions
 } from '@ghentcdh/json-forms-core';
 
-import { getResourceSchema } from './resource';
 import type { HttpClient } from '../../../../http-client';
+import { getResourceSchema } from '../resource';
 
 /**
  * Resolve `{form.fieldName}` placeholders in a URI against the current form values,

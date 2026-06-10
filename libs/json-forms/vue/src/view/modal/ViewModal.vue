@@ -57,7 +57,7 @@ import { ref, watch } from 'vue';
 
 import { Btn, Color, IconEnum, Modal } from '@ghentcdh/ui';
 
-import { ViewModalEmits, ViewModalProperties } from './ViewModalProperties';
+import { ViewModalEmits, ViewModalProperties } from './ViewModal.properties';
 import FormComponent from '../../forms/FormComponent.vue';
 
 const properties = defineProps(ViewModalProperties);

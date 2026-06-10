@@ -37,7 +37,7 @@ export const JsonFormComponentProperties = {
     type: Object as PropType<HttpClient>,
     default: null,
   },
-  /** Custom renderer registry. Overrides the default `customRenderes` when provided. */
+  /** Custom renderer registry. Overrides the default `customRenderers` when provided. */
   renderers: {
     type: Array as PropType<any[]>,
     default: null,

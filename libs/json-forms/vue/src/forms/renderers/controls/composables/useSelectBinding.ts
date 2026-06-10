@@ -4,7 +4,7 @@ import { computed } from 'vue';
 
 import type { AutocompleteAllOptions, SelectOptions } from '@ghentcdh/json-forms-core';
 
-import { useCustomControlBinding } from './UseControlBinding';
+import { useCustomControlBinding } from './useControlBinding';
 
 const loadDisplayValue = (options: SelectOptions, value: any) => {
   const values = options.values;

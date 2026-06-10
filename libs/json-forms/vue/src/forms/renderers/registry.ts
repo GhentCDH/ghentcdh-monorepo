@@ -1,4 +1,4 @@
-// src/forms/renderer-registry.ts
+// src/forms/renderers/registry.ts
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core';
 import type { Component } from 'vue';
 

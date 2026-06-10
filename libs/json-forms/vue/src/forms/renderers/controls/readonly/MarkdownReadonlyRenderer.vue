@@ -1,7 +1,7 @@
 <template>
   <ReadonlyWrapper v-bind="wrapper">
     <div
-      class="prose prose-sm max-w-none py-1 min-h-8"
+      class="prose prose-sm max-w-none"
       v-html="renderedHtml"
     />
   </ReadonlyWrapper>
@@ -15,7 +15,7 @@ import { computed } from 'vue';
 import { ReadonlyWrapper } from '@ghentcdh/ui';
 
 import { useDisplayValue } from './useDisplayValue';
-import { useControlBinding } from '../composable/UseControlBinding';
+import { useControlBinding } from '../composables/useControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

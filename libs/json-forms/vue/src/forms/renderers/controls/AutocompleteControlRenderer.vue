@@ -24,8 +24,8 @@ import { Autocomplete } from '@ghentcdh/ui';
 import { useFormEvents } from '../../../composables/useFormEvents';
 import { useHttpClient } from '../../../composables/useHttpClient';
 import { scopeToPath } from '../../scope';
-import { useFetchOptions } from './composable/UseFetchOption';
-import { useAutocompleteBinding } from './composable/UseSelectBinding';
+import { useFetchOptions } from './composables/useFetchOption';
+import { useAutocompleteBinding } from './composables/useSelectBinding';
 import { JsonFormModalService } from '../../modal/FormModalService';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
