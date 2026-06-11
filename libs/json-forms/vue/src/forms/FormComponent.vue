@@ -3,12 +3,6 @@
     :id="id"
     @submit.prevent="onSubmit"
   >
-    <div
-      v-if="formData.id"
-      class="text-gray-500 text-xs mb-2"
-    >
-      ID: {{ formData.id }}
-    </div>
     <Dispatch
       :uischema="uiSchema"
       :schema="schema"
@@ -18,16 +12,7 @@
 
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
-import {
-  computed,
-  nextTick,
-  onMounted,
-  provide,
-  ref,
-  toRaw,
-  toRef,
-  watch,
-} from 'vue';
+import { computed, nextTick, onMounted, provide, ref, toRaw, toRef, watch } from 'vue';
 import { fromJSONSchema } from 'zod';
 
 import { enforceRequiredStringMinLength } from '@ghentcdh/json-forms-core';
@@ -35,16 +20,9 @@ import { myStyles } from '@ghentcdh/ui';
 
 import Dispatch from './Dispatch.vue';
 import type { Data, SubmitFormEvent } from './FormComponent.properties';
-import {
-  JsonFormComponentEmits,
-  JsonFormComponentProperties,
-} from './FormComponent.properties';
+import { JsonFormComponentEmits, JsonFormComponentProperties } from './FormComponent.properties';
 import { registerZodErrorMap } from './errorMessages';
-import {
-  ERROR_MODE_KEY,
-  FORM_READONLY_KEY,
-  FORM_SUBMITTED_KEY,
-} from './errorMode';
+import { ERROR_MODE_KEY, FORM_READONLY_KEY, FORM_SUBMITTED_KEY } from './errorMode';
 import { customRenderers } from './renderers';
 import type { FormEventPayload } from '../composables/useFormEvents';
 import { provideFormEvents } from '../composables/useFormEvents';

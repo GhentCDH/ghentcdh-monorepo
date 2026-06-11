@@ -11,6 +11,7 @@
       "require": "./index.cjs"
     }
   },
+  "dependencies": {},
   "peerDependencies": {
     "zod": "4.3.6",
     "@jsonforms/core": "3.7.0"

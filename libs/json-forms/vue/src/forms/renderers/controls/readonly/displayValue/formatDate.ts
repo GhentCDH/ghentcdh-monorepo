@@ -45,16 +45,12 @@ export const formatDate = (
   value: unknown,
   {
     withTime = true,
-    relative = false,
     locale = 'en-GB',
     timeZone = 'UTC',
-    now,
   }: FormatDateOptions = {},
 ): string | null => {
-  if (value == null || value === '') return null;
-
-  const date = value instanceof Date ? value : new Date(String(value));
-  if (Number.isNaN(date.getTime())) return null;
+  const date = parseDate(value) as Date;
+  if (!date) return null;
 
   const datePart = new Intl.DateTimeFormat(locale, {
     day: 'numeric',
@@ -73,9 +69,28 @@ export const formatDate = (
     out = `${datePart}, ${timePart}`;
   }
 
-  if (relative) {
-    out = `${out} · ${relativeFromNow(date, now ?? new Date(), locale)}`;
-  }
-
   return out;
+};
+
+export const relativeDate = (
+  value: unknown,
+  { locale = 'en-GB', now }: FormatDateOptions = {},
+) => {
+  const date = parseDate(value) as Date;
+  if (!date) return;
+
+  return relativeFromNow(date, now ?? new Date(), locale);
+};
+
+export const parseDate = (value: string | Date | any) => {
+  if (value == null || value === '') return null;
+
+  const date = value instanceof Date ? value : new Date(String(value));
+  if (Number.isNaN(date.getTime())) return null;
+
+  return date;
+};
+
+export const isDate = (value: string | Date | any) => {
+  return !!parseDate(value);
 };

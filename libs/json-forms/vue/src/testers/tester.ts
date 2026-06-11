@@ -51,11 +51,6 @@ export const isStringFormat = and(
   ),
 );
 
-export const isLinkControl = and(
-  uiTypeIs('Control'),
-  optionIsIgnoreCase('format', ControlType.link),
-);
-
 export const isMarkdownControl = and(
   uiTypeIs('Control'),
   optionIsIgnoreCase('format', ControlType.markdown),

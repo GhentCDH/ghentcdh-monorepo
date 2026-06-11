@@ -6,6 +6,12 @@
     :width="modalSize"
     @close-modal="onCancel"
   >
+    <template #title>
+      <h3>{{ modalTitle }}</h3>
+      <div class="text-gray-500 text-xs mb-2">
+        {{ formData.id }}
+      </div>
+    </template>
     <template #content>
       <slot name="content-before" />
       <div class="overflow-y-auto">
@@ -53,12 +59,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { provide, ref, watch } from 'vue';
 
-import { Btn, Color, IconEnum, Modal } from '@ghentcdh/ui';
+import { Btn, Color, IconEnum, Modal, myStyles } from '@ghentcdh/ui';
 
 import { ViewModalEmits, ViewModalProperties } from './ViewModal.properties';
 import FormComponent from '../../forms/FormComponent.vue';
+import { customRenderers } from '../../forms/renderers/index';
 
 const properties = defineProps(ViewModalProperties);
 const id = `view_${Math.floor(Math.random() * 1000)}`;
@@ -70,6 +77,15 @@ const emits = defineEmits(ViewModalEmits);
 if (properties.data) {
   formData.value = properties.data;
 }
+provide(
+  'renderers',
+  properties.renderers?.length
+    ? [...customRenderers, ...properties.renderers]
+    : customRenderers,
+);
+provide('readonlyRenderers', properties.renderers ?? []);
+provide('rootSchema', properties.schema);
+provide('styles', myStyles);
 
 const onCancel = () => {
   formData.value = {};

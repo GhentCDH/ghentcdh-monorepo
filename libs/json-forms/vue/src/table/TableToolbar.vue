@@ -21,6 +21,24 @@
         :filter-schema="filterSchema"
         @change-filters="onChangeFilters"
       />
+
+      <div
+        v-if="actions"
+        class="flex gap-2"
+      >
+        <Btn
+          v-for="action in actions"
+          :key="action.label ?? action.tooltip"
+          size="xs"
+          color="ghost"
+          class="border-gray-300 text-base-content/50 h-8"
+          :icon="action.icon"
+          :tooltip="action.tooltip"
+          @click="action.action"
+        >
+          <span v-if="action.label">{{ action.label }}</span>
+        </Btn>
+      </div>
     </div>
     <div class="navbar-end">
       <div v-if="$slots.right">
@@ -33,10 +51,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { Input } from '@ghentcdh/ui';
+import { Btn, Input } from '@ghentcdh/ui';
 
 import TableFilter from './filter/TableFilter.vue';
 
+type Action = any;
 const props = defineProps<{
   /** JSON Schema for filterable columns — keys are field ids, titles are labels. */
   filterSchema?: Record<string, any>;
@@ -44,11 +63,13 @@ const props = defineProps<{
   filters?: string[];
   /** Current search query (the `q` lookup param). */
   search?: string;
+  actions?: Action[];
 }>();
 
 const emit = defineEmits<{
   updateSearch: [q: string];
   updateFilters: [filters: string[]];
+  action: [action: Action];
 }>();
 
 const searchQuery = ref(props.search ?? '');

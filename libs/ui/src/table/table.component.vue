@@ -148,7 +148,6 @@ export default { inheritAttrs: false };
 <script lang="ts" setup>
 import { computed, ref, useAttrs, watch } from 'vue';
 
-import TextCell from './cells/text.cell.vue';
 import SortHeader from './header/sort.header.vue';
 import PaginationComponent from './pagination.component.vue';
 import {
@@ -157,7 +156,7 @@ import {
 } from './table.component.properties';
 import Btn from '../button/btn.vue';
 import { Color } from '../const/colors';
-import { Icon, IconEnum } from '../icons';
+import { IconEnum } from '../icons';
 
 const properties = defineProps(TableComponentProperties);
 
