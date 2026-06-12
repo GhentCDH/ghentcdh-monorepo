@@ -23,7 +23,12 @@
       >
         ✕
       </button>
+      <slot
+        v-if="$slots.title"
+        name="title"
+      />
       <h3
+        v-else
         :id="titleId"
         class="font-bold shrink-0"
       >

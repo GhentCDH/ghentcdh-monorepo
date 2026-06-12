@@ -46,7 +46,6 @@ export default defineConfig({
         '@ghentcdh/tools-vue',
         '@ghentcdh/ui',
         '@jsonforms/core',
-        '@jsonforms/core/src/testers/testers',
         '@playwright/test',
         '@vueuse/core',
         'axios',

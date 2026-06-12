@@ -55,7 +55,10 @@ const formData = ref({});
 | `uiSchema`  | `Object`    | true     | —         | UI schema describing the layout and controls                                        |
 | `formData`  | `Object`    | false    | `{}`      | Initial form data. When changed from outside, values are synced into vee-validate   |
 | `disabled`  | `Boolean`   | false    | `false`   | Disables all controls inside the form                                               |
+| `readonly`  | `Boolean`   | false    | `false`   | Makes all controls read-only (visible but not editable). Unlike `disabled`, readonly controls are still focusable and submitted with the form |
 | `errorMode` | `ErrorMode` | false    | `'onBlur'`| Controls when validation errors are displayed (see [Error modes](#error-modes))      |
+| `http`      | `HttpClient`| false    | `null`    | HTTP client instance passed to renderers that fetch remote data (e.g. autocomplete). Injected via `provideHttpClient`. |
+| `renderers` | `Array`     | false    | `null`    | Extra renderer entries merged with the default registry. Higher-ranked testers override built-in defaults. |
 
 ## Events
 

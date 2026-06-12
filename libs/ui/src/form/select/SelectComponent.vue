@@ -6,6 +6,7 @@
     :is-open="isOpen"
     :query="displayValue"
     :is-active="hasValue"
+    :clearable="properties.clearable"
     @close="close"
     @select="select"
     @clear="clear"
@@ -54,8 +55,11 @@ const onChange = (event: unknown) => {
   emit('change', event);
 };
 
+// Accept either v-model/modelValue (object or string) or plain :value prop
+const activeValue = computed(() => model.value ?? properties.value);
+
 const displayValue = computed(() =>
-  model.value ? optionsHelper.getLabels(model.value)[0] : '',
+  activeValue.value ? optionsHelper.getLabels(activeValue.value)[0] : '',
 );
 
 const styles = computed(() => mergeStyles(properties.styles));
@@ -66,6 +70,7 @@ const style = computed(() =>
 const select = (result: OptionValue) => {
   const original = optionsHelper.getOriginal(result);
   model.value = original;
+  isOpen.value = false;
   onChange(original);
 };
 
@@ -77,7 +82,7 @@ const clear = () => {
 };
 
 const hasValue = (item: OptionValue) => {
-  const selectedValue = optionsHelper.getValues(model.value)?.[0];
+  const selectedValue = optionsHelper.getValues(activeValue.value)?.[0];
   return selectedValue === item.value;
 };
 

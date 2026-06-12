@@ -7,3 +7,6 @@ export const ERROR_MODE_KEY: InjectionKey<Ref<ErrorMode>> =
 
 export const FORM_SUBMITTED_KEY: InjectionKey<Ref<boolean>> =
   Symbol('formSubmitted');
+
+export const FORM_READONLY_KEY: InjectionKey<Ref<boolean>> =
+  Symbol('formReadonly');

@@ -3,15 +3,28 @@
     class="fieldset"
     :class="[width, mergedStyles.control.wrapper]"
   >
-    <legend :class="mergedStyles.control.label">
+    <legend
+      class="w-full inline-block"
+      :class="[
+        mergedStyles.control.label,
+        { 'p-0 h-0 leading-none': hideLabel },
+      ]"
+    >
       <template v-if="!hideLabel">
-        <span>{{ label }}</span>
-        <span v-if="showAsterisk">*</span>
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <span>{{ label }}</span>
+            <span v-if="showAsterisk">*</span>
+          </div>
+          <slot name="label-action" />
+        </div>
       </template>
-      &nbsp;
     </legend>
     <slot />
-    <p :class="['fieldset-label h-4', { 'text-error': showErrors }]">
+    <p
+      v-if="!hideErrors"
+      :class="['fieldset-label h-4', { 'text-error': showErrors }]"
+    >
       {{ showErrors ? errors : showDescription ? description : null }}
     </p>
   </fieldset>

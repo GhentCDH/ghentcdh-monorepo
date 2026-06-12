@@ -12,7 +12,7 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 
 import { Checkbox } from '@ghentcdh/ui';
 
-import { useCustomControlBinding } from './composable/UseControlBinding';
+import { useCustomControlBinding } from './composables/useControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

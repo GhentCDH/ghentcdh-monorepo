@@ -2,6 +2,18 @@
 
 A rich text editor component powered by Tiptap with markdown support.
 
+::: warning Optional dependency
+The Markdown editor relies on Tiptap, which is an **optional peer dependency** of `@ghentcdh/ui`. The component is loaded lazily, so consumers that never render it don't pull Tiptap into their bundle.
+
+To use it, install the peers:
+
+```sh
+pnpm add @tiptap/pm @tiptap/starter-kit @tiptap/vue-3 tiptap-markdown
+```
+
+If they are not installed, `Markdown` degrades gracefully to a plain `<textarea>` that edits the raw Markdown string.
+:::
+
 ## Usage
 
 ::: tabs

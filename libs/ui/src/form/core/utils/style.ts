@@ -1,8 +1,11 @@
 import type { ControlProperties } from '../properties';
 
-type ErrorControlProperties = Pick<ControlProperties, 'errors' | 'isTouched'>;
+type StyleControlProperties = Pick<
+  ControlProperties,
+  'errors' | 'isTouched' | 'size'
+>;
 
-export const showErrors = ({ isTouched, errors }: ErrorControlProperties) => {
+export const showErrors = ({ isTouched, errors }: StyleControlProperties) => {
   return !!(isTouched && errors);
 };
 
@@ -21,7 +24,13 @@ export const isDescriptionHidden = (
 
 export const buildInputStyle = (
   styles: string,
-  properties: ErrorControlProperties,
+  properties: StyleControlProperties,
 ): any => {
-  return [styles, { 'input-error': showErrors(properties) }];
+  return [
+    styles,
+    {
+      'input-sm': properties.size === 'sm',
+      'input-error': showErrors(properties),
+    },
+  ];
 };

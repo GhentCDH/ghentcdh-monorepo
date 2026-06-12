@@ -70,6 +70,7 @@ const onDelete = (data) => {
 | `dataUri`      | `String`           | false    | —          | Overrides `uri` as the data source for the table                                           |
 | `tableActions` | `TableAction[]`    | false    | —          | Custom action buttons rendered in each table row                                           |
 | `initialData`  | `Object`           | false    | `{}`       | Default data used when opening the create modal                                            |
+| `operations`   | `Operations`       | false    | —          | Controls which CRUD actions are available (see [`Operations`](#operations))                |
 | `errorMode`    | `ErrorMode`        | false    | `'onBlur'` | Controls when validation errors are displayed in the modal form (see [JsonForm error modes](./json-form.md#error-modes)) |
 
 ### `JsonFormsLayout`
@@ -82,6 +83,27 @@ type JsonFormsLayout = {
 };
 ```
 
+### `Operations`
+
+Fine-grained control over which actions are shown. All flags default to `true` when `operations` is not provided.
+
+```ts
+type Operations = {
+  view?:   boolean;  // show a view (read-only) action per row
+  update?: boolean;  // show an edit action per row
+  create?: boolean;  // show the "Add new record" button
+  delete?: boolean;  // show the delete action per row
+};
+```
+
+```vue
+<!-- hide create and delete, allow view and edit -->
+<JsonFormWithTable
+  :operations="{ create: false, delete: false, view: true, update: true }"
+  ...
+/>
+```
+
 ## Events
 
 | Event           | Payload                           | Description                                                                                          |
@@ -92,6 +114,7 @@ type JsonFormsLayout = {
 | `events`        | `payload: FormEventPayload`       | Forwards form events dispatched by custom renderers inside the modal                                 |
 | `custom:edit`   | `data: Data`                      | Emitted when a custom edit handler is bound via `@custom:edit`                                       |
 | `custom:create` | —                                 | Emitted when a custom create handler is bound via `@custom:create`                                   |
+| `custom:view`   | `data: Data`                      | Emitted when a custom view handler is bound via `@custom:view`                                       |
 
 ## Behaviour
 
@@ -218,3 +241,95 @@ import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
 ```
 
 :::
+
+### With operations — view-only rows
+
+Use `operations` to show a view button per row and hide create/delete.
+
+::: tabs
+
+@tab Vue
+
+```vue
+<template>
+  <JsonFormWithTable
+    id="books"
+    table-title="Books"
+    create-title="Add book"
+    :form="formLayout"
+    :table="tableLayout"
+    uri="/api/books"
+    :operations="{ create: false, delete: false, update: false, view: true }"
+  />
+</template>
+
+<script setup>
+import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
+</script>
+```
+
+:::
+
+### With custom view handler
+
+Intercept the view action to navigate to a detail page instead of opening the built-in read-only modal.
+
+::: tabs
+
+@tab Vue
+
+```vue
+<template>
+  <JsonFormWithTable
+    id="books"
+    table-title="Books"
+    create-title="Add book"
+    :form="formLayout"
+    :table="tableLayout"
+    uri="/api/books"
+    :operations="{ view: true }"
+    @custom:view="goToDetail"
+  />
+</template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+import { JsonFormWithTable } from '@ghentcdh/json-forms-vue';
+
+const router = useRouter();
+
+const goToDetail = (data) => {
+  router.push(`/books/${data.id}`);
+};
+</script>
+```
+
+:::
+
+## View modal
+
+`JsonFormModalService.openViewModal()` opens a standalone read-only modal for any record without needing `JsonFormWithTable`. The modal renders the form in read-only mode and provides a single **Close** button.
+
+```ts
+import { JsonFormModalService } from '@ghentcdh/json-forms-vue';
+
+JsonFormModalService.openViewModal({
+  modalTitle: 'Book details',
+  schema: bookSchema,
+  uiSchema: bookUiSchema,
+  data: selectedBook,
+  modalSize: 'md',        // optional: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  onClose: () => { },     // optional callback
+});
+```
+
+| Param        | Type                    | Required | Description                                                        |
+|--------------|-------------------------|----------|--------------------------------------------------------------------|
+| `modalTitle` | `String`                | true     | Title shown in the modal header                                    |
+| `schema`     | `Object`                | true     | JSON schema for the displayed data                                 |
+| `uiSchema`   | `Object`                | true     | UI schema controlling layout                                       |
+| `data`       | `Object`                | true     | The record to display                                              |
+| `modalSize`  | `SizeType`              | false    | Modal width (`'xs'`–`'xl'`)                                        |
+| `onClose`    | `() => void`            | false    | Callback invoked when modal closes                                 |
+| `onEdit`     | `(data: T) => void`     | false    | When provided, an **Edit** button appears and calls this on click  |
+| `onDelete`   | `(data: T) => void`     | false    | When provided, a **Delete** button appears and calls this on click |

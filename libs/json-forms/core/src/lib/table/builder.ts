@@ -4,6 +4,7 @@ import { LayoutBuilder } from '../layout/layout.builder';
 export interface TextCellOption {
   format: 'TextCell';
   sortId?: string;
+  sortable?: boolean;
 }
 
 export interface KeyValueOption extends Omit<TextCellOption, 'format'> {

@@ -3,15 +3,16 @@ import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { SizeType } from '@ghentcdh/json-forms-core';
 
 import type { FormEventPayload } from '../../composables/useFormEvents';
+import type { HttpClient } from '../../http-client';
 import type { ErrorMode } from '../errorMode';
 
 export const FormModalProperties = {
   /** Title displayed in the modal header. */
   modalTitle: { type: String, required: true as const },
   /** Label for the save button. */
-  saveLabel: { type: String, default: 'save' },
+  saveLabel: { type: String, default: 'Save' },
   /** Label for the cancel button. */
-  cancelLabel: { type: String, default: 'cancel' },
+  cancelLabel: { type: String, default: 'Cancel' },
   /** JSON schema describing the shape of the form data. */
   schema: { type: Object as PropType<any>, required: true as const },
   /** UI schema describing the layout and controls. */
@@ -34,11 +35,19 @@ export const FormModalProperties = {
     type: String as PropType<ErrorMode>,
     default: 'onBlur' as const,
   },
+  /** HTTP client passed through to the inner JsonForm for remote renderers (e.g. autocomplete). */
+  http: {
+    type: Object as PropType<HttpClient>,
+    default: null,
+  },
+  /** Custom renderer registry passed to the inner JsonForm. */
+  renderers: {
+    type: Array as PropType<any[]>,
+    default: null,
+  },
 };
 
-export type FormModalProp = ExtractPublicPropTypes<
-  typeof FormModalProperties
->;
+export type FormModalProp = ExtractPublicPropTypes<typeof FormModalProperties>;
 
 export const FormModalEmits = [
   /** Emitted when the modal is closed (submit or cancel). */

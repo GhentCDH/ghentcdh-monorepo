@@ -7,6 +7,7 @@
     <ControlWrapper v-bind="props">
       <div class="flex items-center w-full">
         <div
+          ref="inputWrapperRef"
           class="relative w-full"
           @keydown="onKeydown"
         >
@@ -24,7 +25,7 @@
 
             <!-- Clear button -->
             <button
-              v-if="query && !isLoading"
+              v-if="query && !isLoading && clearable"
               type="button"
               class="pointer-events-auto btn btn-ghost btn-xs btn-circle opacity-60 hover:opacity-100"
               tabindex="-1"
@@ -66,24 +67,28 @@
           </div>
 
           <!-- Dropdown -->
-          <Transition
-            enter-active-class="transition-all duration-150 ease-out"
-            enter-from-class="opacity-0 -translate-y-1 scale-y-95"
-            enter-to-class="opacity-100 translate-y-0 scale-y-100"
-            leave-active-class="transition-all duration-100 ease-in"
-            leave-from-class="opacity-100 translate-y-0 scale-y-100"
-            leave-to-class="opacity-0 -translate-y-1 scale-y-95"
-          >
-            <ListResults
-              v-if="isOpen"
-              ref="listResultsRef"
-              :query="query"
-              :options="options"
-              :is-loading="isLoading"
-              :is-active="isActive"
-              @select="emits('select', $event)"
-            />
-          </Transition>
+          <Teleport :to="teleportTarget">
+            <Transition
+              enter-active-class="transition-all duration-150 ease-out"
+              enter-from-class="opacity-0 -translate-y-1 scale-y-95"
+              enter-to-class="opacity-100 translate-y-0 scale-y-100"
+              leave-active-class="transition-all duration-100 ease-in"
+              leave-from-class="opacity-100 translate-y-0 scale-y-100"
+              leave-to-class="opacity-0 -translate-y-1 scale-y-95"
+            >
+              <ListResults
+                v-if="isOpen"
+                ref="listResultsRef"
+                :teleported="true"
+                :style="dropdownStyle"
+                :query="undefined"
+                :options="options"
+                :is-loading="isLoading"
+                :is-active="isActive"
+                @select="emits('select', $event)"
+              />
+            </Transition>
+          </Teleport>
         </div>
         <Btn
           v-if="enableCreate"
@@ -99,7 +104,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import ListResults from './ListResults.vue';
 import {
@@ -114,8 +119,28 @@ import ControlWrapper from '../core/ControlWrapper.vue';
 const props = defineProps(SelectWrapperProperties);
 
 const selectWrapperRef = ref<HTMLElement>();
+const inputWrapperRef = ref<HTMLElement>();
 const listResultsRef = ref<InstanceType<typeof ListResults>>();
 const emits = defineEmits(SelectWrapperEmits);
+
+// Teleport target: the nearest <dialog> ancestor when inside a modal (to stay in the
+// browser top layer), otherwise fall back to body.
+const teleportTarget = ref<string | Element>('body');
+
+const dropdownStyle = computed(() => {
+  // Use the input row ref so the dropdown aligns with the bottom of the input,
+  // not the bottom of the full component (which includes the label).
+  const anchor = inputWrapperRef.value ?? selectWrapperRef.value;
+  if (!anchor) return {};
+  const rect = anchor.getBoundingClientRect();
+  return {
+    position: 'fixed' as const,
+    zIndex: 9999,
+    top: `${rect.bottom + 4}px`,
+    left: `${rect.left}px`,
+    width: `${rect.width}px`,
+  };
+});
 
 const clear = () => {
   close();
@@ -143,6 +168,9 @@ const handleOutsideClick = (e: MouseEvent) => {
 };
 onMounted(() => {
   document.addEventListener('click', handleOutsideClick);
+  // If we're inside a native dialog, teleport there so we stay in the top layer
+  const dialog = selectWrapperRef.value?.closest('dialog');
+  if (dialog) teleportTarget.value = dialog;
 });
 onUnmounted(() => {
   document.removeEventListener('click', handleOutsideClick);

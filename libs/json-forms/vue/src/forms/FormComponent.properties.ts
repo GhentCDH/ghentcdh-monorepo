@@ -1,5 +1,6 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue';
 
+import type { HttpClient } from '../http-client';
 import type { ErrorMode } from './errorMode';
 
 export type Data = {
@@ -22,12 +23,24 @@ export const JsonFormComponentProperties = {
   uiSchema: { type: Object as PropType<any>, required: true as const },
   /** Disable all form controls. */
   disabled: { type: Boolean, default: false },
+  /** Make all form controls readonly. */
+  readonly: { type: Boolean, default: false },
   /** Current form data object. */
   formData: { type: Object as PropType<Data>, default: () => ({}) },
   /** When validation errors are shown (`'onBlur'`, `'onChange'`, `'onSubmit'`, `'always'`). */
   errorMode: {
     type: String as PropType<ErrorMode>,
     default: 'onChanges' as const,
+  },
+  /** HTTP client used by renderers that fetch remote data (e.g. autocomplete). */
+  http: {
+    type: Object as PropType<HttpClient>,
+    default: null,
+  },
+  /** Custom renderer registry. Overrides the default `customRenderers` when provided. */
+  renderers: {
+    type: Array as PropType<any[]>,
+    default: null,
   },
 };
 

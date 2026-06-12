@@ -12,7 +12,7 @@ import type { ControlElement, JsonSchema } from '@jsonforms/core';
 
 import { Markdown } from '@ghentcdh/ui';
 
-import { useControlBinding } from './composable/UseControlBinding';
+import { useControlBinding } from './composables/useControlBinding';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
 

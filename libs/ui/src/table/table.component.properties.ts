@@ -15,6 +15,7 @@ export type TableSort = {
 
 export const TableComponentProperties = {
   loading: { type: Boolean, default: false as const },
+  multiselect: { type: Boolean, default: false as const },
   actions: { type: Array as PropType<TableAction[]> },
   data: { type: Array as PropType<any[]> },
   displayColumns: {
@@ -25,4 +26,9 @@ export const TableComponentProperties = {
   sort: { type: Object as PropType<TableSort> },
 };
 
-export const TableComponentEmits = ['updatePage', 'sort'];
+export const TableComponentEmits = [
+  'updatePage',
+  'updatePageSize',
+  'sort',
+  'selectionChange',
+];

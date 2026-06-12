@@ -9,16 +9,18 @@
     v-else
     class="text-error text-xs"
   >
-    No renderer for {{ (uischema as any).scope ?? uischema.type }}
+    No renderer for {{ (uischema as any).scope }} type: {{ uischema.type }}
   </div>
 </template>
 
 <script setup lang="ts">
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core';
-import { computed, inject, provide } from 'vue';
+import { computed, inject, provide, ref } from 'vue';
 
-import type { RendererEntry } from './renderer-registry';
-import { findRenderer } from './renderer-registry';
+import { FORM_READONLY_KEY } from './errorMode';
+import { readonlyRenderers } from './renderers';
+import type { RendererEntry } from './renderers/registry';
+import { findRenderer } from './renderers/registry';
 import { resolveSchema } from './scope';
 
 const props = withDefaults(
@@ -30,7 +32,17 @@ const props = withDefaults(
   { pathPrefix: undefined },
 );
 
-const registry = inject<RendererEntry[]>('renderers')!;
+const editableRegistry = inject<RendererEntry[]>('renderers')!;
+const extraReadonlyRenderers = inject<RendererEntry[]>('readonlyRenderers', []);
+const formReadonly = inject(FORM_READONLY_KEY, ref(false));
+const effectiveReadonlyRenderers = computed(() =>
+  extraReadonlyRenderers.length
+    ? [...readonlyRenderers, ...extraReadonlyRenderers]
+    : readonlyRenderers,
+);
+const registry = computed(() =>
+  formReadonly.value ? effectiveReadonlyRenderers.value : editableRegistry,
+);
 const rootSchema = inject<JsonSchema>('rootSchema')!;
 const parentPrefix = inject<string>('pathPrefix', '');
 
@@ -50,6 +62,10 @@ const resolved = computed(() => {
 });
 
 const renderer = computed(() =>
-  findRenderer(registry, props.uischema, resolved.value),
+  findRenderer(
+    registry.value as RendererEntry[],
+    props.uischema,
+    resolved.value,
+  ),
 );
 </script>

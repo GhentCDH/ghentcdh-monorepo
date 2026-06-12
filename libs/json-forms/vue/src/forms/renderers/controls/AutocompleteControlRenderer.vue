@@ -15,16 +15,17 @@
 
 <script setup lang="ts">
 import type { ControlElement, JsonSchema } from '@jsonforms/core';
-import { computedAsync } from '@vueuse/core';
-import { pick } from 'lodash-es';
+import { useFormContext } from 'vee-validate';
+import { ref, watch } from 'vue';
 
 import type { AutocompleteAllOptions } from '@ghentcdh/json-forms-core';
 import { Autocomplete } from '@ghentcdh/ui';
 
 import { useFormEvents } from '../../../composables/useFormEvents';
+import { useHttpClient } from '../../../composables/useHttpClient';
 import { scopeToPath } from '../../scope';
-import { useFetchOptions } from './composable/UseFetchOption';
-import { useAutocompleteBinding } from './composable/UseSelectBinding';
+import { useFetchOptions } from './composables/useFetchOption';
+import { useAutocompleteBinding } from './composables/useSelectBinding';
 import { JsonFormModalService } from '../../modal/FormModalService';
 
 const props = defineProps<{ uischema: ControlElement; schema: JsonSchema }>();
@@ -38,12 +39,17 @@ const {
   appliedOptions,
 } = useAutocompleteBinding(props.uischema, props.schema);
 
-const fetchOptions = computedAsync(async () => {
-  const config = await useFetchOptions(
-    appliedOptions.value as AutocompleteAllOptions,
-  );
-  return config;
-});
+const http = useHttpClient();
+const { values: formValues } = useFormContext();
+const fetchOptions = ref<Awaited<ReturnType<typeof useFetchOptions>> | null>(null);
+
+watch(
+  [appliedOptions, formValues],
+  async ([opts]) => {
+    fetchOptions.value = await useFetchOptions(opts as AutocompleteAllOptions, http, formValues);
+  },
+  { immediate: true, deep: true },
+);
 
 const onChange = (val: any) => {
   setValue(val);
@@ -60,28 +66,36 @@ const setValue = (result: Record<string, unknown>) => {
   }
 
   const { valueKey, labelKey } = fetchOptions.value;
-  const keys = [valueKey, labelKey].filter(Boolean) as string[];
+  const opts = appliedOptions.value as any;
 
+  // storeValue: true → store only the primitive value (e.g. an id string)
+  if (opts.storeValue && valueKey && valueKey in result) {
+    field.setValue(result[valueKey]);
+    return;
+  }
+
+  const keys = [valueKey, labelKey].filter(Boolean) as string[];
   if (keys.length === 0) {
     field.setValue(result);
     return;
   }
 
-  const stripped = pick(result, keys);
+  const stripped = Object.fromEntries(keys.filter((k) => k in result).map((k) => [k, result[k]]));
   field.setValue(stripped);
 };
 
 const onCreate = () => {
   if (fetchOptions.value?.enableCreate === false) return;
-  const form = fetchOptions.value!.form!;
+  const form = fetchOptions.value!.form as any;
   if (form) {
     JsonFormModalService.openModal({
       schema: form.json_schema,
       uiSchema: form.ui_schema,
       modalTitle: `Create new ${wrapper.value.label}`,
+      http,
       onClose: (result) => {
         if (!result || !result.valid) return;
-        form.create(result.data).then((res) => {
+        form.create(result.data).then((res: any) => {
           setValue(res);
         });
       },

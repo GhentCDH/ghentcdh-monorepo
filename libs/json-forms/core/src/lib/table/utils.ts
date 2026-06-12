@@ -8,7 +8,7 @@ export type ColumnDef = TextCellType & { id: string; label: string };
 export const findColumnDef = (
   column: TextCellType,
   schema: JsonSchema,
-): TextCellType => {
+): TextCellType & { id: string } => {
   const { id, property } = findProperty(column, schema);
-  return { ...column, id, label: id, ...property };
+  return { ...column, id, ...property };
 };

@@ -30,22 +30,18 @@
     }
   },
   "dependencies": {
-    "@jsonforms/core": "^3.4.0",
-    "@vueuse/core": "^14.0.0",
-    "axios": "^1.0.0",
-    "lodash-es": "^4.17.0",
     "vee-validate": ">=4.0.0",
     "zod": "^4.0.0"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.50.0",
     "@ghentcdh/json-forms-core": ">=0.0.1",
-    "@ghentcdh/tools-vue": ">=0.6.0",
     "@ghentcdh/ui": ">=0.6.0",
     "vue": "^3.5.0",
     "vue-router": "^5.0.0"
   },
   "devDependencies": {
+    "@jsonforms/core": "^3.4.0",
     "vue": "3.5.29",
     "vue-router": "5.0.3"
   },
