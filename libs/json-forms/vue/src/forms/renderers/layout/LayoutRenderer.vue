@@ -1,15 +1,26 @@
 <template>
-  <div v-if="isLayout" :class="getLayout">
+  <div
+    v-if="isLayout"
+    :class="getLayout"
+  >
     <div
       v-for="(child, i) in (uischema as Layout).elements"
       :key="i"
       :class="COLSPAN[(child as any).options?.colspan ?? 12]"
     >
-      <Dispatch :uischema="child" :schema="schema" />
+      <Dispatch
+        :uischema="child"
+        :schema="schema"
+      />
     </div>
   </div>
 
-  <div v-else class="flex flex-col gap-3">No Applicable Layout found</div>
+  <div
+    v-else
+    class="flex flex-col gap-3"
+  >
+    No Applicable Layout found
+  </div>
 </template>
 
 <script setup lang="ts">
