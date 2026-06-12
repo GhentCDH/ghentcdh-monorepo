@@ -6,11 +6,7 @@ import { type ControlOption } from '@ghentcdh/json-forms-core';
 
 import { type useCustomProps } from './useControlBinding';
 import { type UseInputOptions, useInputProps } from './useInput';
-import {
-  isIntegerFormat,
-  isMarkdownControl,
-  isNumberFormat,
-} from '../../../../testers/tester';
+import { isIntegerFormat, isMarkdownControl, isNumberFormat } from '../../../../testers/tester';
 import { scopeToPath } from '../../../scope';
 import BooleanValue from '../readonly/displayValue/BooleanValue.vue';
 import DateValue from '../readonly/displayValue/DateValue.vue';
@@ -39,7 +35,7 @@ const getDirection = (options: any, formValues: any) => {
 const getSelectValue = (value: any, opts: any) => {
   const labelKey = opts.labelKey ?? 'label';
   const valueKey = opts.valueKey ?? 'value';
-  const resolvedKey = value[valueKey] ?? value;
+  const resolvedKey = value?.[valueKey] ?? value;
 
   if (typeof resolvedKey === 'string' && opts.values)
     return (
@@ -49,7 +45,7 @@ const getSelectValue = (value: any, opts: any) => {
 
   const resolved =
     value && typeof value === 'object'
-      ? (value[labelKey] ?? value[valueKey])
+      ? (value?.[labelKey] ?? value[valueKey])
       : value;
 
   if (!resolved) return null;

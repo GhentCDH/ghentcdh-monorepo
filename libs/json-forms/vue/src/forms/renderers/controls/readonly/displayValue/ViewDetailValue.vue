@@ -7,7 +7,10 @@
   >
     <span class="px-2 flex gap-2 items-center">
       <span class="truncate">{{ displayValue }}</span>
-      <Icon :icon="IconEnum.View" size="sm" />
+      <Icon
+        :icon="IconEnum.View"
+        size="sm"
+      />
     </span>
   </Btn>
 </template>
