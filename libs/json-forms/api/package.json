@@ -1,6 +1,6 @@
 {
   "name": "@ghentcdh/json-forms-api",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "type": "module",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
