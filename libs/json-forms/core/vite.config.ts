@@ -41,7 +41,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: ['@anatine/zod-openapi', '@jsonforms/core', 'zod'],
+      external: ['@ghentcdh/crouton-core', '@anatine/zod-openapi', '@jsonforms/core', 'zod'],
     },
   },
   test: {

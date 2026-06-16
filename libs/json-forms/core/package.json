@@ -2,6 +2,7 @@
   "name": "@ghentcdh/json-forms-core",
   "version": "2.0.0",
   "type": "module",
+  "deprecated": "Moved to @ghentcdh/crouton-core. This package is now a re-export shim and will be removed in a future release.",
   "main": "./index.js",
   "types": "./index.d.ts",
   "exports": {
@@ -11,7 +12,9 @@
       "require": "./index.cjs"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "@ghentcdh/crouton-core": "^0.0.1"
+  },
   "peerDependencies": {
     "zod": "4.3.6",
     "@jsonforms/core": "3.7.0"

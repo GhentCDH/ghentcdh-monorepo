@@ -4,11 +4,14 @@
     "outDir": "../../../dist/out-tsc",
     "types": ["vite/client"]
   },
-  "include": [
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
+  "include": ["src/index.ts", "src/testing/index.ts"],
+  "exclude": [
+    "src/forms/**",
+    "src/table/**",
+    "src/repository/**",
+    "src/composables/**",
+    "src/testers/**",
+    "src/view/**",
+    "src/http-client.ts"
   ]
 }

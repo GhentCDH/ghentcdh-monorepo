@@ -53,3 +53,5 @@ vitest.config.*.timestamp*
 /playwright-report
 playwright-report
 test-results
+*_PLAN.md
+_tmp*

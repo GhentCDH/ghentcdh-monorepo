@@ -42,6 +42,7 @@ export default defineConfig({
     rollupOptions: {
       // External packages that should not be bundled into your library.
       external: [
+        '@ghentcdh/crouton-forms-vue',
         '@ghentcdh/json-forms-core',
         '@ghentcdh/tools-vue',
         '@ghentcdh/ui',

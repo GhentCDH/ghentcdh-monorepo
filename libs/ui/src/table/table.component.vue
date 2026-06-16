@@ -101,10 +101,10 @@
               </div>
             </td>
             <td
-              class="align-middle p-0 sticky right-0 bg-white shadow-lg hover:bg-gray-50"
+              class="align-middle p-0 sticky right-0 bg-white hover:bg-gray-50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.05)]"
             >
               <span
-                class="px-3 py-1 items-center justify-end gap-1 h-full flex border-gray-200 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.05)]"
+                class="px-3 py-1 items-center justify-end gap-1 flex whitespace-nowrap"
               >
                 <template
                   v-for="action of defaultActions"

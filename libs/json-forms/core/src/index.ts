@@ -1,13 +1,6 @@
-export * from './lib/create-schema';
-export * from './lib/table/utils';
-export * from './lib/table/builder';
-export * from './lib/layout/layout.builder';
-export * from './lib/layout/control.builder';
-export * from './lib/layout/category.builder';
-export * from './lib/layout/group.builder';
-export * from './lib/schema.utils';
-export * from './lib/response.model';
-export * from './lib/request.model';
-export * from './lib/filter';
-export * from './lib/zod.types';
-export * from './lib/fromJson.builder';
+/**
+ * @deprecated `@ghentcdh/json-forms-core` has moved to `@ghentcdh/crouton-core`.
+ * This package is now a thin re-export shim and will be removed in a future
+ * release. Import from `@ghentcdh/crouton-core` directly.
+ */
+export * from '@ghentcdh/crouton-core';
