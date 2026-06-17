@@ -10,20 +10,13 @@
       "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./index.js"
-    },
-    "./testing": {
-      "types": "./testing/index.d.ts",
-      "import": "./testing.mjs",
-      "require": "./testing.js"
-    },
-    "./index.css": "./index.css"
+    }
   },
   "files": [
     "*.js",
     "*.cjs",
     "**/*.d.ts",
-    "*.css",
-    "testing/**"
+    "*.css"
   ],
   "peerDependenciesMeta": {
     "@playwright/test": {

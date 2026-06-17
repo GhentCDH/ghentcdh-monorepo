@@ -32,7 +32,6 @@ export default defineConfig({
     lib: {
       entry: {
         index: 'src/index.ts',
-        testing: 'src/testing/index.ts',
       },
       name: 'json-forms-vue',
       fileName: (format, entryName) =>

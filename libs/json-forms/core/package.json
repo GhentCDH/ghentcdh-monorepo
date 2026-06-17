@@ -12,13 +12,8 @@
       "require": "./index.cjs"
     }
   },
-  "dependencies": {
-    "@ghentcdh/crouton-core": "^0.0.1"
-  },
-  "peerDependencies": {
-    "zod": "4.3.6",
-    "@jsonforms/core": "3.7.0"
-  },
+  "dependencies": {},
+  "peerDependencies": {},
   "devDependencies": {
     "@anatine/zod-openapi": "2.2.8",
     "@jsonforms/core": "3.7.0",

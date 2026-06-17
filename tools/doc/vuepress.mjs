@@ -115,10 +115,8 @@ const copyReadme = (from, to, depth = Number.MAX_SAFE_INTEGER) => {
 
 // ── ui-site ──────────────────────────────────────────────────────────────────
 copyReadme('libs/ui', 'ui-site/ui');
-copyReadme('libs/json-forms', 'ui-site/json-forms');
 
 createMenu('ui-site/ui');
-createMenu('ui-site/json-forms');
 
 // ── core-site ─────────────────────────────────────────────────────────────────
 copyReadme('libs/authentication', 'core-site/authentication');
