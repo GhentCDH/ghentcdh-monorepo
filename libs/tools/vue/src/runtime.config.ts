@@ -30,7 +30,7 @@ export async function loadRuntimeConfig<RUNTIME_CONFIG extends RuntimeConfig>(
   } catch (error) {
     console.error('Failed to load runtime config:', error);
     // Fallback to build-time env vars if config.json fails
-    throw new Error(error as any);
+    throw new Error(error as any, { cause: error });
   }
 }
 
