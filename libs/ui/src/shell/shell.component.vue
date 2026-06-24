@@ -4,7 +4,10 @@
   <div class="flex h-screen flex-col">
     <header class="shrink-0">
       <nav class="navbar bg-primary text-primary-content w-full z-100">
-        <div class="navbar-start" v-if="menu?.length">
+        <div
+          v-if="menu?.length"
+          class="navbar-start"
+        >
           <button
             aria-label="open sidebar"
             class="btn btn-square btn-ghost p-1"
@@ -17,11 +20,14 @@
           <a
             class="btn btn-ghost text-primary-content text-lg color-white"
             :href="baseUrl"
-            >{{ title }}</a
-          >
+          >{{ title }}</a>
         </div>
         <div class="navbar-end">
-          <SubMenu v-if="userMenu" v-bind="userMenu" :btn-class="''" />
+          <SubMenu
+            v-if="userMenu"
+            v-bind="userMenu"
+            :btn-class="''"
+          />
         </div>
       </nav>
     </header>
@@ -34,7 +40,7 @@
         v-model="sidebarOpen"
         type="checkbox"
         class="drawer-toggle"
-      />
+      >
       <main class="drawer-content overflow-y-auto mb-2 mr-2 shadow-md">
         <slot />
       </main>
@@ -49,13 +55,18 @@
           :style="{ width: widthSidebar + 'px' }"
         >
           <ul class="flex-grow overflow-y-auto">
-            <li v-for="item of menu" :key="item.label">
+            <li
+              v-for="item of menu"
+              :key="item.label"
+            >
               <RouterLink :to="{ name: item.routerLink, params: item.params }">
                 {{ item.label }}
               </RouterLink>
             </li>
           </ul>
-          <div class="bg-base-200 p-4">version: {{ version }}</div>
+          <div class="bg-base-200 p-4">
+            version: {{ version }}
+          </div>
         </div>
       </div>
     </div>
