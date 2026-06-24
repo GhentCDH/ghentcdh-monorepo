@@ -1,4 +1,7 @@
 [![Build](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/merge-request.yml/badge.svg)](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/merge-request.yml)
+[![Publish](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish.yml/badge.svg)](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish.yml)
+[![Publish Docs](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish-docs.yml)
+[![npm version](https://img.shields.io/npm/v/@ghentcdh/ui.svg)](https://www.npmjs.com/package/@ghentcdh/ui)
 
 # **GhentCDH Monorepo for Shared Logic**
 
