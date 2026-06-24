@@ -4,7 +4,7 @@
     "outDir": "../../../dist/out-tsc",
     "types": ["vite/client"]
   },
-  "include": ["src/index.ts", "src/testing/index.ts"],
+  "include": ["src/index.ts"],
   "exclude": [
     "src/forms/**",
     "src/table/**",

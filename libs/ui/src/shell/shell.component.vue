@@ -4,7 +4,10 @@
   <div class="flex h-screen flex-col">
     <header class="shrink-0">
       <nav class="navbar bg-primary text-primary-content w-full z-100">
-        <div class="navbar-start">
+        <div
+          v-if="menu?.length"
+          class="navbar-start"
+        >
           <button
             aria-label="open sidebar"
             class="btn btn-square btn-ghost p-1"

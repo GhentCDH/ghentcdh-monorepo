@@ -1,3 +1,1 @@
-export * from './lib/json-forms-api.module';
-export * from './lib/request.model';
-export * from './lib/response.model';
+console.error('this package does not longer exist');
