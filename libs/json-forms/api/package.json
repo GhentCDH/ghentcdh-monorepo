@@ -17,8 +17,8 @@
   "devDependencies": {
     "@anatine/zod-nestjs": "2.0.12",
     "@anatine/zod-openapi": "2.2.8",
-    "@nestjs/common": "11.1.14",
-    "zod": "4.3.6"
+    "@nestjs/common": "11.1.24",
+    "zod": "4.4.3"
   },
   "publishConfig": {
     "access": "public"
