@@ -1,3 +1,13 @@
+# 3.0.0 (2026-06-24)
+
+### 🚀 Features
+
+- remove json-forms and move to crouton ([1d96cbf](https://github.com/GhentCDH/ghentcdh-monorepo/commit/1d96cbf))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 # 2.0.0 (2026-06-12)
 
 ### 🚀 Features
