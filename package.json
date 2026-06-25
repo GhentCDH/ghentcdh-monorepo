@@ -51,7 +51,7 @@
     "@vue/test-utils": "2.4.11",
     "@vuepress/bundler-vite": "2.0.0-rc.26",
     "@vuepress/theme-default": "2.0.0-rc.78",
-    "esbuild": "^0.19.2",
+    "esbuild": "^0.28.0",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import-x": "4.16.2",
@@ -93,5 +93,35 @@
   },
   "dependencies": {
     "axios": "^1.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@anatine/zod-nestjs>zod": "$zod",
+      "@anatine/zod-openapi>zod": "$zod"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@nx/vue>vue-tsc": "3",
+        "@nx/vue>vue-router": "5",
+        "@vuepress/theme-default>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-prismjs>vuepress": "2.0.0-rc.26",
+        "@vuepress/helper>vuepress": "2.0.0-rc.26",
+        "@vuepress/highlighter-helper>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-active-header-links>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-back-to-top>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-copy-code>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-git>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-links-check>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-markdown-hint>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-markdown-tab>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-medium-zoom>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-nprogress>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-palette>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-seo>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-sitemap>vuepress": "2.0.0-rc.26",
+        "@vuepress/plugin-theme-data>vuepress": "2.0.0-rc.26",
+        "@ghentcdh/json-forms-core>zod": "4"
+      }
+    }
   }
 }
