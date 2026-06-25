@@ -1,7 +1,11 @@
 [![Build](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/merge-request.yml/badge.svg)](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/merge-request.yml)
 [![Publish](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish.yml/badge.svg)](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish.yml)
 [![Publish Docs](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/GhentCDH/ghentcdh-monorepo/actions/workflows/publish-docs.yml)
-[![npm version](https://img.shields.io/npm/v/@ghentcdh/ui.svg)](https://www.npmjs.com/package/@ghentcdh/ui)
+[![ui](https://img.shields.io/npm/v/@ghentcdh/ui.svg?label=ui)](https://www.npmjs.com/package/@ghentcdh/ui)
+[![tools-vue](https://img.shields.io/npm/v/@ghentcdh/tools-vue.svg?label=tools-vue)](https://www.npmjs.com/package/@ghentcdh/tools-vue)
+[![tools-api](https://img.shields.io/npm/v/@ghentcdh/tools-api.svg?label=tools-api)](https://www.npmjs.com/package/@ghentcdh/tools-api)
+[![authentication-vue](https://img.shields.io/npm/v/@ghentcdh/authentication-vue.svg?label=authentication-vue)](https://www.npmjs.com/package/@ghentcdh/authentication-vue)
+[![authentication-api](https://img.shields.io/npm/v/@ghentcdh/authentication-api.svg?label=authentication-api)](https://www.npmjs.com/package/@ghentcdh/authentication-api)
 
 # **GhentCDH Monorepo for Shared Logic**
 
