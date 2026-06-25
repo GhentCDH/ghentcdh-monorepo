@@ -1,6 +1,6 @@
 {
   "name": "@ghentcdh/json-forms-api",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "deprecated": "Deprecated. The schemas it wraps now live in @ghentcdh/crouton-core, and equivalent DTOs (RequestDto, RequestDtoNoOffset) are provided by @ghentcdh/crouton-api. This package will be removed in a future release.",
   "main": "./src/index.js",
