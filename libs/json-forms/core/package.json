@@ -14,11 +14,7 @@
   },
   "dependencies": {},
   "peerDependencies": {},
-  "devDependencies": {
-    "@anatine/zod-openapi": "2.2.8",
-    "@jsonforms/core": "3.7.0",
-    "zod": "4.4.3"
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
