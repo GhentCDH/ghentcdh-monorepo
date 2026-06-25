@@ -5,21 +5,9 @@
   "deprecated": "Deprecated. The schemas it wraps now live in @ghentcdh/crouton-core, and equivalent DTOs (RequestDto, RequestDtoNoOffset) are provided by @ghentcdh/crouton-api. This package will be removed in a future release.",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
-  "peerDependencies": {
-    "@anatine/zod-nestjs": "^2.0.0",
-    "@anatine/zod-openapi": "^2.2.0",
-    "@nestjs/common": "^11.0.0",
-    "zod": "^4.0.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "devDependencies": {
-    "@anatine/zod-nestjs": "2.0.12",
-    "@anatine/zod-openapi": "2.2.8",
-    "@nestjs/common": "11.1.24",
-    "zod": "4.4.3"
-  },
+  "peerDependencies": {},
+  "dependencies": {},
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
