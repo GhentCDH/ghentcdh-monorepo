@@ -1,5 +1,7 @@
 import Keycloak from 'keycloak-js';
 
+import { clearToken, saveToken } from './auth.const';
+
 export type KeycloakConfig = {
   realm: string;
   url: string;
@@ -12,38 +14,33 @@ export class KeycloakAdapter extends Keycloak {
     super(config);
   }
 
-  private async initialize() {
+  protected async initialize() {
     try {
       const authenticated = await this.init({
         onLoad: 'login-required',
       });
+
       if (authenticated) {
         console.log('User is authenticated');
+
+        saveToken(this.token);
       } else {
         console.log('User is not authenticated');
+        clearToken();
       }
     } catch (error) {
       console.error('Failed to initialize adapter:', error);
     }
   }
 
-  static async init(config: KeycloakConfig): Promise<KeycloakAdapter> {
+  static async instance(config: KeycloakConfig): Promise<KeycloakAdapter> {
     const instance = new KeycloakAdapter(config);
-    console.log('KeycloakAdapter', config);
     await instance.initialize();
     return instance;
-  }
-
-  get userInfo() {
-    return this.idTokenParsed;
   }
 
   updateToken() {
     console.log('update the token');
     return super.updateToken(30);
-  }
-
-  get isAuthenticated() {
-    return this.authenticated ?? false;
   }
 }

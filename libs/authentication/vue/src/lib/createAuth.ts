@@ -4,6 +4,7 @@ import { markRaw, ref, watch } from 'vue';
 import type { Auth, AuthOptions } from './auth.const';
 import { auth_symbol } from './auth.const';
 import { KeycloakAdapter } from './keycloak.adapter';
+import { createAuthApi } from './useAuthApi';
 
 const DefaultOptions: Partial<AuthOptions> = {
   skipAuthentication: false,
@@ -12,11 +13,12 @@ const DefaultOptions: Partial<AuthOptions> = {
 export const createAuth = (options: AuthOptions) => {
   const initDone = ref(false);
   let keycloackAdapter: KeycloakAdapter;
+  createAuthApi(options.baseUrl);
 
   const _options = { ...DefaultOptions, ...options } as AuthOptions;
 
   const intiKeyCloack = async () => {
-    const adapter = await KeycloakAdapter.init(options.keycloak);
+    const adapter = await KeycloakAdapter.instance(options.keycloak);
     keycloackAdapter = adapter;
     initDone.value = true;
     return adapter;
@@ -24,7 +26,7 @@ export const createAuth = (options: AuthOptions) => {
 
   const token = () => keycloackAdapter?.token;
 
-  const getAdapater = async (): Promise<KeycloakAdapter | undefined> => {
+  const getAdapter = async (): Promise<KeycloakAdapter | undefined> => {
     if (!keycloackAdapter) {
       return intiKeyCloack();
     }
@@ -39,18 +41,20 @@ export const createAuth = (options: AuthOptions) => {
         });
       });
     }
+
+    return keycloackAdapter;
   };
 
   const user = async () => {
-    return (await getAdapater())?.userInfo;
+    return (await getAdapter())?.idTokenParsed;
   };
 
   const logout = async () => {
-    return (await getAdapater())?.logout();
-  }
+    return (await getAdapter())?.logout();
+  };
 
   const updateToken = async () => {
-    return (await getAdapater())?.updateToken();
+    return (await getAdapter())?.updateToken();
   };
 
   const auth = markRaw({

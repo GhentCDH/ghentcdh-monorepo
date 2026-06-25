@@ -1,6 +1,5 @@
 GhentCdh Keycloak libraries for authentication
 
-
 # Backend nestjs
 
 ## Install the libraries
@@ -22,10 +21,10 @@ Add the module to your module.ts imports
 
 ```typescript
 
-import {AuthenticationApiModule} from "@ghentcdh/authentication-api";
+import { AuthenticationApiModule } from "@ghentcdh/authentication-api";
 
 @Module({
-    imports: [AuthenticationApiModule],
+  imports: [AuthenticationApiModule],
 })
 export class MyModule {
 }
@@ -33,8 +32,6 @@ export class MyModule {
 ```
 
 Extend the `GhentCdhGuard` decorator to secure your routes
-
-
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -54,20 +51,63 @@ export class MyGuard extends GhentCdhGuard {
 Use the guard in your controller
 
 ```typescript
-import {MyGuard} from "./my.guard";
+import { MyGuard } from "./my.guard";
 
 @Controller()
 export class MyController {
-    @UseGuards(MyGuard)
-    @Post('/secure')
-    async securePath(@User() user: any, @Request() req: any) {
-        return user;
-    }
+  @UseGuards(MyGuard)
+  @Post('/secure')
+  async securePath(@User() user: any, @Request() req: any) {
+    return user;
+  }
 }
 ```
 
 The `@User()` decorator will give you the user object from the keycloak token.
 
+## Use a global guard
+
+Global guard via `main.ts`:
+
+```typescript
+import { GhentCdhGuard } from '@ghentcdh/authentication-api';
+
+app.useGlobalGuards(new GhentCdhGuard());
+
+```
+
+Or via `AppModule` (allows DI injection):
+
+```typescript
+import { GhentCdhGuard } from '@ghentcdh/authentication-api';
+
+@Module({
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: GhentCdhGuard,
+    },
+  ],
+})
+
+```
+
+## Public routes while using guard
+
+If a controller method is decorated with `@Public()` the guard will not be applied to that method.
+
+```typescript
+import { Public, GhentCdhGuard } from '@ghentcdh/authentication-api';
+
+@Controller()
+@UseGuards(MyGuard)
+export class MyController {
+  @Public()
+  @Get(``)
+  get publicPath() {
+  }
+}
+```
 
 > TODO list
 > - [ ] Add roles decorator and implement logic `@GhentCdhRoles(['admin'])`

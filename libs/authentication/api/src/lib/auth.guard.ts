@@ -1,59 +1,48 @@
-
 import { HttpService } from '@nestjs/axios';
-import type { CanActivate, ExecutionContext } from '@nestjs/common';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import  { ConfigService } from '@nestjs/config';
-import type { Observable } from 'rxjs';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Reflector } from '@nestjs/core';
 import { firstValueFrom } from 'rxjs';
-
 
 import { KEYCLOACK } from './auth.const';
 
+@Injectable()
 export class GhentCdhGuard implements CanActivate {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
+    private readonly reflector: Reflector,
   ) {}
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const isEnabled = this.configService.get(KEYCLOACK.ENABLED);
+    if (isEnabled === false) return true;
 
-    const authorization = request.headers.authorization;
+    // const isPublic = this.reflector.get('isPublic', context.getHandler());
+    // if (isPublic) return true;
 
-    if (authorization) {
-      const keycloakHost = this.configService.get(KEYCLOACK.HOST);
-      const realmName = this.configService.get(KEYCLOACK.REALM);
+    const request: any = context.switchToHttp().getRequest();
+    const authorization = request.headers['authorization'];
+    if (!authorization) throw new UnauthorizedException('No token');
 
+    const host = this.configService.get<string>(KEYCLOACK.HOST)!;
+    const realm = this.configService.get<string>(KEYCLOACK.REALM)!;
+    const url = `${host.replace(/\/$/, '')}/realms/${realm}/protocol/openid-connect/userinfo`;
 
-      const url = `${keycloakHost}realms/${realmName}/protocol/openid-connect/userinfo`;
-
-      return firstValueFrom(
+    try {
+      const { data } = await firstValueFrom(
         this.httpService.get(url, {
-          headers: {
-            // add the token you received to the userinfo request, sent to keycloak
-            Authorization: authorization,
-            ' X-Forwarded-Host': 'localhost:8080',
-          },
+          headers: { Authorization: authorization },
         }),
-      )
-        .then((response) => {
-          // if the request status isn't "OK", the token is invalid
-          if (response.status !== 200) {
-            throw new UnauthorizedException();
-          }
-
-          // the token is valid pass request onto your next function
-          request.user = response.data;
-
-          return true;
-        })
-        .catch((error) => {
-          throw new UnauthorizedException();
-        });
+      );
+      request.user = data;
+      return true;
+    } catch (err: any) {
+      console.error(
+        'Keycloak userinfo error:',
+        err?.response?.data ?? err?.message,
+      );
+      throw new UnauthorizedException('Invalid token');
     }
-
-    throw new UnauthorizedException();
   }
 }

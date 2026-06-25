@@ -1,8 +1,7 @@
 import { inject } from 'vue';
 
-import type { Auth} from './auth.const';
+import type { Auth } from './auth.const';
 import { auth_symbol } from './auth.const';
-
 
 export const useAuthenticate = () => {
   const auth = inject(auth_symbol) as Auth;
@@ -11,9 +10,9 @@ export const useAuthenticate = () => {
   }
 
   return {
+    token: () => !!auth?.token(),
     isAuthenticated: () => !!auth?.user(),
     getUser: () => auth?.user(),
     logout: () => auth?.logout(),
   };
 };
-
