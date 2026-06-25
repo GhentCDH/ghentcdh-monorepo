@@ -5,6 +5,7 @@ import { hopeTheme } from 'vuepress-theme-hope';
 
 import uiSideBar from '../ui/typedoc_sidebar.json';
 import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
 // Open until depth 3, collapsible (and collapsed) from depth 3 onward.
 // depth=1 → top-level children of UI/JSON Forms sections
@@ -39,6 +40,15 @@ export default defineUserConfig({
   bundler: viteBundler({
     viteOptions: {
       plugins: [tailwindcss()],
+      css: {
+        preprocessorOptions: {
+          scss: {
+            loadPaths: [
+              path.resolve(fileURLToPath(import.meta.url), '../../../../node_modules'),
+            ],
+          },
+        },
+      },
       resolve: {
         alias: {
           '@demo/data': fileURLToPath(
