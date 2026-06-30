@@ -37,6 +37,8 @@ import { ControlWrapperProperties } from './ControlWrapper.properties'; // TODO 
 import { mergeStyles } from './styles';
 import { isDescriptionHidden, showErrors as _showErrors } from './utils/style'; // TODO check what is used?
 
+defineOptions({ inheritAttrs: false });
+
 // TODO check what is used?
 const properties = defineProps(ControlWrapperProperties);
 
