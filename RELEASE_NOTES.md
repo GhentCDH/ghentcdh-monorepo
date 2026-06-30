@@ -1,3 +1,13 @@
+## 3.0.3 (2026-06-30)
+
+### 🩹 Fixes
+
+- warning ([2f535e5](https://github.com/GhentCDH/ghentcdh-monorepo/commit/2f535e5))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 3.0.2 (2026-06-25)
 
 This was a version bump only, there were no code changes.
