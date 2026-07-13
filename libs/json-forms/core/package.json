@@ -1,6 +1,6 @@
 {
   "name": "@ghentcdh/json-forms-core",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "type": "module",
   "deprecated": "Moved to @ghentcdh/crouton-core. This package is now a re-export shim and will be removed in a future release.",
   "main": "./index.js",

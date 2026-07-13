@@ -1,3 +1,13 @@
+## 3.0.4 (2026-07-13)
+
+### 🚀 Features
+
+- disable autocomplete for forms ([#44](https://github.com/GhentCDH/ghentcdh-monorepo/pull/44))
+
+### ❤️ Thank You
+
+- Bo Vandersteene @bovandersteene
+
 ## 3.0.3 (2026-06-30)
 
 ### 🩹 Fixes

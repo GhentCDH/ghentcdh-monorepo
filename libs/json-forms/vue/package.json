@@ -1,6 +1,6 @@
 {
   "name": "@ghentcdh/json-forms-vue",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "deprecated": "Moved to @ghentcdh/crouton-forms-vue. This package is now a re-export shim and will be removed in a future release.",
   "main": "./index.js",
   "module": "./index.mjs",
