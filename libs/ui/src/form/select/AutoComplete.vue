@@ -18,6 +18,8 @@
       aria-autocomplete="list"
       aria-haspopup="listbox"
       autocomplete="off"
+      data-lpignore="true"
+      data-bwignore="true"
       autocorrect="off"
       spellcheck="false"
       :class="[style, 'w-full']"

@@ -3,6 +3,8 @@
     <textarea
       v-model="model"
       autocomplete="off"
+      data-lpignore="true"
+      data-bwignore="true"
       type="text"
       :aria-label="id"
       class="w-full"

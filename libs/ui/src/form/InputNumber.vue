@@ -3,6 +3,8 @@
     <input
       v-model="model"
       autocomplete="off"
+      data-lpignore="true"
+      data-bwignore="true"
       :aria-label="id"
       type="number"
       class="w-full"
