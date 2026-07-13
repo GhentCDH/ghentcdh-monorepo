@@ -5,6 +5,8 @@
         v-model="model"
         :aria-label="id"
         autocomplete="off"
+        data-lpignore="true"
+        data-bwignore="true"
         :type="type"
         :class="[style, { 'pr-7': clearable && model }]"
         class="!w-full"
