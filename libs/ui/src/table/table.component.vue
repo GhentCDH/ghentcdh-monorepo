@@ -16,7 +16,7 @@
                 :indeterminate="someSelected"
                 class="cursor-pointer"
                 @change="toggleAll"
-              />
+              >
             </th>
             <th
               v-for="column in displayColumns"
@@ -25,14 +25,18 @@
               :style="
                 column.width
                   ? {
-                      width: column.width,
-                      maxWidth: column.width,
-                      minWidth: column.width,
-                    }
+                    width: column.width,
+                    maxWidth: column.width,
+                    minWidth: column.width,
+                  }
                   : { minWidth: '150px' }
               "
             >
-              <SortHeader :column="column" v-bind="sort" @sort="onSort" />
+              <SortHeader
+                :column="column"
+                v-bind="sort"
+                @sort="onSort"
+              />
             </th>
             <th
               class="sticky right-0 w-10 cursor-grab rounded-tr-md visible bg-white shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.05)]"
@@ -64,13 +68,16 @@
             :ui-id="`table_${item.id}`"
             class="hover:bg-gray-100 transition-none transition-colors border-b border-gray-200"
           >
-            <td v-if="multiselect" class="py-1 px-3">
+            <td
+              v-if="multiselect"
+              class="py-1 px-3"
+            >
               <input
                 type="checkbox"
                 :checked="selectedIds.has(item.id)"
                 class="cursor-pointer"
                 @change="toggleRow(item)"
-              />
+              >
             </td>
             <td
               v-for="column in displayColumns"
@@ -99,7 +106,10 @@
               <span
                 class="px-3 py-1 items-center justify-end gap-1 flex whitespace-nowrap"
               >
-                <template v-for="action of defaultActions" :key="action.label">
+                <template
+                  v-for="action of defaultActions"
+                  :key="action.label"
+                >
                   <Btn
                     v-if="!action.visible || action.visible(item)"
                     :aria-label="action.tooltip ?? action.label"
