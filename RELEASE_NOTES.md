@@ -1,3 +1,13 @@
+## 3.0.6 (2026-07-16)
+
+### 🩹 Fixes
+
+- display mode ([fc659ea](https://github.com/GhentCDH/ghentcdh-monorepo/commit/fc659ea))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 3.0.5 (2026-07-16)
 
 ### 🩹 Fixes
