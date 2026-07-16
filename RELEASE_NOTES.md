@@ -1,3 +1,14 @@
+## 3.0.5 (2026-07-16)
+
+### 🩹 Fixes
+
+- table styling ([77a4b07](https://github.com/GhentCDH/ghentcdh-monorepo/commit/77a4b07))
+- border on table component ([c7af7ed](https://github.com/GhentCDH/ghentcdh-monorepo/commit/c7af7ed))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 3.0.4 (2026-07-13)
 
 ### 🚀 Features
