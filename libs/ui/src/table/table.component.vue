@@ -96,6 +96,8 @@
                     v-bind="column"
                     :data="item"
                     :column="column"
+                    :sort="sort"
+                    :page="page"
                   />
                 </div>
               </div>
@@ -230,8 +232,6 @@ const defaultActions = computed(() => {
   }
   return actions;
 });
-
-// TODO add reload functionality!
 
 const emits = defineEmits(TableComponentEmits);
 const attrs = useAttrs();
