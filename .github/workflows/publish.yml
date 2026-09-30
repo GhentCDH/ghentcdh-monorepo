@@ -22,13 +22,6 @@ jobs:
       contents: write
       id-token: write # needed for provenance data generation
     steps:
-      - name: Verify NPM token
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          npm whoami
-          npm token list
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Checkout code
         uses: actions/checkout@v7
 
@@ -43,8 +36,6 @@ jobs:
         run: npx nx release publish --access public --yes
         shell: bash
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Create GitHub Release
