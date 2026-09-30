@@ -1,3 +1,13 @@
+## 3.1.0 (2026-09-30)
+
+### 🚀 Features
+
+- improve table ([#45](https://github.com/GhentCDH/ghentcdh-monorepo/pull/45))
+
+### ❤️ Thank You
+
+- Bo Vandersteene @bovandersteene
+
 ## 3.0.6 (2026-07-16)
 
 ### 🩹 Fixes
