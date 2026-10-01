@@ -1,3 +1,14 @@
+## 3.1.1 (2026-10-01)
+
+### 🩹 Fixes
+
+- pipeline ([866f82d](https://github.com/GhentCDH/ghentcdh-monorepo/commit/866f82d))
+- use nx project names (not package names) in release config ([04c1407](https://github.com/GhentCDH/ghentcdh-monorepo/commit/04c1407))
+
+### ❤️ Thank You
+
+- Bo Vandersteene
+
 ## 3.1.0 (2026-09-30)
 
 ### 🚀 Features
