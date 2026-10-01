@@ -54,12 +54,6 @@ export default defineUserConfig({
           '@demo/data': fileURLToPath(
             new URL('../../data/index.ts', import.meta.url),
           ),
-          '@ghentcdh/logging/frontend': fileURLToPath(
-            new URL(
-              '../../../libs/logging/frontend/src/index.ts',
-              import.meta.url,
-            ),
-          ),
           '@ghentcdh/ui/style.css': fileURLToPath(
             new URL('../../../dist/libs/ui/index.css', import.meta.url),
           ),
