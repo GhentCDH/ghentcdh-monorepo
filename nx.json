@@ -61,9 +61,9 @@
   },
   "release": {
     "projects": [
-      "@ghentcdh/ui",
-      "@ghentcdh/authentication-api",
-      "@ghentcdh/authentication-vue"
+      "ui",
+      "authentication-api",
+      "authentication-vue"
     ],
     "version": {
       "conventionalCommits": true,
